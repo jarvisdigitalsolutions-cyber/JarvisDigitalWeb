@@ -4,34 +4,102 @@
     "lastUpdated": "2026-05-27",
     "description": "Catálogo centralizado de juegos PS3/PS4/PS5 con secciones organizadas",
     "showPrices": false,
-    "exchangeRateCU": 500
+    "exchangeRateCU": 500,
+    "curationHistory": [
+      {
+        "timestamp": "2026-05-27T19:52:19.724855",
+        "banners": [
+          "grand-theft-auto-vi",
+          "ghost-of-yotei",
+          "resident-evil-requiem"
+        ],
+        "featured": [
+          "grand-theft-auto-vi",
+          "wolverine",
+          "ghost-of-yotei",
+          "resident-evil-requiem",
+          "phantom-blade-zero",
+          "007-first-light"
+        ],
+        "premieres": [
+          "grand-theft-auto-vi",
+          "ghost-of-yotei",
+          "resident-evil-requiem"
+        ]
+      }
+    ],
+    "lastCurated": "2026-05-27T19:52:19.724855",
+    "curationSchedule": {
+      "current": {
+        "timestamp": "2026-05-27T19:52:19.724855",
+        "banners": [
+          "grand-theft-auto-vi",
+          "ghost-of-yotei",
+          "resident-evil-requiem"
+        ],
+        "featured": [
+          "grand-theft-auto-vi",
+          "wolverine",
+          "ghost-of-yotei",
+          "resident-evil-requiem",
+          "phantom-blade-zero",
+          "007-first-light"
+        ],
+        "premieres": [
+          "grand-theft-auto-vi",
+          "ghost-of-yotei",
+          "resident-evil-requiem"
+        ]
+      },
+      "next": {
+        "timestamp": "2026-06-03T19:52:19.724939",
+        "banners": [
+          "phantom-blade-zero",
+          "007-first-light",
+          "marvel-1943-rise-hydra"
+        ],
+        "featured": [
+          "marvel-tokon-fighting-souls",
+          "saros",
+          "marvel-1943-rise-hydra",
+          "crimson-desert",
+          "marathon",
+          "little-nightmares-3"
+        ],
+        "premieres": [
+          "phantom-blade-zero",
+          "007-first-light",
+          "marvel-tokon-fighting-souls"
+        ]
+      }
+    }
   },
   "banners": [
     {
-      "id": "banner-crimson-desert",
-      "title": "Crimson Desert",
-      "subtitle": "Aventura épica de mundo abierto",
-      "image": "IMG/PS5/Banner/crimson-desert.avif",
-      "link": "PS-Details.html?id=crimson-desert",
-      "gameId": "crimson-desert",
+      "id": "banner-grand-theft-auto-vi",
+      "title": "Grand Theft Auto VI",
+      "subtitle": "Crimen, mundo abierto y una ciudad viva llena de actividades.",
+      "image": "IMG/PS5/Banner/Grand-theft-auto-VI.webp",
+      "link": "PS-Details.html?id=grand-theft-auto-vi",
+      "gameId": "grand-theft-auto-vi",
       "priority": 1
+    },
+    {
+      "id": "banner-ghost-of-yotei",
+      "title": "Ghost of Yōtei",
+      "subtitle": "Exploración samurái, mundo abierto y una atmósfera visual espectacular.",
+      "image": "IMG/PS5/Banner/Ghost_of_Yotei_key_art.webp",
+      "link": "PS-Details.html?id=ghost-of-yotei",
+      "gameId": "ghost-of-yotei",
+      "priority": 2
     },
     {
       "id": "banner-resident-evil-requiem",
       "title": "Resident Evil Requiem",
-      "subtitle": "Terror moderno en PS5",
+      "subtitle": "Terror de supervivencia con tensión constante y atmósfera oscura.",
       "image": "IMG/PS5/Banner/resident-evil-requiem.jpg",
       "link": "PS-Details.html?id=resident-evil-requiem",
       "gameId": "resident-evil-requiem",
-      "priority": 2
-    },
-    {
-      "id": "banner-high-of-life-2",
-      "title": "High of Life 2",
-      "subtitle": "Estreno: High of Life 2",
-      "image": "IMG/PS5/Banner/high-of-life-2.avif",
-      "link": "PS-Details.html?id=high-of-life-2",
-      "gameId": "high-of-life-2",
       "priority": 3
     }
   ],
@@ -45,17 +113,21 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "spider-man-3",
-            "elden-ring",
-            "horizon-forbidden-west"
+            "grand-theft-auto-vi",
+            "wolverine",
+            "ghost-of-yotei",
+            "resident-evil-requiem",
+            "phantom-blade-zero",
+            "007-first-light"
           ]
         },
         "premieres": {
           "title": "Estrenos PS5 2026-2027",
           "description": "Próximos lanzamientos en PS5",
           "games": [
-            "spider-man-3",
-            "tlou-3"
+            "grand-theft-auto-vi",
+            "ghost-of-yotei",
+            "resident-evil-requiem"
           ]
         },
         "all": {
@@ -158,7 +230,10 @@
       "image": "IMG/PS5/spider-man-2.avif",
       "status": "Disponible",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/spider-man-2.avif"
+      "bannerImage": "IMG/PS5/Banner/spider-man-2.avif",
+      "_score": 0.6354316330904416,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "tlou-3": {
       "id": "tlou-3",
@@ -183,7 +258,10 @@
       ],
       "image": "IMG/PS5/the-last-of-us-part-2.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.628,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "gow-ragnarok": {
       "id": "gow-ragnarok",
@@ -209,7 +287,10 @@
       "image": "IMG/PS5/god_of_war_ragnarok-5732812.jpg",
       "status": "Disponible",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/god-of-war-ragnarok.jpg"
+      "bannerImage": "IMG/PS5/Banner/god-of-war-ragnarok.jpg",
+      "_score": 0.6490083347224539,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "elden-ring": {
       "id": "elden-ring",
@@ -235,7 +316,10 @@
       "image": "IMG/PS5/Elden-RingDLC.avif",
       "status": "Disponible",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Eleden-Ring.avif"
+      "bannerImage": "IMG/PS5/Banner/Eleden-Ring.avif",
+      "_score": 0.5880000000000001,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "gran-turismo-7": {
       "id": "gran-turismo-7",
@@ -261,7 +345,10 @@
       "image": "IMG/PS5/gran-turismo-7.avif",
       "status": "Oferta",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/gran-turismo-7.webp"
+      "bannerImage": "IMG/PS5/Banner/gran-turismo-7.webp",
+      "_score": 0.6305790827261039,
+      "_origStatus": "Oferta",
+      "autoCuration": ""
     },
     "demons-souls": {
       "id": "demons-souls",
@@ -286,7 +373,10 @@
       ],
       "image": "IMG/PS5/demons-souls.webp",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.5708571428571428,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "horizon-forbidden-west": {
       "id": "horizon-forbidden-west",
@@ -311,7 +401,10 @@
       ],
       "image": "IMG/PS5/Horizon-Frobidden.avif",
       "status": "Oferta",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.6480120024004802,
+      "_origStatus": "Oferta",
+      "autoCuration": ""
     },
     "returnal": {
       "id": "returnal",
@@ -337,7 +430,10 @@
       "image": "IMG/PS5/Returnal.avif",
       "status": "Disponible",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Returnal-Banner.avif"
+      "bannerImage": "IMG/PS5/Banner/Returnal-Banner.avif",
+      "_score": 0.556,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "ghost-of-yotei": {
       "id": "ghost-of-yotei",
@@ -363,7 +459,10 @@
       "image": "IMG/PS5/ghost-yotei.avif",
       "status": "Disponible",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Ghost_of_Yotei_key_art.webp"
+      "bannerImage": "IMG/PS5/Banner/Ghost_of_Yotei_key_art.webp",
+      "_score": 0.8280000000000001,
+      "_origStatus": "Disponible",
+      "autoCuration": "Banner"
     },
     "resident-evil-requiem": {
       "id": "resident-evil-requiem",
@@ -389,7 +488,10 @@
       "image": "IMG/PS5/resident-evil-requiem.jpg",
       "bannerImage": "IMG/PS5/Banner/resident-evil-requiem.jpg",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.8280000000000001,
+      "_origStatus": "Disponible",
+      "autoCuration": "Banner"
     },
     "007-first-light": {
       "id": "007-first-light",
@@ -415,7 +517,10 @@
       "image": "IMG/PS5/007-First-Light.avif",
       "status": "Próximamente",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/007-First-Light.avif"
+      "bannerImage": "IMG/PS5/Banner/007-First-Light.avif",
+      "_score": 0.8170000000000002,
+      "_origStatus": "Próximamente",
+      "autoCuration": "Destacado"
     },
     "phantom-blade-zero": {
       "id": "phantom-blade-zero",
@@ -441,7 +546,10 @@
       "image": "IMG/PS5/Phantom-Blade-Zero.avif",
       "status": "Próximamente",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Phantom-Blade-Zero.avif"
+      "bannerImage": "IMG/PS5/Banner/Phantom-Blade-Zero.avif",
+      "_score": 0.8280000000000001,
+      "_origStatus": "Próximamente",
+      "autoCuration": "Destacado"
     },
     "grand-theft-auto-vi": {
       "id": "grand-theft-auto-vi",
@@ -467,7 +575,10 @@
       "image": "IMG/PS5/Grand-theft-auto-VI.jpg",
       "status": "Próximamente",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Grand-theft-auto-VI.webp"
+      "bannerImage": "IMG/PS5/Banner/Grand-theft-auto-VI.webp",
+      "_score": 0.8500000000000001,
+      "_origStatus": "Próximamente",
+      "autoCuration": "Banner"
     },
     "marvel-tokon-fighting-souls": {
       "id": "marvel-tokon-fighting-souls",
@@ -492,7 +603,10 @@
       ],
       "image": "IMG/PS5/Marvel-Tokon-Fighting-Souls.webp",
       "status": "Próximamente",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.8170000000000002,
+      "_origStatus": "Próximamente",
+      "autoCuration": ""
     },
     "saros": {
       "id": "saros",
@@ -517,7 +631,10 @@
       ],
       "image": "IMG/PS5/Saros.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.806,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "marathon": {
       "id": "marathon",
@@ -542,7 +659,10 @@
       ],
       "image": "IMG/PS5/marathon.jpg",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.795,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "monster-hunter-wilds": {
       "id": "monster-hunter-wilds",
@@ -567,7 +687,10 @@
       ],
       "image": "IMG/PS5/Monster-Hunter-Wilds.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.678,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "assassins-creed-shadows": {
       "id": "assassins-creed-shadows",
@@ -593,7 +716,10 @@
       "image": "IMG/PS5/Assassins-Creed-Shadows.avif",
       "status": "Próximamente",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Assassin's-Creed-Shadows-Banner.avif"
+      "bannerImage": "IMG/PS5/Banner/Assassin's-Creed-Shadows-Banner.avif",
+      "_score": 0.645,
+      "_origStatus": "Próximamente",
+      "autoCuration": ""
     },
     "doom-the-dark-ages": {
       "id": "doom-the-dark-ages",
@@ -618,7 +744,10 @@
       ],
       "image": "IMG/PS5/DOOM-The-Dark-Ages.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.6670000000000001,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "death-stranding-2": {
       "id": "death-stranding-2",
@@ -644,7 +773,10 @@
       "image": "IMG/PS5/Death-Stranding-2.avif",
       "status": "Próximamente",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Death-Stranding-2.avif"
+      "bannerImage": "IMG/PS5/Banner/Death-Stranding-2.avif",
+      "_score": 0.678,
+      "_origStatus": "Próximamente",
+      "autoCuration": ""
     },
     "lost-soul-aside": {
       "id": "lost-soul-aside",
@@ -669,7 +801,10 @@
       ],
       "image": "IMG/PS5/Lost-Soul-Aside.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.6340000000000001,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "split-fiction": {
       "id": "split-fiction",
@@ -694,7 +829,10 @@
       ],
       "image": "IMG/PS5/SplitFiction.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.6890000000000002,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "marvel-1943-rise-hydra": {
       "id": "marvel-1943-rise-hydra",
@@ -720,7 +858,10 @@
       "image": "IMG/PS5/Marvel-1943-Rise-of-Hydra.avif",
       "status": "Próximamente",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/Marvel-1943-Rise-of-Hydra.jpg"
+      "bannerImage": "IMG/PS5/Banner/Marvel-1943-Rise-of-Hydra.jpg",
+      "_score": 0.806,
+      "_origStatus": "Próximamente",
+      "autoCuration": ""
     },
     "pragmata": {
       "id": "pragmata",
@@ -746,7 +887,10 @@
       "image": "IMG/PS5/Pragmata.jpg",
       "status": "Disponible",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/pragmata.webp"
+      "bannerImage": "IMG/PS5/Banner/pragmata.webp",
+      "_score": 0.784,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "wolverine": {
       "id": "wolverine",
@@ -771,7 +915,10 @@
       ],
       "image": "IMG/PS5/wolverine-marvel.webp",
       "status": "Próximamente",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.8390000000000002,
+      "_origStatus": "Próximamente",
+      "autoCuration": "Destacado"
     },
     "claire-obscur-expedition-33": {
       "id": "claire-obscur-expedition-33",
@@ -797,7 +944,10 @@
       "image": "IMG/PS5/Expedition-33.avif",
       "status": "Disponible",
       "trailer": "",
-      "bannerImage": "IMG/PS5/Banner/clair-obscur expedition-33.jpg"
+      "bannerImage": "IMG/PS5/Banner/clair-obscur expedition-33.jpg",
+      "_score": 0.6890000000000002,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "kingdom-come-deliverance-2": {
       "id": "kingdom-come-deliverance-2",
@@ -822,7 +972,10 @@
       ],
       "image": "IMG/PS5/Kingdome-come-deliverance-2.jpg",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.6670000000000001,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "metal-gear-solid-delta-snake-eater": {
       "id": "metal-gear-solid-delta-snake-eater",
@@ -847,7 +1000,10 @@
       ],
       "image": "IMG/PS5/Metal-Gear-Solid-Delta-Snake-Eater.jpg",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.678,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "ninja-gaiden-ragebound": {
       "id": "ninja-gaiden-ragebound",
@@ -872,7 +1028,10 @@
       ],
       "image": "IMG/PS5/Ninja-Gaiden-Ragebound.jpg",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.656,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "oblivion-remastered": {
       "id": "oblivion-remastered",
@@ -897,7 +1056,10 @@
       ],
       "image": "IMG/PS5/Oblivion-Remastered.AVIF",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.6670000000000001,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "sword-of-the-sea": {
       "id": "sword-of-the-sea",
@@ -922,7 +1084,10 @@
       ],
       "image": "IMG/PS5/Sword-of-the-Sea.webp",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.645,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "wolf-among-us-2": {
       "id": "wolf-among-us-2",
@@ -947,7 +1112,10 @@
       ],
       "image": "IMG/PS5/Wolf-among-us-2.jpg",
       "status": "Próximamente",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.784,
+      "_origStatus": "Próximamente",
+      "autoCuration": ""
     },
     "little-nightmares-3": {
       "id": "little-nightmares-3",
@@ -972,7 +1140,10 @@
       ],
       "image": "IMG/PS5/Little-Nightmares-3.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.795,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     },
     "chronoscript-the-endless-end": {
       "id": "chronoscript-the-endless-end",
@@ -997,7 +1168,10 @@
       ],
       "image": "IMG/PS5/Chronoscript-The-Endless-End.avif",
       "status": "Próximamente",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.773,
+      "_origStatus": "Próximamente",
+      "autoCuration": ""
     },
     "zero-parades": {
       "id": "zero-parades",
@@ -1022,7 +1196,10 @@
       ],
       "image": "IMG/PS5/Zero-Parades.jpg",
       "status": "Próximamente",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.762,
+      "_origStatus": "Próximamente",
+      "autoCuration": ""
     },
     "crimson-desert": {
       "id": "crimson-desert",
@@ -1050,7 +1227,10 @@
       "image": "IMG/PS5/crimson-desert.avif",
       "bannerImage": "IMG/PS5/Banner/crimson-desert.avif",
       "status": "Estrenado",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.806,
+      "_origStatus": "Estrenado",
+      "autoCuration": ""
     },
     "high-of-life-2": {
       "id": "high-of-life-2",
@@ -1076,7 +1256,10 @@
       "image": "IMG/PS5/high-of-life-2.jpg",
       "bannerImage": "IMG/PS5/Banner/high-of-life-2.avif",
       "status": "Disponible",
-      "trailer": ""
+      "trailer": "",
+      "_score": 0.762,
+      "_origStatus": "Disponible",
+      "autoCuration": ""
     }
   }
 }

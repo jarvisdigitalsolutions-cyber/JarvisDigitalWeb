@@ -954,6 +954,16 @@
     // Mini-IA autonoma: curación automática de banners / destacados / estrenos
     // Selecciona banners únicamente si el juego tiene `bannerImage` dentro de la carpeta Banner
     // y no está explícitamente excluido mediante `bannerImageShow` falso/"no".
+    function getCuratedSectionIds(data, section) {
+      const ids = data && data.platforms && data.platforms.PS5 && data.platforms.PS5.sections && data.platforms.PS5.sections[section] && data.platforms.PS5.sections[section].games;
+      return Array.isArray(ids) ? ids.filter(id => typeof id === 'string') : null;
+    }
+
+    function getGamesByIds(gamesArr, ids) {
+      const map = gamesArr.reduce((acc, game) => { acc[game.id] = game; return acc; }, {});
+      return ids.map(id => map[id]).filter(Boolean);
+    }
+
     function autoCurate(data) {
       const gamesArr = Object.values((data && data.games) ? data.games : {});
       const now = new Date().getFullYear();
@@ -973,11 +983,15 @@
 
       const sorted = [...gamesArr].sort((a, b) => (b._score || 0) - (a._score || 0));
 
+      const curatedFeaturedIds = getCuratedSectionIds(data, 'featured');
+      const curatedPremiereIds = getCuratedSectionIds(data, 'premieres');
+      const curatedFeatured = curatedFeaturedIds ? getGamesByIds(gamesArr, curatedFeaturedIds) : null;
+      const curatedPremieres = curatedPremiereIds ? getGamesByIds(gamesArr, curatedPremiereIds) : null;
+
       function hasValidBanner(g) {
         if (!g || !g.bannerImage) return false;
         const path = String(g.bannerImage).toLowerCase();
         if (!path.includes('/banner/')) return false; // debe estar en carpeta Banner
-        // detectar exclusión explícita: bannerImageShow:false|'no'|'0'|'off'
         const flag = g.bannerImageShow;
         if (flag === false) return false;
         const sflag = (typeof flag === 'string') ? flag.toLowerCase() : '';
@@ -985,39 +999,41 @@
         return true;
       }
 
-      // escoger sólo candidatos que tengan bannerImage válido
-      const bannerCandidates = sorted.filter(hasValidBanner);
-      let topBanners = bannerCandidates.slice(0, 3).map(g => ({
-        id: 'banner-auto-' + g.id,
-        title: g.title,
-        subtitle: g.tagline || g.description || '',
-        image: g.bannerImage,
-        link: 'PS-Details.html?id=' + g.id,
-        gameId: g.id,
-        priority: 0
-      }));
-
-      // Si no hay suficientes banners curados, fallback a los banners definidos manualmente en data.banners
-      if ((!topBanners || topBanners.length < 1) && data && Array.isArray(data.banners) && data.banners.length) {
+      let topBanners = [];
+      if (Array.isArray(data.banners) && data.banners.length) {
         topBanners = data.banners.slice(0, 3).map(b => ({ ...b }));
+      } else {
+        const bannerCandidates = sorted.filter(hasValidBanner);
+        topBanners = bannerCandidates.slice(0, 3).map(g => ({
+          id: 'banner-auto-' + g.id,
+          title: g.title,
+          subtitle: g.tagline || g.description || '',
+          image: g.bannerImage,
+          link: 'PS-Details.html?id=' + g.id,
+          gameId: g.id,
+          priority: 0
+        }));
       }
 
-      // Estrenos: lanzamientos recientes (este año o el anterior)
-      const premieres = sorted.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
+      const premieres = curatedPremieres || sorted.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
+      const featured = curatedFeatured || sorted.slice(0, 6);
 
-      // Destacados: top 6 global
-      const featured = sorted.slice(0, 6);
-
-      // actualizar estados en memoria (no modifica games.json en disco)
       gamesArr.forEach(g => { g._origStatus = g.status || ''; g.status = g._origStatus; });
-      featured.forEach(g => g.status = 'Destacado');
-      premieres.forEach(g => g.status = 'Estreno');
+      featured.forEach(g => { const game = gamesArr.find(x => x.id === g.id); if (game) game.status = 'Destacado'; });
+      premieres.forEach(g => { const game = gamesArr.find(x => x.id === g.id); if (game) game.status = 'Estreno'; });
       topBanners.forEach(b => {
         const gg = gamesArr.find(x => x.id === b.gameId);
         if (gg) gg.status = 'Banner';
       });
 
-      return { games: gamesArr, banners: topBanners, featuredIds: featured.map(f => f.id), premiereIds: premieres.map(p => p.id) };
+      return {
+        games: gamesArr,
+        banners: topBanners,
+        featuredGames: featured,
+        premiereGames: premieres,
+        featuredIds: featured.map(f => f.id),
+        premiereIds: premieres.map(p => p.id)
+      };
     }
 
     function renderBento(games) {
@@ -1045,8 +1061,8 @@
 
     function renderPremiere(games) {
       const grid = document.getElementById('preimereGrid');
-      const recent = [...games].sort((a, b) => Number(b.release || 0) - Number(a.release || 0)).slice(0, 3);
-      grid.innerHTML = recent.map((game, idx) => `
+      const items = [...games].slice(0, 3);
+      grid.innerHTML = items.map((game, idx) => `
         <a href="PS-Details.html?id=${game.id}" class="premiere-card" data-aos="fade-up" data-aos-delay="${idx * 80}">
           <div class="premiere-image" style="background-image:url('${game.image}')"></div>
           <div class="premiere-overlay"></div>
@@ -1082,6 +1098,8 @@
     /* Site search logic */
     let siteGames = [];
     let siteBanners = [];
+    let siteFeaturedGames = [];
+    let sitePremiereGames = [];
     const searchToggleBtn = document.querySelector('.nav-actions .icon-button[aria-label="Buscar"]');
     const siteSearchEl = document.getElementById('siteSearch');
     const siteSearchInput = document.getElementById('siteSearchInput');
@@ -1148,16 +1166,19 @@
       exchangeRateCU = data && data.config && data.config.exchangeRateCU ? Number(data.config.exchangeRateCU) : exchangeRateCU;
       selectedCurrency = localStorage.getItem('ps5-currency') || selectedCurrency;
       const games = data && data.games ? Object.values(data.games) : [];
+      const now = new Date().getFullYear();
 
       // Auto-curar con la mini-IA y actualizar estructuras en memoria
       const curated = autoCurate(data || { games: {} });
       siteGames = (curated && curated.games) ? curated.games : games;
       siteBanners = (curated && curated.banners && curated.banners.length) ? curated.banners : (data.banners || []);
+      siteFeaturedGames = (curated && curated.featuredGames && curated.featuredGames.length) ? curated.featuredGames : siteGames.slice(0, 6);
+      sitePremiereGames = (curated && curated.premiereGames && curated.premiereGames.length) ? curated.premiereGames : siteGames.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
 
       // render banners y secciones usando datos curados
       renderBannerSlides(siteBanners);
-      renderBento(siteGames);
-      renderPremiere(siteGames);
+      renderBento(siteFeaturedGames);
+      renderPremiere(sitePremiereGames);
       initSwiper();
       AOS.refreshHard();
       gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
@@ -1173,10 +1194,10 @@
         selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
         localStorage.setItem('ps5-currency', selectedCurrency);
         if (currencyLabel) currencyLabel.textContent = selectedCurrency;
-        // re-render using cached siteGames/siteBanners
+        // re-render using cached curated sections
         renderBannerSlides(siteBanners);
-        renderBento(siteGames);
-        renderPremiere(siteGames);
+        renderBento(siteFeaturedGames.length ? siteFeaturedGames : siteGames.slice(0, 6));
+        renderPremiere(sitePremiereGames.length ? sitePremiereGames : siteGames.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3));
         initSwiper();
         AOS.refreshHard();
       });

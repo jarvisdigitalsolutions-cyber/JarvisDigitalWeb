@@ -519,18 +519,18 @@
     let selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
     const fallbackGames = [];
 
-    async function loadGames() {
+    async function loadData() {
       try {
         const response = await fetch('./games.json');
-        if (!response.ok) { showPrices = true; return fallbackGames; }
+        if (!response.ok) { showPrices = true; return { games: fallbackGames }; }
         const data = await response.json();
         showPrices = data && data.config && typeof data.config.showPrices === 'boolean' ? data.config.showPrices : true;
         exchangeRateCU = data && data.config && data.config.exchangeRateCU ? Number(data.config.exchangeRateCU) : exchangeRateCU;
         selectedCurrency = localStorage.getItem('ps5-currency') || selectedCurrency;
-        return data && typeof data === 'object' && data.games ? Object.values(data.games) : fallbackGames;
+        return data || { games: fallbackGames };
       } catch (error) {
         showPrices = true;
-        return fallbackGames;
+        return { games: fallbackGames };
       }
     }
 
@@ -611,6 +611,30 @@
       `;
     }
 
+    function getCuratedIds(data, section) {
+      const ids = data && data.platforms && data.platforms.PS5 && data.platforms.PS5.sections && data.platforms.PS5.sections[section] && data.platforms.PS5.sections[section].games;
+      return Array.isArray(ids) ? ids.filter(id => typeof id === 'string') : [];
+    }
+
+    function applyCuratedData(data, games) {
+      const arr = [...games];
+      const gameMap = arr.reduce((acc, g) => { acc[g.id] = g; return acc; }, {});
+      const featuredIds = getCuratedIds(data, 'featured');
+      const premiereIds = getCuratedIds(data, 'premieres');
+      const bannerIds = Array.isArray(data.banners) ? data.banners.map(b => b.gameId).filter(Boolean) : [];
+      curatedFeaturedIds = featuredIds;
+
+      arr.forEach(g => { g._origStatus = g.status || ''; g.status = g._origStatus; });
+      featuredIds.forEach(id => { if (gameMap[id]) gameMap[id].status = 'Destacado'; });
+      premiereIds.forEach(id => { if (gameMap[id]) gameMap[id].status = 'Estreno'; });
+      bannerIds.forEach(id => { if (gameMap[id]) gameMap[id].status = 'Banner'; });
+
+      if (!featuredIds.length && !premiereIds.length && !bannerIds.length) {
+        return autoCurateLocal(games);
+      }
+      return arr;
+    }
+
     // Curación local (mini-IA) para el catálogo: marca estados 'Destacado', 'Estreno' y 'Banner'
     function autoCurateLocal(games) {
       const now = new Date().getFullYear();
@@ -653,6 +677,7 @@
     const filterSummary = document.getElementById('filterSummary');
     let filterButtons;
     let currentGames = [];
+    let curatedFeaturedIds = [];
     const searchInput = () => document.getElementById('searchInput');
 
     function debounce(fn, wait = 180) {
@@ -731,6 +756,13 @@
         if (sort === 'rating') {
           return (Number(b.rating || 0) || 0) - (Number(a.rating || 0) || 0);
         }
+        if (sort === 'featured') {
+          const rankA = curatedFeaturedIds.indexOf(a.id);
+          const rankB = curatedFeaturedIds.indexOf(b.id);
+          const scoreA = rankA !== -1 ? rankA : curatedFeaturedIds.length + 1;
+          const scoreB = rankB !== -1 ? rankB : curatedFeaturedIds.length + 1;
+          return scoreA - scoreB || a.title.localeCompare(b.title);
+        }
         return a.title.localeCompare(b.title);
       });
 
@@ -777,9 +809,9 @@
       }
     }
 
-    loadGames().then((games) => {
-      // aplicar curación local antes de renderizar el catálogo
-      currentGames = autoCurateLocal(games);
+    loadData().then((data) => {
+      const games = data && data.games ? Object.values(data.games) : fallbackGames;
+      currentGames = applyCuratedData(data, games);
       populateGenres(currentGames);
       attachFilterHandlers();
       applyFilters(currentGames);
