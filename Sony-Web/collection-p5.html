@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Catálogo · PlayStore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #040816;
+      --bg-soft: rgba(11, 17, 39, 0.88);
+      --panel: rgba(7, 17, 31, 0.88);
+      --text: #f8fbff;
+      --muted: #b7c2d8;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 24px 70px rgba(3, 9, 24, 0.45);
+      --accent: #0ea5e9;
+      --accent-2: #f97316;
+      --accent-3: #8b5cf6;
+      --card-bg: linear-gradient(180deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.78));
+      --badge-bg: rgba(14, 165, 233, 0.92);
+      --tag-bg: rgba(255, 255, 255, 0.08);
+      --price: #fb923c;
+      --final-price-color: #ef4444;
+      --discount-text: #10b981;
+      --discount-bg: rgba(16, 185, 129, 0.12);
+      --discount-glow: rgba(16, 185, 129, 0.14);
+      --linelight: rgba(14, 165, 233, 0.18);
+      --page-gradient: radial-gradient(circle at top left, rgba(14, 165, 233, 0.3), transparent 28%), radial-gradient(circle at top right, rgba(249, 115, 22, 0.22), transparent 24%);
+    }
+
+    [data-theme="light"] {
+      --bg: #eef4fb;
+      --bg-soft: rgba(255, 255, 255, 0.88);
+      --panel: rgba(255, 255, 255, 0.94);
+      --text: #0f172a;
+      --muted: #3e4a67;
+      --border: rgba(15, 23, 42, 0.09);
+      --shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+      --accent: #0f62fe;
+      --accent-2: #d9480f;
+      --accent-3: #7c3aed;
+      --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 241, 255, 0.92));
+      --badge-bg: rgba(15, 98, 254, 0.9);
+      --tag-bg: rgba(15, 23, 42, 0.06);
+      --price: #d9480f;
+      --final-price-color: #b91c1c;
+      --discount-text: #065f46;
+      --discount-bg: rgba(6, 95, 70, 0.08);
+      --discount-glow: rgba(6, 95, 70, 0.08);
+      --linelight: rgba(15, 98, 254, 0.18);
+      --page-gradient: radial-gradient(circle at top left, rgba(15, 98, 254, 0.18), transparent 26%), radial-gradient(circle at top right, rgba(217, 72, 15, 0.16), transparent 24%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background:
+        var(--page-gradient),
+        linear-gradient(180deg, var(--bg) 0%, #020617 100%);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.015) 50%, transparent 100%);
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: color-mix(in srgb, var(--bg-soft) 90%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .theme-toggle, .cart-btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 9999px;
+      padding: 0.7rem 0.95rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+    }
+
+    .page-hero {
+      padding: 3.5rem 0 2rem;
+      position: relative;
+    }
+
+    .hero-topline {
+      display: inline-flex;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      background: rgba(14, 165, 233, 0.12);
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .page-title {
+      font-size: clamp(2.2rem, 3vw, 3.2rem);
+      line-height: 1.05;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+
+    .stat-card {
+      padding: 1rem 1.2rem;
+      min-width: 150px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-label { display: block; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .stat-value { font-size: 1.15rem; font-weight: 700; margin-top: 0.4rem; }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin: 1.5rem 0 2rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .filter-group { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .filter-title { font-weight: 700; color: var(--text); }
+
+    .search-input { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text); padding:0.6rem 0.9rem; border-radius:12px; min-width:220px; }
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 9999px;
+      padding: 0.7rem 1.1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .status-copy {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 250px);
+      justify-content: center;
+      gap: 1.2rem;
+      padding-bottom: 3rem;
+    }
+
+    .card-link { text-decoration: none; color: inherit; }
+
+    .game-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(14, 165, 233, 0.28);
+      box-shadow: 0 30px 80px rgba(14, 165, 233, 0.15);
+    }
+
+    .game-card-visual {
+      position: relative;
+      height: 215px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .game-card-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.4));
+    }
+
+    .platform-badge {
+      position: absolute;
+      top: 0.9rem;
+      left: 0.9rem;
+      z-index: 2;
+      background: var(--badge-bg);
+      color: #fff;
+      border-radius: 9999px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      z-index: 2;
+      border-radius: 9999px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.78rem;
+      background: rgba(255,255,255,0.92);
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    .game-card-body { padding: 1rem 1rem 1.15rem; display:flex; flex-direction:column; flex:1; }
+    .game-card-body h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .game-card-copy {
+      color: var(--muted);
+      font-size: 0.92rem;
+      min-height: 48px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .genre-tags {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--text);
+      padding: 0.3rem 0.7rem;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .price-left { display: flex; flex-direction: column; gap: 0.2rem; }
+    .old-price { text-decoration: line-through; color: var(--muted); font-size: 0.92rem; }
+    .final-price { color: var(--final-price-color); font-size: 1.35rem; font-weight: 800; }
+
+    .discount-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      background: var(--discount-bg);
+      color: var(--discount-text);
+      font-weight: 800;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.8rem;
+      box-shadow: 0 6px 20px transparent;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      animation: floatBadge 3.6s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+      0% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
+      50% { transform: translateY(-4px); box-shadow: 0 14px 40px var(--discount-glow); }
+      100% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
+    }
+
+    .empty-state {
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      background: var(--panel);
+      border-radius: 24px;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 1.5rem 0 2.5rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      .navbar { flex-wrap: wrap; gap: 0.85rem; }
+      .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+      .nav-actions { width: 100%; justify-content: flex-end; }
+      .game-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); justify-items: center; }
+      .game-card { max-width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .filters { align-items: stretch; }
+      .filter-group { width: 100%; }
+      .filter-btn { width: 100%; text-align: center; }
+      .page-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo">PLAY<span style="font-weight:400;">STORE</span></a>
+    <div class="nav-links">
+      <a href="collection-p5.html" class="active">Catálogo</a>
+      <a href="index.html">Inicio</a>
+      <a href="registro.html">Registro</a>
+      <a href="PS-Details.html?id=spider-man-3">Demo detalle</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+      <button id="currencyToggle" class="theme-toggle" title="Cambiar moneda"><span id="currencyLabel">USD</span></button>
+      <button class="cart-btn" type="button">
+        <span><i class="fa-solid fa-cart-shopping"></i></span>
+        <span id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="page-hero">
+      <div class="hero-topline"><i class="fa-solid fa-bolt"></i> Catálogo dinámico con JSON</div>
+      <h1 class="page-title">Juegos digitales curados para tu próxima sesión</h1>
+      <p class="hero-subtitle">Este catálogo ya lee los juegos desde un archivo JSON, con un tema claro/oscuro pulido, filtros por plataforma y precio, y una ficha de detalle conectada al mismo dataset.</p>
+      <div class="hero-stats">
+        <div class="stat-card"><span class="stat-label">Juegos activos</span><span class="stat-value" id="gamesCount">0</span></div>
+        <div class="stat-card"><span class="stat-label">Plataformas</span><span class="stat-value">PS5 · PS4 · PS3</span></div>
+        <div class="stat-card"><span class="stat-label">Estado visual</span><span class="stat-value">Claro / Oscuro</span></div>
+      </div>
+    </section>
+
+    <section class="filters" data-aos="fade-up">
+      <div class="filter-group">
+        <span class="filter-title">Plataforma</span>
+        <button class="filter-btn active" data-filter="platform" data-value="all">Todos</button>
+        <button class="filter-btn" data-filter="platform" data-value="PS5">PS5</button>
+        <button class="filter-btn" data-filter="platform" data-value="PS4">PS4</button>
+        <button class="filter-btn" data-filter="platform" data-value="PS3">PS3</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-title">Buscar</span>
+        <input id="searchInput" class="search-input" placeholder="Buscar título, género o desarrollador" aria-label="Buscar juegos">
+      </div>
+      <div id="genreFilters" class="filter-group">
+        <span class="filter-title">Género</span>
+        <button class="filter-btn active" data-filter="genre" data-value="all">Todos</button>
+        <!-- Genres dinámicos -->
+      </div>
+      <div class="filter-group">
+        <span class="filter-title">Precio</span>
+        <button class="filter-btn active" data-filter="price" data-value="all">Todos</button>
+        <button class="filter-btn" data-filter="price" data-value="budget">Hasta $30</button>
+        <button class="filter-btn" data-filter="price" data-value="mid">$30 - $60</button>
+        <button class="filter-btn" data-filter="price" data-value="premium">$60+</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-title">Orden</span>
+        <button class="filter-btn active" data-sort="featured" data-value="featured">Destacados</button>
+        <button class="filter-btn" data-sort="recent" data-value="recent">Recientes</button>
+        <button class="filter-btn" data-sort="rating" data-value="rating">Más valorados</button>
+      </div>
+      <div class="status-copy" id="filterSummary">Mostrando todos los juegos disponibles.</div>
+    </section>
+
+    <section>
+      <div id="gameGrid" class="game-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <div>
+      <strong>PLAYSTORE</strong>
+      <p>Juegos digitales de PS3 a PS5 con datos dinámicos y un tema adaptable.</p>
+    </div>
+    <div>© 2026 PlayStation Store Digital</div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true });
+    gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('ps5-theme', theme);
+      const icon = themeToggle.querySelector('i');
+      icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+
+    let showPrices = true;
+    let exchangeRateCU = 500;
+    let selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
+    const fallbackGames = [];
+
+    async function loadGames() {
+      try {
+        const response = await fetch('./games.json');
+        if (!response.ok) { showPrices = true; return fallbackGames; }
+        const data = await response.json();
+        showPrices = data && data.config && typeof data.config.showPrices === 'boolean' ? data.config.showPrices : true;
+        exchangeRateCU = data && data.config && data.config.exchangeRateCU ? Number(data.config.exchangeRateCU) : exchangeRateCU;
+        selectedCurrency = localStorage.getItem('ps5-currency') || selectedCurrency;
+        return data && typeof data === 'object' && data.games ? Object.values(data.games) : fallbackGames;
+      } catch (error) {
+        showPrices = true;
+        return fallbackGames;
+      }
+    }
+
+    function formatNumber(n) { return (typeof n === 'number') ? n.toLocaleString('en-US') : n; }
+
+    function isPriceVisible(game) {
+      // If site config allows showing prices, show them.
+      if (showPrices) return true;
+      // Otherwise only show if user explicitly selected USD and the game has a USD price,
+      // or if user selected CU and the game has an explicit pricecu.
+      if (selectedCurrency === 'USD') return (typeof game.price !== 'undefined' && game.price !== null);
+      return (typeof game.pricecu !== 'undefined' && game.pricecu !== null);
+    }
+
+    function cardTpl(game) {
+      const genresHtml = (game.genres || []).map(g => `<span class="tag">${g}</span>`).join('');
+      let priceHtml = '';
+      if (isPriceVisible(game)) {
+        if (selectedCurrency === 'USD') {
+          const oldPriceHtml = game.oldPrice ? `<span class="old-price">$${Number(game.oldPrice).toFixed(2)}</span>` : '';
+          const finalPriceHtml = (typeof game.price !== 'undefined' && game.price !== null) ? `<span class="final-price">$${Number(game.price).toFixed(2)}</span>` : '';
+          const discountBadge = (game.oldPrice && typeof game.price !== 'undefined' && game.oldPrice > game.price) ? `<span class="discount-badge">-${Math.round((1 - game.price / game.oldPrice) * 100)}%</span>` : '';
+          priceHtml = `
+            <div class="price-row">
+              <div class="price-left">
+                ${oldPriceHtml}
+                ${finalPriceHtml}
+              </div>
+              ${discountBadge}
+            </div>
+          `;
+        } else {
+          // CU display: prefer explicit pricecu fields, otherwise convert using exchangeRateCU
+          const cuFinal = (typeof game.pricecu !== 'undefined' && game.pricecu !== null) ? Number(game.pricecu) : Math.round((Number(game.price) || 0) * exchangeRateCU);
+          const cuOld = (typeof game.oldPricecu !== 'undefined' && game.oldPricecu !== null) ? Number(game.oldPricecu) : (game.oldPrice ? Math.round(Number(game.oldPrice) * exchangeRateCU) : null);
+          const oldPriceHtml = cuOld ? `<span class="old-price">${formatNumber(cuOld)} CU</span>` : '';
+          const finalPriceHtml = `<span class="final-price">${formatNumber(cuFinal)} CU</span>`;
+          const discountBadge = (cuOld && cuOld > cuFinal) ? `<span class="discount-badge">-${Math.round((1 - cuFinal / cuOld) * 100)}%</span>` : '';
+          priceHtml = `
+            <div class="price-row">
+              <div class="price-left">
+                ${oldPriceHtml}
+                ${finalPriceHtml}
+              </div>
+              ${discountBadge}
+            </div>
+          `;
+        }
+      } else {
+        priceHtml = `
+          <div class="price-row">
+            <div class="price-left">
+              <span class="tag">Consultar precio</span>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <a href="PS-Details.html?id=${game.id}" class="card-link">
+          <article class="game-card" data-aos="zoom-in">
+            <div class="game-card-visual" style="background-image:url('${game.image}')">
+              <span class="platform-badge">${game.platform}</span>
+              <span class="status-badge">${game.status}</span>
+            </div>
+            <div class="game-card-body">
+              <h3>${game.title}</h3>
+              <p class="game-card-copy">${game.description}</p>
+              <div class="genre-tags">${genresHtml}</div>
+              ${priceHtml}
+              <div class="price-row" style="margin-top: 0.75rem;">
+                <span class="tag">★ ${Number(game.rating || 0).toFixed(1)}</span>
+                <span class="tag">${game.release || 'Sin fecha'}</span>
+              </div>
+            </div>
+          </article>
+        </a>
+      `;
+    }
+
+    // Curación local (mini-IA) para el catálogo: marca estados 'Destacado', 'Estreno' y 'Banner'
+    function autoCurateLocal(games) {
+      const now = new Date().getFullYear();
+      const arr = [...games];
+      arr.forEach(g => {
+        const rating = Number(g.rating) || 0;
+        const release = Number(g.release) || now;
+        const age = Math.max(0, now - release);
+        const recency = age <= 0 ? 1 : 1 / (1 + age);
+        const discount = (g.oldPrice && g.price && g.oldPrice > g.price) ? ((g.oldPrice - g.price) / g.oldPrice) : 0;
+        g._normRating = Math.min(1, rating / 5);
+        g._normRecency = Math.max(0, Math.min(1, recency));
+        g._normDiscount = Math.max(0, Math.min(1, discount));
+        g._score = (0.55 * g._normRating) + (0.30 * g._normRecency) + (0.15 * g._normDiscount);
+      });
+      const sorted = [...arr].sort((a, b) => (b._score || 0) - (a._score || 0));
+      const featured = sorted.slice(0, 6);
+      const premieres = sorted.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
+
+      function hasValidBanner(g) {
+        if (!g || !g.bannerImage) return false;
+        const path = String(g.bannerImage).toLowerCase();
+        if (!path.includes('/banner/')) return false;
+        const flag = g.bannerImageShow;
+        if (flag === false) return false;
+        const sflag = (typeof flag === 'string') ? flag.toLowerCase() : '';
+        if (sflag === 'no' || sflag === 'false' || sflag === '0' || sflag === 'off') return false;
+        return true;
+      }
+
+      // asignar estados
+      // Banner sólo si tiene bannerImage válido
+      sorted.filter(hasValidBanner).slice(0, 3).forEach(g => g.status = 'Banner');
+      featured.forEach(g => g.status = 'Destacado');
+      premieres.forEach(g => g.status = 'Estreno');
+      return arr;
+    }
+
+    const grid = document.getElementById('gameGrid');
+    const filterSummary = document.getElementById('filterSummary');
+    let filterButtons;
+    let currentGames = [];
+    const searchInput = () => document.getElementById('searchInput');
+
+    function debounce(fn, wait = 180) {
+      let t;
+      return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
+    }
+
+    function populateGenres(games) {
+      const container = document.getElementById('genreFilters');
+      if (!container) return;
+      const genres = new Set();
+      games.forEach(g => (g.genres || []).forEach(gg => genres.add(gg)));
+      const list = Array.from(genres).sort((a,b)=>a.localeCompare(b));
+      // append buttons
+      list.forEach(g => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.filter = 'genre';
+        btn.dataset.value = g;
+        btn.textContent = g;
+        container.appendChild(btn);
+      });
+    }
+
+    function applyFilters(games) {
+      const platform = document.querySelector('[data-filter="platform"].active').dataset.value;
+      const price = document.querySelector('[data-filter="price"].active').dataset.value;
+      const sort = document.querySelector('[data-sort].active').dataset.value;
+      const genreBtn = document.querySelector('[data-filter="genre"].active');
+      const genre = genreBtn ? genreBtn.dataset.value : 'all';
+      const q = (searchInput() && searchInput().value || '').trim().toLowerCase();
+
+      const filtered = games.filter((game) => {
+        const platformMatch = platform === 'all' || game.platform === platform;
+        // Determine numeric price in the currently selected currency for filtering
+        function getNumericPriceForFilter(game) {
+          if (selectedCurrency === 'USD') {
+            if (typeof game.price !== 'undefined' && game.price !== null) return Number(game.price);
+            if (typeof game.pricecu !== 'undefined' && game.pricecu !== null) return Number(game.pricecu) / Number(exchangeRateCU || 1);
+            return null;
+          } else {
+            if (typeof game.pricecu !== 'undefined' && game.pricecu !== null) return Number(game.pricecu);
+            if (typeof game.price !== 'undefined' && game.price !== null) return Number(game.price) * Number(exchangeRateCU || 1);
+            return null;
+          }
+        }
+
+        const numericPrice = getNumericPriceForFilter(game);
+        const budgetThreshold = selectedCurrency === 'USD' ? 30 : 30 * Number(exchangeRateCU || 1);
+        const midThreshold = selectedCurrency === 'USD' ? 60 : 60 * Number(exchangeRateCU || 1);
+        const priceMatch = price === 'all' || (numericPrice !== null && (
+          (price === 'budget' && numericPrice <= budgetThreshold) ||
+          (price === 'mid' && numericPrice > budgetThreshold && numericPrice <= midThreshold) ||
+          (price === 'premium' && numericPrice > midThreshold)
+        ));
+        const genreMatch = genre === 'all' || (game.genres || []).map(g=>g.toLowerCase()).includes((genre||'').toLowerCase());
+
+        // search matching across title, id, developer, genres and optional aliases
+        let searchMatch = true;
+        if (q) {
+          const title = (game.title || '').toLowerCase();
+          const id = (game.id || '').toLowerCase();
+          const dev = (game.developer || '').toLowerCase();
+          const genresStr = (game.genres || []).join(' ').toLowerCase();
+          const aliasesStr = (game.aliases || []).join(' ').toLowerCase();
+          searchMatch = title.includes(q) || id.includes(q) || dev.includes(q) || genresStr.includes(q) || aliasesStr.includes(q);
+        }
+
+        return platformMatch && priceMatch && genreMatch && searchMatch;
+      });
+
+      const sorted = [...filtered].sort((a, b) => {
+        if (sort === 'recent') {
+          return (Number(b.release || 0) || 0) - (Number(a.release || 0) || 0);
+        }
+        if (sort === 'rating') {
+          return (Number(b.rating || 0) || 0) - (Number(a.rating || 0) || 0);
+        }
+        return a.title.localeCompare(b.title);
+      });
+
+      const sortLabel = sort === 'recent' ? 'recientes' : sort === 'rating' ? 'más valorados' : 'destacados';
+
+      filterSummary.textContent = sorted.length
+        ? `Mostrando ${sorted.length} juego${sorted.length === 1 ? '' : 's'} • orden: ${sortLabel}.`
+        : 'No hay juegos que coincidan con ese filtro. Prueba con otra combinación.';
+
+      grid.innerHTML = sorted.length
+        ? sorted.map(cardTpl).join('')
+        : '<div class="empty-state">No hay resultados para esta combinación. Cambia los filtros para seguir explorando.</div>';
+
+      document.getElementById('gamesCount').textContent = String(sorted.length);
+
+      AOS.refreshHard();
+    }
+
+    function attachFilterHandlers() {
+      filterButtons = document.querySelectorAll('[data-filter], [data-sort]');
+      filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const container = btn.closest('.filter-group');
+          container.querySelectorAll('.filter-btn').forEach((item) => item.classList.remove('active'));
+          btn.classList.add('active');
+          applyFilters(currentGames);
+        });
+      });
+
+      const si = searchInput();
+      if (si) si.addEventListener('input', debounce(() => applyFilters(currentGames), 220));
+
+      // Currency toggle handler
+      const currencyBtn = document.getElementById('currencyToggle');
+      const currencyLabel = document.getElementById('currencyLabel');
+      if (currencyLabel) currencyLabel.textContent = selectedCurrency;
+      if (currencyBtn) {
+        currencyBtn.addEventListener('click', () => {
+          selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
+          localStorage.setItem('ps5-currency', selectedCurrency);
+          if (currencyLabel) currencyLabel.textContent = selectedCurrency;
+          applyFilters(currentGames);
+        });
+      }
+    }
+
+    loadGames().then((games) => {
+      // aplicar curación local antes de renderizar el catálogo
+      currentGames = autoCurateLocal(games);
+      populateGenres(currentGames);
+      attachFilterHandlers();
+      applyFilters(currentGames);
+    });
+  </script>
+</body>
+</html>

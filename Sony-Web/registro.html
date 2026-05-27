@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>PLAYSTORE · Registro y Contacto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #010101;
+      --panel: rgba(18, 18, 18, 0.92);
+      --panel-soft: rgba(255, 255, 255, 0.05);
+      --text: #f7f7f7;
+      --muted: #c7c7c7;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      --accent: #ffffff;
+      --accent-soft: rgba(255, 255, 255, 0.12);
+      --background: linear-gradient(180deg, #060606 0%, #090909 100%);
+      --card-bg: rgba(20, 20, 20, 0.95);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8f8f8;
+      --panel: rgba(255, 255, 255, 0.98);
+      --panel-soft: rgba(0, 0, 0, 0.04);
+      --text: #111111;
+      --muted: #5f5f5f;
+      --border: rgba(17, 24, 39, 0.08);
+      --shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+      --accent: #111111;
+      --accent-soft: rgba(17, 24, 39, 0.06);
+      --accent-strong: #ffffff;
+      --price: #111111;
+      --background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(1180px, calc(100% - 2rem)); margin: 0 auto; }
+
+    .navbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    [data-theme="light"] .navbar { background: rgba(255, 255, 255, 0.82); }
+    .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); font-weight: 600; transition: color 0.25s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+    .icon-button,
+    .theme-toggle { border: 1px solid var(--border); background: var(--panel); color: var(--text); border-radius: 9999px; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.25s ease, background 0.25s ease; }
+    .icon-button:hover,
+    .theme-toggle:hover { transform: translateY(-1px); background: var(--accent-soft); }
+
+    .register-hero { padding: 110px 2rem 4rem; display: grid; place-items: center; }
+    .register-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.2rem; align-items: start; width: 100%; max-width: 1180px; margin: 0 auto; }
+    .register-panel,
+    .contact-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 32px; box-shadow: var(--shadow); overflow: hidden; opacity: 1 !important; }
+    .register-panel { padding: 3rem; grid-column: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); font-size: 0.78rem; margin-bottom: 1.5rem; }
+    .register-panel h1 { font-size: clamp(2.8rem, 4vw, 3.8rem); line-height: 1.03; margin-bottom: 1rem; }
+    .register-panel p { max-width: 44rem; margin-bottom: 2rem; color: var(--muted); }
+
+    .register-form { display: grid; gap: 1.2rem; }
+    .form-group { display: grid; gap: 0.45rem; }
+    .form-group label { font-weight: 700; color: var(--text); }
+    .form-group small { color: var(--muted); }
+    .form-input { width: 100%; min-height: 54px; border-radius: 18px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); color: var(--text); padding: 0.95rem 1rem; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    [data-theme="light"] .form-input { background: rgba(17, 17, 17, 0.04); }
+    .form-input:focus { outline: none; border-color: rgba(255,255,255,0.25); box-shadow: 0 0 0 4px rgba(255,255,255,0.08); }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 0.5rem; }
+    .form-actions .btn-pill { margin: 0; }
+    .form-note { color: var(--muted); font-size: 0.95rem; }
+    .form-note a { color: var(--accent); font-weight: 700; }
+    .form-message { margin-top: 0.8rem; font-size: 0.95rem; min-height: 1.2em; }
+
+    .contact-panel .contact-card { padding: 2.5rem; display: grid; gap: 1.6rem; }
+    .contact-card h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 0.5rem; }
+    .contact-card p { color: var(--muted); line-height: 1.8; }
+    .contact-item { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-icon { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; background: rgba(255,255,255,0.08); color: var(--text); }
+    .contact-item a { color: var(--text); font-weight: 700; word-break: break-word; }
+    .social-links { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.9rem; }
+    .social-icon { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; background: rgba(255,255,255,0.07); color: var(--text); transition: transform 0.25s ease, background 0.25s ease; }
+    .social-icon:hover { transform: translateY(-3px); background: rgba(255,255,255,0.14); }
+    .social-icon i { font-size: 1.05rem; }
+
+    .info-section { padding: 0 0 4rem; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+    .info-box { background: var(--panel); border: 1px solid var(--border); border-radius: 24px; padding: 1.75rem; text-align: center; }
+    .info-box h3 { margin-bottom: 0.75rem; font-size: 1.05rem; }
+    .info-box p { color: var(--muted); line-height: 1.75; }
+
+    .btn-pill { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; padding: 0.95rem 1.8rem; border-radius: 9999px; font-weight: 700; background: #ffffff; color: #111111; border: none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .btn-pill:hover { transform: translateY(-2px); box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18); }
+
+    .text-link { color: var(--accent); font-weight: 700; }
+
+    @media (max-width: 980px) {
+      .register-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 720px) {
+      .navbar { padding: 1rem 1rem; flex-wrap: wrap; }
+      .nav-links, .nav-actions { width: 100%; justify-content: center; }
+      .register-panel { padding: 2rem; }
+      .contact-card { padding: 1.75rem; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo">PLAY<span style="font-weight:400;">STORE</span></a>
+    <ul class="nav-links">
+      <li><a href="collection-p5.html">Catálogo</a></li>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="registro.html" class="active">Registro</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-button" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true"><i class="fa-solid fa-sun"></i></button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="register-hero">
+      <div class="register-grid">
+        <div class="register-panel">
+          <span class="eyebrow"><i class="fa-solid fa-user-plus"></i> Registro</span>
+          <h1>Regístrate con Gmail y agrega tu número de teléfono</h1>
+          <p>Completa tu cuenta con correo electrónico Gmail, número de contacto y recibe soporte directo por WhatsApp o redes sociales.</p>
+
+          <form class="register-form" id="registerForm" aria-disabled="true" data-beta="true">
+            <div style="margin-bottom:1rem; padding:0.6rem 0; font-weight:700; color:var(--muted);">Registro en Beta — Próximamente</div>
+            <div class="form-group">
+              <label for="fullName">Nombre completo</label>
+              <input class="form-input" type="text" id="fullName" placeholder="Tu nombre completo" disabled>
+            </div>
+            <div class="form-group">
+              <label for="email">Correo Gmail</label>
+              <input class="form-input" type="email" id="email" placeholder="tuusuario@gmail.com" disabled>
+              <small>Usa tu correo Gmail para registro y notificaciones.</small>
+            </div>
+            <div class="form-group">
+              <label for="phone">Número de teléfono</label>
+              <input class="form-input" type="tel" id="phone" placeholder="+53 51750013" disabled>
+              <small>Agrega tu número para recibir alertas y soporte vía WhatsApp.</small>
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input class="form-input" type="password" id="password" placeholder="Crea una contraseña segura" disabled>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-pill" disabled><i class="fa-solid fa-envelope"></i> Registro (Beta)</button>
+              <p class="form-note">¿Quieres ser notificado? Escríbenos a <a href="mailto:jarvisdigitalsolutions@gmail.com" class="text-link">jarvisdigitalsolutions@gmail.com</a></p>
+            </div>
+            <div class="form-message" id="formMessage" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <aside class="contact-panel">
+          <div class="contact-card">
+            <h2>Contacto rápido</h2>
+            <p>Si tienes dudas o prefieres ayuda inmediata, utiliza WhatsApp o nuestras redes sociales. También puedes escribirnos a Gmail.</p>
+
+            <div class="contact-item">
+              <span class="contact-icon"><i class="fa-brands fa-whatsapp"></i></span>
+              <div>
+                <p><strong>WhatsApp</strong></p>
+                <a href="https://wa.me/5351750013?text=Hola%20PlayStore%2C%20quiero%20registrarme" target="_blank" rel="noreferrer">+53 51750013</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-icon"><i class="fa-solid fa-envelope"></i></span>
+              <div>
+                <p><strong>Correo</strong></p>
+                <a href="mailto:jarvisdigitalsolutions@gmail.com">jarvisdigitalsolutions@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-icon"><i class="fa-solid fa-phone"></i></span>
+              <div>
+                <p><strong>Teléfono</strong></p>
+                <span>+53 54315923</span>
+              </div>
+            </div>
+
+            <div>
+              <p style="margin-bottom:0.75rem; font-weight:700;">Síguenos en redes</p>
+              <div class="social-links">
+                <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-grid">
+        <div class="info-box">
+          <h3>Registro con Gmail</h3>
+          <p>Usa tu cuenta de Gmail para un inicio de sesión rápido y recibir todas las novedades del catálogo PS5.</p>
+        </div>
+        <div class="info-box">
+          <h3>Soporte por WhatsApp</h3>
+          <p>Contacta soporte directo, consulta promociones y recibe ayuda en menos de un minuto.</p>
+        </div>
+        <div class="info-box">
+          <h3>Redes sociales</h3>
+          <p>Conéctate con nosotros en Instagram, Facebook, Twitter y YouTube para ver novedades, reseñas y lanzamientos.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('ps5-theme', theme);
+      const icon = themeToggle.querySelector('i');
+      icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    }
+
+    applyTheme(savedTheme);
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+
+    const registerForm = document.getElementById('registerForm');
+    const formMessage = document.getElementById('formMessage');
+
+    registerForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      showMessage('Registro en Beta. Próximamente activaremos la función. Puedes escribirnos a jarvisdigitalsolutions@gmail.com para ser notificado.', 'info');
+      return;
+    });
+
+    function showMessage(message, type = 'warning') {
+      formMessage.textContent = message;
+      formMessage.style.color = type === 'success' ? '#82ff9e' : '#ffba4c';
+    }
+
+    gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
+    gsap.from('.register-panel, .contact-panel', { duration: 1, y: 40, opacity: 0, stagger: 0.1, ease: 'power3.out' });
+  </script>
+</body>
+</html>

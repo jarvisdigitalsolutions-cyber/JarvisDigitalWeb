@@ -1,0 +1,41 @@
+name: Auto Curate Weekly
+
+on:
+  schedule:
+    - cron: '0 3 * * 1' # every Monday at 03:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requirements (none)
+        run: python -m pip install --upgrade pip
+
+      - name: Run banner auto-fill (optional)
+        run: python scripts/add_banner_images.py
+
+      - name: Run auto-curation script
+        run: python scripts/auto_curate.py
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Sony-Web/games.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: auto-curate banners/featured/premieres"
+            git push
+          fi

@@ -1,0 +1,1197 @@
+﻿<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JarvisDigitalSolution · Catálogo PS5, PS4 y PS3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #010101;
+      --panel: rgba(18, 18, 18, 0.92);
+      --panel-soft: rgba(255, 255, 255, 0.05);
+      --text: #f7f7f7;
+      --muted: #c7c7c7;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      --accent: #ffffff;
+      --accent-soft: rgba(255, 255, 255, 0.12);
+      --accent-strong: #111111;
+      --price: #ffffff;
+      --final-price-color: #ef4444;
+      --discount-text: #10b981;
+      --discount-bg: rgba(16, 185, 129, 0.12);
+      --discount-glow: rgba(16, 185, 129, 0.14);
+      --background: linear-gradient(180deg, #060606 0%, #090909 100%);
+      --card-bg: rgba(20, 20, 20, 0.95);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8f8f8;
+      --panel: rgba(255, 255, 255, 0.98);
+      --panel-soft: rgba(0, 0, 0, 0.04);
+      --text: #111111;
+      --muted: #5f5f5f;
+      --border: rgba(17, 24, 39, 0.08);
+      --shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+      --accent: #111111;
+      --accent-soft: rgba(17, 24, 39, 0.06);
+      --accent-strong: #ffffff;
+      --price: #111111;
+      --final-price-color: #b91c1c;
+      --discount-text: #065f46;
+      --discount-bg: rgba(6, 95, 70, 0.08);
+      --discount-glow: rgba(6, 95, 70, 0.08);
+      --background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .navbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    [data-theme="light"] .navbar {
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-button,
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 9999px;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .icon-button:hover,
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      background: var(--accent-soft);
+    }
+
+    .hero-section {
+      padding-top: 92px;
+      min-height: 95vh;
+      position: relative;
+    }
+
+    .swiper {
+      width: 100%;
+      min-height: 90vh;
+    }
+
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 90vh;
+    }
+
+    .slide-background {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: saturate(0.9) brightness(0.55);
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.85) 100%);
+    }
+
+    [data-theme="light"] .slide-overlay {
+      background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0.96) 100%);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      padding: 2rem;
+    }
+
+    .badge-platform {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .slide-content h2 {
+      font-size: clamp(2.6rem, 4vw, 4.2rem);
+      line-height: 1.02;
+      margin-bottom: 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .slide-content p {
+      max-width: 42rem;
+      margin-bottom: 1.4rem;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .price-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.75rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .final-price { color: var(--final-price-color); font-weight: 800; }
+
+    .discount-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      background: var(--discount-bg);
+      color: var(--discount-text);
+      font-weight: 800;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 20px transparent;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      animation: floatBadge 3.6s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+      0% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
+      50% { transform: translateY(-4px); box-shadow: 0 14px 40px var(--discount-glow); }
+      100% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
+    }
+
+    .price-tag .old-price {
+      text-decoration: line-through;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 500;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.95rem 1.8rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      background: #ffffff;
+      color: #111111;
+      border: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.45);
+      color: var(--text);
+    }
+
+    .section {
+      padding: 5rem 2rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .section-header h3 {
+      font-size: clamp(1.9rem, 2.6vw, 2.8rem);
+      margin-bottom: 0.4rem;
+      line-height: 1.05;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .bento-item {
+      position: relative;
+      min-height: 240px;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--card-bg);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      color: var(--text);
+      border: 1px solid var(--border);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .bento-item:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .bento-item:hover .bento-overlay {
+      background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
+    }
+
+    .bento-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+      z-index: 0;
+      transition: background 0.4s ease;
+    }
+
+    .bento-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .bento-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.75rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .bento-content h4 {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    .bento-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .bento-meta span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .bento-price {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      font-weight: 800;
+    }
+
+    .bento-price .old {
+      text-decoration: line-through;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+
+    .bento-large { grid-column: span 2; grid-row: span 2; }
+    .bento-tall { grid-row: span 2; }
+
+    .console-cards,
+    .mood-grid,
+    .highlight-row,
+    .card-grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .console-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mood-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .highlight-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .console-card,
+    .mood-card,
+    .feature-card,
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      color: var(--text);
+    }
+
+    .console-card:hover,
+    .mood-card:hover,
+    .feature-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .console-icon,
+    .mood-emoji {
+      font-size: 2.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .console-card h3,
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+    }
+
+    .console-card p,
+    .feature-card p,
+    .mood-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .mood-card {
+      text-align: center;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-inner p { margin-top: 0.5rem; }
+
+    .slide-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      transition: background 0.25s ease;
+    }
+
+    .slide-button:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    /* Minimal site search (hero/navbar) */
+    .site-search {
+      position: fixed;
+      top: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1200;
+      width: min(820px, calc(100% - 2rem));
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 0.5rem;
+      display: none;
+    }
+    .site-search.visible { display: block; }
+    .site-search .search-row { display:flex; gap:0.5rem; align-items:center; }
+    .site-search input { flex:1; padding:0.65rem 0.8rem; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text); }
+    .site-search .search-results { max-height: 320px; overflow:auto; margin-top:0.5rem; display:grid; gap:0.5rem; }
+    .site-search .result { display:flex; gap:0.6rem; align-items:center; padding:0.5rem; border-radius:8px; background:transparent; border:1px solid rgba(255,255,255,0.02); text-decoration:none; color:inherit; }
+    .site-search .thumb { width:56px; height:56px; border-radius:8px; background-size:cover; background-position:center; flex-shrink:0; }
+    .site-search .meta { display:flex; flex-direction:column; }
+    .site-search .title { font-weight:700; }
+    .site-search .sub { color:var(--muted); font-size:0.88rem; }
+
+    .swiper-pagination-bullet {
+      background: rgba(255, 255, 255, 0.45);
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #ffffff;
+    }
+
+    .premiere-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .premiere-card {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .premiere-card:hover {
+      transform: translateY(-16px) translateZ(0);
+      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.25);
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+    }
+
+    .premiere-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.7) saturate(1.1);
+      transition: filter 0.5s ease;
+    }
+
+    .premiere-card:hover .premiere-image {
+      filter: brightness(0.5) saturate(1.3);
+    }
+
+    .premiere-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.88) 100%);
+      z-index: 1;
+    }
+
+    .premiere-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+
+    .premiere-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 9999px;
+      background: rgba(255, 100, 60, 0.95);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      box-shadow: 0 8px 20px rgba(255, 100, 60, 0.35);
+    }
+
+    .premiere-content h3 {
+      font-size: clamp(1.5rem, 2vw, 1.9rem);
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    .premiere-subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .premiere-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .premiere-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .premiere-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #111;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+    }
+
+    .premiere-action:hover {
+      background: #ffffff;
+      transform: translateX(4px);
+      box-shadow: 0 12px 24px rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 1080px) {
+      .nav-links { gap: 1rem; }
+      .bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .console-cards { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .mood-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .highlight-row { grid-template-columns: 1fr; }
+      .hero-section { min-height: 80vh; }
+    }
+
+    @media (max-width: 720px) {
+      .navbar { padding: 1rem 1rem; flex-wrap: wrap; }
+      .hero-section { padding-top: 100px; }
+      .nav-actions { width: 100%; justify-content: space-between; }
+      .slide-content h2 { font-size: 2.3rem; }
+      .slide-content p { font-size: 0.95rem; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .console-cards { grid-template-columns: 1fr; }
+      .mood-grid { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo">PLAY<span style="font-weight:400;">STORE</span></a>
+    <ul class="nav-links">
+      <li><a href="collection-p5.html">Catálogo</a></li>
+      <li><a href="#destacados">Destacados</a></li>
+      <li><a href="#explora">Explorar</a></li>
+      <li><a href="#info">Info</a></li>
+      <li><a href="registro.html">Registro</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-button" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true"><i class="fa-solid fa-sun"></i></button>
+      <button id="currencyToggle" class="icon-button" title="Cambiar moneda"><span id="currencyLabel">USD</span></button>
+      <button class="icon-button" aria-label="Carrito"><i class="fa-solid fa-cart-shopping"></i></button>
+    </div>
+  </nav>
+
+  <div id="siteSearch" class="site-search" role="dialog" aria-modal="false" aria-hidden="true">
+    <div class="search-row">
+      <input id="siteSearchInput" placeholder="Buscar juegos: título, género o desarrollador" aria-label="Buscar juegos">
+      <button id="siteSearchClose" class="icon-button" aria-label="Cerrar búsqueda"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="siteSearchResults" class="search-results">
+      <div style="padding:0.8rem;color:var(--muted)">Escribe para buscar juegos...</div>
+    </div>
+  </div>
+
+  <section class="hero-section">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper" id="swiperWrapper">
+        <!-- Slides cargados por JavaScript -->
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <main>
+    <section id="destacados" class="section container">
+      <div class="section-header">
+        <div>
+          <h3>Catálogo Destacado</h3>
+          <p>Los juegos más relevantes con mejor diseño, animación suave y toda la información en un vistazo.</p>
+        </div>
+      </div>
+      <div class="bento-grid" id="bentoGrid"></div>
+    </section>
+
+    <section id="estrenos" class="section container" data-aos="fade-up">
+      <div class="section-header">
+        <div>
+          <h3>Estrenos PS5</h3>
+          <p>Los últimos lanzamientos y próximos estrenos que llegan a PlayStation 5. Descubre el contenido más fresco y emocionante.</p>
+        </div>
+      </div>
+      <div class="premiere-grid" id="preimereGrid"></div>
+    </section>
+
+    <section id="explora" class="section container">
+      <div class="section-header">
+        <div>
+          <h3>Explora por contexto</h3>
+          <p>Filtra rápido por lanzamientos recientes, mejor puntuados y ofertas. Esta landing ya está pensada para integrarse con el catálogo dinámico.</p>
+        </div>
+      </div>
+      <div class="card-grid">
+        <div class="panel" data-aos="fade-up">
+          <h3>Recientes</h3>
+          <p>Los lanzamientos más nuevos aparecen primero y mantienen el catálogo siempre actualizado.</p>
+        </div>  
+        <div class="panel" data-aos="fade-up" data-aos-delay="60">
+          <h3>Más valorados</h3>
+          <p>Los juegos con mejor puntuación reciben un lugar destacado para que el usuario los descubra rápido.</p>
+        </div>
+        <div class="panel" data-aos="fade-up" data-aos-delay="120">
+          <h3>Ofertas</h3>
+          <p>Encuentra los títulos con descuento y la mejor relación calidad-precio en el catálogo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-header">
+        <div>
+          <h3>Elige tu modo</h3>
+          <p>La experiencia se puede ver en modo oscuro o claro, manteniendo una estética sobria y moderna.</p>
+        </div>
+      </div>
+      <div class="mood-grid">
+        <div class="mood-card" data-aos="flip-left">
+          <div class="mood-emoji">⚡</div>
+          <h4>Acción rápida</h4>
+          <p>Experiencias intensas con ritmo elevado y alta respuesta.</p>
+        </div>
+        <div class="mood-card" data-aos="flip-left" data-aos-delay="80">
+          <div class="mood-emoji">🎮</div>
+          <h4>Mundo abierto</h4>
+          <p>Aventuras amplias con exploración libre y detalles inmersivos.</p>
+        </div>
+        <div class="mood-card" data-aos="flip-left" data-aos-delay="160">
+          <div class="mood-emoji">🧠</div>
+          <h4>Historia</h4>
+          <p>Narrativas envolventes para jugadores que buscan trama y emoción.</p>
+        </div>
+        <div class="mood-card" data-aos="flip-left" data-aos-delay="240">
+          <div class="mood-emoji">🏁</div>
+          <h4>Carreras</h4>
+          <p>Velocidad, coches y competición con estilo dinámico.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="info" class="section container">
+      <div class="section-header">
+        <div>
+          <h3>Todo conectado a la misma data</h3>
+          <p>La landing, el catálogo y la ficha comparten el mismo dataset JSON para crecer sin duplicados.</p>
+        </div>
+      </div>
+      <div class="card-grid">
+        <div class="feature-card" data-aos="fade-up">
+          <h3>Arquitectura clara</h3>
+          <p>Se utiliza un solo origen de datos que alimenta todas las secciones.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="80">
+          <h3>Estilo sobrio</h3>
+          <p>Una paleta blanca y negra limpia que refuerza la sensación premium del producto.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="160">
+          <h3>Animación fluida</h3>
+          <p>Swipe, aparición y hover con movimientos suaves para una experiencia moderna.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>PLAYSTORE</strong>
+        <p>Catálogo digital de PS3 a PS5 con diseño inspirado en tu versión favorita.</p>
+      </div>
+      <div>
+        <p>© 2026 PlayStation Store Digital</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('ps5-theme', theme);
+      const icon = themeToggle.querySelector('i');
+      icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    }
+
+    applyTheme(savedTheme);
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+
+    let showPrices = true;
+    let exchangeRateCU = 500;
+    let selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
+    const fallbackGames = [];
+
+    // Load full dataset (games + banners) from games.json
+    async function loadData() {
+      try {
+        const response = await fetch('./games.json');
+        if (!response.ok) return { games: {}, banners: [] };
+        const data = await response.json();
+        return data || { games: {}, banners: [] };
+      } catch (error) {
+        return { games: {}, banners: [] };
+      }
+    }
+
+    function formatNumber(n) { return (typeof n === 'number') ? n.toLocaleString('en-US') : n; }
+    function isPriceVisible(game) {
+      if (showPrices) return true;
+      if (selectedCurrency === 'USD') return (typeof game.price !== 'undefined' && game.price !== null);
+      return (typeof game.pricecu !== 'undefined' && game.pricecu !== null);
+    }
+
+    function formatGamePrice(game) {
+      if (!isPriceVisible(game)) return `<span class="tag">Consultar precio</span>`;
+      if (selectedCurrency === 'USD') {
+        const oldPriceHtml = game.oldPrice ? `<span class="old-price">$${Number(game.oldPrice).toFixed(2)}</span>` : '';
+        const finalPriceHtml = (typeof game.price !== 'undefined' && game.price !== null) ? `<span class="final-price">$${Number(game.price).toFixed(2)}</span>` : '';
+        const discount = (game.oldPrice && typeof game.price !== 'undefined' && game.oldPrice > game.price) ? `<span class="discount-badge">-${Math.round((1 - game.price / game.oldPrice) * 100)}%</span>` : '';
+        return `${oldPriceHtml}${finalPriceHtml}${discount}`;
+      }
+      // CU
+      const cuFinal = (typeof game.pricecu !== 'undefined' && game.pricecu !== null) ? Number(game.pricecu) : Math.round((Number(game.price) || 0) * exchangeRateCU);
+      const cuOld = (typeof game.oldPricecu !== 'undefined' && game.oldPricecu !== null) ? Number(game.oldPricecu) : (game.oldPrice ? Math.round(Number(game.oldPrice) * exchangeRateCU) : null);
+      const oldHtml = cuOld ? `<span class="old-price">${formatNumber(cuOld)} CU</span>` : '';
+      const finalHtml = `<span class="final-price">${formatNumber(cuFinal)} CU</span>`;
+      const discount = (cuOld && cuOld > cuFinal) ? `<span class="discount-badge">-${Math.round((1 - cuFinal / cuOld) * 100)}%</span>` : '';
+      return `${oldHtml}${finalHtml}${discount}`;
+    }
+
+    function formatGamePriceText(game) {
+      if (!isPriceVisible(game)) return 'Consultar precio';
+      if (selectedCurrency === 'USD') {
+        return (typeof game.price !== 'undefined' && game.price !== null) ? `$${Number(game.price).toFixed(2)}` : 'Sin precio';
+      }
+      const cuFinal = (typeof game.pricecu !== 'undefined' && game.pricecu !== null) ? Number(game.pricecu) : Math.round((Number(game.price) || 0) * exchangeRateCU);
+      return `${cuFinal} CU`;
+    }
+
+    function createSlide(game) {
+      const priceBlock = formatGamePrice(game);
+      return `
+        <div class="swiper-slide">
+          <div class="slide-background" style="background-image:url('${game.image}')"></div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content" data-aos="fade-up">
+            <span class="badge-platform">${game.platform} · ${game.status.toUpperCase()}</span>
+            <h2>${game.title}</h2>
+            <p>${game.tagline || game.description}</p>
+            <div class="price-tag">
+              ${priceBlock}
+            </div>
+            <div>
+              <a href="PS-Details.html?id=${game.id}" class="btn-pill" style="margin-right:0.6rem;"><i class="fa-solid fa-arrow-right"></i> Ver detalles</a>
+              <a href="collection-p5.html" class="btn-pill btn-secondary"><i class="fa-solid fa-bolt"></i> Ver catálogo</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Create a slide from a banner entry (separate images de banner)
+    function createBannerSlide(banner) {
+      return `
+        <div class="swiper-slide">
+          <div class="slide-background" style="background-image:url('${banner.image}')"></div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content" data-aos="fade-up">
+            <span class="badge-platform">BANNER</span>
+            <h2>${banner.title}</h2>
+            <p>${banner.subtitle || ''}</p>
+            <div>
+              <a href="${banner.link || '#'}" class="btn-pill" style="margin-right:0.6rem;"><i class="fa-solid fa-arrow-right"></i> Ver</a>
+              <a href="collection-p5.html" class="btn-pill btn-secondary"><i class="fa-solid fa-bolt"></i> Catálogo</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    let heroSwiper = null;
+
+    function renderSlides(games) {
+      const recent = [...games].sort((a, b) => Number(b.release || 0) - Number(a.release || 0)).slice(0, 3);
+      const wrapper = document.getElementById('swiperWrapper');
+      wrapper.innerHTML = recent.map(createSlide).join('');
+    }
+
+    // Render banner slides (uses separate banner images)
+    function renderBannerSlides(banners) {
+      const wrapper = document.getElementById('swiperWrapper');
+      if (!banners || !banners.length) {
+        wrapper.innerHTML = '';
+        return;
+      }
+      // order by priority
+      const ordered = [...banners].sort((a, b) => (a.priority || 0) - (b.priority || 0));
+      wrapper.innerHTML = ordered.map(createBannerSlide).join('');
+    }
+
+    // Mini-IA autonoma: curación automática de banners / destacados / estrenos
+    // Selecciona banners únicamente si el juego tiene `bannerImage` dentro de la carpeta Banner
+    // y no está explícitamente excluido mediante `bannerImageShow` falso/"no".
+    function autoCurate(data) {
+      const gamesArr = Object.values((data && data.games) ? data.games : {});
+      const now = new Date().getFullYear();
+
+      // calcular métricas normalizadas y score simple
+      gamesArr.forEach(g => {
+        const rating = Number(g.rating) || 0;
+        const releaseYear = Number(g.release) || now;
+        const age = Math.max(0, now - releaseYear);
+        const recency = age <= 0 ? 1 : 1 / (1 + age);
+        const discount = (g.oldPrice && g.price && g.oldPrice > g.price) ? ((g.oldPrice - g.price) / g.oldPrice) : 0;
+        g._normRating = Math.min(1, rating / 5);
+        g._normRecency = Math.max(0, Math.min(1, recency));
+        g._normDiscount = Math.max(0, Math.min(1, discount));
+        g._score = (0.55 * g._normRating) + (0.30 * g._normRecency) + (0.15 * g._normDiscount);
+      });
+
+      const sorted = [...gamesArr].sort((a, b) => (b._score || 0) - (a._score || 0));
+
+      function hasValidBanner(g) {
+        if (!g || !g.bannerImage) return false;
+        const path = String(g.bannerImage).toLowerCase();
+        if (!path.includes('/banner/')) return false; // debe estar en carpeta Banner
+        // detectar exclusión explícita: bannerImageShow:false|'no'|'0'|'off'
+        const flag = g.bannerImageShow;
+        if (flag === false) return false;
+        const sflag = (typeof flag === 'string') ? flag.toLowerCase() : '';
+        if (sflag === 'no' || sflag === 'false' || sflag === '0' || sflag === 'off') return false;
+        return true;
+      }
+
+      // escoger sólo candidatos que tengan bannerImage válido
+      const bannerCandidates = sorted.filter(hasValidBanner);
+      let topBanners = bannerCandidates.slice(0, 3).map(g => ({
+        id: 'banner-auto-' + g.id,
+        title: g.title,
+        subtitle: g.tagline || g.description || '',
+        image: g.bannerImage,
+        link: 'PS-Details.html?id=' + g.id,
+        gameId: g.id,
+        priority: 0
+      }));
+
+      // Si no hay suficientes banners curados, fallback a los banners definidos manualmente en data.banners
+      if ((!topBanners || topBanners.length < 1) && data && Array.isArray(data.banners) && data.banners.length) {
+        topBanners = data.banners.slice(0, 3).map(b => ({ ...b }));
+      }
+
+      // Estrenos: lanzamientos recientes (este año o el anterior)
+      const premieres = sorted.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
+
+      // Destacados: top 6 global
+      const featured = sorted.slice(0, 6);
+
+      // actualizar estados en memoria (no modifica games.json en disco)
+      gamesArr.forEach(g => { g._origStatus = g.status || ''; g.status = g._origStatus; });
+      featured.forEach(g => g.status = 'Destacado');
+      premieres.forEach(g => g.status = 'Estreno');
+      topBanners.forEach(b => {
+        const gg = gamesArr.find(x => x.id === b.gameId);
+        if (gg) gg.status = 'Banner';
+      });
+
+      return { games: gamesArr, banners: topBanners, featuredIds: featured.map(f => f.id), premiereIds: premieres.map(p => p.id) };
+    }
+
+    function renderBento(games) {
+      const grid = document.getElementById('bentoGrid');
+      const items = [...games].slice(0, 6);
+      grid.innerHTML = items.map((game, index) => {
+        const classes = ['bento-item', index === 0 ? 'bento-large' : '', index === 3 ? 'bento-tall' : ''].filter(Boolean).join(' ');
+        const priceSection = `<div class="bento-price">${formatGamePrice(game)}</div>`;
+        return `
+          <a href="PS-Details.html?id=${game.id}" class="${classes}" style="background-image:url('${game.image}')">
+            <div class="bento-overlay"></div>
+            <div class="bento-content">
+              <div class="bento-badge">${game.platform} · ${game.status}</div>
+              <h4>${game.title}</h4>
+              <div class="bento-meta">
+                <span>★ ${Number(game.rating || 0).toFixed(1)}</span>
+                <span>${game.release || '2026'}</span>
+              </div>
+              ${priceSection}
+            </div>
+          </a>
+        `;
+      }).join('');
+    }
+
+    function renderPremiere(games) {
+      const grid = document.getElementById('preimereGrid');
+      const recent = [...games].sort((a, b) => Number(b.release || 0) - Number(a.release || 0)).slice(0, 3);
+      grid.innerHTML = recent.map((game, idx) => `
+        <a href="PS-Details.html?id=${game.id}" class="premiere-card" data-aos="fade-up" data-aos-delay="${idx * 80}">
+          <div class="premiere-image" style="background-image:url('${game.image}')"></div>
+          <div class="premiere-overlay"></div>
+          <div class="premiere-content">
+            <div class="premiere-label"><i class="fa-solid fa-star"></i> ${game.release === 2026 ? 'PRÓXIMAMENTE' : 'NUEVO LANZAMIENTO'}</div>
+            <h3>${game.title}</h3>
+            <p class="premiere-subtitle">${game.tagline}</p>
+            <div class="premiere-info">
+              <span class="premiere-chip"><i class="fa-solid fa-gamepad"></i> ${game.platform}</span>
+              <span class="premiere-chip"><i class="fa-solid fa-star"></i> ${Number(game.rating || 0).toFixed(1)}</span>
+            </div>
+            <button class="premiere-action"><i class="fa-solid fa-arrow-right"></i> Ver detalles</button>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function initSwiper() {
+      if (heroSwiper) {
+        try { heroSwiper.destroy(true, true); } catch (e) { /* ignore */ }
+        heroSwiper = null;
+      }
+      heroSwiper = new Swiper('.mySwiper', {
+        spaceBetween: 0,
+        centeredSlides: true,
+        autoplay: { delay: 6000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        speed: 900,
+      });
+      return heroSwiper;
+    }
+
+    /* Site search logic */
+    let siteGames = [];
+    let siteBanners = [];
+    const searchToggleBtn = document.querySelector('.nav-actions .icon-button[aria-label="Buscar"]');
+    const siteSearchEl = document.getElementById('siteSearch');
+    const siteSearchInput = document.getElementById('siteSearchInput');
+    const siteSearchClose = document.getElementById('siteSearchClose');
+    const siteSearchResults = document.getElementById('siteSearchResults');
+
+    function closeSiteSearch() {
+      if (!siteSearchEl) return;
+      siteSearchEl.classList.remove('visible');
+      siteSearchEl.setAttribute('aria-hidden', 'true');
+    }
+
+    function openSiteSearch() {
+      if (!siteSearchEl) return;
+      siteSearchEl.classList.add('visible');
+      siteSearchEl.setAttribute('aria-hidden', 'false');
+      siteSearchInput && siteSearchInput.focus();
+    }
+
+    if (searchToggleBtn) searchToggleBtn.addEventListener('click', () => {
+      if (siteSearchEl && siteSearchEl.classList.contains('visible')) closeSiteSearch(); else openSiteSearch();
+    });
+    if (siteSearchClose) siteSearchClose.addEventListener('click', closeSiteSearch);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSiteSearch(); });
+
+    function renderSiteSearchResults(matches) {
+      if (!siteSearchResults) return;
+      siteSearchResults.innerHTML = matches.length ? matches.map(g => `
+        <a class="result" href="PS-Details.html?id=${g.id}">
+          <div class="thumb" style="background-image:url('${g.image}')"></div>
+          <div class="meta">
+            <div class="title">${g.title}</div>
+            <div class="sub">${g.platform} · ${formatGamePriceText(g)}</div>
+          </div>
+        </a>
+      `).join('') : '<div style="padding:0.8rem;color:var(--muted)">Escribe para buscar juegos...</div>';
+    }
+
+    function doSiteSearch(q) {
+      if (!q) { renderSiteSearchResults([]); return; }
+      const ql = q.trim().toLowerCase();
+      const matches = siteGames.filter(g => {
+        const title = (g.title||'').toLowerCase();
+        const id = (g.id||'').toLowerCase();
+        const dev = (g.developer||'').toLowerCase();
+        const genres = (g.genres||[]).join(' ').toLowerCase();
+        const aliases = (g.aliases||[]).join(' ').toLowerCase();
+        return title.includes(ql) || id.includes(ql) || dev.includes(ql) || genres.includes(ql) || aliases.includes(ql);
+      }).slice(0, 8);
+      renderSiteSearchResults(matches);
+    }
+
+    function debounce(fn, wait = 180) {
+      let t;
+      return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
+    }
+
+    if (siteSearchInput) siteSearchInput.addEventListener('input', debounce(function (e) { doSiteSearch(e.target.value); }, 220));
+
+    // Load the full dataset, render banners separately (using banner images) and setup hourly refresh
+    (async function () {
+      const data = await loadData();
+      showPrices = data && data.config && typeof data.config.showPrices === 'boolean' ? data.config.showPrices : true;
+      exchangeRateCU = data && data.config && data.config.exchangeRateCU ? Number(data.config.exchangeRateCU) : exchangeRateCU;
+      selectedCurrency = localStorage.getItem('ps5-currency') || selectedCurrency;
+      const games = data && data.games ? Object.values(data.games) : [];
+
+      // Auto-curar con la mini-IA y actualizar estructuras en memoria
+      const curated = autoCurate(data || { games: {} });
+      siteGames = (curated && curated.games) ? curated.games : games;
+      siteBanners = (curated && curated.banners && curated.banners.length) ? curated.banners : (data.banners || []);
+
+      // render banners y secciones usando datos curados
+      renderBannerSlides(siteBanners);
+      renderBento(siteGames);
+      renderPremiere(siteGames);
+      initSwiper();
+      AOS.refreshHard();
+      gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
+      gsap.from('.section-header', { duration: 1, y: 40, opacity: 0, stagger: 0.1, ease: 'power3.out' });
+
+      // update currency label in navbar
+      const currencyLabel = document.getElementById('currencyLabel');
+      if (currencyLabel) currencyLabel.textContent = selectedCurrency;
+
+      // Currency toggle handling (re-render current sections)
+      const currencyBtn = document.getElementById('currencyToggle');
+      if (currencyBtn) currencyBtn.addEventListener('click', () => {
+        selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
+        localStorage.setItem('ps5-currency', selectedCurrency);
+        if (currencyLabel) currencyLabel.textContent = selectedCurrency;
+        // re-render using cached siteGames/siteBanners
+        renderBannerSlides(siteBanners);
+        renderBento(siteGames);
+        renderPremiere(siteGames);
+        initSwiper();
+        AOS.refreshHard();
+      });
+
+      // Refrescar banners cada hora (3600000 ms). Si subes banners diariamente, la landing los actualizará.
+      setInterval(async () => {
+        try {
+          const fresh = await loadData();
+          showPrices = fresh && fresh.config && typeof fresh.config.showPrices === 'boolean' ? fresh.config.showPrices : true;
+          siteBanners = fresh.banners || [];
+          renderBannerSlides(siteBanners);
+          initSwiper();
+        } catch (err) { /* no bloquear UI si falla */ }
+      }, 3600000);
+    })();
+  </script>
+</body>
+</html>

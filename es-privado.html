@@ -1,0 +1,2454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>PS5 PRO · Colección Profesional</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-surface: #151520;
+            --accent-1: #2563EB; /* Primary blue */
+            --accent-2: #A855F7; /* Purple */
+            --accent-3: #06B6D4; /* Cyan */
+            --accent: var(--accent-1);
+            --accent-light: #60A5FA;
+            --accent-glow: #1E40AF;
+            --text: #e8e8f0;
+            --text-muted: #a0a0b0;
+            --text-light: #7a7a8a;
+            --shadow-card: 0 12px 40px rgba(37, 99, 235, 0.15);
+            --radius: 20px;
+            --transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1030 50%, #0f1020 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 1rem 4rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fondo PS5 dinámico con luz */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(40px);
+            -webkit-filter: blur(40px);
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            left: -15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.10) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite reverse;
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(50px);
+            -webkit-filter: blur(50px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(30px, -30px); }
+            50% { transform: translate(0, 40px); }
+            75% { transform: translate(-30px, -20px); }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Particle background canvas */
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            display: block;
+            mix-blend-mode: screen;
+        }
+
+        /* Celebration banner */
+        .celebration {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 3500;
+            background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 14px;
+            font-weight: 800;
+            box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+            transform: translateY(-10px) scale(0.98);
+            opacity: 0;
+            transition: opacity 360ms ease, transform 360ms cubic-bezier(.2,.9,.3,1);
+            display: inline-flex;
+            gap: 0.6rem;
+            align-items: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            padding-left: 1rem;
+        }
+
+        .celebration.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Card roundness, spacing and grid gap */
+        .games-grid { gap: 3rem; }
+        .game-card {
+            border-radius: 36px;
+            max-width: 320px;
+            padding-bottom: 1rem;
+        }
+
+        .game-cover {
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.55), 0 0 30px rgba(37,99,235,0.06);
+        }
+
+        .game-info { padding: 1.8rem 1.4rem; }
+
+        /* Modal: pop and slightly higher position */
+        .modal-details {
+            transform: translateY(-6vh) scale(1);
+            transition: transform 320ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease;
+        }
+
+        .modal-overlay.active .modal-details {
+            transform: translateY(0) scale(1.00);
+        }
+
+        @keyframes modalPop {
+            from { transform: translateY(-12px) scale(0.98); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal-overlay.active .modal-details { animation: modalPop 380ms cubic-bezier(.2,.9,.3,1); }
+
+        /* ===== HEADER PROFESIONAL ===== */
+        .ps5-header {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem;
+            background: rgba(21, 21, 32, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 164, 255, 0.1);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .ps5-symbol {
+            background: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent) 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 164, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(0, 164, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 50px rgba(0, 164, 255, 0.9), inset 0 0 30px rgba(255, 255, 255, 0.2); }
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            background: linear-gradient(to right, #ffffff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-title span {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: block;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .stats-badge {
+            background: rgba(0, 164, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 164, 255, 0.2);
+            border-radius: 50px;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 500;
+        }
+
+        .stats-badge strong {
+            color: var(--accent-light);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .stats-badge i {
+            font-size: 1.2rem;
+            color: var(--accent-1);
+        }
+
+        /* Background controls (preset selector + intensity + auto) */
+        .bg-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .bg-controls label { display:flex; align-items:center; gap:0.6rem; color:var(--text-muted); font-weight:700; }
+
+        .bg-controls select, .bg-controls input[type="range"] {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.04);
+            color: var(--text);
+            padding: 0.45rem 0.6rem;
+            border-radius: 12px;
+            height: 40px;
+        }
+
+        .bg-controls input[type="range"] {
+            width: 140px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            border-radius: 999px;
+            outline: none;
+        }
+
+        .bg-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border: 3px solid var(--accent-1);
+        }
+
+        .bg-auto {
+            display:inline-flex;
+            align-items:center;
+            gap:0.5rem;
+            border-radius:12px;
+            padding:0.45rem 0.8rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.04);
+            color: var(--text);
+            cursor: pointer;
+            height:40px;
+            font-weight:700;
+        }
+
+        .bg-auto.active { background: linear-gradient(90deg, var(--accent-2), var(--accent)); color: white; box-shadow: 0 8px 30px rgba(0,164,255,0.12); }
+
+        /* Icon spacing for buttons and badges */
+        .btn-detail i,
+        .btn-cola i,
+        .modal-btn i,
+        .descarga-btn i,
+        .quitar-cola-btn i,
+        .stats-badge i,
+        .platform-badge i,
+        .peso-badge i,
+        .cola-meta i,
+        .toast-icon {
+            margin-right: 0.6rem;
+            vertical-align: middle;
+        }
+
+        /* ===== PESTAÑAS ===== */
+        .tabs {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(0, 164, 255, 0.1);
+            color: var(--text-muted);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-glow), var(--accent));
+            border-color: var(--accent);
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 164, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(0, 164, 255, 0.1);
+            border-color: rgba(0, 164, 255, 0.3);
+            color: var(--accent-light);
+        }
+
+        .cola-badge {
+            background: #ff4d6a;
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        /* ===== CONTENEDOR VISTAS ===== */
+        .view-container {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .view {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== GRID PROFESIONAL DE JUEGOS ===== */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            justify-items: center;
+            padding: 0 1rem;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(21, 21, 32, 0.5), rgba(30, 20, 60, 0.3));
+            border-radius: 24px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(0, 164, 255, 0.1);
+            transition: all var(--transition);
+            border: 1px solid rgba(0, 164, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: visible;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, rgba(0, 164, 255, 0), rgba(0, 164, 255, 0.2), rgba(0, 164, 255, 0));
+            border-radius: 24px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 60px rgba(0, 164, 255, 0.25), inset 0 0 0 1px rgba(0, 164, 255, 0.3);
+        }
+
+        .game-cover {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            background: linear-gradient(135deg, #1a1030, #0f1020);
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .game-card:hover .game-cover {
+            opacity: 0.85;
+            transform: scale(1.02);
+        }
+
+        .game-cover-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1030, #0f1020);
+            color: var(--text-light);
+            font-size: 3rem;
+            aspect-ratio: 3/4;
+        }
+
+        .game-info {
+            padding: 1.3rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            flex-grow: 1;
+        }
+
+        .game-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+            color: var(--text);
+        }
+
+        .game-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0, 164, 255, 0.2), rgba(0, 164, 255, 0.1));
+            border: 1px solid rgba(0, 164, 255, 0.3);
+            color: var(--accent-light);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.35rem 0.8rem;
+            border-radius: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .peso-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(138, 43, 226, 0.1);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            color: #b794f6;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.35rem 0.8rem;
+            border-radius: 16px;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: auto;
+        }
+
+        .btn-detail {
+            background: rgba(0, 164, 255, 0.1);
+            border: 1px solid rgba(0, 164, 255, 0.3);
+            color: var(--accent-light);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.65rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            transition: all var(--transition);
+            cursor: pointer;
+            flex: 1;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-detail:hover {
+            background: rgba(0, 164, 255, 0.2);
+            border-color: rgba(0, 164, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 164, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-cola {
+            background: rgba(255, 77, 106, 0.1);
+            border: 1px solid rgba(255, 77, 106, 0.3);
+            color: #ff6b81;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.65rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            transition: all var(--transition);
+            cursor: pointer;
+            flex: 1;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-cola:hover {
+            background: rgba(255, 77, 106, 0.2);
+            border-color: rgba(255, 77, 106, 0.5);
+            box-shadow: 0 0 20px rgba(255, 77, 106, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-cola.in-cola {
+            background: rgba(46, 125, 50, 0.2);
+            border-color: rgba(76, 175, 80, 0.5);
+            color: #76c043;
+            cursor: not-allowed;
+        }
+
+        .btn-cola.in-cola:hover {
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        }
+
+        /* ===== COLA DE DESCARGA ===== */
+        .cola-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cola-empty {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, rgba(0, 164, 255, 0.05), rgba(138, 43, 226, 0.05));
+            border-radius: var(--radius);
+            border: 2px dashed rgba(0, 164, 255, 0.15);
+        }
+
+        .cola-item {
+            background: linear-gradient(135deg, rgba(21, 21, 32, 0.5), rgba(30, 20, 60, 0.3));
+            border: 1px solid rgba(0, 164, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.25s;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cola-item:hover {
+            border-color: rgba(0, 164, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 164, 255, 0.15);
+        }
+
+        .cola-cover {
+            width: 70px;
+            height: 95px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #1a1030, #0f1020);
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 164, 255, 0.2);
+        }
+
+        .cola-info {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .cola-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .cola-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .cola-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .descarga-btn {
+            background: linear-gradient(135deg, var(--accent-glow), var(--accent));
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            box-shadow: 0 0 20px rgba(0, 164, 255, 0.4);
+        }
+
+        .descarga-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 164, 255, 0.6);
+        }
+
+        .descarga-btn.sin-enlace {
+            background: rgba(255, 77, 106, 0.2);
+            border: 1px solid rgba(255, 77, 106, 0.3);
+            color: #ff6b81;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .quitar-cola-btn {
+            background: rgba(255, 77, 106, 0.1);
+            border: 1px solid rgba(255, 77, 106, 0.3);
+            color: #ff6b81;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .quitar-cola-btn:hover {
+            background: rgba(255, 77, 106, 0.2);
+            border-color: rgba(255, 77, 106, 0.5);
+            color: #ff8d9e;
+        }
+
+        .cola-actions-top {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1.5rem;
+        }
+
+        .clear-cola-btn {
+            background: rgba(255, 77, 106, 0.1);
+            border: 1px solid rgba(255, 77, 106, 0.3);
+            color: #ff6b81;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .clear-cola-btn:hover {
+            background: rgba(255, 77, 106, 0.2);
+            border-color: rgba(255, 77, 106, 0.5);
+            color: #ff8d9e;
+        }
+
+        /* ===== MODALES PROFESIONALES ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-details {
+            background: linear-gradient(135deg, rgba(21, 21, 32, 0.9), rgba(30, 20, 60, 0.7));
+            border: 1px solid rgba(0, 164, 255, 0.2);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 164, 255, 0.08);
+            align-items: flex-start;
+            position: relative;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        }
+
+        .modal-poster {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 164, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 164, 255, 0.2);
+        }
+
+        .modal-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .modal-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .modal-title {
+            background: linear-gradient(90deg, #fff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-badge {
+            background: linear-gradient(90deg, rgba(37,99,235,0.12), rgba(168,85,247,0.10));
+            border: 1px solid rgba(255,255,255,0.03);
+            color: var(--text);
+            padding: 0.45rem 0.9rem;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        .detail-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-light);
+        }
+
+        .detail-content {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            padding: 2rem;
+            border-top: 1px solid rgba(0, 164, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(135deg, var(--accent-glow), var(--accent));
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 164, 255, 0.4);
+        }
+
+        .modal-btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 164, 255, 0.6);
+            transform: scale(1.02);
+        }
+
+        .modal-btn-secondary {
+            background: rgba(255, 77, 106, 0.1);
+            border: 1px solid rgba(255, 77, 106, 0.3);
+            color: #ff6b81;
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(255, 77, 106, 0.2);
+            border-color: rgba(255, 77, 106, 0.5);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 77, 106, 0.1);
+            border: 1px solid rgba(255, 77, 106, 0.3);
+            color: #ff6b81;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 77, 106, 0.2);
+            border-color: rgba(255, 77, 106, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Modal Trailer */
+        .modal-trailer {
+            background: #0f0f14;
+            border: 1px solid rgba(0, 164, 255, 0.2);
+            border-radius: 28px;
+            width: 90%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+        }
+
+        .modal-trailer iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 28px;
+            border: none;
+        }
+
+        /* ===== TOAST NOTIFICACIONES ===== */
+        .toast {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(12px);
+            z-index: 1999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.3,1);
+            width: auto;
+            max-width: 720px;
+            padding: 0;
+            border-radius: 14px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .toast-inner {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.9rem 1rem;
+            color: var(--text);
+        }
+
+        .toast .toast-icon {
+            font-size: 1.15rem;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .toast.success .toast-icon { color: white; background: linear-gradient(90deg, var(--accent-3), var(--accent-1)); }
+        .toast.info .toast-icon { color: white; background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); }
+        .toast.warn .toast-icon { color: white; background: linear-gradient(90deg, var(--accent-2), var(--accent-3)); }
+
+        .toast-message { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+
+        .toast-action { margin-left: auto; background: transparent; border: none; color: var(--accent-light); font-weight: 700; cursor: pointer; }
+
+        .toast-progress {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            width: 0%;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            transition: width 0.2s linear;
+        }
+
+        /* ===== FOOTER PROFESIONAL ===== */
+        footer {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(0, 164, 255, 0.1);
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .footer-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-signature {
+            font-weight: 600;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* ===== MEDIA QUERIES ===== */
+        @media (max-width: 768px) {
+            .ps5-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .page-title h1 {
+                font-size: 1.8rem;
+            }
+
+            .page-title span {
+                font-size: 0.8rem;
+            }
+
+            .stats-badge {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .game-card {
+                max-width: 100%;
+            }
+
+            .modal-header {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-body,
+            .modal-actions {
+                padding: 1.5rem;
+            }
+
+            .cola-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card-buttons {
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+
+            .btn-detail,
+            .btn-cola {
+                width: 100%;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1.5rem 0.75rem 2rem;
+            }
+
+            .ps5-header {
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+            }
+
+            .ps5-symbol {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .page-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .tabs {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+
+            .game-title {
+                font-size: 0.95rem;
+            }
+
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-poster {
+                width: 120px;
+            }
+
+            .modal-title {
+                font-size: 1.3rem;
+            }
+
+            .close-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="content-wrapper">
+        <!-- Header Profesional -->
+        <header class="ps5-header">
+            <div class="logo-area">
+                <div class="ps5-symbol">△</div>
+                <div class="page-title">
+                    <h1>PS5 PRO</h1>
+                    <span>Colección Personal · Centro de Juegos</span>
+                </div>
+            </div>
+            <div class="stats-badge">
+                <i class="fas fa-gamepad"></i> <strong id="contador-juegos">0</strong> Juegos
+            </div>
+            <div class="bg-controls" aria-hidden="false">
+                <label class="bg-preset" title="Preset de fondo">
+                    <i class="fas fa-sparkles"></i>
+                    <select id="bg-preset-select" aria-label="Preset de fondo">
+                        <option value="mix">Mezcla</option>
+                        <option value="blue">Azul</option>
+                        <option value="gold">Dorado</option>
+                    </select>
+                </label>
+                <label class="bg-intensity" title="Intensidad">
+                    <i class="fas fa-sliders-h"></i>
+                    <input id="bg-intensity" type="range" min="0" max="100" value="60" aria-label="Intensidad del fondo">
+                </label>
+                <button id="bg-auto-toggle" class="bg-auto" aria-pressed="false" title="Auto"><i class="fas fa-robot"></i> Auto</button>
+            </div>
+        </header>
+
+        <!-- Navegación -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-view="coleccion"><i class="fas fa-th-large"></i> Colección</button>
+            <button class="tab-btn" data-view="cola">
+                <i class="fas fa-download"></i> Cola <span class="cola-badge" id="cola-contador">0</span>
+            </button>
+        </nav>
+
+        <!-- Vistas -->
+        <div class="view-container">
+            <!-- Colección -->
+            <div class="view active" id="view-coleccion">
+                <div class="games-grid" id="games-container"></div>
+            </div>
+
+            <!-- Cola -->
+            <div class="view" id="view-cola">
+                <div class="cola-actions-top">
+                    <button class="clear-cola-btn" id="clear-cola-btn"><i class="fas fa-trash-alt"></i> Vaciar Cola</button>
+                </div>
+                <div class="cola-list" id="cola-container">
+                    <div class="cola-empty"><i class="fas fa-inbox"></i> Sin juegos en la cola.<br>Presioná <strong><i class="fas fa-plus"></i> Cola</strong> en la colección.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Detalles -->
+        <div class="modal-overlay" id="modal-details">
+            <div class="modal-details">
+                <button class="close-btn" id="cerrar-modal-details">&times;</button>
+                <div class="modal-header">
+                    <img class="modal-poster" id="modal-poster" src="" alt="Poster">
+                    <div class="modal-info">
+                        <h2 class="modal-title" id="modal-juego-titulo"></h2>
+                        <div class="modal-badges" id="modal-badges"></div>
+                        <div class="detail-section">
+                            <p class="detail-label">Descripción</p>
+                            <p class="detail-content" id="modal-sinopsis"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" id="modal-specs"></div>
+                <div class="modal-actions">
+                        <button class="modal-btn modal-btn-primary" id="modal-ver-trailer"><i class="fas fa-play"></i> Ver Tráiler</button>
+                        <button class="modal-btn modal-btn-primary" id="modal-descargar"><i class="fas fa-download"></i> Descargar</button>
+                        <button class="modal-btn modal-btn-secondary" id="modal-agregar-cola"><i class="fas fa-plus"></i> Agregar a cola</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Tráiler -->
+        <div class="modal-overlay" id="modal-trailer">
+            <div class="modal-trailer">
+                <button class="close-btn" id="cerrar-modal-trailer">&times;</button>
+                <iframe id="trailer-frame" src="" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Notificaciones -->
+        <div class="toast" id="toast" aria-live="polite" aria-atomic="true">
+            <div class="toast-inner">
+                <i class="toast-icon fas fa-check-circle"></i>
+                <div class="toast-message"></div>
+                <button class="toast-action" style="display:none;"></button>
+                <div class="toast-progress" role="progressbar" aria-hidden="true"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-text">
+                <div class="footer-signature"><i class="fas fa-gamepad"></i> PS5 PRO COLLECTION MANAGER</div>
+                <div class="footer-copyright">Creado para los verdaderos coleccionistas • 2026</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ===== DATOS DE JUEGOS =====
+        const juegosPS5Pro = [
+            {
+            "titulo": "God of War Ragnarök",
+            "caratula": "god_of_war_ragnarok-5732812.jpg",
+            "sinopsis": "Kratos y Atreus enfrentan las consecuencias de sus actos en una conclusión épica de la saga nórdica.",
+            "peso": "84 GB",
+            "genero": "Acción-Aventura",
+            "desarrollador": "Santa Monica Studio",
+            "año": 2023,
+            "trailer": "https://www.youtube.com/embed/F3jePdO9_jc",
+            "descarga": null
+            },
+            {
+                "titulo": "Steel Seed Deluxe Edition",
+                "caratula": "steelseed.jpg",
+                "sinopsis": "Un juego de acción y sigilo ambientado en un futuro distópico, donde la humanidad lucha por sobrevivir contra máquinas avanzadas en instalaciones subterráneas.",
+                "peso": "≈40 GB",
+                "genero": "Acción-Sigilo",
+                "desarrollador": "Storm in a Teacup",
+                "año": 2024,
+                "trailer": "https://www.youtube.com/embed/6zV7hYQwXzA",
+                "descarga": "https://dlpsgame.com/steel-seed-deluxe-edition-ps5/"
+            },
+            {
+    "titulo": "Crisis Core: Final Fantasy VII Reunion",
+    "caratula": "crisiscoreff7reunion.jpg",
+    "sinopsis": "Remaster del clásico de PSP, narrando la historia de Zack Fair y los eventos que preceden a Final Fantasy VII, con gráficos y jugabilidad modernizados.",
+    "peso": "40 GB",
+    "genero": "RPG-Acción",
+    "desarrollador": "Square Enix",
+    "año": 2022,
+    "trailer": "https://www.youtube.com/embed/6t3W8Ck2t0M",
+    "descarga": "https://dlpsgame.com/crisis-core-final-fantasy-7-reunion-ps4-pkg/"
+},
+{
+    "titulo": "Final Fantasy XV",
+    "caratula": "finalfantasyxv.jpg",
+    "sinopsis": "La épica aventura de Noctis y sus amigos en un mundo abierto lleno de acción, magia y camaradería, con un enfoque cinematográfico en la narrativa.",
+    "peso": "21.93 GB",
+    "genero": "RPG-Acción",
+    "desarrollador": "Square Enix",
+    "año": 2016,
+    "trailer": "https://www.youtube.com/embed/0VGJjZq2cTg",
+    "descarga": "https://dlpsgame.com/final-fantasy-xv-ps4-download-free/"
+}
+
+            ,
+            {
+                "titulo": "The Quarry",
+                "caratula": "thequarry.jpg",
+                "sinopsis": "Un grupo de adolescentes debe sobrevivir a una noche de terror en un campamento, enfrentando decisiones que cambiarán su destino.",
+                "peso": "50 GB",
+                "genero": "Terror interactivo",
+                "desarrollador": "Supermassive Games",
+                "año": 2022,
+                "trailer": "https://www.youtube.com/embed/dxM4tKk2tEo",
+                "descarga": "https://www.superpsx.com/the-quarry-ps5/"
+            },
+            {
+                "titulo": "Resident Evil Requiem",
+                "caratula": "residentevilrequiem.jpg",
+                "sinopsis": "La novena entrega de la saga Resident Evil lleva el survival horror a nuevas alturas. Grace Ashcroft, analista del FBI, investiga muertes misteriosas en el hotel Wrenwood que la conducen de vuelta a Raccoon City.",
+                "peso": "≈70 GB",
+                "genero": "Survival Horror",
+                "desarrollador": "Capcom",
+                "año": 2026,
+                "trailer": "https://www.youtube.com/embed/turn0video2",
+                "descarga": null
+            },
+            {
+                titulo: "Lost Soul Aside",
+                caratula: "39ce4e6e838bf8def364426e97677d54e4775ac0f076ebf2.avif",
+                sinopsis: "Un épico action RPG con combates frenéticos y una historia profunda ambientada en un mundo de fantasía oscura.",
+                peso: "45 GB",
+                genero: "Action RPG",
+                desarrollador: "Ulforce Games",
+                año: 2024,
+                trailer: "",
+                descarga: ""
+            },
+           {
+            "titulo": "Civilization VII",
+            "caratula": "CIVILIZATION-VII-PS5.webp",
+            "sinopsis": "Construye y guía una civilización desde sus inicios hasta la era moderna en este 4X por turnos.",
+            "peso": "32 GB",
+            "genero": "Estrategia",
+            "desarrollador": "Firaxis Games",
+            "año": 2024,
+            "trailer": null,
+            "descarga": null
+            },
+                        {
+                "titulo": "High on Life",
+                "caratula": "highonlife.jpg",
+                "sinopsis": "Un shooter cómico en primera persona creado por Justin Roiland, donde armas parlantes y humor absurdo acompañan la lucha contra un cartel alienígena.",
+                "peso": "≈50 GB",
+                "genero": "Acción-Shooter",
+                "desarrollador": "Squanch Games",
+                "año": 2022,
+                "trailer": "https://www.youtube.com/embed/mnJ0N8gZzjM",
+                "descarga": "https://www.superpsx.com/cdn-cgi/content?id=so6pq1ajucVI1cV8LBSfXuUSRq8ph2pXsjP4ND9ixHo-1778587645.7032256-1.0.1.1-7C_z8HFVNd.k4rSSAxHuIgU_RsJEuHHMtkFnrylB01c"
+            },
+            {
+                "titulo": "The Last of Us Part I",
+                "caratula": "thelastofuspart1.jpg",
+                "sinopsis": "Remake completo del clásico de Naughty Dog, con gráficos mejorados y jugabilidad optimizada para PS5, narrando la historia de Joel y Ellie en un mundo post-apocalíptico.",
+                "peso": "≈79 GB",
+                "genero": "Acción-Aventura",
+                "desarrollador": "Naughty Dog",
+                "año": 2022,
+                "trailer": "https://www.youtube.com/embed/R2Ebc_OFeug",
+                "descarga": "https://www.superpsx.com/cdn-cgi/content?id=R4JtCzc5OVvz_EytosB87jEVUXdXhR8BY06LVzKZBKM-1778587644.6792521-1.0.1.1-MjUQkxaW.tS8rfpFfgMKQyUv9RjAI9VUMp8AK2svYhQ"
+            },
+            {
+                "titulo": "Lies of P",
+                "caratula": "liesofp.jpg",
+                "sinopsis": "Inspirado en la historia de Pinocho, este soulslike ofrece combates desafiantes y una atmósfera oscura en una ciudad steampunk devastada.",
+                "peso": "≈35 GB",
+                "genero": "Acción-RPG",
+                "desarrollador": "Neowiz",
+                "año": 2023,
+                "trailer": "https://www.youtube.com/embed/2nXOxLpe2tE",
+                "descarga": "https://www.superpsx.com/cdn-cgi/content?id=gjfV4gRMMgD_rsT.8hjAc0ro92uLWUHGlwP8V4kmX8M-1778587644.7913067-1.0.1.1-UwtEbY9jH8.9nlwX.m4SacpMtZkImiBHsxwzjlyGQtw"
+            },
+             {
+                "titulo": "Forza Horizon 5",
+                "caratula": "1738695837-forza-horizon-5-ps5-pre-orden-0.webp",
+                "sinopsis": "Forza H5",
+                "peso": "≈198 GB",
+                "genero": "Carrera - RPG",
+                "desarrollador": "None",
+                "año": 2024,
+                "trailer": "https://www.youtube.com/embed/2nXOxLpe2tE",
+                "descarga": "https://www.superpsx.com/cdn-cgi/content?id=gjfV4gRMMgD_rsT.8hjAc0ro92uLWUHGlwP8V4kmX8M-1778587644.7913067-1.0.1.1-UwtEbY9jH8.9nlwX.m4SacpMtZkImiBHsxwzjlyGQtw"
+            },
+            {
+                "titulo": "Elden Ring: Nightreign",
+                "caratula": "eldenringnightreign.jpg",
+                "sinopsis": "Expansión de Elden Ring que introduce nuevas regiones, enemigos y desafíos en el universo oscuro creado por FromSoftware.",
+                "peso": "≈50 GB",
+                "genero": "Acción-RPG",
+                "desarrollador": "FromSoftware",
+                "año": 2024,
+                "trailer": "https://www.youtube.com/embed/3tD6FJkzqkY",
+                "descarga": null
+            },
+            {
+                "titulo": "The Talos Principle 2",
+                "caratula": "thetalosprinciple2.jpg",
+                "sinopsis": "Secuela del aclamado juego de puzzles filosóficos, con nuevas mecánicas y una narrativa que explora la conciencia y la humanidad.",
+                "peso": "≈30 GB",
+                "genero": "Puzzle-Aventura",
+                "desarrollador": "Croteam",
+                "año": 2023,
+                "trailer": "https://www.youtube.com/embed/1zjVdQvQ7nE",
+                "descarga": null
+            },
+
+            {
+                titulo: "Borderlands 4",
+                caratula: "borderlands_4-5977327.webp",
+                sinopsis: "Regresa al caos con una nueva campaña llena de humor, acción y loot infinito.",
+                peso: "75 GB",
+                genero: "Shooter FPS",
+                desarrollador: "Gearbox Software",
+                año: 2024,
+                trailer: "",
+                descarga: ""
+            },
+            {
+                titulo: "Ninja Gaiden 2 Black",
+                caratula: "ninja-gaiden-2-black-multilanguage-cover-asian-845969.16.webp",
+                sinopsis: "El clásico del hack and slash vuelve con una dificultad brutal y combates de ritmo frenético.",
+                peso: "28 GB",
+                genero: "Acción",
+                desarrollador: "Team Ninja",
+                año: 2024,
+                trailer: "",
+                descarga: ""
+            },
+            {
+                titulo:"Kingdom Come: Deliverance II",
+                caratula:"81aoq4hC82L._AC_UF1000,1000_QL80_.jpg",
+                sinopsis: "Sigue la aventura medieval realista en un mundo simulado con profundidad histórica.",
+                peso: "106 GB",
+                genero: "RPG Medieval",
+                desarrollador: "Warhorse Studios",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/kingdom-come-deliverance-2-ps5/"
+            },
+            {
+                titulo:"WUCHANG Fallen Feathers",
+                caratula:"81u2k65g5ML._AC_UF1000,1000_QL80_.jpg",
+                sinopsis: "Un soulslike ambientado en la China antigua con un sistema de combate revolucionario.",
+                peso: "27-30 GB",
+                genero: "Soulslike",
+                desarrollador: "Ghostpunch Games",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/wuchang-fallen-feathers-ps5/"
+            },
+            {
+                titulo:"Hell Is Us",
+                caratula:"helous.avif",
+                sinopsis: "Un shooter inmersivo basado en la realidad con mecánicas innovadoras de combate.",
+                peso: "45 GB",
+                genero: "Shooter",
+                desarrollador: "Rogue Factor",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/hell-is-us-ps5/"
+            },
+           {
+            "titulo": "Monster Hunter Wilds",
+            "caratula": "81mC6Pi5-dL._AC_UL600_SR600,600_.jpg",
+            "sinopsis": "Caza criaturas colosales en un mundo abierto; combina exploración, caza y progresión de equipo.",
+            "peso": "53.4 GB",
+            "genero": "Action RPG",
+            "desarrollador": "Capcom",
+            "año": 2024,
+            "trailer": null,
+            "descarga": "https://dlpsgame.com/monster-hunter-wilds-ps5/"
+            },
+            {
+                titulo:"Days Gone Remastered",
+                caratula:"dayzgone.jpg",
+                sinopsis: "Remasterizado con gráficos mejorados. Sobrevive en un mundo post-apocalíptico lleno de hordas.",
+                peso: "55 GB",
+                genero: "Action Survival",
+                desarrollador: "Bend Studio",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/days-gone-remastered-ps5/"
+            },
+            {
+                titulo:"Split Fiction",
+                caratula:"2f22fe90e5d24b586128d129bd40fe6a336a6803b4cf36aa.avif",
+                sinopsis: "Un co-op único que alterna entre dos personajes con mecánicas diferenciadas.",
+                peso: "73 GB",
+                genero: "Acción-Aventura",
+                desarrollador: "Hazelight Studios",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/split-fiction-free-ps5/"
+            },
+            {
+                titulo:"Mafia The Old Country",
+                caratula:"1747265369-mafia-the-old-country-ps5-pre-orden-0.webp",
+                sinopsis: "Vuelve a los orígenes de la familia mafiosa en Sicilia. Una historia épica de poder y traición.",
+                peso: "70 GB",
+                genero: "Acción-Aventura",
+                desarrollador: "Hangar 13",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/mafia-the-old-country-free-ps5/"
+            },
+            {
+                titulo:"Silent Hill f",
+                caratula:"silent_hill_f-5949387.webp",
+                sinopsis: "Un nuevo capítulo en la saga de horror psicológico con atmósfera terrorífica.",
+                peso: "40-64 GB",
+                genero: "Horror",
+                desarrollador: "Neobards Entertainment",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/silent-hill-f-ps5/"
+            },
+            {
+                titulo:"Clair Obscur Expedition 33",
+                caratula:"15dd9f9368aa87c9b2dcaf58e1856e8cca01b6e595331858.avif ",
+                sinopsis: "Un RPG de acción en tiempo real con sistemas de combate profundos y mundo cinematográfico.",
+                peso: "62 GB",
+                genero: "Action RPG",
+                desarrollador: "Sandfall Interactive",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/clair-obscur-expedition-33-ps5/"
+            },
+            {
+            "titulo": "Metal Gear Solid Delta Snake Eater",
+            "caratula": "METAL-GEAR-SOLID-Δ-SNAKE-EATER-300x366.jpg",
+            "sinopsis": "Remasterización del clásico de sigilo con gráficos y mecánicas actualizadas para la nueva generación.",
+            "peso": "185 GB",
+            "genero": "Sigilo-Acción",
+            "desarrollador": "Konami",
+            "año": 2024,
+            "trailer": null,
+            "descarga": "https://dlpsgame.com/metal-gear-solid-delta-snake-eater-ps5/"
+            },
+            {
+                titulo:"DOOM The Dark Ages",
+                caratula:"272a1d71888f2dbe175ecb436967c71e7e670e21fe783396.avif",
+                sinopsis: "Regresa el demoniaco shooter con nueva mecánica y acción aún más intensa.",
+                peso: "80 GB",
+                genero: "Shooter FPS",
+                desarrollador: "id Software",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/doom-the-dark-ages-ps5/"
+            },
+           {
+            "titulo": "Elden Ring",
+            "caratula": "elden-ring-20216121316990_1.jpg",
+            "sinopsis": "Un vasto mundo abierto de fantasía oscura donde explorar, combatir y descubrir secretos es la clave para sobrevivir.",
+            "peso": "77 GB",
+            "genero": "Action RPG",
+            "desarrollador": "FromSoftware",
+            "año": 2024,
+            "trailer": null,
+            "descarga": "https://dlpsgame.com/elden-ring-free-ps5/"
+            },
+            {
+                titulo:"Baldurs Gate 3",
+                caratula:"ba706e54d68d10a0eb6ab7c36cdad9178c58b7fb7bb03d28.avif",
+                sinopsis: "Un RPG masivo basado en D&D 5ª edición con miles de posibilidades.",
+                peso: "80 GB",
+                genero: "RPG",
+                desarrollador: "Larian Studios",
+                año: 2023,
+                trailer:"",
+                descarga: ""
+            },
+            {
+                titulo:"Avatar Frontiers of Pandora",
+                caratula:"1689118776-avatar-frontiers-of-pandora-ps5-pre-orden-0.jpg",
+                sinopsis: "Explora Pandora en este juego de acción-aventura visualmente deslumbrante.",
+                peso: "82 GB",
+                genero: "Acción-Aventura",
+                desarrollador: "Massive Entertainment",
+                año: 2023,
+                trailer:"",
+                descarga: "https://dlpsgame.com/avatar-frontiers-of-pandora-ps5/"
+            },
+            {
+                titulo:"Star Wars Outlaws",
+                caratula:"star-wars-outlaws-202361123225362_3.jpg",
+                sinopsis: "Sé un proscrito en el universo Star Wars en este juego de espías y acción.",
+                peso: "58 GB",
+                genero: "Acción-Aventura",
+                desarrollador: "Massive Entertainment",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/star-wars-outlaws-free-ps5/"
+            },
+            {
+                titulo:"Need for Speed Unbound",
+                caratula:"need-for-speed-unbound-202212410593843_1.jpg",
+                sinopsis: "La nueva generación de carreras urbanas con gráficos hip-hop y velocidad extrema.",
+                peso: "29.73 GB",
+                genero: "Racing",
+                desarrollador: "Ghost Games",
+                año: 2023,
+                trailer:"",
+                descarga: "https://dlpsgame.com/need-for-speed-unbound-ps5/"
+            },
+            {
+                titulo:"One Piece Odyssey",
+                caratula:"cvxwiwxVxfF8hVdWRoQLBQdg.avif",
+                sinopsis: "Una aventura RPG con los Piratas del Sombrero de Paja en un nuevo viaje épico.",
+                peso: "24 GB",
+                genero: "JRPG",
+                desarrollador: "ILCA",
+                año: 2023,
+                trailer:"",
+                descarga: "https://dlpsgame.com/one-piece-odyssey-ps5/"
+            },
+            {
+                titulo:"Resident Evil 4 Remake",
+                caratula:"resident_evil_4_remake-5789986.webp",
+                sinopsis: "El remake del clásico de Capcom con gráficos renovados y gameplay mejorado.",
+                peso: "63.06 GB",
+                genero: "Horror Acción",
+                desarrollador: "Capcom",
+                año: 2023,
+                trailer:"",
+                descarga: "https://dlpsgame.com/resident-evil-4-remake-ps5/"
+            },
+          {
+            "titulo": "Cyberpunk 2077 Ultimate Edition",
+            "caratula": "1730415577-cyberpunk-2077-ps5-0.webp",
+            "sinopsis": "Versión definitiva de Cyberpunk 2077 con mejoras visuales, contenido adicional y optimizaciones para nueva generación.",
+            "peso": "118 GB",
+            "genero": "RPG Acción",
+            "desarrollador": "CD Projekt Red",
+            "año": 2023,
+            "trailer": null,
+            "descarga": "https://dlpsgame.com/cyberpunk-2077-ps5/"
+            },
+
+            {
+                titulo:"Ghost of Tushima",
+                caratula:"directorps5.JPG",
+                sinopsis: "Juega como un samurái en la isla de Tsushima en esta aventura de acción épica.",
+                peso: "63 GB",
+                genero: "Acción-Aventura",
+                desarrollador: "Sucker Punch Productions",
+                año: 2023,
+                trailer:"",
+                descarga: "https://dlpsgame.com/ghost-of-tsushima-directors-cut-free-ps5/"
+            },
+            {
+                titulo:"Black Myth Wukong",
+                caratula:"1718149590-black-myth-wukong-ps5-pre-orden-0.webp",
+                sinopsis: "Un soulslike basado en la leyenda del Rey Mono con combates épicos y visuals espectaculares.",
+                peso: "88 GB",
+                genero: "Action RPG",
+                desarrollador: "Game Science",
+                año: 2024,
+                trailer:"",
+                descarga: "https://dlpsgame.com/black-myth-wukong-free-ps5/"
+            },
+            {
+                titulo:"Wo Long Fallen Dynasty",
+                caratula:"wolong_fallen_dynasty-5790147.webp",
+                sinopsis: "Un soulslike chino ambientado en la dinastía Han con mecánicas de combate únicas.",
+                peso: "105 GB",
+                genero: "Action RPG",
+                desarrollador: "Team Ninja",
+                año: 2023,
+                trailer:"",
+                descarga: "https://dlpsgame.com/wo-long-fallen-dynasty-ps5/"
+            },
+            {
+                titulo:"Hogwarts Legacy",
+                caratula:"did-anyone-have-hogwarts-legacy-cover-art-without-the-title-v0-w87c6sq870ke1.webp",
+                sinopsis: "Vive tu propia aventura mágica en el universo de Harry Potter.",
+                peso: "102 GB",
+                genero: "RPG Acción",
+                desarrollador: "Avalanche Software",
+                año: 2023,
+                trailer:"",
+                descarga: "https://dlpsgame.com/hogwarts-legacy-ps5/"
+            },
+            {
+                titulo:"Astros Playroom",
+                caratula:"MV5BNTVjNjczMTMtN2JiOS00NzlkLWI0NTctNjBiNDQ5NjVlY2FmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+                sinopsis: "Un juego de plataformas que demuestra las capacidades del DualSense.",
+                peso: "10 GB",
+                genero: "Plataformas",
+                desarrollador: "Japan Studio",
+                año: 2020,
+                trailer:"",
+                descarga: "https://dlpsgame.com/astros-playroom-ps5/"
+            },
+            {
+                titulo:"It Takes Two",
+                caratula:"it_take_two-5764809.webp",
+                sinopsis: "Un juego co-op único que debe jugarse en pareja para descubrir sus secretos.",
+                peso: "40.93 GB",
+                genero: "Aventura Co-op",
+                desarrollador: "Hazelight Studios",
+                año: 2021,
+                trailer:"",
+                descarga: "https://dlpsgame.com/it-takes-two-ps5/"
+            },
+            {
+                titulo: "Horizon Forbidden West",
+                caratula: "7c170d967a56776d9e1dc5ebaf45fefccbe9f12ef3fc752e.avif",
+                sinopsis: "Continúa la aventura de Aloy en un futuro post-apocalíptico visualmente espectacular.",
+                peso: "90 GB",
+                genero: "Acción-Aventura",
+                desarrollador: "Guerrilla Games",
+                año: 2022,
+                trailer: "https://www.youtube.com/embed/Lq594XmpPBg",
+                descarga: "https://dlpsgame.com/horizon-forbidden-west-ps4-pkg/"
+            },
+            {
+                titulo: "Horizon Zero Dawn Complete Edition",
+                caratula: "logo.jpg",
+                sinopsis: "El juego que comenzó todo. Descubre los orígenes de Aloy en un mundo máquina.",
+                peso: "37.68-43.34 GB",
+                genero: "Acción-Aventura",
+                desarrollador: "Guerrilla Games",
+                año: 2017,
+                trailer: "https://www.youtube.com/embed/Lq594XmpPBg",
+                descarga: "https://dlpsgame.com/horizon-forbidden-west-ps4-pkg/"
+            }
+        ];
+
+        const juegosFiltrados = juegosPS5Pro.filter(j => j.titulo && j.titulo.trim() !== '');
+
+        // ===== ESTADO =====
+        // Cola inicial vacía; cargaremos desde IndexedDB/localStorage en init
+        let colaDescarga = [];
+        let juegoActual = null;
+
+        // ===== DOM =====
+        const contenedor = document.getElementById('games-container');
+        const colaContainer = document.getElementById('cola-container');
+        const contadorSpan = document.getElementById('contador-juegos');
+        const colaContador = document.getElementById('cola-contador');
+        const modalDetails = document.getElementById('modal-details');
+        const modalTrailer = document.getElementById('modal-trailer');
+        const trailerFrame = document.getElementById('trailer-frame');
+        const cerrarModalDetails = document.getElementById('cerrar-modal-details');
+        const cerrarModalTrailer = document.getElementById('cerrar-modal-trailer');
+        const toast = document.getElementById('toast');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const views = document.querySelectorAll('.view');
+
+        /* ===== PARTICLE: RAYS OF LIGHT (Grouped beams + trails) with presets/intensity ===== */
+        (function setupBackgroundAndCelebration(){
+            const canvas = document.getElementById('bg-canvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let DPR = window.devicePixelRatio || 1;
+            let clusters = [];
+            let bursts = [];
+            const CSS = getComputedStyle(document.documentElement);
+
+            const PRESETS = {
+                mix: [
+                    (CSS.getPropertyValue('--accent-1') || '#2563EB').trim(),
+                    (CSS.getPropertyValue('--accent-2') || '#A855F7').trim(),
+                    (CSS.getPropertyValue('--accent-3') || '#06B6D4').trim(),
+                    '#FF4D6A',
+                    '#FFD166'
+                ],
+                blue: ['#1e3a8a', '#2563EB', '#60A5FA', '#93C5FD'],
+                gold: ['#FFD166', '#FFB703', '#F59E0B', '#FFE8A1']
+            };
+
+            let COLORS = PRESETS.mix.slice();
+
+            const BG_SETTINGS = {
+                preset: localStorage.getItem('ps5pro_bg_preset') || 'mix',
+                intensity: parseInt(localStorage.getItem('ps5pro_bg_intensity') || '60', 10)
+            };
+
+            function applyPreset(preset){
+                COLORS = (PRESETS[preset] || PRESETS.mix).slice();
+                BG_SETTINGS.preset = preset;
+                localStorage.setItem('ps5pro_bg_preset', preset);
+            }
+
+            function applyIntensity(val){
+                BG_SETTINGS.intensity = Math.max(0, Math.min(100, parseInt(val, 10) || 60));
+                localStorage.setItem('ps5pro_bg_intensity', String(BG_SETTINGS.intensity));
+            }
+
+            let W = window.innerWidth, H = window.innerHeight;
+            function resize(){
+                W = window.innerWidth; H = window.innerHeight;
+                canvas.width = Math.floor(W * DPR);
+                canvas.height = Math.floor(H * DPR);
+                canvas.style.width = W + 'px';
+                canvas.style.height = H + 'px';
+                ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+            }
+
+            function rand(min, max){ return Math.random() * (max - min) + min; }
+
+            function hexWithAlpha(hex, a){
+                hex = (hex || '#fff').replace('#','').trim();
+                if(hex.length===3) hex = hex.split('').map(x=>x+x).join('');
+                const r = parseInt(hex.substr(0,2),16)||255;
+                const g = parseInt(hex.substr(2,2),16)||255;
+                const b = parseInt(hex.substr(4,2),16)||255;
+                return `rgba(${r},${g},${b},${a})`;
+            }
+
+            function createClusters(){
+                clusters = [];
+                const intensityFactor = BG_SETTINGS.intensity / 100;
+                const target = Math.max(4, Math.floor((W / 220) * (0.6 + 1.6 * intensityFactor)));
+                for(let i=0;i<target;i++){
+                    const cx = rand(0.06*W, 0.94*W);
+                    const cy = rand(0.06*H, 0.94*H);
+                    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
+                    const rays = [];
+                    const rayCount = Math.floor(rand(3, 5) + Math.floor(8 * intensityFactor));
+                    for(let r=0;r<rayCount;r++){
+                        rays.push({
+                            ox: rand(-80, 80),
+                            oy: rand(-60, 60),
+                            angle: rand(-0.9, 0.9),
+                            baseLength: rand(Math.max(120, W*0.06), Math.max(220, W*0.26)),
+                            lenVar: rand(0.08, 0.5),
+                            thickness: rand(1.4, 6) * (0.6 + 0.8 * intensityFactor),
+                            driftX: rand(-0.02, 0.02),
+                            driftY: rand(-0.02, 0.02),
+                            pulse: rand(0.006, 0.02),
+                            phase: rand(0, Math.PI*2),
+                            color
+                        });
+                    }
+                    clusters.push({ x: cx, y: cy, vx: rand(-0.03,0.03)*(0.6+0.8*intensityFactor), vy: rand(-0.02,0.02)*(0.6+0.8*intensityFactor), rays, color });
+                }
+            }
+
+            function createBurst(x, y, color, amount = 20){
+                for(let i=0;i<amount;i++){
+                    bursts.push({
+                        x, y,
+                        vx: Math.cos(rand(0, Math.PI*2)) * rand(0.6, 4.5),
+                        vy: Math.sin(rand(0, Math.PI*2)) * rand(0.6, 4.5),
+                        life: rand(300, 1200),
+                        age: 0,
+                        length: rand(80, 420),
+                        thickness: rand(1, 4),
+                        color
+                    });
+                }
+            }
+
+            let lastTime = performance.now();
+            function draw(now){
+                const dt = now - lastTime; lastTime = now;
+                const intensityFactor = BG_SETTINGS.intensity / 100;
+
+                // Fade previous frames slightly to create smooth trails; fade less when intensity is higher
+                ctx.globalCompositeOperation = 'source-over';
+                const fadeAlpha = Math.max(0.04, 0.12 - intensityFactor * 0.06);
+                ctx.fillStyle = `rgba(5,6,10,${fadeAlpha})`;
+                ctx.fillRect(0,0,W, H);
+
+                ctx.globalCompositeOperation = 'lighter';
+
+                // Draw cluster glows and rays
+                for(const c of clusters){
+                    c.x += c.vx * (dt*0.06);
+                    c.y += c.vy * (dt*0.06);
+                    if(c.x < -200) c.x = W + 200;
+                    if(c.x > W + 200) c.x = -200;
+                    if(c.y < -200) c.y = H + 200;
+                    if(c.y > H + 200) c.y = -200;
+
+                    const glowRadius = 220 + 180 * intensityFactor;
+                    const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, glowRadius);
+                    g.addColorStop(0, hexWithAlpha(c.color, 0.18 * (0.6 + intensityFactor * 0.8)));
+                    g.addColorStop(0.25, hexWithAlpha(c.color, 0.06 * (0.6 + intensityFactor * 0.8)));
+                    g.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = g;
+                    ctx.beginPath();
+                    ctx.arc(c.x, c.y, glowRadius, 0, Math.PI*2);
+                    ctx.fill();
+
+                    for(const r of c.rays){
+                        r.phase += r.pulse * dt;
+                        const pulse = (1 + Math.sin(r.phase)) * 0.5;
+                        const len = r.baseLength * (1 - r.lenVar * pulse);
+                        const thickness = r.thickness * (0.8 + 0.6 * pulse) * (0.8 + intensityFactor * 1.2);
+
+                        const ox = c.x + r.ox + Math.sin(now/1200 + r.phase) * 6;
+                        const oy = c.y + r.oy + Math.cos(now/900 + r.phase) * 4;
+                        const ang = r.angle + Math.sin(now/1800 + r.phase) * 0.02;
+
+                        ctx.save();
+                        ctx.translate(ox, oy);
+                        ctx.rotate(ang);
+
+                        const lg = ctx.createLinearGradient(0, 0, len, 0);
+                        lg.addColorStop(0, 'rgba(0,0,0,0)');
+                        lg.addColorStop(0.02, hexWithAlpha(r.color, 0.96 * (0.5 + intensityFactor * 0.6)));
+                        lg.addColorStop(0.16, hexWithAlpha(r.color, 0.4 * (0.5 + intensityFactor * 0.6)));
+                        lg.addColorStop(1, 'rgba(0,0,0,0)');
+
+                        ctx.fillStyle = lg;
+                        ctx.shadowBlur = Math.max(6, thickness * 3.5);
+                        ctx.shadowColor = hexWithAlpha(r.color, 0.9 * (0.6 + intensityFactor * 0.6));
+                        ctx.fillRect(0, -thickness/2, len, thickness);
+
+                        ctx.shadowBlur = 0;
+                        ctx.fillStyle = hexWithAlpha(r.color, 0.98 * (0.6 + intensityFactor * 0.7));
+                        ctx.fillRect(0, -Math.max(0.8, thickness/6), len * 0.88, Math.max(1, thickness/5));
+                        ctx.restore();
+                    }
+                }
+
+                // bursts (short-lived fast rays)
+                for(let i = bursts.length - 1; i >= 0; i--){
+                    const b = bursts[i];
+                    b.age += dt;
+                    if(b.age >= b.life){ bursts.splice(i,1); continue; }
+                    const t = 1 - b.age / b.life;
+                    const len = b.length * (0.4 + t*0.6);
+                    ctx.save();
+                    ctx.translate(b.x, b.y);
+                    const ang = Math.atan2(b.vy, b.vx);
+                    ctx.rotate(ang);
+                    const lg = ctx.createLinearGradient(0, 0, len, 0);
+                    lg.addColorStop(0, hexWithAlpha(b.color, 0.95 * t * (0.6 + intensityFactor * 0.6)));
+                    lg.addColorStop(0.4, hexWithAlpha(b.color, 0.45 * t * (0.6 + intensityFactor * 0.6)));
+                    lg.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = lg;
+                    ctx.shadowBlur = Math.max(4, b.thickness * 6 * (0.8 + intensityFactor));
+                    ctx.shadowColor = hexWithAlpha(b.color, 0.9 * t);
+                    ctx.fillRect(0, -b.thickness/2, len, b.thickness);
+                    ctx.restore();
+
+                    b.x += b.vx * (dt*0.6);
+                    b.y += b.vy * (dt*0.6);
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            // Celebration banner
+            const celebration = document.createElement('div');
+            celebration.id = 'celebration';
+            celebration.className = 'celebration';
+            celebration.setAttribute('aria-hidden','true');
+            celebration.innerHTML = `<i class="fas fa-star"></i><span>¡Felicidades! Good Master Piece</span>`;
+            document.body.appendChild(celebration);
+
+            function showCelebration(msg = '¡Felicidades! Good Master Piece'){
+                celebration.querySelector('span').textContent = msg;
+                celebration.classList.add('show');
+                celebration.setAttribute('aria-hidden','false');
+                createBurst(W/2 + rand(-120,120), H/2 + rand(-80,80), COLORS[Math.floor(Math.random()*COLORS.length)], 32);
+                setTimeout(()=>{ celebration.classList.remove('show'); celebration.setAttribute('aria-hidden','true'); }, 3600);
+            }
+
+            // UI controls hookup
+            const presetSel = document.getElementById('bg-preset-select');
+            const intensityRange = document.getElementById('bg-intensity');
+
+            if(presetSel){
+                presetSel.value = BG_SETTINGS.preset;
+                presetSel.addEventListener('change', (e)=>{
+                    applyPreset(e.target.value);
+                    createClusters();
+                    createBurst(W * rand(0.35,0.65), H * rand(0.35,0.65), COLORS[Math.floor(Math.random()*COLORS.length)], 26);
+                });
+            }
+
+            if(intensityRange){
+                intensityRange.value = BG_SETTINGS.intensity;
+                let to;
+                intensityRange.addEventListener('input', (e)=>{
+                    const v = parseInt(e.target.value, 10);
+                    applyIntensity(v);
+                    clearTimeout(to);
+                    to = setTimeout(()=>{ createClusters(); createBurst(W/2 + rand(-80,80), H/2 + rand(-60,60), COLORS[Math.floor(Math.random()*COLORS.length)], 18); }, 140);
+                });
+            }
+
+            // initial setup
+            window.addEventListener('resize', () => { DPR = window.devicePixelRatio || 1; resize(); createClusters(); });
+            resize(); applyPreset(BG_SETTINGS.preset); createClusters(); requestAnimationFrame((t)=>{ lastTime = t; draw(t); });
+
+            // show once on load with burst
+            setTimeout(()=> showCelebration(), 900);
+        })();
+
+        // ===== PERSISTENCE (IndexedDB) & AUTO ENGINE =====
+        const IDB_NAME = 'ps5pro-db';
+        function openIDB() {
+            return new Promise((resolve, reject) => {
+                const r = indexedDB.open(IDB_NAME, 1);
+                r.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('kv')) db.createObjectStore('kv', { keyPath: 'key' });
+                };
+                r.onsuccess = (e) => resolve(e.target.result);
+                r.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function idbSet(key, value) {
+            try {
+                const db = await openIDB();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction('kv', 'readwrite');
+                    tx.objectStore('kv').put({ key, value });
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => reject(tx.error);
+                });
+            } catch (e) { return Promise.reject(e); }
+        }
+
+        async function idbGet(key) {
+            try {
+                const db = await openIDB();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction('kv', 'readonly');
+                    const req = tx.objectStore('kv').get(key);
+                    req.onsuccess = () => resolve(req.result ? req.result.value : undefined);
+                    req.onerror = () => reject(req.error);
+                });
+            } catch (e) { return undefined; }
+        }
+
+        // Auto engine: adjust intensity/preset according to recent FPS and heuristics
+        let __autoRunning = false;
+        let __autoRAF = 0;
+        let __frameTS = [];
+        function startAutoEngine(){
+            if(__autoRunning) return;
+            __autoRunning = true;
+            __frameTS = [];
+            const intensityRange = document.getElementById('bg-intensity');
+            const presetSel = document.getElementById('bg-preset-select');
+            if(!intensityRange || !presetSel) return;
+            function tick(ts){
+                __frameTS.push(ts);
+                if(__frameTS.length>40) __frameTS.shift();
+                if(__frameTS.length>2){
+                    let sum=0;
+                    for(let i=1;i<__frameTS.length;i++) sum += (__frameTS[i]-__frameTS[i-1]);
+                    const avg = sum/(__frameTS.length-1);
+                    const fps = 1000/Math.max(1, avg);
+                    let cur = parseInt(intensityRange.value,10)||60;
+                    if(navigator.deviceMemory && navigator.deviceMemory <= 2) {
+                        cur = Math.max(12, Math.min(cur, 60));
+                    }
+                    if(fps < 35) cur = Math.max(8, cur - 8);
+                    else if(fps < 50) cur = Math.max(12, cur - 4);
+                    else if(fps > 65) cur = Math.min(100, cur + 4);
+                    const h = new Date().getHours();
+                    if(h >= 20 || h <= 5) {
+                        if(presetSel.value !== 'mix') { presetSel.value = 'mix'; presetSel.dispatchEvent(new Event('change')); }
+                    } else {
+                        if(presetSel.value !== 'blue') { presetSel.value = 'blue'; presetSel.dispatchEvent(new Event('change')); }
+                    }
+                    if(cur !== (parseInt(intensityRange.value,10)||60)){
+                        intensityRange.value = String(cur);
+                        intensityRange.dispatchEvent(new Event('input'));
+                    }
+                    localStorage.setItem('ps5pro_bg_auto','1');
+                    localStorage.setItem('ps5pro_bg_intensity', String(cur));
+                    try { idbSet('settings', { preset: presetSel.value, intensity: cur, auto: true }).catch(()=>{}); } catch(e){}
+                }
+                if(__autoRunning) __autoRAF = requestAnimationFrame(tick);
+            }
+            __autoRAF = requestAnimationFrame(tick);
+        }
+        function stopAutoEngine(){
+            __autoRunning = false;
+            cancelAnimationFrame(__autoRAF);
+            localStorage.setItem('ps5pro_bg_auto','0');
+            try { idbSet('settings', { auto: false }).catch(()=>{}); } catch(e){}
+        }
+
+        const __autoBtn = document.getElementById('bg-auto-toggle');
+        if(__autoBtn){
+            __autoBtn.addEventListener('click', ()=>{
+                const active = __autoBtn.classList.toggle('active');
+                __autoBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
+                if(active){ localStorage.setItem('ps5pro_bg_auto','1'); startAutoEngine(); mostrarToast('Modo Auto activado', 'info', 1600); }
+                else { localStorage.setItem('ps5pro_bg_auto','0'); stopAutoEngine(); mostrarToast('Modo Auto desactivado', 'info', 1200); }
+            });
+            if(localStorage.getItem('ps5pro_bg_auto') === '1'){ __autoBtn.classList.add('active'); __autoBtn.setAttribute('aria-pressed','true'); startAutoEngine(); }
+        }
+
+        // ===== FUNCIONES =====
+        function mostrarToast(mensaje, tipo = 'info', duracion = 3000, actionLabel = '', actionCallback = null) {
+            // tipo: 'success' | 'info' | 'warn'
+            toast.className = 'toast';
+            toast.classList.add(tipo);
+            const iconMap = { success: 'fa-check-circle', info: 'fa-info-circle', warn: 'fa-exclamation-triangle' };
+            const icon = iconMap[tipo] || iconMap.info;
+
+            toast.innerHTML = `
+                <div class="toast-inner">
+                    <i class="toast-icon fas ${icon}"></i>
+                    <div class="toast-message">${mensaje}</div>
+                    <button class="toast-action" style="display:none;"></button>
+                    <div class="toast-progress" role="progressbar" aria-hidden="true"></div>
+                </div>
+            `;
+
+            const actionBtn = toast.querySelector('.toast-action');
+            if (actionLabel) {
+                actionBtn.textContent = actionLabel;
+                actionBtn.style.display = 'inline-flex';
+                actionBtn.onclick = () => {
+                    if (typeof actionCallback === 'function') actionCallback();
+                    hide();
+                };
+            }
+
+            const progress = toast.querySelector('.toast-progress');
+            let start = Date.now();
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            cancelAnimationFrame(toast._raf || 0);
+
+            function update() {
+                const elapsed = Date.now() - start;
+                const pct = Math.min(100, (elapsed / duracion) * 100);
+                progress.style.width = pct + '%';
+                if (pct < 100) toast._raf = requestAnimationFrame(update);
+            }
+
+            function hide() {
+                cancelAnimationFrame(toast._raf || 0);
+                toast.classList.remove('show');
+                clearTimeout(toast._timeout);
+            }
+
+            toast._raf = requestAnimationFrame(update);
+            toast._timeout = setTimeout(() => hide(), duracion);
+        }
+
+        function estaEnCola(index) {
+            return colaDescarga.includes(index);
+        }
+
+        function agregarACola(index) {
+            if (!estaEnCola(index)) {
+                colaDescarga.push(index);
+                localStorage.setItem('ps5pro_cola_descarga', JSON.stringify(colaDescarga));
+                try { idbSet('queue', colaDescarga).catch(()=>{}); } catch(e){}
+                actualizarContadores();
+                renderizarColeccion();
+                renderizarCola();
+                mostrarToast(`${juegosFiltrados[index].titulo} agregado a la cola`, 'success', 3000);
+            }
+        }
+
+        function quitarDeCola(index) {
+            colaDescarga = colaDescarga.filter(i => i !== index);
+            localStorage.setItem('ps5pro_cola_descarga', JSON.stringify(colaDescarga));
+            try { idbSet('queue', colaDescarga).catch(()=>{}); } catch(e){}
+            actualizarContadores();
+            renderizarColeccion();
+            renderizarCola();
+            mostrarToast(`${juegosFiltrados[index] ? juegosFiltrados[index].titulo + ' quitado de la cola' : 'Quitado de la cola'}`, 'warn', 2600);
+        }
+
+        function vaciarCola() {
+            if (colaDescarga.length === 0) return;
+            if (confirm('¿Vaciar toda la cola de descarga?')) {
+                colaDescarga = [];
+                localStorage.setItem('ps5pro_cola_descarga', JSON.stringify(colaDescarga));
+                try { idbSet('queue', colaDescarga).catch(()=>{}); } catch(e){}
+                actualizarContadores();
+                renderizarColeccion();
+                renderizarCola();
+                mostrarToast('Cola vaciada', 'info', 2600);
+            }
+        }
+
+        function actualizarContadores() {
+            contadorSpan.textContent = juegosFiltrados.length;
+            colaContador.textContent = colaDescarga.length;
+        }
+
+        // ===== TARJETAS =====
+        function crearTarjetaColeccion(juego, index) {
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            const enCola = estaEnCola(index);
+
+            const imgTag = `<img class="game-cover" src="${juego.caratula}" alt="${juego.titulo}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
+            const fallbackDiv = `<div class="game-cover-fallback" style="display:none;"><i class=\"fas fa-gamepad\"></i></div>`;
+
+            card.innerHTML = `
+                ${imgTag}
+                ${fallbackDiv}
+                <div class="game-info">
+                    <h3 class="game-title">${juego.titulo}</h3>
+                    <div class="game-meta">
+                        <span class="platform-badge"><i class="fas fa-gamepad"></i> PS5 PRO</span>
+                        <span class="peso-badge"><i class="fas fa-hdd"></i> ${juego.peso || '?? GB'}</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn-detail" data-index="${index}"><i class="fas fa-info-circle"></i> Detalles</button>
+                        <button class="btn-cola ${enCola ? 'in-cola' : ''}" data-index="${index}" ${enCola ? 'disabled' : ''}>
+                            ${enCola ? '<i class="fas fa-check-circle"></i> En cola' : '<i class="fas fa-plus"></i> Cola'}
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            card.querySelector('.btn-detail').addEventListener('click', () => abrirDetallesJuego(index));
+            card.querySelector('.btn-cola').addEventListener('click', () => agregarACola(index));
+
+            return card;
+        }
+
+        function renderizarColeccion() {
+            contenedor.innerHTML = '';
+            juegosFiltrados.forEach((juego, index) => {
+                contenedor.appendChild(crearTarjetaColeccion(juego, index));
+            });
+        }
+
+        // ===== MODAL DETALLES =====
+        function abrirDetallesJuego(index) {
+            const juego = juegosFiltrados[index];
+            if (!juego) return;
+
+            juegoActual = index;
+            document.getElementById('modal-poster').src = juego.caratula;
+            document.getElementById('modal-juego-titulo').textContent = juego.titulo;
+
+            const badgesContainer = document.getElementById('modal-badges');
+            badgesContainer.innerHTML = `
+                <span class="modal-badge"><i class="fas fa-gamepad"></i> ${juego.genero}</span>
+                <span class="modal-badge"><i class="fas fa-calendar-alt"></i> ${juego.año}</span>
+                <span class="modal-badge"><i class="fas fa-hdd"></i> ${juego.peso}</span>
+            `;
+
+            document.getElementById('modal-sinopsis').textContent = juego.sinopsis || 'Sin descripción';
+
+            const specsContainer = document.getElementById('modal-specs');
+            specsContainer.innerHTML = `
+                <div class="detail-section">
+                    <p class="detail-label"><i class="fas fa-building"></i> Desarrollador</p>
+                    <p class="detail-content">${juego.desarrollador}</p>
+                </div>
+                <div class="detail-section">
+                    <p class="detail-label"><i class="fas fa-sliders-h"></i> Especificaciones</p>
+                    <p class="detail-content">
+                        <strong>Género:</strong> ${juego.genero}<br>
+                        <strong>Peso:</strong> ${juego.peso}<br>
+                        <strong>Año:</strong> ${juego.año}<br>
+                        <strong>Plataforma:</strong> PlayStation 5 PRO
+                    </p>
+                </div>
+            `;
+
+            const btnTrailer = document.getElementById('modal-ver-trailer');
+            const btnDescargar = document.getElementById('modal-descargar');
+            const btnCola = document.getElementById('modal-agregar-cola');
+
+            btnTrailer.style.display = juego.trailer ? 'flex' : 'none';
+            btnTrailer.onclick = () => abrirTrailer(juego.trailer);
+
+            btnDescargar.style.display = juego.descarga ? 'flex' : 'none';
+            btnDescargar.onclick = () => window.open(juego.descarga, '_blank');
+
+            btnCola.textContent = estaEnCola(index) ? '✓ En la cola' : '➕ Agregar a cola';
+            btnCola.disabled = estaEnCola(index);
+            btnCola.onclick = () => {
+                agregarACola(index);
+                cerrarModal('modal-details');
+            };
+
+            modalDetails.classList.add('active');
+        }
+
+        function abrirTrailer(url) {
+            if (!url || url.trim() === '') {
+                mostrarToast('No hay tráiler disponible', 'warn', 2600);
+                return;
+            }
+            trailerFrame.src = url;
+            modalTrailer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarModal(modalId) {
+            if (modalId === 'modal-details') {
+                modalDetails.classList.remove('active');
+            } else if (modalId === 'modal-trailer') {
+                trailerFrame.src = '';
+                modalTrailer.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        cerrarModalDetails.addEventListener('click', () => cerrarModal('modal-details'));
+        cerrarModalTrailer.addEventListener('click', () => cerrarModal('modal-trailer'));
+
+        modalDetails.addEventListener('click', (e) => {
+            if (e.target === modalDetails) cerrarModal('modal-details');
+        });
+
+        modalTrailer.addEventListener('click', (e) => {
+            if (e.target === modalTrailer) cerrarModal('modal-trailer');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                cerrarModal('modal-details');
+                cerrarModal('modal-trailer');
+            }
+        });
+
+        // ===== COLA =====
+        function renderizarCola() {
+            colaContainer.innerHTML = '';
+
+            if (colaDescarga.length === 0) {
+                colaContainer.innerHTML = '<div class="cola-empty"><i class="fas fa-inbox"></i> Sin juegos en la cola.<br>Presioná <strong><i class="fas fa-plus"></i> Cola</strong> en la colección.</div>';
+                return;
+            }
+
+            colaDescarga.forEach((index) => {
+                const juego = juegosFiltrados[index];
+                if (!juego) return;
+
+                const item = document.createElement('div');
+                item.className = 'cola-item';
+
+                const imgTag = juego.caratula
+                    ? `<img class="cola-cover" src="${juego.caratula}" alt="${juego.titulo}" loading="lazy">`
+                    : `<div class="cola-cover" style="display:flex;align-items:center;justify-content:center;"><i class=\"fas fa-gamepad\"></i></div>`;
+
+                const descargaHTML = juego.descarga && juego.descarga.trim() !== ''
+                    ? `<a class="descarga-btn" href="${juego.descarga}" target="_blank" rel="noopener"><i class=\"fas fa-download\"></i> Descargar</a>`
+                    : `<span class="descarga-btn sin-enlace"><i class=\"fas fa-lock\"></i> Sin enlace</span>`;
+
+                item.innerHTML = `
+                    ${imgTag}
+                    <div class="cola-info">
+                        <h3>${juego.titulo}</h3>
+                        <div class="cola-meta">
+                            <span><i class=\"fas fa-gamepad\"></i> ${juego.genero}</span>
+                            <span><i class=\"fas fa-hdd\"></i> ${juego.peso}</span>
+                        </div>
+                    </div>
+                    ${descargaHTML}
+                    <button class="quitar-cola-btn" data-index="${index}"><i class=\"fas fa-times\"></i> Quitar</button>
+                `;
+
+                item.querySelector('.quitar-cola-btn').addEventListener('click', () => {
+                    quitarDeCola(index);
+                });
+
+                colaContainer.appendChild(item);
+            });
+        }
+
+        // ===== PESTAÑAS =====
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const viewName = btn.getAttribute('data-view');
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                views.forEach(v => v.classList.remove('active'));
+                document.getElementById('view-' + viewName).classList.add('active');
+                if (viewName === 'cola') renderizarCola();
+            });
+        });
+
+        document.getElementById('clear-cola-btn').addEventListener('click', vaciarCola);
+
+        // ===== INIT =====
+        (async function initApp(){
+            try {
+                if (typeof idbGet === 'function') {
+                    const q = await idbGet('queue');
+                    if (Array.isArray(q)) colaDescarga = q;
+                    else {
+                        const fromLS = JSON.parse(localStorage.getItem('ps5pro_cola_descarga') || '[]');
+                        colaDescarga = Array.isArray(fromLS) ? fromLS : [];
+                    }
+                } else {
+                    colaDescarga = JSON.parse(localStorage.getItem('ps5pro_cola_descarga') || '[]');
+                }
+            } catch(e) {
+                colaDescarga = JSON.parse(localStorage.getItem('ps5pro_cola_descarga') || '[]');
+            }
+
+            actualizarContadores();
+            renderizarColeccion();
+            renderizarCola();
+
+            // start Auto engine if persisted
+            const autoBtn = document.getElementById('bg-auto-toggle');
+            if (autoBtn && localStorage.getItem('ps5pro_bg_auto') === '1') {
+                autoBtn.classList.add('active');
+                autoBtn.setAttribute('aria-pressed','true');
+                try { startAutoEngine(); } catch(e){}
+            }
+        })();
+    </script>
+</body>
+</html>

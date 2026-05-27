@@ -1,0 +1,66 @@
+{
+  "config": {
+    "version": "1.0",
+    "lastUpdated": "2026-05-27",
+    "description": "Catálogo PS5 generado automáticamente desde DLPSGame"
+  },
+  "games": {
+    "elden-ring": {
+      "id": "elden-ring",
+      "title": "Elden Ring",
+      "tagline": "",
+      "platform": "PS5",
+      "edition": "",
+      "developer": "",
+      "release": "",
+      "rating": "",
+      "price": null,
+      "oldPrice": null,
+      "genres": [],
+      "description": "",
+      "features": [],
+      "image": "https://example.com/elden-ring.jpg",
+      "url": "https://dlpsgame.com/elden-ring/",
+      "status": "Pendiente",
+      "trailer": ""
+    },
+    "final-fantasy-vii-rebirth": {
+      "id": "final-fantasy-vii-rebirth",
+      "title": "Final Fantasy VII Rebirth",
+      "tagline": "",
+      "platform": "PS5",
+      "edition": "",
+      "developer": "",
+      "release": "",
+      "rating": "",
+      "price": null,
+      "oldPrice": null,
+      "genres": [],
+      "description": "",
+      "features": [],
+      "image": "https://example.com/ffvii.jpg",
+      "url": "https://dlpsgame.com/final-fantasy-vii-rebirth/",
+      "status": "Pendiente",
+      "trailer": ""
+    },
+    "hogwarts-legacy": {
+      "id": "hogwarts-legacy",
+      "title": "Hogwarts Legacy",
+      "tagline": "",
+      "platform": "PS5",
+      "edition": "",
+      "developer": "",
+      "release": "",
+      "rating": "",
+      "price": null,
+      "oldPrice": null,
+      "genres": [],
+      "description": "",
+      "features": [],
+      "image": "https://example.com/hogwarts.jpg",
+      "url": "https://dlpsgame.com/hogwarts-legacy/",
+      "status": "Pendiente",
+      "trailer": ""
+    }
+  }
+}
