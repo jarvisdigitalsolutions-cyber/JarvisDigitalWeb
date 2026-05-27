@@ -1,0 +1,6 @@
+[build]
+  publish = "Sony-Web"
+  functions = "netlify/functions"
+
+# No build command needed for this static site.
+# Netlify will publish the contents of the Sony-Web folder and deploy serverless functions from netlify/functions.
