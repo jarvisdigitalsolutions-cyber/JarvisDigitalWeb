@@ -32,3 +32,33 @@ git push origin main
 ## Nota
 
 Si no ves los cambios en Netlify inmediatamente, revisa el deploy en el panel de Netlify; puede tardar unos minutos en finalizar.
+
+## Verificación de la curación IA
+
+El script `scripts/auto_curate.py` actualiza `Sony-Web/games.json` con la selección actual y una previsión de la próxima semana.
+
+Para revisar cómo quedó la curación en local:
+
+1. Ejecuta:
+```bash
+cd D:\Proyecto\PS5-COLLECTION
+python scripts/auto_curate.py
+```
+2. Observa el resumen en pantalla:
+   - `Banners:` → banners actuales
+   - `Featured:` → destacados actuales
+   - `Premieres:` → estrenos actuales
+   - `Siguiente semana (previsión):` → los próximos picks sugeridos
+
+3. En `Sony-Web/games.json` revisa el objeto `config.curationSchedule`:
+   - `current` → selección actual
+   - `next` → previsión para la siguiente semana
+
+4. Si estás listo, confirma y sube:
+```bash
+git add Sony-Web/games.json
+git commit -m "Actualizo curación IA y previsión semanal"
+git push origin main
+```
+
+Netlify actualizará después del deploy con la nueva selección de curación.

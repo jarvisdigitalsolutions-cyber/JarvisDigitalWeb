@@ -78,6 +78,57 @@ def recent_ids_from_history(history, weeks):
     return recent_banners, recent_featured
 
 
+def valid_banner_candidate(g):
+    bi = g.get('bannerImage')
+    if not bi:
+        return False
+    if '/banner/' not in str(bi).lower():
+        return False
+    flag = g.get('bannerImageShow')
+    if flag is False:
+        return False
+    if isinstance(flag, str) and flag.lower() in ('no', 'false', '0', 'off'):
+        return False
+    return True
+
+
+def select_banners(candidates, recent_banners, banner_count, exclude_ids=None):
+    exclude_ids = set(exclude_ids or [])
+    selected = [g for g in candidates if g['id'] not in exclude_ids and g['id'] not in recent_banners][:banner_count]
+    if len(selected) < banner_count:
+        for g in candidates:
+            if g['id'] not in exclude_ids and g not in selected:
+                selected.append(g)
+            if len(selected) >= banner_count:
+                break
+    return selected
+
+
+def select_featured(sorted_games, recent_featured, featured_count, exclude_ids=None):
+    exclude_ids = set(exclude_ids or [])
+    selected = [g for g in sorted_games if g['id'] not in exclude_ids and g['id'] not in recent_featured][:featured_count]
+    if len(selected) < featured_count:
+        for g in sorted_games:
+            if g['id'] not in exclude_ids and g not in selected:
+                selected.append(g)
+            if len(selected) >= featured_count:
+                break
+    return selected
+
+
+def select_premieres(sorted_games, now_year, premieres_count, exclude_ids=None):
+    exclude_ids = set(exclude_ids or [])
+    candidates = [g for g in sorted_games if (str(g.get('release') or '')).isdigit() and int(g.get('release')) >= now_year - 1]
+    selected = [g for g in candidates if g['id'] not in exclude_ids][:premieres_count]
+    if len(selected) < premieres_count:
+        for g in candidates:
+            if g['id'] not in exclude_ids and g not in selected:
+                selected.append(g)
+            if len(selected) >= premieres_count:
+                break
+    return selected
+
+
 def main():
     parser = argparse.ArgumentParser(description='Auto-curate banners/featured/premieres into Sony-Web/games.json')
     parser.add_argument('--games', default=None, help='Ruta a Sony-Web/games.json')
@@ -112,46 +163,21 @@ def main():
 
     recent_banners, recent_featured = recent_ids_from_history(history, args.no_repeat_weeks)
 
-    # banner candidates: must have bannerImage in Banner folder and not excluded
-    def valid_banner_candidate(g):
-        bi = g.get('bannerImage')
-        if not bi:
-            return False
-        if '/banner/' not in bi.lower():
-            return False
-        flag = g.get('bannerImageShow')
-        if flag is False:
-            return False
-        if isinstance(flag, str) and flag.lower() in ('no', 'false', '0', 'off'):
-            return False
-        return True
-
     banner_candidates = [g for g in games_list if valid_banner_candidate(g)]
     banner_candidates.sort(key=lambda x: x.get('_score', 0), reverse=True)
 
-    # exclude recent banners if possible
-    selected_banners = [g for g in banner_candidates if g['id'] not in recent_banners][:args.banner_count]
-    if len(selected_banners) < args.banner_count:
-        # allow ones in recent if not enough
-        for g in banner_candidates:
-            if g not in selected_banners:
-                selected_banners.append(g)
-            if len(selected_banners) >= args.banner_count:
-                break
-
-    # featured: top by score, try to avoid recent featured
+    # select current curated items
+    selected_banners = select_banners(banner_candidates, recent_banners, args.banner_count)
     all_sorted = sorted(games_list, key=lambda x: x.get('_score', 0), reverse=True)
-    selected_featured = [g for g in all_sorted if g['id'] not in recent_featured][:args.featured_count]
-    if len(selected_featured) < args.featured_count:
-        for g in all_sorted:
-            if g not in selected_featured:
-                selected_featured.append(g)
-            if len(selected_featured) >= args.featured_count:
-                break
+    selected_featured = select_featured(all_sorted, recent_featured, args.featured_count)
+    selected_premieres = select_premieres(all_sorted, now_year, args.premieres_count)
 
-    # premieres: recent releases this year or last year
-    premieres_candidates = [g for g in all_sorted if (str(g.get('release') or '')).isdigit() and int(g.get('release')) >= now_year - 1]
-    selected_premieres = premieres_candidates[:args.premieres_count]
+    # prepare next-week forecast
+    future_recent_banners = recent_banners.union({g['id'] for g in selected_banners})
+    future_recent_featured = recent_featured.union({g['id'] for g in selected_featured})
+    next_banners = select_banners(banner_candidates, future_recent_banners, args.banner_count, exclude_ids={g['id'] for g in selected_banners})
+    next_featured = select_featured(all_sorted, future_recent_featured, args.featured_count, exclude_ids={g['id'] for g in selected_featured})
+    next_premieres = select_premieres(all_sorted, now_year, args.premieres_count, exclude_ids={g['id'] for g in selected_premieres})
 
     # prepare banners objects
     banners_out = []
@@ -202,12 +228,25 @@ def main():
     # keep history reasonable
     cfg['curationHistory'] = history[:52]
     cfg['lastCurated'] = entry['timestamp']
+    cfg['curationSchedule'] = {
+        'current': entry,
+        'next': {
+            'timestamp': (datetime.utcnow() + timedelta(weeks=1)).isoformat(),
+            'banners': [g['id'] for g in next_banners],
+            'featured': [g['id'] for g in next_featured],
+            'premieres': [g['id'] for g in next_premieres]
+        }
+    }
 
     # write changes
     print('\nResumen curación:')
     print('  Banners:', ', '.join([g['id'] for g in selected_banners]))
     print('  Featured:', ', '.join([g['id'] for g in selected_featured]))
     print('  Premieres:', ', '.join([g['id'] for g in selected_premieres]))
+    print('Siguiente semana (previsión):')
+    print('  Banners:', ', '.join([g['id'] for g in next_banners]))
+    print('  Featured:', ', '.join([g['id'] for g in next_featured]))
+    print('  Premieres:', ', '.join([g['id'] for g in next_premieres]))
 
     if args.dry_run:
         print('\nDry-run: no se escribieron cambios en games.json')
