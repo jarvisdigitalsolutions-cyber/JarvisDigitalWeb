@@ -568,7 +568,7 @@
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="mobile-menu.js"></script>
+  <script src="collection-mobile.js"></script>
   <script>
     AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true });
     gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
@@ -631,6 +631,7 @@
       if (value === 'disponible' || value === 'available' || value === 'lanzado') return 'Disponible';
       return String(status || '').trim() || 'Próximamente';
     }
+    
 
     function cardTpl(game) {
       const statusText = normalizeCatalogStatus(game.status);
@@ -906,6 +907,7 @@
       populateGenres(currentGames);
       attachFilterHandlers();
       applyFilters(currentGames);
+      
     });
   </script>
 </body>
