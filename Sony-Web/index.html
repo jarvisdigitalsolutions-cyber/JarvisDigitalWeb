@@ -856,12 +856,16 @@
       .section-header { flex-direction: column; align-items: flex-start; }
     }
   </style>
+  <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
   <nav class="navbar">
     <a href="index.html" class="logo" aria-label="Inicio">
       <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
     </a>
+    <button id="navToggle" class="icon-button menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
     <ul class="nav-links">
       <li><a href="collection-p5.html">Catálogo</a></li>
       <li><a href="#destacados">Destacados</a></li>
@@ -1045,6 +1049,28 @@
       const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       applyTheme(nextTheme);
     });
+
+    const navToggle = document.getElementById('navToggle');
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    if (navToggle && navbar) {
+      navToggle.addEventListener('click', () => {
+        const open = navbar.classList.toggle('mobile-open');
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (navbar.classList.contains('mobile-open')) {
+            navbar.classList.remove('mobile-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.querySelector('i').className = 'fa-solid fa-bars';
+          }
+        });
+      });
+    }
 
     let showPrices = true;
     let exchangeRateCU = 500;
