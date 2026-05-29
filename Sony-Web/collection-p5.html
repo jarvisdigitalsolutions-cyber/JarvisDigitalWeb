@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Catálogo · PlayStore</title>
+  <title>Catálogo · Jarvis Digital Solutions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -59,14 +59,27 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
+      position: relative;
+      isolation: isolate;
       font-family: 'Montserrat', sans-serif;
       background:
-        var(--page-gradient),
-        linear-gradient(180deg, var(--bg) 0%, #020617 100%);
+        radial-gradient(circle at top, rgba(14, 165, 233, 0.18), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.13), transparent 28%),
+        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.12), transparent 24%),
+        linear-gradient(180deg, #01040f 0%, #020617 48%, #00060f 100%);
       color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
       transition: background 0.3s ease, color 0.3s ease;
+      background-attachment: fixed;
+    }
+
+    [data-theme="light"] body {
+      background:
+        radial-gradient(circle at top left, rgba(14, 98, 254, 0.18), transparent 26%),
+        radial-gradient(circle at top right, rgba(51, 192, 255, 0.16), transparent 28%),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.62), transparent 22%),
+        linear-gradient(180deg, #f4f8ff 0%, #eaf1fb 40%, #fdfefe 100%);
     }
 
     body::before {
@@ -74,7 +87,47 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.015) 50%, transparent 100%);
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(14, 165, 233, 0.22), transparent 22%),
+        radial-gradient(circle at 85% 18%, rgba(96, 165, 250, 0.16), transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.14), transparent 24%),
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.012) 45%, transparent 100%);
+      filter: blur(0.2px);
+      opacity: 0.9;
+    }
+
+    [data-theme="light"] body::before {
+      background:
+        radial-gradient(circle at 16% 12%, rgba(14, 98, 254, 0.18), transparent 24%),
+        radial-gradient(circle at 82% 16%, rgba(54, 181, 255, 0.14), transparent 20%),
+        radial-gradient(circle at 50% 82%, rgba(255, 255, 255, 0.7), transparent 26%),
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.28) 40%, transparent 100%);
+      opacity: 0.8;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at center, rgba(14, 165, 233, 0.12), transparent 28%),
+        radial-gradient(circle at 20% 40%, rgba(255,255,255,0.06), transparent 20%),
+        radial-gradient(circle at 80% 60%, rgba(14, 165, 233, 0.08), transparent 24%);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+      filter: blur(2px);
+    }
+
+    [data-theme="light"] body::after {
+      background:
+        radial-gradient(circle at center, rgba(14, 98, 254, 0.16), transparent 28%),
+        radial-gradient(circle at 20% 40%, rgba(255,255,255,0.25), transparent 20%),
+        radial-gradient(circle at 80% 60%, rgba(84, 178, 255, 0.14), transparent 26%);
+      mix-blend-mode: soft-light;
+      opacity: 0.8;
     }
 
     .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
@@ -93,14 +146,22 @@
     }
 
     .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
       text-decoration: none;
-      letter-spacing: 0.08em;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    }
+
+    .brand-logo {
+      display: block;
+      width: clamp(120px, 10vw, 170px);
+      height: auto;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22));
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.03);
     }
 
     .nav-links {
@@ -275,13 +336,24 @@
       height: 215px;
       background-size: cover;
       background-position: center;
+      filter: brightness(1) saturate(1.05);
+      transition: filter 0.35s ease;
+    }
+
+    [data-theme="light"] .game-card-visual {
+      filter: brightness(1.08) saturate(1.18);
     }
 
     .game-card-visual::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.4));
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(0,0,0,0.32));
+      transition: background 0.35s ease;
+    }
+
+    [data-theme="light"] .game-card-visual::after {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.24));
     }
 
     .platform-badge {
@@ -413,7 +485,9 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="logo">PLAY<span style="font-weight:400;">STORE</span></a>
+    <a href="index.html" class="logo" aria-label="Inicio">
+      <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
+    </a>
     <div class="nav-links">
       <a href="collection-p5.html" class="active">Catálogo</a>
       <a href="index.html">Inicio</a>
@@ -435,8 +509,8 @@
   <main class="container">
     <section class="page-hero">
       <div class="hero-topline"><i class="fa-solid fa-bolt"></i> Catálogo dinámico con JSON</div>
-      <h1 class="page-title">Juegos digitales curados para tu próxima sesión</h1>
-      <p class="hero-subtitle">Este catálogo ya lee los juegos desde un archivo JSON, con un tema claro/oscuro pulido, filtros por plataforma y precio, y una ficha de detalle conectada al mismo dataset.</p>
+      <h1 class="page-title">Catálogo completo PlayStation 3 a 5</h1>
+      <p class="hero-subtitle">Descubre miles de juegos con búsqueda avanzada, filtros por plataforma, precio y género. Accede a fichas detalladas con calificaciones, precios y más información.</p>
       <div class="hero-stats">
         <div class="stat-card"><span class="stat-label">Juegos activos</span><span class="stat-value" id="gamesCount">0</span></div>
         <div class="stat-card"><span class="stat-label">Plataformas</span><span class="stat-value">PS5 · PS4 · PS3</span></div>
@@ -484,10 +558,10 @@
 
   <footer class="footer container">
     <div>
-      <strong>PLAYSTORE</strong>
-      <p>Juegos digitales de PS3 a PS5 con datos dinámicos y un tema adaptable.</p>
+      <strong>JARVIS DIGITAL SOLUTIONS</strong>
+      <p>Catálogo unificado de PS3, PS4 y PS5 con búsqueda, filtros dinámicos y fichas de detalle.</p>
     </div>
-    <div>© 2026 PlayStation Store Digital</div>
+    <div>© 2026 Jarvis Digital Solutions</div>
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -545,7 +619,18 @@
       return (typeof game.pricecu !== 'undefined' && game.pricecu !== null);
     }
 
+    function normalizeCatalogStatus(status) {
+      const value = String(status || '').trim().toLowerCase();
+      if (value === 'pendiente') return 'Próximamente';
+      if (value === 'banner' || value === 'estreno') return 'Próximamente';
+      if (value === 'destacado') return 'Disponible';
+      if (value === 'próximamente' || value === 'upcoming' || value === 'coming soon') return 'Próximamente';
+      if (value === 'disponible' || value === 'available' || value === 'lanzado') return 'Disponible';
+      return String(status || '').trim() || 'Próximamente';
+    }
+
     function cardTpl(game) {
+      const statusText = normalizeCatalogStatus(game.status);
       const genresHtml = (game.genres || []).map(g => `<span class="tag">${g}</span>`).join('');
       let priceHtml = '';
       if (isPriceVisible(game)) {
@@ -594,7 +679,7 @@
           <article class="game-card" data-aos="zoom-in">
             <div class="game-card-visual" style="background-image:url('${game.image}')">
               <span class="platform-badge">${game.platform}</span>
-              <span class="status-badge">${game.status}</span>
+              <span class="status-badge">${statusText}</span>
             </div>
             <div class="game-card-body">
               <h3>${game.title}</h3>
@@ -624,10 +709,14 @@
       const bannerIds = Array.isArray(data.banners) ? data.banners.map(b => b.gameId).filter(Boolean) : [];
       curatedFeaturedIds = featuredIds;
 
-      arr.forEach(g => { g._origStatus = g.status || ''; g.status = g._origStatus; });
-      featuredIds.forEach(id => { if (gameMap[id]) gameMap[id].status = 'Destacado'; });
-      premiereIds.forEach(id => { if (gameMap[id]) gameMap[id].status = 'Estreno'; });
-      bannerIds.forEach(id => { if (gameMap[id]) gameMap[id].status = 'Banner'; });
+      arr.forEach(g => {
+        g._origStatus = normalizeCatalogStatus(g.status || '');
+        g.status = g._origStatus;
+        g._displayStatus = '';
+      });
+      featuredIds.forEach(id => { if (gameMap[id]) gameMap[id]._displayStatus = 'Destacado'; });
+      premiereIds.forEach(id => { if (gameMap[id]) gameMap[id]._displayStatus = 'Estreno'; });
+      bannerIds.forEach(id => { if (gameMap[id]) gameMap[id]._displayStatus = 'Banner'; });
 
       if (!featuredIds.length && !premiereIds.length && !bannerIds.length) {
         return autoCurateLocal(games);
@@ -635,7 +724,7 @@
       return arr;
     }
 
-    // Curación local (mini-IA) para el catálogo: marca estados 'Destacado', 'Estreno' y 'Banner'
+    // Curación local (mini-IA) de apoyo: conserva estado real en las tarjetas y separa la curación del badge.
     function autoCurateLocal(games) {
       const now = new Date().getFullYear();
       const arr = [...games];
@@ -665,11 +754,10 @@
         return true;
       }
 
-      // asignar estados
-      // Banner sólo si tiene bannerImage válido
-      sorted.filter(hasValidBanner).slice(0, 3).forEach(g => g.status = 'Banner');
-      featured.forEach(g => g.status = 'Destacado');
-      premieres.forEach(g => g.status = 'Estreno');
+      // asignar curación de apoyo sin sustituir el estado real del juego
+      sorted.filter(hasValidBanner).slice(0, 3).forEach(g => g._displayStatus = 'Banner');
+      featured.forEach(g => g._displayStatus = 'Destacado');
+      premieres.forEach(g => g._displayStatus = 'Estreno');
       return arr;
     }
 

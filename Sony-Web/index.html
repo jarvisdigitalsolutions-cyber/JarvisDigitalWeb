@@ -84,13 +84,22 @@
     }
 
     .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.7));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+    }
+
+    .brand-logo {
+      display: block;
+      width: clamp(118px, 11vw, 168px);
+      height: auto;
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.24));
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.03);
     }
 
     .nav-links {
@@ -162,7 +171,7 @@
       inset: 0;
       background-size: cover;
       background-position: center;
-      filter: saturate(0.9) brightness(0.55);
+      filter: saturate(1) brightness(0.95) contrast(1.03);
     }
 
     .slide-overlay {
@@ -172,7 +181,43 @@
     }
 
     [data-theme="light"] .slide-overlay {
-      background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0.96) 100%);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 24, 0.72) 0%, rgba(4, 10, 24, 0.52) 35%, rgba(4, 10, 24, 0.68) 100%),
+        radial-gradient(circle at center, rgba(14, 116, 144, 0.06), transparent 40%);
+      backdrop-filter: blur(0.5px);
+      opacity: 0.98;
+    }
+
+    [data-theme="light"] .slide-background {
+      filter: saturate(1.02) brightness(0.88) contrast(1.08);
+    }
+
+    [data-theme="light"] .slide-content h2,
+    [data-theme="light"] .slide-content p,
+    [data-theme="light"] .slide-content .badge-platform,
+    [data-theme="light"] .slide-content .price-tag,
+    [data-theme="light"] .slide-content .slide-button {
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.46);
+    }
+
+    [data-theme="light"] .slide-content .slide-button {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(4px);
+    }
+
+    [data-theme="light"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at top, rgba(0, 132, 255, 0.18), transparent 26%),
+        radial-gradient(circle at bottom, rgba(255,255,255,0.9), transparent 30%),
+        linear-gradient(180deg, rgba(244, 248, 255, 0.92), rgba(248, 250, 255, 0.78) 42%, rgba(255,255,255,0.9) 100%);
+      opacity: 0.95;
     }
 
     .slide-content {
@@ -314,38 +359,73 @@
       overflow: hidden;
       cursor: pointer;
       background: var(--card-bg);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.55s cubic-bezier(0.2, 0.9, 0.2, 1), border-color 0.55s ease, filter 0.55s ease;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 1.5rem;
       color: var(--text);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(90, 156, 255, 0.28);
       background-size: cover;
       background-position: center;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 18px 48px rgba(0,0,0,0.32);
+      will-change: transform, box-shadow, filter;
+    }
+
+    .bento-item::before {
+      content: '';
+      position: absolute;
+      inset: -25%;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.24), rgba(56, 122, 255, 0.2) 12%, rgba(15, 35, 88, 0.08) 28%, transparent 52%),
+        radial-gradient(circle at bottom, rgba(0, 107, 255, 0.18), transparent 42%),
+        linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.12));
+      filter: blur(4px);
+      opacity: 0.55;
+      transform: scale(1);
+      transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.65s ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bento-item::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: calc(24px - 1px);
+      border: 1px solid rgba(101, 173, 255, 0.32);
+      box-shadow: inset 0 0 22px rgba(74, 155, 255, 0.12), 0 0 24px rgba(0, 79, 255, 0.16);
+      z-index: 1;
+      pointer-events: none;
     }
 
     .bento-item:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
-      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-10px) scale(1.015);
+      box-shadow: inset 0 0 0 1px rgba(156, 197, 255, 0.32), 0 40px 90px rgba(15, 25, 52, 0.58);
+      border-color: rgba(161, 210, 255, 0.58);
+      filter: saturate(1.04);
+    }
+
+    .bento-item:hover::before {
+      opacity: 0.9;
+      transform: scale(1.08) translateY(-2%);
     }
 
     .bento-item:hover .bento-overlay {
-      background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
+      background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.88));
     }
 
     .bento-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+      background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.74));
       z-index: 0;
       transition: background 0.4s ease;
     }
 
     .bento-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     .bento-badge {
@@ -354,8 +434,9 @@
       gap: 0.4rem;
       padding: 0.35rem 0.75rem;
       border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(180deg, rgba(31, 93, 235, 0.82), rgba(11, 46, 158, 0.78));
+      border: 1px solid rgba(145, 188, 255, 0.42);
+      box-shadow: 0 10px 28px rgba(19, 78, 212, 0.28);
       font-size: 0.75rem;
       font-weight: 800;
       margin-bottom: 0.75rem;
@@ -367,6 +448,12 @@
       margin-bottom: 0.3rem;
       line-height: 1.1;
       font-weight: 700;
+      text-shadow: 0 0 12px rgba(73, 154, 255, 0.26);
+      transition: text-shadow 0.3s ease;
+    }
+
+    .bento-item:hover .bento-content h4 {
+      text-shadow: 0 0 18px rgba(80, 176, 255, 0.68), 0 0 32px rgba(0, 116, 255, 0.58);
     }
 
     .bento-meta {
@@ -459,6 +546,47 @@
       gap: 1rem;
     }
 
+    [data-theme="light"] .bento-item,
+    [data-theme="light"] .premiere-card,
+    [data-theme="light"] .panel,
+    [data-theme="light"] .console-card,
+    [data-theme="light"] .mood-card,
+    [data-theme="light"] .feature-card {
+      color: #fff;
+    }
+
+    [data-theme="light"] .bento-overlay,
+    [data-theme="light"] .premiere-overlay {
+      background: linear-gradient(180deg, rgba(4, 10, 24, 0.22), rgba(4, 10, 24, 0.74));
+    }
+
+    [data-theme="light"] .bento-content h4,
+    [data-theme="light"] .premiere-content h3,
+    [data-theme="light"] .premiere-subtitle,
+    [data-theme="light"] .premiere-chip,
+    [data-theme="light"] .bento-meta span,
+    [data-theme="light"] .premiere-action {
+      color: #fff;
+    }
+
+    [data-theme="light"] .bento-item .bento-badge,
+    [data-theme="light"] .premiere-label {
+      background: linear-gradient(180deg, rgba(8, 26, 72, 0.9), rgba(12, 56, 124, 0.88));
+      color: #fff;
+    }
+
+    [data-theme="light"] .panel p,
+    [data-theme="light"] .console-card p,
+    [data-theme="light"] .mood-card p,
+    [data-theme="light"] .feature-card p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    [data-theme="light"] .section-header h3,
+    [data-theme="light"] .section-header p {
+      color: #0f172a;
+    }
+
     .footer {
       padding: 3rem 2rem;
       border-top: 1px solid var(--border);
@@ -525,10 +653,26 @@
       background: #ffffff;
     }
 
-    .premiere-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.75rem;
+    .swiper-slide {
+      transition: transform 0.65s ease, opacity 0.65s ease;
+    }
+
+    .swiper-slide-active {
+      z-index: 2;
+    }
+
+    .swiper-slide-active .premiere-card,
+    .swiper-slide-active .bento-item {
+      transform: translateY(-8px) scale(1.01);
+    }
+
+    .premiere-carousel {
+      overflow: hidden;
+      padding-bottom: 2rem;
+    }
+
+    .premiere-slide {
+      height: auto;
     }
 
     .premiere-card {
@@ -536,19 +680,53 @@
       border-radius: 28px;
       overflow: hidden;
       background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid rgba(113, 164, 255, 0.2);
+      transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.6s cubic-bezier(0.2, 0.9, 0.2, 1), border-color 0.6s ease, filter 0.6s ease;
       min-height: 420px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 18px 48px rgba(0,0,0,0.32);
+      will-change: transform, box-shadow, filter;
+    }
+
+    .premiere-card::before {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(circle at center, rgba(97, 168, 255, 0.4), rgba(24, 62, 148, 0.26) 24%, rgba(10, 20, 46, 0.08) 42%, transparent 60%),
+        radial-gradient(circle at top, rgba(255,255,255,0.18), transparent 36%);
+      opacity: 0.55;
+      filter: blur(4px);
+      transform: scale(1);
+      transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.65s ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .premiere-card::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: calc(28px - 1px);
+      border: 1px solid rgba(122, 185, 255, 0.32);
+      box-shadow: inset 0 0 22px rgba(108, 171, 255, 0.16), 0 0 24px rgba(14, 82, 220, 0.16);
+      z-index: 1;
+      pointer-events: none;
     }
 
     .premiere-card:hover {
-      transform: translateY(-16px) translateZ(0);
-      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6);
-      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-12px) translateZ(0);
+      box-shadow: inset 0 0 0 1px rgba(169, 211, 255, 0.34), 0 48px 96px rgba(9, 29, 75, 0.6);
+      border-color: rgba(161, 210, 255, 0.55);
       background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      filter: saturate(1.04);
+    }
+
+    .premiere-card:hover::before {
+      opacity: 0.9;
+      transform: scale(1.08) translateY(-2%);
     }
 
     .premiere-image {
@@ -557,11 +735,14 @@
       background-size: cover;
       background-position: center;
       filter: brightness(0.7) saturate(1.1);
-      transition: filter 0.5s ease;
+      transform: scale(1);
+      transition: filter 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1);
+      will-change: transform, filter;
     }
 
     .premiere-card:hover .premiere-image {
-      filter: brightness(0.5) saturate(1.3);
+      filter: brightness(0.52) saturate(1.3);
+      transform: scale(1.04);
     }
 
     .premiere-overlay {
@@ -573,7 +754,7 @@
 
     .premiere-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       padding: 2rem;
     }
 
@@ -583,13 +764,14 @@
       gap: 0.5rem;
       padding: 0.5rem 1.1rem;
       border-radius: 9999px;
-      background: rgba(255, 100, 60, 0.95);
+      background: linear-gradient(180deg, rgba(20, 74, 221, 0.96), rgba(12, 45, 151, 0.9));
       color: #fff;
       font-weight: 800;
       font-size: 0.8rem;
       letter-spacing: 0.08em;
       margin-bottom: 1rem;
-      box-shadow: 0 8px 20px rgba(255, 100, 60, 0.35);
+      box-shadow: 0 10px 24px rgba(18, 60, 182, 0.35);
+      border: 1px solid rgba(162, 200, 255, 0.4);
     }
 
     .premiere-content h3 {
@@ -597,6 +779,12 @@
       margin-bottom: 0.5rem;
       line-height: 1.1;
       font-weight: 700;
+      text-shadow: 0 0 12px rgba(79, 154, 255, 0.24);
+      transition: text-shadow 0.3s ease;
+    }
+
+    .premiere-card:hover .premiere-content h3 {
+      text-shadow: 0 0 18px rgba(88, 181, 255, 0.68), 0 0 30px rgba(10, 78, 255, 0.55);
     }
 
     .premiere-subtitle {
@@ -671,7 +859,9 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="logo">PLAY<span style="font-weight:400;">STORE</span></a>
+    <a href="index.html" class="logo" aria-label="Inicio">
+      <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
+    </a>
     <ul class="nav-links">
       <li><a href="collection-p5.html">Catálogo</a></li>
       <li><a href="#destacados">Destacados</a></li>
@@ -717,14 +907,30 @@
       <div class="bento-grid" id="bentoGrid"></div>
     </section>
 
-    <section id="estrenos" class="section container" data-aos="fade-up">
+    <section id="lanzamientos" class="section container" data-aos="fade-up">
       <div class="section-header">
         <div>
-          <h3>Estrenos PS5</h3>
-          <p>Los últimos lanzamientos y próximos estrenos que llegan a PlayStation 5. Descubre el contenido más fresco y emocionante.</p>
+          <h3>Lanzamientos Recientes</h3>
+          <p>Los últimos juegos lanzados en PlayStation. Descubre las novedades más recientes.</p>
         </div>
       </div>
-      <div class="premiere-grid" id="preimereGrid"></div>
+      <div class="premiere-carousel swiper" id="lanzamientosCarousel">
+        <div class="swiper-wrapper" id="preimereGrid"></div>
+        <div class="swiper-pagination" id="lanzamientosPagination"></div>
+      </div>
+    </section>
+
+    <section id="proximosestrenos" class="section container" data-aos="fade-up">
+      <div class="section-header">
+        <div>
+          <h3>Próximos Estrenos</h3>
+          <p>Los juegos más esperados que están por llegar. Los títulos que marcarán tendencia próximamente.</p>
+        </div>
+      </div>
+      <div class="premiere-carousel swiper" id="proximosCarousel">
+        <div class="swiper-wrapper" id="proximosEstrenosGrid"></div>
+        <div class="swiper-pagination" id="proximosPagination"></div>
+      </div>
     </section>
 
     <section id="explora" class="section container">
@@ -808,11 +1014,11 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <strong>PLAYSTORE</strong>
-        <p>Catálogo digital de PS3 a PS5 con diseño inspirado en tu versión favorita.</p>
+        <strong>JARVIS DIGITAL SOLUTIONS</strong>
+        <p>Catálogo unificado PS3, PS4, PS5 con búsqueda dinámica, filtros y fichas detalle.</p>
       </div>
       <div>
-        <p>© 2026 PlayStation Store Digital</p>
+        <p>© 2026 Jarvis Digital Solutions</p>
       </div>
     </div>
   </footer>
@@ -932,6 +1138,8 @@
     }
 
     let heroSwiper = null;
+    let lanzamientosSwiper = null;
+    let proximosSwiper = null;
 
     function renderSlides(games) {
       const recent = [...games].sort((a, b) => Number(b.release || 0) - Number(a.release || 0)).slice(0, 3);
@@ -984,9 +1192,7 @@
       const sorted = [...gamesArr].sort((a, b) => (b._score || 0) - (a._score || 0));
 
       const curatedFeaturedIds = getCuratedSectionIds(data, 'featured');
-      const curatedPremiereIds = getCuratedSectionIds(data, 'premieres');
       const curatedFeatured = curatedFeaturedIds ? getGamesByIds(gamesArr, curatedFeaturedIds) : null;
-      const curatedPremieres = curatedPremiereIds ? getGamesByIds(gamesArr, curatedPremiereIds) : null;
 
       function hasValidBanner(g) {
         if (!g || !g.bannerImage) return false;
@@ -1015,38 +1221,70 @@
         }));
       }
 
-      const premieres = curatedPremieres || sorted.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
-      const featured = curatedFeatured || sorted.slice(0, 6);
+      const featuredExtras = sorted.filter(g => !curatedFeaturedIds?.includes(g.id)).slice(0, 2);
+      const featured = curatedFeatured ? [...curatedFeatured, ...featuredExtras].slice(0, 8) : sorted.slice(0, 8);
 
-      gamesArr.forEach(g => { g._origStatus = g.status || ''; g.status = g._origStatus; });
-      featured.forEach(g => { const game = gamesArr.find(x => x.id === g.id); if (game) game.status = 'Destacado'; });
-      premieres.forEach(g => { const game = gamesArr.find(x => x.id === g.id); if (game) game.status = 'Estreno'; });
+      gamesArr.forEach(g => {
+        g._origStatus = String(g.status || '').trim();
+        g._displayStatus = g._displayStatus || '';
+      });
+
+      const normalizedRecent = (value) => String(value || '').trim().toLowerCase();
+      const isUpcomingStatus = (game) => {
+        const value = normalizedRecent(game._origStatus);
+        return value.includes('próximamente') || value.includes('coming soon') || value.includes('upcoming');
+      };
+      const isAvailableStatus = (game) => {
+        const value = normalizedRecent(game._origStatus);
+        return value.includes('disponible') || value.includes('lanzado') || value.includes('released') || value.includes('estreno') || value.includes('nuevo') || value.includes('available');
+      };
+
+      const recentGames = gamesArr.filter(g => {
+        if (isUpcomingStatus(g)) return false;
+        if (isAvailableStatus(g)) return true;
+        const releaseYear = Number(g.release) || now;
+        return releaseYear <= now;
+      }).slice(0, 8);
+
+      const upcomingGames = gamesArr.filter(g => {
+        if (isUpcomingStatus(g)) return true;
+        const releaseYear = Number(g.release) || now;
+        return releaseYear > now;
+      }).slice(0, 8);
+
+      featured.forEach(g => {
+        const game = gamesArr.find(x => x.id === g.id);
+        if (game) game._displayStatus = 'Destacado';
+      });
       topBanners.forEach(b => {
         const gg = gamesArr.find(x => x.id === b.gameId);
-        if (gg) gg.status = 'Banner';
+        if (gg) gg._displayStatus = 'Banner';
       });
 
       return {
         games: gamesArr,
         banners: topBanners,
         featuredGames: featured,
-        premiereGames: premieres,
+        recentGames: recentGames,
+        upcomingGames: upcomingGames,
         featuredIds: featured.map(f => f.id),
-        premiereIds: premieres.map(p => p.id)
+        recentIds: recentGames.map(g => g.id),
+        upcomingIds: upcomingGames.map(g => g.id)
       };
     }
 
     function renderBento(games) {
       const grid = document.getElementById('bentoGrid');
-      const items = [...games].slice(0, 6);
+      const items = [...games].slice(0, 8);
       grid.innerHTML = items.map((game, index) => {
         const classes = ['bento-item', index === 0 ? 'bento-large' : '', index === 3 ? 'bento-tall' : ''].filter(Boolean).join(' ');
         const priceSection = `<div class="bento-price">${formatGamePrice(game)}</div>`;
+        const badgeText = game._displayStatus || game._origStatus || game.status || 'Destacado';
         return `
           <a href="PS-Details.html?id=${game.id}" class="${classes}" style="background-image:url('${game.image}')">
             <div class="bento-overlay"></div>
             <div class="bento-content">
-              <div class="bento-badge">${game.platform} · ${game.status}</div>
+              <div class="bento-badge">${game.platform} · ${badgeText}</div>
               <h4>${game.title}</h4>
               <div class="bento-meta">
                 <span>★ ${Number(game.rating || 0).toFixed(1)}</span>
@@ -1061,23 +1299,58 @@
 
     function renderPremiere(games) {
       const grid = document.getElementById('preimereGrid');
-      const items = [...games].slice(0, 3);
-      grid.innerHTML = items.map((game, idx) => `
-        <a href="PS-Details.html?id=${game.id}" class="premiere-card" data-aos="fade-up" data-aos-delay="${idx * 80}">
-          <div class="premiere-image" style="background-image:url('${game.image}')"></div>
-          <div class="premiere-overlay"></div>
-          <div class="premiere-content">
-            <div class="premiere-label"><i class="fa-solid fa-star"></i> ${game.release === 2026 ? 'PRÓXIMAMENTE' : 'NUEVO LANZAMIENTO'}</div>
-            <h3>${game.title}</h3>
-            <p class="premiere-subtitle">${game.tagline}</p>
-            <div class="premiere-info">
-              <span class="premiere-chip"><i class="fa-solid fa-gamepad"></i> ${game.platform}</span>
-              <span class="premiere-chip"><i class="fa-solid fa-star"></i> ${Number(game.rating || 0).toFixed(1)}</span>
-            </div>
-            <button class="premiere-action"><i class="fa-solid fa-arrow-right"></i> Ver detalles</button>
+      if (!grid) return;
+      const items = [...games].slice(0, 8);
+      grid.innerHTML = items.map((game, idx) => {
+        const statusText = String(game._origStatus || game.status || 'NUEVO LANZAMIENTO').trim();
+        const label = statusText && statusText.toLowerCase().includes('próximamente') ? 'PRÓXIMAMENTE' : 'NUEVO LANZAMIENTO';
+        return `
+          <div class="swiper-slide premiere-slide" data-aos="fade-up" data-aos-delay="${idx * 80}">
+            <a href="PS-Details.html?id=${game.id}" class="premiere-card">
+              <div class="premiere-image" style="background-image:url('${game.image}')"></div>
+              <div class="premiere-overlay"></div>
+              <div class="premiere-content">
+                <div class="premiere-label"><i class="fa-solid fa-star"></i> ${label}</div>
+                <h3>${game.title}</h3>
+                <p class="premiere-subtitle">${game.tagline}</p>
+                <div class="premiere-info">
+                  <span class="premiere-chip"><i class="fa-solid fa-gamepad"></i> ${game.platform}</span>
+                  <span class="premiere-chip"><i class="fa-solid fa-star"></i> ${Number(game.rating || 0).toFixed(1)}</span>
+                </div>
+                <button class="premiere-action"><i class="fa-solid fa-arrow-right"></i> Ver detalles</button>
+              </div>
+            </a>
           </div>
-        </a>
-      `).join('');
+        `;
+      }).join('');
+    }
+
+    function renderProximosEstrenos(games) {
+      const grid = document.getElementById('proximosEstrenosGrid');
+      if (!grid) return;
+      const items = [...games].slice(0, 8);
+      grid.innerHTML = items.map((game, idx) => {
+        const statusText = String(game._origStatus || game.status || 'PRÓXIMAMENTE').trim();
+        const label = statusText.toLowerCase().includes('próximamente') ? 'PRÓXIMAMENTE' : 'PRÓXIMAMENTE';
+        return `
+          <div class="swiper-slide premiere-slide" data-aos="fade-up" data-aos-delay="${idx * 80}">
+            <a href="PS-Details.html?id=${game.id}" class="premiere-card">
+              <div class="premiere-image" style="background-image:url('${game.image}')"></div>
+              <div class="premiere-overlay"></div>
+              <div class="premiere-content">
+                <div class="premiere-label"><i class="fa-solid fa-rocket"></i> ${label}</div>
+                <h3>${game.title}</h3>
+                <p class="premiere-subtitle">${game.tagline}</p>
+                <div class="premiere-info">
+                  <span class="premiere-chip"><i class="fa-solid fa-gamepad"></i> ${game.platform}</span>
+                  <span class="premiere-chip"><i class="fa-solid fa-star"></i> ${Number(game.rating || 0).toFixed(1)}</span>
+                </div>
+                <button class="premiere-action"><i class="fa-solid fa-arrow-right"></i> Ver detalles</button>
+              </div>
+            </a>
+          </div>
+        `;
+      }).join('');
     }
 
     function initSwiper() {
@@ -1088,10 +1361,66 @@
       heroSwiper = new Swiper('.mySwiper', {
         spaceBetween: 0,
         centeredSlides: true,
-        autoplay: { delay: 6000, disableOnInteraction: false },
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        },
         pagination: { el: '.swiper-pagination', clickable: true },
-        speed: 900,
+        speed: 800,
       });
+
+      if (lanzamientosSwiper) {
+        try { lanzamientosSwiper.destroy(true, true); } catch (e) { /* ignore */ }
+        lanzamientosSwiper = null;
+      }
+      const lanzamientosEl = document.getElementById('lanzamientosCarousel');
+      if (lanzamientosEl) {
+        lanzamientosSwiper = new Swiper('#lanzamientosCarousel', {
+          slidesPerView: 1,
+          spaceBetween: 24,
+          grabCursor: true,
+          loop: true,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          },
+          speed: 800,
+          pagination: { el: '#lanzamientosPagination', clickable: true },
+          breakpoints: {
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+          }
+        });
+      }
+
+      if (proximosSwiper) {
+        try { proximosSwiper.destroy(true, true); } catch (e) { /* ignore */ }
+        proximosSwiper = null;
+      }
+      const proximosEl = document.getElementById('proximosCarousel');
+      if (proximosEl) {
+        proximosSwiper = new Swiper('#proximosCarousel', {
+          slidesPerView: 1,
+          spaceBetween: 24,
+          grabCursor: true,
+          loop: true,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          },
+          speed: 800,
+          pagination: { el: '#proximosPagination', clickable: true },
+          breakpoints: {
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+          }
+        });
+      }
+
       return heroSwiper;
     }
 
@@ -1100,6 +1429,7 @@
     let siteBanners = [];
     let siteFeaturedGames = [];
     let sitePremiereGames = [];
+    let siteUpcomingGames = [];
     const searchToggleBtn = document.querySelector('.nav-actions .icon-button[aria-label="Buscar"]');
     const siteSearchEl = document.getElementById('siteSearch');
     const siteSearchInput = document.getElementById('siteSearchInput');
@@ -1173,12 +1503,14 @@
       siteGames = (curated && curated.games) ? curated.games : games;
       siteBanners = (curated && curated.banners && curated.banners.length) ? curated.banners : (data.banners || []);
       siteFeaturedGames = (curated && curated.featuredGames && curated.featuredGames.length) ? curated.featuredGames : siteGames.slice(0, 6);
-      sitePremiereGames = (curated && curated.premiereGames && curated.premiereGames.length) ? curated.premiereGames : siteGames.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
+      sitePremiereGames = (curated && curated.recentGames && curated.recentGames.length) ? curated.recentGames : siteGames.filter(g => (Number(g.release) || now) <= now).slice(0, 8);
+      siteUpcomingGames = (curated && curated.upcomingGames && curated.upcomingGames.length) ? curated.upcomingGames : siteGames.filter(g => (Number(g.release) || now) > now).slice(0, 8);
 
       // render banners y secciones usando datos curados
       renderBannerSlides(siteBanners);
       renderBento(siteFeaturedGames);
       renderPremiere(sitePremiereGames);
+      renderProximosEstrenos(siteUpcomingGames);
       initSwiper();
       AOS.refreshHard();
       gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
@@ -1196,8 +1528,9 @@
         if (currencyLabel) currencyLabel.textContent = selectedCurrency;
         // re-render using cached curated sections
         renderBannerSlides(siteBanners);
-        renderBento(siteFeaturedGames.length ? siteFeaturedGames : siteGames.slice(0, 6));
-        renderPremiere(sitePremiereGames.length ? sitePremiereGames : siteGames.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3));
+        renderBento(siteFeaturedGames.length ? siteFeaturedGames : siteGames.slice(0, 8));
+        renderPremiere(sitePremiereGames.length ? sitePremiereGames : siteGames.filter(g => (Number(g.release) || now) <= now).slice(0, 8));
+        renderProximosEstrenos(siteUpcomingGames.length ? siteUpcomingGames : siteGames.filter(g => (Number(g.release) || now) > now).slice(0, 8));
         initSwiper();
         AOS.refreshHard();
       });

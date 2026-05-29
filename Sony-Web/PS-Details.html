@@ -45,7 +45,7 @@
       --pill: rgba(15, 23, 42, 0.06);
       --price: #d9480f;
       --page-gradient: radial-gradient(circle at top left, rgba(15, 98, 254, 0.14), transparent 28%), radial-gradient(circle at top right, rgba(217, 72, 15, 0.12), transparent 28%);
-      --overlay: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 246, 255, 0.9));
+      --overlay: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.12));
       --final-price-color: #b91c1c;
       --discount-text: #065f46;
       --discount-bg: rgba(6, 95, 70, 0.08);
@@ -79,14 +79,22 @@
     }
 
     .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
       text-decoration: none;
-      letter-spacing: 0.08em;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    }
+
+    .brand-logo {
+      display: block;
+      width: clamp(120px, 10vw, 170px);
+      height: auto;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22));
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.03);
     }
 
     .nav-links { display: flex; gap: 1.25rem; align-items: center; list-style: none; }
@@ -113,6 +121,11 @@
       align-items: center;
     }
 
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
     .hero-image {
       position: relative;
       border-radius: 28px;
@@ -123,18 +136,43 @@
       background-position: center;
     }
 
+    .hero-image.image-loading::before,
+    .preview-thumb.image-loading::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: inherit;
+      background:
+        linear-gradient(110deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.32) 40%, rgba(255,255,255,0) 52%),
+        linear-gradient(180deg, rgba(14, 165, 233, 0.12), rgba(14, 165, 233, 0.04));
+      background-size: 200% 100%;
+      animation: shimmer 1.45s linear infinite;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
     .hero-image::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--overlay);
+      pointer-events: none;
+      z-index: 1;
+      transition: background 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+      background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.6) 100%);
+    }
+
+    [data-theme="light"] .hero-image::after {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.18) 100%);
+      mix-blend-mode: soft-light;
+      opacity: 0.98;
     }
 
     .hero-badge {
       position: absolute;
       top: 1rem;
       left: 1rem;
-      z-index: 2;
+      z-index: 3;
       padding: 0.45rem 0.9rem;
       border-radius: 9999px;
       background: rgba(14, 165, 233, 0.92);
@@ -202,8 +240,9 @@
       font-weight: 800;
       border: 1px solid transparent;
     }
-    .cta-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
-    .cta-secondary { background: var(--panel); color: var(--text); border-color: var(--border); }
+    .cta-primary { background: linear-gradient(90deg, rgba(30,144,255,1), rgba(14,165,233,1)); color: #fff; box-shadow: 0 10px 38px rgba(14,165,233,0.18); transition: transform 0.24s cubic-bezier(0.2,0.9,0.2,1), box-shadow 0.24s ease, filter 0.24s ease; will-change: transform, box-shadow, filter; }
+    .cta-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(14,165,233,0.26); filter: saturate(1.05); }
+    .cta-secondary { background: var(--panel); color: var(--text); border-color: var(--border); box-shadow: inset 0 0 12px rgba(0,0,0,0.04); transition: transform 0.18s ease, box-shadow 0.18s ease; }
 
     .content-grid {
       display: grid;
@@ -258,22 +297,99 @@
       padding: 1rem;
     }
 
+    /* Trailer hero: when trailer is outside the small panel */
+    .trailer-hero .trailer-card, .trailer-hero-card { min-height: 480px; }
+
+    /* Trailer + preview shelf */
+    .trailer-wrap { display: flex; gap: 1.2rem; align-items: stretch; }
+    .preview-shelf { 
+      width: 110px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 0.8rem; 
+      align-items: center; 
+      padding: 1rem 0.4rem; 
+      overflow-y: auto; 
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(14, 165, 233, 0.4) transparent;
+    }
+    .preview-shelf::-webkit-scrollbar { width: 4px; }
+    .preview-shelf::-webkit-scrollbar-track { background: transparent; }
+    .preview-shelf::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); border-radius: 2px; }
+    .preview-shelf::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.6); }
+    
+    .preview-thumb {
+      width: 90px; 
+      height: 120px; 
+      border-radius: 12px; 
+      background-size: cover; 
+      background-position: center; 
+      cursor: pointer; 
+      border: 2px solid rgba(14, 165, 233, 0.2); 
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .preview-thumb:hover {
+      border-color: rgba(14, 165, 233, 0.5);
+      box-shadow: 0 12px 32px rgba(14, 165, 233, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+      transform: translateY(-4px);
+    }
+    .preview-thumb:hover::before {
+      opacity: 1;
+    }
+    .preview-thumb.active { 
+      border-color: var(--accent); 
+      box-shadow: 0 12px 32px rgba(14, 165, 233, 0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+      transform: scale(1.02);
+    }
+    /* Preview modal */
+    .preview-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 2000; }
+    .preview-modal.open { display: flex; }
+    .preview-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.66); backdrop-filter: blur(6px); }
+    .preview-modal-content { position: relative; z-index: 2001; max-width: 1200px; width: calc(100% - 48px); max-height: calc(100% - 80px); border-radius: 12px; overflow: hidden; background: #071021; display: flex; align-items: center; justify-content: center; }
+    .preview-modal-close { position: absolute; top: 10px; right: 10px; z-index: 2002; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text); width: 44px; height: 44px; border-radius: 9999px; display:flex; align-items:center; justify-content:center; cursor: pointer; }
+    .preview-modal-body img, .preview-modal-body video, .preview-modal-body iframe { max-width: 100%; max-height: 80vh; width: auto; height: auto; display: block; border-radius: 8px; }
+
+    /* Rating stars */
+    .rating-stars { display: flex; align-items: center; gap: 0.6rem; margin: 0.6rem 0; }
+    .rating-stars .stars i { color: #ffd166; text-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+    .rating-stars .muted { color: var(--muted); font-weight: 700; }
+
     .footer { padding: 1.5rem 0 2.5rem; color: var(--muted); }
 
     @media (max-width: 900px) {
       .hero, .content-grid { grid-template-columns: 1fr; }
       .hero-image { min-height: 320px; }
+      .trailer-wrap { flex-wrap: wrap; }
+      .preview-shelf { width: 100%; flex-direction: row; max-height: 120px; }
+      .preview-thumb { width: 80px; height: 100px; }
     }
 
     @media (max-width: 700px) {
       .navbar { flex-wrap: wrap; justify-content: center; }
       .nav-links { flex-wrap: wrap; justify-content: center; }
+      .preview-shelf { flex-direction: row; gap: 0.6rem; padding: 0.8rem 0.4rem; }
+      .preview-thumb { width: 70px; height: 90px; border-radius: 10px; }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="logo">PLAY<span style="font-weight:400;">STORE</span></a>
+    <a href="index.html" class="logo" aria-label="Inicio">
+      <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
+    </a>
     <div class="nav-links">
       <a href="collection-p5.html">Catálogo</a>
       <a href="index.html">Inicio</a>
@@ -303,6 +419,7 @@
           <span id="gamePlatform"></span>
           <span id="gameRelease"></span>
         </div>
+        <div id="ratingStars" class="rating-stars" aria-label="Calificación del juego"></div>
         <div class="price-box">
           <span class="old-price" id="gameOldPrice"></span>
           <span class="final-price" id="gamePrice"></span>
@@ -328,11 +445,17 @@
       </div>
     </section>
 
+    <!-- Trailer hero: tráiler grande + preview shelf lateral -->
+    <section class="panel trailer-hero" data-aos="fade-up">
+      <h2>Tráiler y Vistas Previas</h2>
+      <div class="trailer-wrap">
+        <div class="trailer-card trailer-hero-card" id="trailerCard">El trailer se cargará desde el dataset cuando esté disponible.</div>
+        <div id="previewShelf" class="preview-shelf" aria-hidden="false"></div>
+      </div>
+    </section>
+
     <section class="content-grid">
       <div class="panel" data-aos="fade-up">
-        <h2>Tráiler</h2>
-        <div class="trailer-card" id="trailerCard">El trailer se cargará desde el dataset cuando esté disponible.</div>
-      </div>
       <div class="panel" data-aos="fade-up" data-aos-delay="80">
         <h2>Especificaciones</h2>
         <table class="spec-table">
@@ -345,8 +468,17 @@
     </section>
   </main>
 
+  <!-- Preview modal (opens when clicking thumbnails) -->
+  <div id="previewModal" class="preview-modal" aria-hidden="true">
+    <div id="previewModalBackdrop" class="preview-modal-backdrop"></div>
+    <div class="preview-modal-content" role="dialog" aria-modal="true">
+      <button id="previewModalClose" class="preview-modal-close" aria-label="Cerrar vista previa">×</button>
+      <div id="previewModalBody" class="preview-modal-body"></div>
+    </div>
+  </div>
+
   <footer class="footer container">
-    <div>PLAYSTORE · Detalle dinámico desde JSON</div>
+    <div>Jarvis Digital Solutions · Detalle dinámico desde JSON</div>
     <div>Lista de datos preparada para ampliar con más títulos.</div>
   </footer>
 
@@ -399,19 +531,44 @@
     }
     function formatNumber(n) { return (typeof n === 'number') ? n.toLocaleString('en-US') : n; }
 
+    function preloadImage(url) {
+      return new Promise((resolve, reject) => {
+        if (!url) return reject(new Error('Missing image URL'));
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(image);
+        image.src = url;
+      });
+    }
+
+    async function loadHeroImage(url) {
+      const heroImage = document.getElementById('gameImage');
+      if (!heroImage) return;
+      heroImage.classList.add('image-loading');
+      heroImage.style.backgroundImage = 'none';
+      try {
+        await preloadImage(url);
+        heroImage.style.backgroundImage = `url('${url}')`;
+      } catch (error) {
+        heroImage.style.backgroundImage = `url('${url}')`;
+      } finally {
+        heroImage.classList.remove('image-loading');
+      }
+    }
+
         function isPriceVisible(game) {
           if (showPrices) return true;
           if (selectedCurrency === 'USD') return (typeof game.price !== 'undefined' && game.price !== null);
           return (typeof game.pricecu !== 'undefined' && game.pricecu !== null);
         }
 
-    function renderGame(game) {
+    async function renderGame(game) {
       if (!game) {
         document.getElementById('gameTitle').textContent = 'Juego no encontrado';
         return;
       }
       document.title = `${game.title} · Detalle del juego`;
-      document.getElementById('gameImage').style.backgroundImage = `url('${game.bannerImage || game.image}')`;
+      await loadHeroImage(game.image || game.image);
       document.getElementById('gameBadge').textContent = game.status;
       document.getElementById('gameTitle').textContent = game.title;
       document.getElementById('gameTagline').textContent = game.tagline;
@@ -455,14 +612,129 @@
         }
       }
 
-      document.getElementById('gameDescription').textContent = game.description;
+      document.getElementById('gameDescription').textContent = game.description || '';
       document.getElementById('gameTags').innerHTML = (game.genres || []).map((genre) => `<span class="tag-chip">${genre}</span>`).join('');
       document.getElementById('gameFeatures').innerHTML = (game.features || []).map((feature) => `<li><span>${feature}</span><span>✓</span></li>`).join('');
-      document.getElementById('trailerCard').textContent = game.trailer ? 'Trailer listo para insertar en el iframe.' : 'El trailer se cargará desde el dataset cuando esté disponible.';
-      document.getElementById('specPlatform').textContent = game.platform;
-      document.getElementById('specEdition').textContent = game.edition;
-      document.getElementById('specDeveloper').textContent = game.developer;
-      document.getElementById('specRating').textContent = game.rating;
+
+      // Trailer placeholder: reserve el área para el tráiler (solo YouTube)
+      const trailerCard = document.getElementById('trailerCard');
+      if (game.trailer && /youtube\.com|youtu\.be/.test(game.trailer)) {
+        let embed = game.trailer;
+        try {
+          const u = new URL(game.trailer);
+          if (u.hostname.includes('youtube.com') && u.searchParams.get('v')) {
+            embed = `https://www.youtube.com/embed/${u.searchParams.get('v')}`;
+          } else if (u.hostname.includes('youtu.be')) {
+            embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+          }
+        } catch (e) {}
+        trailerCard.innerHTML = `<iframe src="${embed}" style="width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>`;
+      } else {
+        trailerCard.textContent = 'El trailer se cargará desde el dataset cuando esté disponible.';
+      }
+
+      // Specs
+      document.getElementById('specPlatform').textContent = game.platform || '';
+      document.getElementById('specEdition').textContent = game.edition || '';
+      document.getElementById('specDeveloper').textContent = game.developer || '';
+      document.getElementById('specRating').textContent = (typeof game.rating !== 'undefined' && game.rating !== null) ? `${game.rating}/5` : 'N/A';
+
+      // Rating stars UI
+      const ratingEl = document.getElementById('ratingStars');
+      if (ratingEl) {
+        const r = Number(game.rating) || 0;
+        const maxStars = 5;
+        let starsHtml = '';
+        for (let i = 1; i <= maxStars; i++) {
+          if (r >= i) {
+            starsHtml += '<i class="fa-solid fa-star"></i>';
+          } else if (r >= i - 0.5) {
+            starsHtml += '<i class="fa-solid fa-star-half-stroke"></i>';
+          } else {
+            starsHtml += '<i class="fa-regular fa-star"></i>';
+          }
+        }
+        ratingEl.innerHTML = `<div style="display:flex;gap:8px;align-items:center;"><div class="stars">${starsHtml}</div><div class="muted" style="font-weight:700;margin-left:8px;">${r.toFixed(1)}/5</div></div>`;
+      }
+
+      // Preview shelf (vertical thumbnails) — thumbnails abren modal (no sobrescriben el tráiler)
+      const previewShelf = document.getElementById('previewShelf');
+      if (previewShelf) {
+        let previews = [];
+        if (Array.isArray(game.previewImages) && game.previewImages.length) {
+          previews = game.previewImages.slice();
+        } else {
+          if (game.bannerImage) previews.push(game.bannerImage);
+          if (game.image && !previews.includes(game.image)) previews.push(game.image);
+        }
+        previews = [...new Set(previews)].filter(Boolean);
+
+        previewShelf.innerHTML = previews.map((p, idx) => `<button class="preview-thumb image-loading" type="button" data-url="${p}" aria-label="Preview ${idx+1}" style="background-image:none"></button>`).join('');
+        const thumbs = previewShelf.querySelectorAll('.preview-thumb');
+        thumbs.forEach((thumb) => {
+          const imageUrl = thumb.dataset.url;
+          thumb.classList.add('image-loading');
+          preloadImage(imageUrl).then(() => {
+            thumb.style.backgroundImage = `url('${imageUrl}')`;
+            thumb.classList.remove('image-loading');
+          }).catch(() => {
+            thumb.classList.remove('image-loading');
+            thumb.style.backgroundImage = 'linear-gradient(135deg, rgba(14,165,233,0.16), rgba(37,99,235,0.16))';
+          });
+        });
+
+        // Modal helpers (elementos están fuera del panel, insertados en el DOM)
+        const previewModal = document.getElementById('previewModal');
+        const previewModalBody = document.getElementById('previewModalBody');
+        const previewModalClose = document.getElementById('previewModalClose');
+        const previewModalBackdrop = document.getElementById('previewModalBackdrop');
+
+        function openPreviewModal(url) {
+          if (!previewModal || !previewModalBody) return;
+          previewModalBody.innerHTML = '';
+          if (/youtube\.com|youtu\.be/.test(url)) {
+            try {
+              const u = new URL(url);
+              let embed = url;
+              if (u.hostname.includes('youtube.com') && u.searchParams.get('v')) embed = `https://www.youtube.com/embed/${u.searchParams.get('v')}`;
+              else if (u.hostname.includes('youtu.be')) embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+              previewModalBody.innerHTML = `<iframe src="${embed}" style="width:100%;height:80vh;border:0;border-radius:8px;" allowfullscreen></iframe>`;
+            } catch (e) {
+              previewModalBody.innerHTML = `<img src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
+            }
+          } else if (/\.(mp4|webm|ogg)$/i.test(url)) {
+            previewModalBody.innerHTML = `<video controls autoplay style="max-width:100%;max-height:80vh;border-radius:8px;"><source src="${url}"></video>`;
+          } else {
+            previewModalBody.innerHTML = `<img src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
+          }
+          previewModal.classList.add('open');
+          previewModal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closePreviewModal() {
+          if (!previewModal || !previewModalBody) return;
+          previewModal.classList.remove('open');
+          previewModal.setAttribute('aria-hidden', 'true');
+          previewModalBody.innerHTML = '';
+          document.body.style.overflow = '';
+        }
+
+        previewModalClose && previewModalClose.addEventListener('click', closePreviewModal);
+        previewModalBackdrop && previewModalBackdrop.addEventListener('click', closePreviewModal);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePreviewModal(); });
+
+        thumbs.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            thumbs.forEach((t) => t.classList.remove('active'));
+            btn.classList.add('active');
+            openPreviewModal(btn.getAttribute('data-url'));
+          });
+        });
+
+        if (thumbs.length) thumbs[0].classList.add('active');
+        else previewShelf.innerHTML = '<div class="muted">No hay previews disponibles.</div>';
+      }
     }
 
     // Currency toggle UI behavior
