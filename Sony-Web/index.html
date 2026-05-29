@@ -1573,5 +1573,110 @@
       }, 3600000);
     })();
   </script>
+  <script>// ========== MEJORAS RESPONSIVE: Menú móvil, cierre al exterior y ajustes táctiles ==========
+(function() {
+  const navbar = document.querySelector('.navbar');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navActions = document.querySelector('.nav-actions');
+
+  // Cerrar menú al hacer clic fuera
+  function closeMenuOnOutside(e) {
+    if (navbar && navbar.classList.contains('mobile-open')) {
+      if (!navbar.contains(e.target) || (navActions && navActions.contains(e.target))) {
+        navbar.classList.remove('mobile-open');
+        if (navToggle) {
+          navToggle.setAttribute('aria-expanded', 'false');
+          const icon = navToggle.querySelector('i');
+          if (icon) icon.className = 'fa-solid fa-bars';
+        }
+      }
+    }
+  }
+
+  // Cerrar menú al redimensionar a escritorio
+  function closeMenuOnResize() {
+    if (window.innerWidth > 768 && navbar && navbar.classList.contains('mobile-open')) {
+      navbar.classList.remove('mobile-open');
+      if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        const icon = navToggle.querySelector('i');
+        if (icon) icon.className = 'fa-solid fa-bars';
+      }
+    }
+  }
+
+  // Mejorar el clic en enlaces del menú (cierra automático)
+  if (navLinks.length) {
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navbar && navbar.classList.contains('mobile-open')) {
+          navbar.classList.remove('mobile-open');
+          if (navToggle) {
+            navToggle.setAttribute('aria-expanded', 'false');
+            const icon = navToggle.querySelector('i');
+            if (icon) icon.className = 'fa-solid fa-bars';
+          }
+        }
+      });
+    });
+  }
+
+  // Agregar eventos
+  document.addEventListener('click', closeMenuOnOutside);
+  window.addEventListener('resize', closeMenuOnResize);
+
+  // Ajustar altura del hero slider en móvil para evitar cortes
+  function adjustHeroHeight() {
+    const heroSlider = document.querySelector('.mySwiper');
+    if (heroSlider && window.innerWidth <= 768) {
+      const vh = window.innerHeight * 0.6;
+      heroSlider.style.minHeight = `${vh}px`;
+      const slides = document.querySelectorAll('.swiper-slide');
+      slides.forEach(slide => {
+        slide.style.minHeight = `${vh}px`;
+      });
+    } else if (heroSlider) {
+      heroSlider.style.minHeight = '';
+      const slides = document.querySelectorAll('.swiper-slide');
+      slides.forEach(slide => {
+        slide.style.minHeight = '';
+      });
+    }
+  }
+
+  window.addEventListener('resize', adjustHeroHeight);
+  window.addEventListener('load', adjustHeroHeight);
+
+  // Evitar que el scroll del menú arrastre el body (mejora UX móvil)
+  if (navbar) {
+    navbar.addEventListener('touchmove', (e) => {
+      if (navbar.classList.contains('mobile-open')) {
+        e.stopPropagation();
+      }
+    }, { passive: false });
+  }
+
+  // Pequeña animación de entrada en móvil para el menú
+  const style = document.createElement('style');
+  style.textContent = `
+    @media (max-width: 768px) {
+      .navbar.mobile-open .nav-links {
+        animation: slideDown 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+      }
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();</script>
 </body>
 </html>
