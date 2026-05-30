@@ -901,6 +901,56 @@
   </section>
 
   <main>
+    <section id="carousels-top" class="section">
+      <style>
+        #carousels-top.section { padding: 0.5rem 0 2rem; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        #carousels-top .section-header { padding: 0 2rem; }
+        .section-header h3 { font-size: 1.4rem; font-weight: 700; }
+        .section-header p { font-size: 0.95rem; color: var(--muted); }
+        [data-theme="light"] .section-header h3, [data-theme="light"] .section-header p { color: #1a1a1a; }
+        .carousel-card { background: var(--card-bg); border-radius: 0.5rem; padding: 0.8rem; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+          .carousel-card { background: transparent; border-radius: 0.6rem; padding: 0; display: block; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; overflow: hidden; }
+          .carousel-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+          .carousel-card img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 0.6rem; }
+        .carousel-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.25rem; line-height: 1.3; }
+        .carousel-price { margin-top: 0.15rem; font-weight: 700; color: var(--final-price-color); font-size: 0.88rem; }
+        .destacados-swiper .swiper-slide, .populares-swiper .swiper-slide { width: 188px; min-width: 188px; height: 160px; }
+        .destacados-swiper .swiper-slide, .populares-swiper .swiper-slide { display: flex; align-items: stretch; }
+        .swiper-button-prev, .swiper-button-next { color: #fff; }
+        /* Wide banner between carousels */
+        #bannerWide { height: 160px; border-radius: 12px; background-size: cover; background-position: center; box-shadow: 0 12px 36px rgba(0,0,0,0.45); margin: 1rem 2rem; }
+      </style>
+
+      <div class="section-header">
+        <div>
+          <h3>Juegos Destacados</h3>
+          <p>Lo mejor de la semana con tarjetas limpias y visual directo.</p>
+        </div>
+      </div>
+      <div class="swiper destacados-swiper" data-aos="fade-up">
+        <div class="swiper-wrapper" id="destacadosWrapper"></div>
+        <div class="swiper-pagination destacados-pagination"></div>
+        <div class="swiper-button-prev destacados-prev"></div>
+        <div class="swiper-button-next destacados-next"></div>
+      </div>
+
+      <div id="bannerWide" class="banner-wide section-banner" role="img" aria-label="Nueva Generación"></div>
+
+      <div class="section-header" style="margin-top:1rem;">
+        <div>
+          <h3>Más Populares</h3>
+          <p>Los títulos más buscados, con un estilo limpio y enfoque en la imagen.</p>
+        </div>
+      </div>
+      <div class="swiper populares-swiper" data-aos="fade-up">
+        <div class="swiper-wrapper" id="popularesWrapper"></div>
+        <div class="swiper-pagination populares-pagination"></div>
+        <div class="swiper-button-prev populares-prev"></div>
+        <div class="swiper-button-next populares-next"></div>
+      </div>
+    </section>
+
     <section id="destacados" class="section container">
       <div class="section-header">
         <div>
@@ -1197,6 +1247,76 @@
     function getGamesByIds(gamesArr, ids) {
       const map = gamesArr.reduce((acc, game) => { acc[game.id] = game; return acc; }, {});
       return ids.map(id => map[id]).filter(Boolean);
+    }
+
+    // Top carousels (Destacados / Más Populares) renderizado desde games.json
+    window.destacadosTopSwiper = null;
+    window.popularesTopSwiper = null;
+
+    function renderCarouselSection(data, sectionKey, wrapperId) {
+      const ids = getCuratedSectionIds(data, sectionKey);
+      let gamesList = [];
+      const allGames = (siteGames && siteGames.length) ? siteGames : Object.values((data && data.games) ? data.games : {});
+      if (ids && ids.length) {
+        gamesList = getGamesByIds(allGames, ids);
+      } else {
+        if (sectionKey === 'homeFeatured') {
+          gamesList = (siteFeaturedGames && siteFeaturedGames.length) ? siteFeaturedGames.slice(0, 12) : allGames.slice(0, 12);
+        } else if (sectionKey === 'popular') {
+          gamesList = allGames.slice(0, 12);
+        } else {
+          gamesList = allGames.slice(0, 8);
+        }
+      }
+
+      const wrapper = document.getElementById(wrapperId);
+      if (!wrapper) return;
+      wrapper.innerHTML = gamesList.map(g => `
+        <div class="swiper-slide">
+          <a class="carousel-card" href="PS-Details.html?id=${g.id}" title="${g.title}">
+            <img src="${g.image}" alt="${g.title}" loading="lazy">
+          </a>
+        </div>
+      `).join('');
+
+      // destroy previous instances if exist
+      try { if (sectionKey === 'homeFeatured' && window.destacadosTopSwiper) { window.destacadosTopSwiper.destroy(true, true); window.destacadosTopSwiper = null; } } catch (e) {}
+      try { if (sectionKey === 'popular' && window.popularesTopSwiper) { window.popularesTopSwiper.destroy(true, true); window.popularesTopSwiper = null; } } catch (e) {}
+
+      const commonOpts = {
+        slidesPerView: 'auto',
+        spaceBetween: 12,
+        freeMode: true,
+        grabCursor: true,
+        watchOverflow: true,
+        speed: 600,
+        breakpoints: {
+          420: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 }
+        }
+      };
+
+      if (sectionKey === 'homeFeatured') {
+        window.destacadosTopSwiper = new Swiper('.destacados-swiper', Object.assign({}, commonOpts, { navigation: { nextEl: '.destacados-next', prevEl: '.destacados-prev' }, pagination: { el: '.destacados-pagination', clickable: true } }));
+      } else {
+        window.popularesTopSwiper = new Swiper('.populares-swiper', Object.assign({}, commonOpts, { navigation: { nextEl: '.populares-next', prevEl: '.populares-prev' }, pagination: { el: '.populares-pagination', clickable: true } }));
+      }
+      AOS.refreshHard();
+    }
+
+    function renderWideBannerElement(banners) {
+      const el = document.getElementById('bannerWide');
+      if (!el) return;
+      const b = (Array.isArray(banners) && banners.length) ? banners[0] : null;
+      if (b) {
+        el.style.display = '';
+        el.style.backgroundImage = `url('${b.image}')`;
+        el.setAttribute('aria-label', b.title || 'Banner');
+        el.innerHTML = '';
+      } else {
+        el.style.display = 'none';
+      }
     }
 
     function autoCurate(data) {
@@ -1538,6 +1658,28 @@
       renderBento(siteFeaturedGames);
       renderPremiere(sitePremiereGames);
       renderProximosEstrenos(siteUpcomingGames);
+
+      // Render top carousels (homeFeatured -> destacados, popular -> populares)
+      try {
+        renderCarouselSection(data, 'homeFeatured', 'destacadosWrapper');
+        renderCarouselSection(data, 'popular', 'popularesWrapper');
+      } catch (e) { /* ignore render errors */ }
+
+      // Wide banner (imagen ancha entre carousels)
+      try { renderWideBannerElement(siteBanners); } catch (e) {}
+
+      // actualizar títulos desde config (si existen)
+      try {
+        const carouselsTopEl = document.getElementById('carousels-top');
+        if (carouselsTopEl) {
+          const headers = carouselsTopEl.querySelectorAll('.section-header h3');
+          const hfTitle = data && data.platforms && data.platforms.PS5 && data.platforms.PS5.sections && data.platforms.PS5.sections.homeFeatured && data.platforms.PS5.sections.homeFeatured.title;
+          const popTitle = data && data.platforms && data.platforms.PS5 && data.platforms.PS5.sections && data.platforms.PS5.sections.popular && data.platforms.PS5.sections.popular.title;
+          if (headers[0] && hfTitle) headers[0].textContent = hfTitle;
+          if (headers[1] && popTitle) headers[1].textContent = popTitle;
+        }
+      } catch (e) {}
+
       initSwiper();
       AOS.refreshHard();
       gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
@@ -1569,6 +1711,12 @@
           showPrices = fresh && fresh.config && typeof fresh.config.showPrices === 'boolean' ? fresh.config.showPrices : true;
           siteBanners = fresh.banners || [];
           renderBannerSlides(siteBanners);
+          // refresh top carousels + wide banner in case curation changed
+          try {
+            renderCarouselSection(fresh, 'homeFeatured', 'destacadosWrapper');
+            renderCarouselSection(fresh, 'popular', 'popularesWrapper');
+            renderWideBannerElement(siteBanners);
+          } catch (e) {}
           initSwiper();
         } catch (err) { /* no bloquear UI si falla */ }
       }, 3600000);

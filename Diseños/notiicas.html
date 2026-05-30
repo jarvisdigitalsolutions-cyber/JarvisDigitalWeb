@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Noticias · Jarvis Digital Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0c12;
+      --surface: #14181f;
+      --surface-2: #1e2530;
+      --text: #f0f3f8;
+      --text-muted: #9aa8b9;
+      --border: rgba(255,255,255,0.08);
+      --accent: #3b82f6;
+      --accent-glow: rgba(59,130,246,0.3);
+      --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      --card-bg: linear-gradient(145deg, #14181f, #0f1219);
+      --shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+      --transition: all 0.2s ease;
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: rgba(0,0,0,0.08);
+      --accent: #2563eb;
+      --accent-glow: rgba(37,99,235,0.15);
+      --card-bg: #ffffff;
+      --shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background 0.3s, color 0.2s;
+      min-height: 100vh;
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 0.8rem 1.5rem;
+      background: rgba(var(--bg-rgb), 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+    .logo img {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+    }
+    .nav-actions {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    .icon-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 42px;
+      height: 42px;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Menú móvil */
+    .menu-toggle {
+      display: none;
+    }
+    @media (max-width: 860px) {
+      .menu-toggle {
+        display: inline-flex;
+        order: 1;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.5rem;
+        background: var(--surface);
+        padding: 1rem;
+        border-radius: 1.5rem;
+        border: 1px solid var(--border);
+        order: 3;
+      }
+      .navbar.mobile-open .nav-links {
+        display: flex;
+      }
+      .nav-actions {
+        order: 2;
+      }
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      text-align: center;
+      padding: 3rem 1.5rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .hero p {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ========== FILTROS ========== */
+    .filters-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin: 1rem 1.5rem;
+    }
+    .filter-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-muted);
+    }
+    .filter-chip.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .filter-chip:hover {
+      background: var(--accent-glow);
+      color: var(--accent);
+    }
+
+    /* ========== NEWS GRID ========== */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.8rem;
+      padding: 1rem 1.5rem 3rem;
+    }
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent);
+    }
+    .card-img {
+      position: relative;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--surface-2);
+    }
+    .card-category {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: var(--accent);
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .card-body {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .card-body h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .card-body p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .read-more {
+      margin-top: auto;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero { padding: 2rem 1rem; }
+      .filters-bar { margin: 0.5rem 1rem; }
+      .news-grid { padding: 0 1rem 2rem; gap: 1rem; }
+      .card-img { height: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">
+      <img src="IMG/Empresa/Logo.png" alt="Jarvis Digital">
+    </a>
+    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menú">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="collection-p5.html">Catálogo</a></li>
+      <li><a href="news.html" class="active">Noticias</a></li>
+      <li><a href="registro.html">Registro</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle"><i class="fas fa-sun"></i></button>
+      <button class="icon-btn" id="currencyToggle"><span id="currencyLabel">USD</span></button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <h1>Últimas noticias del mundo PlayStation</h1>
+      <p>Mantente al día con los lanzamientos, actualizaciones, eventos y novedades de PS5, PS4 y PS3.</p>
+    </div>
+
+    <div class="filters-bar" id="filtersBar">
+      <button class="filter-chip active" data-category="all">Todas</button>
+      <button class="filter-chip" data-category="hardware">Hardware</button>
+      <button class="filter-chip" data-category="juegos">Juegos</button>
+      <button class="filter-chip" data-category="eventos">Eventos</button>
+      <button class="filter-chip" data-category="servicios">Servicios</button>
+    </div>
+
+    <div id="newsGrid" class="news-grid">
+      <div class="empty-state">Cargando noticias...</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Jarvis Digital Solutions · Noticias actualizadas diariamente</p>
+    <p>© 2026 Jarvis Digital Solutions</p>
+  </footer>
+
+  <script>
+    // ========== TEMA OSCURO/CLARO ==========
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.querySelector('i').className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('ps5-theme', next);
+      themeToggle.querySelector('i').className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+    // ========== MENÚ MÓVIL ==========
+    const menuToggle = document.getElementById('menuToggle');
+    const navbar = document.getElementById('navbar');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        navbar.classList.toggle('mobile-open');
+        const icon = menuToggle.querySelector('i');
+        icon.className = navbar.classList.contains('mobile-open') ? 'fas fa-times' : 'fas fa-bars';
+      });
+    }
+
+    // ========== CARGAR NOTICIAS ==========
+    let allNews = [];
+    let currentCategory = 'all';
+
+    async function loadNews() {
+      try {
+        const res = await fetch('./news.json');
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+        allNews = data.news || [];
+        renderNews();
+      } catch (error) {
+        document.getElementById('newsGrid').innerHTML = '<div class="empty-state">Error al cargar las noticias. Inténtalo de nuevo más tarde.</div>';
+      }
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function getCategoryLabel(category) {
+      const labels = {
+        hardware: 'Hardware',
+        juegos: 'Juegos',
+        eventos: 'Eventos',
+        servicios: 'Servicios'
+      };
+      return labels[category] || category;
+    }
+
+    function renderNews() {
+      const grid = document.getElementById('newsGrid');
+      const filtered = currentCategory === 'all' 
+        ? allNews 
+        : allNews.filter(n => n.category === currentCategory);
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div class="empty-state">No hay noticias en esta categoría.</div>';
+        return;
+      }
+      
+      const fallbackImage = 'IMG/PS5/Loader-Error.png';
+      grid.innerHTML = filtered.map(news => `
+        <a href="${news.link}" class="news-card" target="_blank" rel="noopener noreferrer">
+          <div class="card-img" style="background-image: url('${news.image}'); background-size: cover; background-position: center;">
+            <span class="card-category">${getCategoryLabel(news.category)}</span>
+          </div>
+          <div class="card-body">
+            <div class="card-date"><i class="far fa-calendar-alt"></i> ${formatDate(news.date)}</div>
+            <h3>${news.title}</h3>
+            <p>${news.summary}</p>
+            <div class="read-more">Leer más <i class="fas fa-arrow-right"></i></div>
+          </div>
+        </a>
+      `).join('');
+      
+      // Manejo de imágenes rotas (fallback)
+      document.querySelectorAll('.card-img').forEach(container => {
+        const imgUrl = container.style.backgroundImage.slice(5, -2);
+        const testImg = new Image();
+        testImg.onerror = () => {
+          container.style.backgroundImage = `url('${fallbackImage}')`;
+        };
+        testImg.src = imgUrl;
+      });
+    }
+
+    // Filtros
+    function initFilters() {
+      const filters = document.querySelectorAll('.filter-chip');
+      filters.forEach(filter => {
+        filter.addEventListener('click', () => {
+          filters.forEach(f => f.classList.remove('active'));
+          filter.classList.add('active');
+          currentCategory = filter.dataset.category;
+          renderNews();
+        });
+      });
+    }
+
+    // Moneda (solo visual, sin efecto en noticias)
+    let selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
+    const currencyLabel = document.getElementById('currencyLabel');
+    const currencyBtn = document.getElementById('currencyToggle');
+    currencyLabel.textContent = selectedCurrency;
+    currencyBtn.addEventListener('click', () => {
+      selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
+      localStorage.setItem('ps5-currency', selectedCurrency);
+      currencyLabel.textContent = selectedCurrency;
+    });
+
+    // Iniciar
+    loadNews();
+    initFilters();
+  </script>
+</body>
+</html>

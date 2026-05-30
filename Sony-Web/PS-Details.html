@@ -377,7 +377,12 @@
     .rating-stars .muted { color: var(--muted); font-weight: 700; }
 
     .footer { padding: 1.5rem 0 2.5rem; color: var(--muted); }
-
+/* Ocultar botón de menú solo en pantallas grandes */
+@media (min-width: 901px) {
+  .menu-toggle {
+    display: none;
+  }
+}
     @media (max-width: 900px) {
       .hero, .content-grid { grid-template-columns: 1fr; }
       .hero-image { min-height: 320px; }
