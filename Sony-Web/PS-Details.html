@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="detail-responsive.css">
+  <link rel="stylesheet" href="responsive-catalog.css">
   <style>
     :root {
       --bg: #040816;
@@ -384,15 +384,24 @@
       .preview-shelf { flex-direction: row; gap: 0.6rem; padding: 0.8rem 0.4rem; }
       .preview-thumb { width: 70px; height: 90px; border-radius: 10px; }
     }
+    .trailer-card.trailer-hero-card {
+  min-height: 400px;
+}
+
+@media (max-width: 900px) {
+  .trailer-card.trailer-hero-card {
+    min-height: 200px;
+  }
+}
   </style>
 </head>
 <body>
   <nav class="navbar">
     <a href="index.html" class="logo" aria-label="Inicio">
-      <img loading="lazy" src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
+      <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
     </a>
     <div class="nav-links">
-      <a href="collection-p5.html">Cat·logo</a>
+      <a href="collection-p5.html">Cat√°logo</a>
       <a href="index.html">Inicio</a>
       <a href="registro.html">Registro</a>
       <a href="PS-Details.html?id=spider-man-3" class="active">Detalle</a>
@@ -402,10 +411,10 @@
         <i class="fa-solid fa-sun"></i>
       </button>
       <button id="currencyToggle" class="theme-toggle" title="Cambiar moneda"><span id="currencyLabel">USD</span></button>
-      <button id="navToggle" class="menu-toggle" aria-label="Abrir men˙" aria-expanded="false">
+      <button id="navToggle" class="menu-toggle" aria-label="Abrir men√∫" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
       </button>
-      <a href="collection-p5.html" class="back-btn">? Volver</a>
+      <a href="collection-p5.html" class="back-btn">‚Üê Volver</a>
     </div>
   </nav>
 
@@ -415,7 +424,7 @@
         <span class="hero-badge" id="gameBadge">Cargando...</span>
       </div>
       <div class="hero-copy">
-        <div class="eyebrow"><i class="fa-solid fa-circle-play"></i> Ficha din·mica desde JSON</div>
+        <div class="eyebrow"><i class="fa-solid fa-circle-play"></i> Ficha din√°mica desde JSON</div>
         <h1 id="gameTitle">Cargando juego...</h1>
         <p id="gameTagline" class="muted"></p>
         <div class="meta-row">
@@ -423,7 +432,7 @@
           <span id="gamePlatform"></span>
           <span id="gameRelease"></span>
         </div>
-        <div id="ratingStars" class="rating-stars" aria-label="CalificaciÛn del juego"></div>
+        <div id="ratingStars" class="rating-stars" aria-label="Calificaci√≥n del juego"></div>
         <div class="price-box">
           <span class="old-price" id="gameOldPrice"></span>
           <span class="final-price" id="gamePrice"></span>
@@ -449,22 +458,22 @@
       </div>
     </section>
 
-    <!-- Trailer hero: tr·iler grande + preview shelf lateral -->
+    <!-- Trailer hero: tr√°iler grande + preview shelf lateral -->
     <section class="panel trailer-hero" data-aos="fade-up">
-      <h2>Tr·iler y Vistas Previas</h2>
+      <h2>Tr√°iler y Vistas Previas</h2>
       <div class="trailer-wrap">
         <div class="trailer-card trailer-hero-card" id="trailerCard">...</div>
         <div id="previewShelf" class="preview-shelf"></div>
       </div>
     </section>
-       <section class="content-grid">
+    <section class="content-grid">
       <div class="panel" data-aos="fade-up" data-aos-delay="80">
         <h2>Especificaciones</h2>
         <table class="spec-table">
           <tr><td>Plataforma</td><td id="specPlatform"></td></tr>
-          <tr><td>EdiciÛn</td><td id="specEdition"></td></tr>
+          <tr><td>Edici√≥n</td><td id="specEdition"></td></tr>
           <tr><td>Desarrollador</td><td id="specDeveloper"></td></tr>
-          <tr><td>CalificaciÛn</td><td id="specRating"></td></tr>
+          <tr><td>Calificaci√≥n</td><td id="specRating"></td></tr>
         </table>
       </div>
     </section>
@@ -474,14 +483,14 @@
   <div id="previewModal" class="preview-modal" aria-hidden="true">
     <div id="previewModalBackdrop" class="preview-modal-backdrop"></div>
     <div class="preview-modal-content" role="dialog" aria-modal="true">
-      <button id="previewModalClose" class="preview-modal-close" aria-label="Cerrar vista previa">◊</button>
+      <button id="previewModalClose" class="preview-modal-close" aria-label="Cerrar vista previa">√ó</button>
       <div id="previewModalBody" class="preview-modal-body"></div>
     </div>
   </div>
 
   <footer class="footer container">
-    <div>Jarvis Digital Solutions ∑ Detalle din·mico desde JSON</div>
-    <div>Lista de datos preparada para ampliar con m·s tÌtulos.</div>
+    <div>Jarvis Digital Solutions ¬∑ Detalle din√°mico desde JSON</div>
+    <div>Lista de datos preparada para ampliar con m√°s t√≠tulos.</div>
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -570,7 +579,7 @@
         document.getElementById('gameTitle').textContent = 'Juego no encontrado';
         return;
       }
-      document.title = `${game.title} ∑ Detalle del juego`;
+      document.title = `${game.title} ¬∑ Detalle del juego`;
       await loadHeroImage(game.image || game.image);
       document.getElementById('gameBadge').textContent = game.status;
       document.getElementById('gameTitle').textContent = game.title;
@@ -617,9 +626,9 @@
 
       document.getElementById('gameDescription').textContent = game.description || '';
       document.getElementById('gameTags').innerHTML = (game.genres || []).map((genre) => `<span class="tag-chip">${genre}</span>`).join('');
-      document.getElementById('gameFeatures').innerHTML = (game.features || []).map((feature) => `<li><span>${feature}</span><span>?</span></li>`).join('');
+      document.getElementById('gameFeatures').innerHTML = (game.features || []).map((feature) => `<li><span>${feature}</span><span>‚úì</span></li>`).join('');
 
-      // Trailer placeholder: reserve el ·rea para el tr·iler (solo YouTube)
+      // Trailer placeholder: reserve el √°rea para el tr√°iler (solo YouTube)
       const trailerCard = document.getElementById('trailerCard');
       if (game.trailer && /youtube\.com|youtu\.be/.test(game.trailer)) {
         let embed = game.trailer;
@@ -633,7 +642,7 @@
         } catch (e) {}
         trailerCard.innerHTML = `<iframe src="${embed}" style="width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>`;
       } else {
-        trailerCard.textContent = 'El trailer se cargar· desde el dataset cuando estÈ disponible.';
+        trailerCard.textContent = 'El trailer se cargar√° desde el dataset cuando est√© disponible.';
       }
 
       // Specs
@@ -660,7 +669,7 @@
         ratingEl.innerHTML = `<div style="display:flex;gap:8px;align-items:center;"><div class="stars">${starsHtml}</div><div class="muted" style="font-weight:700;margin-left:8px;">${r.toFixed(1)}/5</div></div>`;
       }
 
-      // Preview shelf (vertical thumbnails) ó thumbnails abren modal (no sobrescriben el tr·iler)
+      // Preview shelf (vertical thumbnails) ‚Äî thumbnails abren modal (no sobrescriben el tr√°iler)
       const previewShelf = document.getElementById('previewShelf');
       if (previewShelf) {
         let previews = [];
@@ -686,7 +695,7 @@
           });
         });
 
-        // Modal helpers (elementos est·n fuera del panel, insertados en el DOM)
+        // Modal helpers (elementos est√°n fuera del panel, insertados en el DOM)
         const previewModal = document.getElementById('previewModal');
         const previewModalBody = document.getElementById('previewModalBody');
         const previewModalClose = document.getElementById('previewModalClose');
@@ -703,12 +712,12 @@
               else if (u.hostname.includes('youtu.be')) embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
               previewModalBody.innerHTML = `<iframe src="${embed}" style="width:100%;height:80vh;border:0;border-radius:8px;" allowfullscreen></iframe>`;
             } catch (e) {
-              previewModalBody.innerHTML = `<img loading="lazy" src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
+              previewModalBody.innerHTML = `<img src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
             }
           } else if (/\.(mp4|webm|ogg)$/i.test(url)) {
             previewModalBody.innerHTML = `<video controls autoplay style="max-width:100%;max-height:80vh;border-radius:8px;"><source src="${url}"></video>`;
           } else {
-            previewModalBody.innerHTML = `<img loading="lazy" src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
+            previewModalBody.innerHTML = `<img src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
           }
           previewModal.classList.add('open');
           previewModal.setAttribute('aria-hidden', 'false');
