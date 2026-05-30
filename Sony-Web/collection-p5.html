@@ -276,6 +276,21 @@
       box-shadow: var(--shadow);
     }
 
+    /* Filters bar: toggle + clear — responsive behavior handled below */
+    .filters-bar { display: none; gap: 0.5rem; align-items: center; margin: 0.8rem 0; }
+    .filter-toggle-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.55rem 0.9rem; border-radius: 12px; background: var(--panel);
+      border: 1px solid var(--border); color: var(--text); cursor: pointer; font-weight: 700;
+    }
+    .filter-toggle-btn .filter-count { background: var(--accent); color: #fff; padding: 0.12rem 0.45rem; border-radius: 9999px; font-weight:800; margin-left: 0.35rem; font-size: 0.85rem; display: inline-block; }
+    .filter-action-btn { border: 1px solid var(--border); background: transparent; color: var(--muted); padding: 0.48rem 0.8rem; border-radius: 12px; cursor: pointer; font-weight:700; }
+
+    /* Collapse/expand animation for mobile filters */
+    .filters { transition: max-height 0.32s ease, opacity 0.32s ease, padding 0.32s ease; overflow: hidden; }
+    .filters.closed { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none; }
+    .filters.open { max-height: 1400px; opacity: 1; padding: 1rem; pointer-events: auto; }
+
     .filter-group { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
     .filter-title { font-weight: 700; color: var(--text); }
 
@@ -481,6 +496,11 @@
       .filter-group { width: 100%; }
       .filter-btn { width: 100%; text-align: center; }
       .page-title { font-size: 2rem; }
+      /* show compact filters-bar on mobile */
+      .filters-bar { display: flex; }
+      /* Start filters collapsed on small screens */
+      .filters { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none; }
+      .filters.open { max-height: 1400px; opacity: 1; padding: 1rem; pointer-events: auto; }
     }
   </style>
   <link rel="stylesheet" href="responsive.css">
@@ -520,7 +540,16 @@
       </div>
     </section>
 
-    <section class="filters" data-aos="fade-up">
+    <div class="filters-bar" aria-hidden="false">
+      <button id="filtersToggle" class="filter-toggle-btn" aria-expanded="false" aria-controls="filtersPanel">
+        <i class="fa-solid fa-filter"></i>
+        <span class="visually-hidden">Abrir filtros</span>
+        <span id="activeFilterCount" class="filter-count" style="display:none" aria-hidden="true">0</span>
+      </button>
+      <button id="clearFiltersBtn" class="filter-action-btn" title="Limpiar filtros">Limpiar</button>
+    </div>
+
+    <section id="filtersPanel" class="filters" data-aos="fade-up">
       <div class="filter-group">
         <span class="filter-title">Plataforma</span>
         <button class="filter-btn active" data-filter="platform" data-value="all">Todos</button>
@@ -878,14 +907,25 @@
       filterButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
           const container = btn.closest('.filter-group');
-          container.querySelectorAll('.filter-btn').forEach((item) => item.classList.remove('active'));
+          if (container) {
+            container.querySelectorAll('.filter-btn').forEach((item) => item.classList.remove('active'));
+          } else {
+            // fallback: clear same-attribute buttons
+            const df = btn.getAttribute('data-filter');
+            const ds = btn.getAttribute('data-sort');
+            if (df) document.querySelectorAll(`[data-filter="${df}"]`).forEach(i => i.classList.remove('active'));
+            if (ds) document.querySelectorAll('[data-sort]').forEach(i => i.classList.remove('active'));
+          }
           btn.classList.add('active');
           applyFilters(currentGames);
+          updateActiveFilterCount();
+          // on small screens, close filters after selection for convenience
+          if (window.innerWidth <= 640) toggleFilters(false);
         });
       });
 
       const si = searchInput();
-      if (si) si.addEventListener('input', debounce(() => applyFilters(currentGames), 220));
+      if (si) si.addEventListener('input', debounce(() => { applyFilters(currentGames); updateActiveFilterCount(); }, 220));
 
       // Currency toggle handler
       const currencyBtn = document.getElementById('currencyToggle');
@@ -897,9 +937,67 @@
           localStorage.setItem('ps5-currency', selectedCurrency);
           if (currencyLabel) currencyLabel.textContent = selectedCurrency;
           applyFilters(currentGames);
+          updateActiveFilterCount();
         });
       }
+
+      // Clear filters button
+      const clearBtn = document.getElementById('clearFiltersBtn');
+      if (clearBtn) clearBtn.addEventListener('click', (e) => { e.preventDefault(); clearFilters(); });
+
+      // initialize count and state
+      updateActiveFilterCount();
+      const panel = document.getElementById('filtersPanel');
+      if (panel && window.innerWidth <= 640) {
+        panel.classList.add('closed');
+        panel.classList.remove('open');
+        const tbtn = document.getElementById('filtersToggle'); if (tbtn) tbtn.setAttribute('aria-expanded','false');
+      }
     }
+
+    // ===== Filter UI helpers =====
+    function updateActiveFilterCount() {
+      const activeCountEl = document.getElementById('activeFilterCount');
+      if (!activeCountEl) return;
+      let count = 0;
+      document.querySelectorAll('.filter-btn.active').forEach(btn => {
+        const val = btn.dataset.value;
+        if (val && val !== 'all') count++;
+      });
+      const q = (document.getElementById('searchInput') && document.getElementById('searchInput').value.trim()) || '';
+      if (q) count++;
+      if (count > 0) { activeCountEl.textContent = String(count); activeCountEl.style.display = 'inline-block'; }
+      else { activeCountEl.style.display = 'none'; }
+    }
+
+    function clearFilters() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.filter-group').forEach(g => {
+        const all = g.querySelector('.filter-btn[data-value="all"]');
+        if (all) all.classList.add('active');
+      });
+      const si = document.getElementById('searchInput'); if (si) si.value = '';
+      const anySort = document.querySelector('[data-sort].active');
+      if (!anySort) { const firstSort = document.querySelector('[data-sort]'); if (firstSort) firstSort.classList.add('active'); }
+      applyFilters(currentGames);
+      updateActiveFilterCount();
+    }
+
+    function toggleFilters(open) {
+      const panel = document.getElementById('filtersPanel');
+      const btn = document.getElementById('filtersToggle');
+      if (!panel || !btn) return;
+      const isOpen = (typeof open === 'boolean') ? open : !panel.classList.contains('open');
+      if (isOpen) {
+        panel.classList.remove('closed'); panel.classList.add('open'); btn.setAttribute('aria-expanded','true');
+      } else {
+        panel.classList.remove('open'); panel.classList.add('closed'); btn.setAttribute('aria-expanded','false');
+      }
+    }
+
+    // hook toggle button
+    const filtersToggleBtn = document.getElementById('filtersToggle');
+    if (filtersToggleBtn) filtersToggleBtn.addEventListener('click', () => toggleFilters());
 
     loadData().then((data) => {
       const games = data && data.games ? Object.values(data.games) : fallbackGames;
