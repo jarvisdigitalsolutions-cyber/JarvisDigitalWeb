@@ -117,8 +117,9 @@ def select_featured(sorted_games, recent_featured, featured_count, exclude_ids=N
 
 
 def select_premieres(sorted_games, now_year, premieres_count, exclude_ids=None):
+    """Selecciona juegos con status='Próximamente' únicamente"""
     exclude_ids = set(exclude_ids or [])
-    candidates = [g for g in sorted_games if (str(g.get('release') or '')).isdigit() and int(g.get('release')) >= now_year - 1]
+    candidates = [g for g in sorted_games if g.get('status', '').lower() == 'próximamente']
     selected = [g for g in candidates if g['id'] not in exclude_ids][:premieres_count]
     if len(selected) < premieres_count:
         for g in candidates:
@@ -129,12 +130,37 @@ def select_premieres(sorted_games, now_year, premieres_count, exclude_ids=None):
     return selected
 
 
+def select_recent_releases(sorted_games, now_year, recent_releases_count, exclude_ids=None):
+    """Selecciona juegos con status='Disponible' y release en 2025-2026"""
+    exclude_ids = set(exclude_ids or [])
+    candidates = []
+    for g in sorted_games:
+        if g.get('status', '').lower() == 'disponible':
+            try:
+                release = int(g.get('release', now_year))
+                if release >= 2025:
+                    candidates.append(g)
+            except (ValueError, TypeError):
+                pass
+    # Ordenar por release descendente (más reciente primero)
+    candidates.sort(key=lambda x: int(x.get('release', 0)), reverse=True)
+    selected = [g for g in candidates if g['id'] not in exclude_ids][:recent_releases_count]
+    if len(selected) < recent_releases_count:
+        for g in candidates:
+            if g['id'] not in exclude_ids and g not in selected:
+                selected.append(g)
+            if len(selected) >= recent_releases_count:
+                break
+    return selected
+
+
 def main():
     parser = argparse.ArgumentParser(description='Auto-curate banners/featured/premieres into Sony-Web/games.json')
     parser.add_argument('--games', default=None, help='Ruta a Sony-Web/games.json')
     parser.add_argument('--banner-count', type=int, default=3)
     parser.add_argument('--featured-count', type=int, default=6)
-    parser.add_argument('--premieres-count', type=int, default=3)
+    parser.add_argument('--premieres-count', type=int, default=4)
+    parser.add_argument('--recent-releases-count', type=int, default=4)
     parser.add_argument('--no-repeat-weeks', type=int, default=4, help='No repetir picks dentro de N semanas')
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args()
@@ -171,6 +197,7 @@ def main():
     all_sorted = sorted(games_list, key=lambda x: x.get('_score', 0), reverse=True)
     selected_featured = select_featured(all_sorted, recent_featured, args.featured_count)
     selected_premieres = select_premieres(all_sorted, now_year, args.premieres_count)
+    selected_recent_releases = select_recent_releases(all_sorted, now_year, args.recent_releases_count)
 
     # prepare next-week forecast
     future_recent_banners = recent_banners.union({g['id'] for g in selected_banners})
@@ -178,6 +205,7 @@ def main():
     next_banners = select_banners(banner_candidates, future_recent_banners, args.banner_count, exclude_ids={g['id'] for g in selected_banners})
     next_featured = select_featured(all_sorted, future_recent_featured, args.featured_count, exclude_ids={g['id'] for g in selected_featured})
     next_premieres = select_premieres(all_sorted, now_year, args.premieres_count, exclude_ids={g['id'] for g in selected_premieres})
+    next_recent_releases = select_recent_releases(all_sorted, now_year, args.recent_releases_count, exclude_ids={g['id'] for g in selected_recent_releases})
 
     # prepare banners objects
     banners_out = []
@@ -203,6 +231,8 @@ def main():
             sections['featured']['games'] = [g['id'] for g in selected_featured]
         if 'premieres' in sections:
             sections['premieres']['games'] = [g['id'] for g in selected_premieres]
+        if 'recentReleases' in sections:
+            sections['recentReleases']['games'] = [g['id'] for g in selected_recent_releases]
 
     # update game statuses (preserve original in _origStatus)
     for g in games_list:
@@ -222,7 +252,8 @@ def main():
         'timestamp': datetime.utcnow().isoformat(),
         'banners': [g['id'] for g in selected_banners],
         'featured': [g['id'] for g in selected_featured],
-        'premieres': [g['id'] for g in selected_premieres]
+        'premieres': [g['id'] for g in selected_premieres],
+        'recentReleases': [g['id'] for g in selected_recent_releases]
     }
     history.insert(0, entry)
     # keep history reasonable
@@ -234,7 +265,8 @@ def main():
             'timestamp': (datetime.utcnow() + timedelta(weeks=1)).isoformat(),
             'banners': [g['id'] for g in next_banners],
             'featured': [g['id'] for g in next_featured],
-            'premieres': [g['id'] for g in next_premieres]
+            'premieres': [g['id'] for g in next_premieres],
+            'recentReleases': [g['id'] for g in next_recent_releases]
         }
     }
 
@@ -243,10 +275,12 @@ def main():
     print('  Banners:', ', '.join([g['id'] for g in selected_banners]))
     print('  Featured:', ', '.join([g['id'] for g in selected_featured]))
     print('  Premieres:', ', '.join([g['id'] for g in selected_premieres]))
+    print('  Lanzamientos Recientes:', ', '.join([g['id'] for g in selected_recent_releases]))
     print('Siguiente semana (previsión):')
     print('  Banners:', ', '.join([g['id'] for g in next_banners]))
     print('  Featured:', ', '.join([g['id'] for g in next_featured]))
     print('  Premieres:', ', '.join([g['id'] for g in next_premieres]))
+    print('  Lanzamientos Recientes:', ', '.join([g['id'] for g in next_recent_releases]))
 
     if args.dry_run:
         print('\nDry-run: no se escribieron cambios en games.json')
