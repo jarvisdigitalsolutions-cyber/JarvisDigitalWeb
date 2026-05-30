@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -384,8 +384,16 @@
       .preview-shelf { flex-direction: row; gap: 0.6rem; padding: 0.8rem 0.4rem; }
       .preview-thumb { width: 70px; height: 90px; border-radius: 10px; }
     }
+    .trailer-card.trailer-hero-card {
+  min-height: 400px;
+}
+
+@media (max-width: 900px) {
+  .trailer-card.trailer-hero-card {
+    min-height: 200px;
+  }
+}
   </style>
-  <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
   <nav class="navbar">

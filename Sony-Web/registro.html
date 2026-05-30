@@ -67,7 +67,9 @@
       border-bottom: 1px solid var(--border);
     }
     [data-theme="light"] .navbar { background: rgba(255, 255, 255, 0.82); }
-    .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .logo { display: inline-flex; align-items: center; line-height: 0; }
+    .brand-logo { display:block; width: clamp(120px, 10vw, 170px); height:auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.22)); transition: transform 0.25s ease, filter 0.25s ease; }
+    .brand-logo:hover { transform: scale(1.03); }
     .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; flex-wrap: wrap; }
     .nav-links a { color: var(--muted); font-weight: 600; transition: color 0.25s ease; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
@@ -137,7 +139,9 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="logo">PLAY<span style="font-weight:400;">STORE</span></a>
+    <a href="index.html" class="logo" aria-label="Inicio">
+      <img loading="lazy" src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
+    </a>
     <ul class="nav-links">
       <li><a href="collection-p5.html">Catálogo</a></li>
       <li><a href="index.html">Inicio</a></li>

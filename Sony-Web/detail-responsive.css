@@ -1,0 +1,193 @@
+/* responsive-detail.css - Estilos específicos para PS-Details.html en móvil */
+
+/* Ajustes generales para pantallas pequeñas */
+@media (max-width: 900px) {
+  /* Navbar móvil */
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    display: none;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .navbar.mobile-open .nav-links {
+    display: flex;
+  }
+
+  .nav-actions {
+    order: 2;
+    gap: 0.5rem;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    order: 1;
+  }
+
+  /* Hero section */
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .hero-image {
+    min-height: 240px;
+    border-radius: 20px;
+  }
+
+  .hero-copy h1 {
+    font-size: 1.6rem;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+  }
+
+  .meta-row {
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+  }
+
+  /* Precios y botones */
+  .price-box .final-price {
+    font-size: 1.5rem;
+  }
+
+  .action-row {
+    flex-direction: column;
+  }
+
+  .cta-primary, .cta-secondary {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Grid de contenido */
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+
+  /* ===== MEJORA CLAVE: TRÁILER Y PREVIEWS ===== */
+  .trailer-wrap {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Contenedor del tráiler: altura reducida en móvil */
+  .trailer-card.trailer-hero-card {
+    min-height: 200px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .trailer-card iframe {
+    height: 100%;
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  /* Galería de vistas previas: horizontal desplazable */
+  .preview-shelf {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    justify-content: flex-start;
+    scrollbar-width: thin;
+  }
+
+  .preview-thumb {
+    width: 80px;
+    height: 100px;
+    flex-shrink: 0;
+    border-radius: 12px;
+  }
+
+  /* Especificaciones en móvil */
+  .spec-table td {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .spec-table td:first-child {
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  /* Footer */
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+}
+
+/* Pantallas muy pequeñas (menos de 550px) */
+@media (max-width: 550px) {
+  .hero-image {
+    min-height: 200px;
+  }
+
+  .trailer-card.trailer-hero-card {
+    min-height: 180px;
+  }
+
+  .preview-thumb {
+    width: 70px;
+    height: 90px;
+  }
+
+  .panel h2 {
+    font-size: 1.2rem;
+  }
+
+  .feature-list li {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+/* Orientación horizontal (landscape) en móviles */
+@media (max-width: 900px) and (orientation: landscape) {
+  .trailer-card.trailer-hero-card {
+    min-height: 160px;
+  }
+
+  .hero-image {
+    min-height: 180px;
+  }
+}
+
+/* Mejora táctil: eliminar hover que pueda dar problemas */
+@media (hover: none) and (pointer: coarse) {
+  .cta-primary:hover,
+  .cta-secondary:hover,
+  .preview-thumb:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
