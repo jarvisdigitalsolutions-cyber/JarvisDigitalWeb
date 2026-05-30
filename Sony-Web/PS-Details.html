@@ -98,8 +98,13 @@
       transform: scale(1.03);
     }
 
-    .nav-links { display: flex; gap: 1.25rem; align-items: center; list-style: none; }
+    .nav-links { gap: 1.25rem; align-items: center; list-style: none; }
     .nav-links a { color: var(--muted); text-decoration: none; font-weight: 700; }
+
+    /* Desktop-only: mostrar nav-links como fila en pantallas grandes */
+    @media (min-width: 901px) {
+      .nav-links { display: flex; }
+    }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
     .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
@@ -298,8 +303,11 @@
       padding: 1rem;
     }
 
-    /* Trailer hero: when trailer is outside the small panel */
-    .trailer-hero .trailer-card, .trailer-hero-card { min-height: 480px; }
+    /* Trailer hero: when trailer is outside the small panel (aplica sólo en escritorio)
+       En móviles las reglas de detail-mobile.css controlan el tamaño y mantienen el aspect-ratio. */
+    @media (min-width: 901px) {
+      .trailer-hero .trailer-card, .trailer-hero-card { min-height: 480px; }
+    }
 
     /* Trailer + preview shelf */
     .trailer-wrap { display: flex; gap: 1.2rem; align-items: stretch; }
@@ -384,15 +392,13 @@
       .preview-shelf { flex-direction: row; gap: 0.6rem; padding: 0.8rem 0.4rem; }
       .preview-thumb { width: 70px; height: 90px; border-radius: 10px; }
     }
-    .trailer-card.trailer-hero-card {
-  min-height: 400px;
-}
+    @media (min-width: 901px) {
+      .trailer-card.trailer-hero-card { min-height: 400px; }
+    }
 
-@media (max-width: 900px) {
-  .trailer-card.trailer-hero-card {
-    min-height: 200px;
-  }
-}
+    @media (max-width: 900px) {
+      .trailer-card.trailer-hero-card { min-height: 200px; }
+    }
   </style>
 </head>
 <body>
@@ -424,7 +430,10 @@
         <span class="hero-badge" id="gameBadge">Cargando...</span>
       </div>
       <div class="hero-copy">
-        <div class="eyebrow"><i class="fa-solid fa-circle-play"></i> Ficha dinámica desde JSON</div>
+       <div class="eyebrow">
+          <i class="fa-solid fa-bolt"></i> Catálogo inteligente en tiempo real
+        </div>
+
         <h1 id="gameTitle">Cargando juego...</h1>
         <p id="gameTagline" class="muted"></p>
         <div class="meta-row">
@@ -488,10 +497,11 @@
     </div>
   </div>
 
-  <footer class="footer container">
-    <div>Jarvis Digital Solutions · Detalle dinámico desde JSON</div>
-    <div>Lista de datos preparada para ampliar con más títulos.</div>
-  </footer>
+<footer class="footer container">
+  <div><strong>JARVIS DIGITAL SOLUTIONS</strong> · Plataforma digital de nueva generación</div>
+  <div>Catálogo dinámico optimizado · Actualizaciones constantes · Experiencia gaming sin límites</div>
+</footer>
+
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

@@ -1,0 +1,635 @@
+PS D:\Proyecto\PS5-COLLECTION> cd rescaner-DLPS
+PS D:\Proyecto\PS5-COLLECTION\rescaner-DLPS> python buscador_trailers.py
+============================================================
+🎬 BUSCADOR DE TRAILERS PARA GAME2.JSON
+============================================================
+
+📂 Cargando datos...
+📊 Total de juegos: 605
+🎥 Sin trailer: 569/605
+
+============================================================
+
+1. ✓ Spider-Man 2 (ya tiene trailer)
+
+2. ✓ The Last of Us Parte II (ya tiene trailer)
+
+3. ✓ God of War: Ragnarök (ya tiene trailer)
+
+4. ✓ Elden Ring (ya tiene trailer)
+
+5. ✓ Gran Turismo 7 (ya tiene trailer)
+
+6. ✓ Demon's Souls Remake (ya tiene trailer)
+
+7. ✓ Horizon Forbidden West (ya tiene trailer)
+
+8. ✓ Returnal (ya tiene trailer)
+
+9. ✓ Ghost of Yōtei (ya tiene trailer)
+
+10. ✓ Resident Evil Requiem (ya tiene trailer)
+
+11. ✓ 007 First Light (ya tiene trailer)
+
+12. ✓ Phantom Blade Zero (ya tiene trailer)
+
+13. ✓ Grand Theft Auto VI (ya tiene trailer)
+
+14. ✓ Marvel Tōkon: Fighting Souls (ya tiene trailer)
+
+15. ✓ Saros (ya tiene trailer)
+
+16. ✓ Marathon (ya tiene trailer)
+
+17. ✓ Monster Hunter Wilds (ya tiene trailer)
+
+18. ✓ Assassin's Creed Shadows (ya tiene trailer)
+
+19. ✓ DOOM: The Dark Ages (ya tiene trailer)
+
+20. ✓ Death Stranding 2: On the Beach (ya tiene trailer)
+
+21. ✓ Lost Soul Aside (ya tiene trailer)
+
+22. ✓ Split Fiction (ya tiene trailer)
+
+23. 🔎 Marvel 1943: Rise of Hydra
+    🔍 Buscando: Marvel 1943: Rise of Hydra official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=Lb2wwEx6DVw&pp=ygUvTWFydmVsI...
+    ✅ Actualizado
+
+24. ✓ Pragmata (ya tiene trailer)
+
+25. ✓ Marvel's Wolverine (ya tiene trailer)
+
+26. ✓ Clair Obscur: Expedition 33 (ya tiene trailer)
+
+27. ✓ Kingdom Come: Deliverance 2 (ya tiene trailer)
+
+28. ✓ Metal Gear Solid Delta: Snake Eater (ya tiene trailer)
+
+29. ✓ Ninja Gaiden: Ragebound (ya tiene trailer)
+
+30. ✓ The Elder Scrolls IV: Oblivion Remastered (ya tiene trailer)
+
+31. ✓ Sword of the Sea (ya tiene trailer)
+
+32. ✓ The Wolf Among Us 2 (ya tiene trailer)
+
+33. ✓ Little Nightmares III (ya tiene trailer)
+
+34. ✓ Chronoscript: The Endless End (ya tiene trailer)
+
+35. ✓ Zero Parades (ya tiene trailer)
+
+36. ✓ Crimson Desert (ya tiene trailer)
+
+37. ✓ High on Life 2 (ya tiene trailer)
+
+38. 🔎 Bye Sweet Carole
+    🔍 Buscando: Bye Sweet Carole official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=B7IYUoRBz2U&pp=ygUlQnllIFN3Z...
+    ✅ Actualizado
+
+39. 🔎 Shadows of The Damned Hella Remastered
+    🔍 Buscando: Shadows of The Damned Hella Remastered official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=Jm7cmerWil4&pp=ygU7U2hhZG93c...
+    ✅ Actualizado
+
+40. 🔎 KARMA The Dark World
+    🔍 Buscando: KARMA The Dark World official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=SfARBJoL338&pp=ygUpS0FSTUEgV...
+    ✅ Actualizado
+    💾 Progreso guardado (40/605)
+
+41. 🔎 Yooka Replaylee
+    🔍 Buscando: Yooka Replaylee official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=0GoOR9GvOCg&pp=ygUkWW9va2EgU...
+    ✅ Actualizado
+
+42. 🔎 Gex Trilogy
+    🔍 Buscando: Gex Trilogy official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=EIjmJuaV8YM&pp=ygUgR2V4IFRya...
+    ✅ Actualizado
+
+43. 🔎 Metal Slug Tactics
+    🔍 Buscando: Metal Slug Tactics official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=Bjfn2yEJh-c&pp=ygUnTWV0YWwgU...
+    ✅ Actualizado
+
+44. 🔎 Ghost Master Resurrection
+    🔍 Buscando: Ghost Master Resurrection official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=nxu0a4hPPXg&pp=ygUuR2hvc3QgT...
+    ✅ Actualizado
+
+45. 🔎 Invincible VS
+    🔍 Buscando: Invincible VS official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=n-G1qLmXLx0&pp=ygUiSW52aW5ja...
+    ✅ Actualizado
+    💾 Progreso guardado (45/605)
+
+46. 🔎 Star Wars Dark Forces Remaster
+    🔍 Buscando: Star Wars Dark Forces Remaster official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=LxiMY1HTQ0U&pp=ygUzU3RhciBXY...
+    ✅ Actualizado
+
+47. 🔎 Tokyo Xtreme Racer
+    🔍 Buscando: Tokyo Xtreme Racer official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=m020QFmvkRY&pp=ygUnVG9reW8gW...
+    ✅ Actualizado
+
+48. 🔎 Atari 50 The Anniversary Celebration
+    🔍 Buscando: Atari 50 The Anniversary Celebration official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=CQKwj_hi-Gc&pp=ygU5QXRhcmkgN...
+    ✅ Actualizado
+
+49. 🔎 Directive 8020 Deluxe Edition
+    🔍 Buscando: Directive 8020 Deluxe Edition official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=QgGQe-tilcE&pp=ygUyRGlyZWN0a...
+    ✅ Actualizado
+
+50. 🔎 Tormented Souls 2
+    🔍 Buscando: Tormented Souls 2 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=KCr1DxjFYNI&pp=ygUmVG9ybWVud...
+    ✅ Actualizado
+    💾 Progreso guardado (50/605)
+
+51. 🔎 Layers of Fear
+    🔍 Buscando: Layers of Fear official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Layers+of+Fear+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+52. 🔎 LUTO
+    🔍 Buscando: LUTO official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=LUTO+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+53. 🔎 STALKER Call of Prypiat Enhanсed Edition
+    🔍 Buscando: STALKER Call of Prypiat Enhanсed Edition official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=STALKER+Call+of+Prypiat+Enhan%D1%81ed+Edition+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+54. 🔎 STALKER Clear Sky Enhanсed Edition
+    🔍 Buscando: STALKER Clear Sky Enhanсed Edition official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=X_yu2DMHW2o&pp=ygU4U1RBTEtFU...
+    ✅ Actualizado
+
+55. 🔎 STALKER Shadow of Chornobyl Enhanсed Edition
+    🔍 Buscando: STALKER Shadow of Chornobyl Enhanсed Edition official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=STALKER+Shadow+of+Chornobyl+Enhan%D1%81ed+Edition+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+    💾 Progreso guardado (55/605)
+
+56. 🔎 Slitterhead
+    🔍 Buscando: Slitterhead official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Slitterhead+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+57. 🔎 Post Trauma
+    🔍 Buscando: Post Trauma official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=CImKvn0qWR8&pp=ygUgUG9zdCBUc...
+    ✅ Actualizado
+
+58. 🔎 Juicy Realm
+    🔍 Buscando: Juicy Realm official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=afyMZyirP2c&pp=ygUgSnVpY3kgU...
+    ✅ Actualizado
+
+59. 🔎 CODE VEIN 2
+    🔍 Buscando: CODE VEIN 2 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=GHIJ0ygMPhg&pp=ygUgQ09ERSBWR...
+    ✅ Actualizado
+
+60. 🔎 Beneath
+    🔍 Buscando: Beneath official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=XNknLrNl9Uk&pp=ygUcQmVuZWF0a...
+    ✅ Actualizado
+    💾 Progreso guardado (60/605)
+
+61. 🔎 Dragon Quest VII Reimagined
+    🔍 Buscando: Dragon Quest VII Reimagined official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=MGNed6pOx2g&pp=ygUwRHJhZ29uI...
+    ✅ Actualizado
+
+62. 🔎 The House of The Dead 2 Remake
+    🔍 Buscando: The House of The Dead 2 Remake official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=miEkJAmZszA&pp=ygUzVGhlIEhvd...
+    ✅ Actualizado
+
+63. 🔎 Frostpunk 2
+    🔍 Buscando: Frostpunk 2 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=fCCOvGZAczo&pp=ygUgRnJvc3Rwd...
+    ✅ Actualizado
+
+64. 🔎 Painkiller
+    🔍 Buscando: Painkiller official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=kQjQKqzSssk&pp=ygUfUGFpbmtpb...
+    ✅ Actualizado
+
+65. 🔎 KAKU Ancient Seal
+    🔍 Buscando: KAKU Ancient Seal official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=R9Vd4RewbLk&pp=ygUmS0FLVSBBb...
+    ✅ Actualizado
+    💾 Progreso guardado (65/605)
+
+66. 🔎 Tainted Grail The Fall of Avalon
+    🔍 Buscando: Tainted Grail The Fall of Avalon official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=zry0RpHiP64&pp=ygU1VGFpbnRlZ...
+    ✅ Actualizado
+
+67. 🔎 High on Life 2
+    🔍 Buscando: High on Life 2 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=p1218hLm9b4&pp=ygUjSGlnaCBvb...
+    ✅ Actualizado
+
+68. 🔎 After The Fall
+    🔍 Buscando: After The Fall official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=z1UR2cZil-c&pp=ygUjQWZ0ZXIgV...
+    ✅ Actualizado
+
+69. 🔎 Metro Awakening
+    🔍 Buscando: Metro Awakening official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=v9j3xpmd4ag&pp=ygUkTWV0cm8gQ...
+    ✅ Actualizado
+
+70. 🔎 Alien Rogue Incursion
+    🔍 Buscando: Alien Rogue Incursion official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Alien+Rogue+Incursion+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+    💾 Progreso guardado (70/605)
+
+71. 🔎 Arizona Sunshine Remake
+    🔍 Buscando: Arizona Sunshine Remake official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Arizona+Sunshine+Remake+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+72. 🔎 Arizona Sunshine 2
+    🔍 Buscando: Arizona Sunshine 2 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=w8aiJOe6oMU&pp=ygUnQXJpem9uY...
+    ✅ Actualizado
+
+73. 🔎 Vampire The Masquerade Justice
+    🔍 Buscando: Vampire The Masquerade Justice official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=N4hrHdJyaDY&pp=ygUzVmFtcGlyZ...
+    ✅ Actualizado
+
+74. 🔎 Two Point Museum
+    🔍 Buscando: Two Point Museum official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=PUkjEfoHl0w&pp=ygUlVHdvIFBva...
+    ✅ Actualizado
+
+75. 🔎 EDENS ZERO
+    🔍 Buscando: EDENS ZERO official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=hP3DLGcasII&pp=ygUfRURFTlMgW...
+    ✅ Actualizado
+    💾 Progreso guardado (75/605)
+
+76. 🔎 Screamer
+    🔍 Buscando: Screamer official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=8Nv6JiLqTKY&pp=ygUdU2NyZWFtZ...
+    ✅ Actualizado
+
+77. 🔎 Tides of Tomorrow
+    🔍 Buscando: Tides of Tomorrow official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=wy7TP81eBc8&pp=ygUmVGlkZXMgb...
+    ✅ Actualizado
+
+78. 🔎 The Bearer and The Last Flame
+    🔍 Buscando: The Bearer and The Last Flame official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=lIZ7JfpPqeI&pp=ygUyVGhlIEJlY...
+    ✅ Actualizado
+
+79. 🔎 Total Chaos
+    🔍 Buscando: Total Chaos official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=tBYtJvj1vT0&pp=ygUgVG90YWwgQ...
+    ✅ Actualizado
+
+80. 🔎 New Super Luckys Tale
+    🔍 Buscando: New Super Luckys Tale official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=gM1mjuDGoTs&pp=ygUqTmV3IFN1c...
+    ✅ Actualizado
+    💾 Progreso guardado (80/605)
+
+81. 🔎 GreedFall The Dying World
+    🔍 Buscando: GreedFall The Dying World official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=bt5xFt8NxO0&pp=ygUuR3JlZWRGY...
+    ✅ Actualizado
+
+82. 🔎 Styx Blades of Greed
+    🔍 Buscando: Styx Blades of Greed official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Styx+Blades+of+Greed+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+83. 🔎 Red Dead Redemption
+    🔍 Buscando: Red Dead Redemption official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=Xu81znuI8tw&pp=ygUoUmVkIERlY...
+    ✅ Actualizado
+
+84. 🔎 Life is Strange Reunion
+    🔍 Buscando: Life is Strange Reunion official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=G29ROYMKbjE&pp=ygUsTGlmZSBpc...
+    ✅ Actualizado
+
+85. 🔎 SHINOBI Art of Vengeance
+    🔍 Buscando: SHINOBI Art of Vengeance official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=SHINOBI+Art+of+Vengeance+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+    💾 Progreso guardado (85/605)
+
+86. 🔎 REANIMAL
+    🔍 Buscando: REANIMAL official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=Zn4RDtWIbgw&pp=ygUdUkVBTklNQ...
+    ✅ Actualizado
+
+87. 🔎 Worms Armageddon Anniversary Edition
+    🔍 Buscando: Worms Armageddon Anniversary Edition official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=6hqggv16JDI&pp=ygU5V29ybXMgQ...
+    ✅ Actualizado
+
+88. 🔎 Absolum
+    🔍 Buscando: Absolum official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Absolum+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+89. 🔎 Monster Hunter Stories 3 Twisted Reflection
+    🔍 Buscando: Monster Hunter Stories 3 Twisted Reflection official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Monster+Hunter+Stories+3+Twisted+Reflection+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+90. 🔎 The Outer Worlds 2
+    🔍 Buscando: The Outer Worlds 2 official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=The+Outer+Worlds+2+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+    💾 Progreso guardado (90/605)
+
+91. 🔎 Steel Seed Deluxe Edition
+    🔍 Buscando: Steel Seed Deluxe Edition official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Steel+Seed+Deluxe+Edition+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+92. 🔎 RollerCoaster Tycoon Adventures Deluxe
+    🔍 Buscando: RollerCoaster Tycoon Adventures Deluxe official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=RollerCoaster+Tycoon+Adventures+Deluxe+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+93. 🔎 Agatha Christie Death on The Nile
+    🔍 Buscando: Agatha Christie Death on The Nile official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=6_vzEg3t8e4&pp=ygU2QWdhdGhhI...
+    ✅ Actualizado
+
+94. 🔎 Asterix and Obelix Babylon Mission
+    🔍 Buscando: Asterix and Obelix Babylon Mission official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Asterix+and+Obelix+Babylon+Mission+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+95. 🔎 Silent Hill 2
+    🔍 Buscando: Silent Hill 2 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=7f5qac5f3mE&pp=ygUiU2lsZW50I...
+    ✅ Actualizado
+    💾 Progreso guardado (95/605)
+
+96. 🔎 SD Gundam Battle Alliance
+    🔍 Buscando: SD Gundam Battle Alliance official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=SD+Gundam+Battle+Alliance+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+97. 🔎 Spirit of The North 2
+    🔍 Buscando: Spirit of The North 2 official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Spirit+of+The+North+2+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+98. 🔎 Killing Floor 3
+    🔍 Buscando: Killing Floor 3 official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Killing+Floor+3+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+99. 🔎 Beyond Good and Evil 20th Anniversary Edition
+    🔍 Buscando: Beyond Good and Evil 20th Anniversary Edition official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Beyond+Good+and+Evil+20th+Anniversary+Edition+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+100. 🔎 Monster Energy Supercross 25 The Official Video Game
+    🔍 Buscando: Monster Energy Supercross 25 The Official Video Game official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Monster+Energy+Supercross+25+The+Official+Video+Game+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+    💾 Progreso guardado (100/605)
+
+101. 🔎 Tour de France 2024
+    🔍 Buscando: Tour de France 2024 official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Tour+de+France+2024+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+102. 🔎 FATAL FURY City of The Wolves
+    🔍 Buscando: FATAL FURY City of The Wolves official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=FATAL+FURY+City+of+The+Wolves+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+103. 🔎 PGA Tour 2K25
+    🔍 Buscando: PGA Tour 2K25 official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=PGA+Tour+2K25+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+104. 🔎 Wreckreation
+    🔍 Buscando: Wreckreation official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=K6NIZGLeY5I&pp=ygUhV3JlY2tyZ...
+    ✅ Actualizado
+
+105. 🔎 Hot Wheels Lets Race Ultimate Speed
+    🔍 Buscando: Hot Wheels Lets Race Ultimate Speed official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Hot+Wheels+Lets+Race+Ultimate+Speed+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+    💾 Progreso guardado (105/605)
+
+106. 🔎 EA SPORTS FC 26
+    🔍 Buscando: EA SPORTS FC 26 official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=EA+SPORTS+FC+26+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+107. 🔎 Revenge of The Savage Planet
+    🔍 Buscando: Revenge of The Savage Planet official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=P2YZ1jvDrjI&pp=ygUxUmV2ZW5nZ...
+    ✅ Actualizado
+
+108. 🔎 Phantom Breaker Battle Grounds Ultimate
+    🔍 Buscando: Phantom Breaker Battle Grounds Ultimate official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=q7w8nLj5u9w&pp=ygU8UGhhbnRvb...
+    ✅ Actualizado
+
+109. 🔎 Tony Hawks Pro Skater 3 + 4
+    🔍 Buscando: Tony Hawks Pro Skater 3 + 4 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=Od6GRg0GhRc&pp=ygUwVG9ueSBIY...
+    ✅ Actualizado
+
+110. 🔎 Ninja Gaiden 2 Black
+    🔍 Buscando: Ninja Gaiden 2 Black official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=CYS60ObbyZo&pp=ygUpTmluamEgR...
+    ✅ Actualizado
+    💾 Progreso guardado (110/605)
+
+111. 🔎 STALKER 2 Heart of Chornobyl
+    🔍 Buscando: STALKER 2 Heart of Chornobyl official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=dQiD6D81evQ&pp=ygUxU1RBTEtFU...
+    ✅ Actualizado
+
+112. 🔎 Borderlands 4
+    🔍 Buscando: Borderlands 4 official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=T7miyMigr_E&pp=ygUiQm9yZGVyb...
+    ✅ Actualizado
+
+113. 🔎 Sonic Racing CrossWorlds
+    🔍 Buscando: Sonic Racing CrossWorlds official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=66UrGKXhJNI&pp=ygUtU29uaWMgU...
+    ✅ Actualizado
+
+114. 🔎 Sid Meiers Civilization VII
+    🔍 Buscando: Sid Meiers Civilization VII official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=cdwqwwVVK9o&pp=ygUwU2lkIE1la...
+    ✅ Actualizado
+
+115. 🔎 The Precinct
+    🔍 Buscando: The Precinct official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=4CHGcpU7Udo&pp=ygUhVGhlIFByZ...
+    ✅ Actualizado
+    💾 Progreso guardado (115/605)
+
+116. 🔎 Romancing SaGa 2 Revenge of The Seven
+    🔍 Buscando: Romancing SaGa 2 Revenge of The Seven official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=mOfvJBV2UXE&pp=ygU6Um9tYW5ja...
+    ✅ Actualizado
+
+117. 🔎 VARLET
+    🔍 Buscando: VARLET official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=0Rfi4gF5osg&pp=ygUbVkFSTEVUI...
+    ✅ Actualizado
+
+118. 🔎 Rugrats Adventure in Gameland
+    🔍 Buscando: Rugrats Adventure in Gameland official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Rugrats+Adventure+in+Gameland+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+119. 🔎 Treasures of The Aegean
+    🔍 Buscando: Treasures of The Aegean official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Treasures+of+The+Aegean+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+120. 🔎 Dragon Quest I & II HD 2D Remake
+    🔍 Buscando: Dragon Quest I & II HD 2D Remake official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Dragon+Quest+I+&+II+HD+2D+Remake+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+    💾 Progreso guardado (120/605)
+
+121. 🔎 Vampire The Masquerade Bloodlines 2
+    🔍 Buscando: Vampire The Masquerade Bloodlines 2 official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Vampire+The+Masquerade+Bloodlines+2+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+122. 🔎 Daemon X Machina Titanic Scion
+    🔍 Buscando: Daemon X Machina Titanic Scion official trailer PS5
+    ❌ Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.youtube.com/results?search_query=Daemon+X+Machina+Titanic+Scion+official+trailer+PS5", waiting until "load"
+
+    ⚠️  No se encontró
+
+123. 🔎 Double Dragon Revive
+    🔍 Buscando: Double Dragon Revive official trailer PS5
+    ✓ Encontrado: https://www.youtube.com/watch?v=l48vbXPaLEY&pp=ygUpRG91YmxlI...
+    ✅ Actualizado
+
+124. 🔎 Horizon Chase 2
+    🔍 Buscando: Horizon Chase 2 official trailer PS5
+
+
+⏸️  Cancelado por el usuario
+Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
+PS D:\Proyecto\PS5-COLLECTION\rescaner-DLPS> 
