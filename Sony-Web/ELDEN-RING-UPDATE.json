@@ -1,0 +1,90 @@
+{
+  "elden-ring-demo": {
+    "id": "elden-ring",
+    "title": "Elden Ring",
+    "tagline": "Un mundo de fantasía oscura gigantesco, exigente y lleno de libertad para explorar, construir tu camino y derrotar criaturas colosales.",
+    "platform": "PS5",
+    "edition": "Digital",
+    "developer": "FromSoftware",
+    "release": "2022",
+    "rating": "4.8",
+    "price": 59.99,
+    "oldPrice": null,
+    "genres": [
+      "RPG de acción",
+      "Fantasía oscura",
+      "Mundo abierto",
+      "Soulslike",
+      "Exploración"
+    ],
+    "description": "Apto para testear el renderizado dinámico y la estructura de tarjetas con información rica para cada juego.",
+    "features": [
+      "Exploración libre",
+      "Sistema de progresión profundo",
+      "Combates tácticos y estratégicos"
+    ],
+    "image": "IMG/PS5/Elden-RingDLC.avif",
+    "status": "Disponible",
+    "trailer": "https://www.youtube.com/watch?v=0uav6zQKi4w",
+    "bannerImage": "IMG/PS5/Banner/Eleden-Ring.avif",
+    "_score": 0.5880000000000001,
+    "_origStatus": "Disponible",
+    "previewImages": [
+      "IMG/PS5/Banner/Eleden-Ring.avif",
+      "IMG/PS5/Elden-RingDLC.avif"
+    ],
+    "autoCuration": "",
+    "hasNewUpdates": true,
+    "lastContentUpdate": "2026-06-01T14:35:00Z",
+    "note": {
+      "title": "Versión PPSA04610 con DLC Shadow of the Erdtree Desbloqueado",
+      "author": "High-Speed007",
+      "noteId": "ER-PPSA04610-2026",
+      "info": "Nueva versión disponible: PPSA04610 – USA. Incluye Shadow of The Erdtree DLC desbloqueado y fusionado. Compatible con PS5 3.xx y superior. Tamaño: 188 GB.",
+      "link": "https://downloadgameps3.net/archives/26977",
+      "timestamp": "2026-06-01T14:35:00Z",
+      "version": "01.017",
+      "isNew": true,
+      "downloadLinks": {
+        "mediafire": "https://downloadgameps3.net/archives/26977",
+        "mirrors": ["Akia", "Viki", "1File", "Buzznew", "Rootz", "Gofile"]
+      },
+      "password": "DLPSGAME.COM"
+    },
+    "technicalNotes": [
+      {
+        "id": "ppsa04610-specs",
+        "title": "PPSA04610 – USA Especificaciones",
+        "author": "High-Speed007",
+        "info": "Build: PPSA04610 – USA. Versión del juego: v01.017. Shadow of The Erdtree DLC desbloqueado e integrado. Voice en Inglés. Soporta: Inglés, Francés (Francia), Portugués (Brasil), Español.",
+        "badge": "PPSA04610",
+        "timestamp": "2026-06-01T14:35:00Z"
+      },
+      {
+        "id": "er-dlc-included",
+        "title": "DLC Shadow of The Erdtree Incluido",
+        "author": "FromSoftware",
+        "info": "El DLC está desbloqueado y fusionado en el juego principal. No requiere descarga adicional. Acceso completo a todas las áreas desde el inicio.",
+        "badge": "DLC COMPLETO",
+        "timestamp": "2026-06-01T14:35:00Z"
+      },
+      {
+        "id": "er-compatibility",
+        "title": "Compatibilidad PS5",
+        "author": "Sony QA",
+        "info": "Compatible con PS5 firmware 3.xx y superior. Extraer archivo completamente antes de ejecutar (188 GB). Recomendado almacenamiento externo USB 3.0.",
+        "badge": "PS5 3.xx+",
+        "timestamp": "2026-06-01T00:00:00Z"
+      },
+      {
+        "id": "er-extraction",
+        "title": "Instrucciones de Extracción - PPSA04610",
+        "author": "High-Speed007",
+        "info": "Usar JDownload para descargar múltiples espejos simultáneamente. Contraseña para archivos: DLPSGAME.COM. Tamaño final después de extraer: 188 GB.",
+        "badge": "DESCARGA",
+        "link": "https://downloadgameps3.com/guide-download-game/",
+        "timestamp": "2026-06-01T00:00:00Z"
+      }
+    ]
+  }
+}
