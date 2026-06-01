@@ -70,10 +70,16 @@
       gap: 1rem;
     }
     .logo img {
-      height: 38px;
-      width: auto;
-      display: block;
+     display: block;
+    width: clamp(118px, 11vw, 168px);
+    height: auto;
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.24));
+    transition: transform 0.25s ease, filter 0.25s ease;
     }
+    .logo img:hover{
+       transform: scale(1.03);
+    }
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
@@ -293,6 +299,26 @@
       gap: 1.5rem;
       padding: 0 1.5rem 3rem;
     }
+    @media (max-width: 1400px) {
+      .game-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    @media (max-width: 1024px) {
+      .game-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .game-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .game-grid {
+        grid-template-columns: 1fr;
+      }
+    }
     .game-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -303,6 +329,17 @@
       color: inherit;
       display: flex;
       flex-direction: column;
+      animation: slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .game-card:hover {
       transform: translateY(-5px);
@@ -487,8 +524,8 @@
       <div class="filter-group">
         <h4>Ordenar por</h4>
         <div class="filter-buttons" data-filter-group="sort">
-          <button class="filter-btn active" data-sort="featured">Destacados</button>
-          <button class="filter-btn" data-sort="recent">Más recientes</button>
+          <button class="filter-btn" data-sort="featured">Destacados</button>
+          <button class="filter-btn active" data-sort="recent">Más recientes</button>
           <button class="filter-btn" data-sort="rating">Mejor valorados</button>
         </div>
       </div>
@@ -514,6 +551,21 @@
     let showPrices = true;
     let exchangeRateCU = 500;
     let selectedCurrency = 'USD';
+    
+    // Sistema de paginación lazy loading
+    let filteredGames = [];
+    let displayedGames = [];
+    let currentPage = 0;
+    const ITEMS_PER_PAGE = 20; // Cargas más pequeñas y frecuentes
+    let isLoading = false;
+    let observer = null;
+    const loadingSentinel = document.createElement('div');
+    loadingSentinel.id = 'loadingSentinel';
+    
+    // Scroll detection para virtualization
+    let lastScrollY = 0;
+    let scrollDirection = 'down';
+    const HIDE_THRESHOLD = 15; // Ocultar items cuando scroll up
     
     // Elementos DOM
     const grid = document.getElementById('gameGrid');
@@ -625,12 +677,80 @@
       return arr;
     }
 
+    // Cargar más juegos (lazy loading)
+    function loadMoreGames() {
+      if (isLoading || displayedGames.length >= filteredGames.length) return;
+      isLoading = true;
+      
+      const start = currentPage * ITEMS_PER_PAGE;
+      const itemsToLoad = currentPage === 0 ? 24 : ITEMS_PER_PAGE;
+      const end = start + itemsToLoad;
+      const newGames = filteredGames.slice(start, end);
+      
+      setTimeout(() => {
+        const html = newGames.map(cardTemplate).join('');
+        
+        if (currentPage === 0) {
+          grid.innerHTML = '';
+          grid.appendChild(loadingSentinel);
+        }
+        
+        let temp = document.createElement('div');
+        temp.innerHTML = html;
+        while (temp.children.length > 0) {
+          grid.insertBefore(temp.children[0], loadingSentinel);
+        }
+        
+        displayedGames.push(...newGames);
+        currentPage++;
+        isLoading = false;
+      }, 50);
+    }
+
+    // Virtualization simple: Ocultar tarjetas después de N segundos sin verlas
+    function updateVirtualization() {
+      const cards = grid.querySelectorAll('.game-card');
+      if (cards.length < 20) return;
+      
+      const scrollTop = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const bufferPx = viewportHeight * 0.8;
+      
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const elementTop = scrollTop + rect.top;
+        const elementBottom = elementTop + rect.height;
+        
+        const isInViewport = elementBottom >= (scrollTop - bufferPx) && 
+                             elementTop <= (scrollTop + viewportHeight + bufferPx);
+        
+        if (isInViewport) {
+          // Está visible: mostrar
+          card.style.display = '';
+          card.dataset.lastSeen = 'true';
+        } else {
+          // Está fuera: marcar y ocultar después
+          if (card.dataset.lastSeen === 'true') {
+            card.dataset.lastSeen = 'false';
+            card.dataset.hideTime = Date.now();
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+              if (card.dataset.lastSeen === 'false') {
+                card.style.display = 'none';
+              }
+            }, 3000);
+          }
+        }
+      });
+    }
+
     // Filtrar y ordenar
     function applyFilters() {
       const platform = document.querySelector('[data-filter="platform"].active')?.dataset.value || 'all';
       const genre = document.querySelector('[data-filter="genre"].active')?.dataset.value || 'all';
       const price = document.querySelector('[data-filter="price"].active')?.dataset.value || 'all';
-      const sort = document.querySelector('[data-sort].active')?.dataset.sort || 'featured';
+      const sort = document.querySelector('[data-sort].active')?.dataset.sort || 'recent';
       const query = searchInput.value.trim().toLowerCase();
 
       let filtered = currentGames.filter(game => {
@@ -674,9 +794,21 @@
         });
       }
 
+      // Reset pagination
+      filteredGames = filtered;
+      displayedGames = [];
+      currentPage = 0;
+      isLoading = false;
+
       filterSummary.textContent = `${filtered.length} juego${filtered.length !== 1 ? 's' : ''} encontrados.`;
       gamesCountSpan.textContent = filtered.length;
-      grid.innerHTML = filtered.length ? filtered.map(cardTemplate).join('') : '<div class="empty-state">No hay juegos con esos filtros. Intenta otros criterios.</div>';
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div class="empty-state">No hay juegos con esos filtros. Intenta otros criterios.</div>';
+      } else {
+        loadMoreGames();
+      }
+      
       updateActiveFilterCount();
     }
 
@@ -695,11 +827,18 @@
     }
 
     function clearFilters() {
+      // Limpiar filtros
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.filter-group .filter-buttons').forEach(group => {
         let first = group.querySelector('.filter-btn');
         if (first) first.classList.add('active');
       });
+      
+      // Forzar orden a "Más recientes" al restablcer
+      document.querySelectorAll('[data-sort]').forEach(btn => btn.classList.remove('active'));
+      const recentBtn = document.querySelector('[data-sort="recent"]');
+      if (recentBtn) recentBtn.classList.add('active');
+      
       searchInput.value = '';
       applyFilters();
       if (window.innerWidth <= 640) toggleFiltersPanel(false);
@@ -735,6 +874,24 @@
       });
     }
 
+    // Infinite Scroll: Detect cuando llega al final
+    function setupInfiniteScroll() {
+      loadingSentinel.id = 'loadingSentinel';
+      loadingSentinel.style.height = '1px';
+      loadingSentinel.style.width = '100%';
+      
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !isLoading && displayedGames.length < filteredGames.length) {
+            loadMoreGames();
+          }
+        });
+      }, { rootMargin: '200px' });
+
+      grid.appendChild(loadingSentinel);
+      observer.observe(loadingSentinel);
+    }
+
     // Eventos
     function attachEvents() {
       document.querySelectorAll('.filter-btn, [data-sort]').forEach(btn => {
@@ -752,6 +909,21 @@
       searchInput.addEventListener('input', () => applyFilters());
       clearFiltersBtn.addEventListener('click', clearFilters);
       filtersToggleBtn.addEventListener('click', () => toggleFiltersPanel());
+      
+      // Scroll detection: virtualization con throttle simple
+      let lastVirtualizationTime = 0;
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+        lastScrollY = currentScrollY;
+        
+        // Ejecutar virtualization solo cada 300ms máximo
+        const now = Date.now();
+        if (now - lastVirtualizationTime > 300) {
+          updateVirtualization();
+          lastVirtualizationTime = now;
+        }
+      }, { passive: true });
       
       // Tema oscuro/claro
       const themeBtn = document.getElementById('themeToggle');
@@ -798,6 +970,7 @@
       populateGenres(currentGames);
       attachEvents();
       initMobileMenu();
+      setupInfiniteScroll();
       applyFilters();
     })();
   </script>

@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -73,10 +74,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.65);
+      padding: 0.5rem 1rem;
+      gap: 0.6rem;
+      height: 56px;
+          background: rgb(7 12 24 / 77%);
       backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
     }
 
     [data-theme="light"] .navbar {
@@ -92,10 +96,11 @@
 
     .brand-logo {
       display: block;
-      width: clamp(118px, 11vw, 168px);
+      width: clamp(64px, 7.5vw, 110px);
       height: auto;
-      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.24));
-      transition: transform 0.25s ease, filter 0.25s ease;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.22));
+      transition: transform 0.18s ease, filter 0.18s ease;
+      margin-right: 0.4rem;
     }
 
     .brand-logo:hover {
@@ -104,20 +109,88 @@
 
     .nav-links {
       display: flex;
-      gap: 1.75rem;
+      gap: 0.6rem; /* más pegados al logo */
       align-items: center;
       list-style: none;
       flex-wrap: wrap;
+      margin-left: 0.4rem;
+      font-family: 'Poppins', 'Montserrat', sans-serif;
     }
 
     .nav-links a {
+      position: relative;
       color: var(--muted);
       font-weight: 600;
-      transition: color 0.25s ease;
+      transition: color 0.2s ease, transform 0.14s ease;
+      padding: 0.32rem 0.5rem; /* más compacto */
+      display: inline-block;
+      letter-spacing: 0.01em;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      font-size: 0.95rem;
+    }
+
+    /* Brillo y subrayado animado similar a .loader-title */
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -10px);
+      width: 70%;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, rgba(56,139,253,0.98), rgba(56,139,253,0.24) 30%, transparent 60%);
+      filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s cubic-bezier(0.2,0.9,0.2,1), transform 0.22s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgb(0 72 255 / 95%), transparent);
+       border-radius: 9999px;
+      transform-origin: center;
+      transition: width 0.22s ease, left 0.22s ease, opacity 0.22s ease;
+      opacity: 0; /* no visible por defecto */
     }
 
     .nav-links a:hover {
       color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .nav-links a:hover::before {
+      opacity: 1;
+      transform: translate(-50%, 0px) scale(1.06);
+      animation: pulseGlow 1.6s ease-in-out infinite;
+    }
+
+    .nav-links a:hover::after {
+      width: calc(100% - 1rem);
+      left: 0.5rem;
+      opacity: 1;
+    }
+
+    /* Estado activo (ej. 'Latest') */
+    .nav-links a.active {
+      color: #ffffff;
+      text-shadow: none; /* sin glow constante */
+    }
+
+    /* El estado activo no debe mostrar glow animado, solo un subrayado sutil */
+    .nav-links a.active::before { opacity: 0; transform: translate(-50%, 0px) scale(1); }
+    .nav-links a.active::after { opacity: 0.5; width: calc(48%); left: 26%; }
+
+    @keyframes pulseGlow {
+      0% { filter: blur(8px); transform: translate(-50%, 0px) scale(1.02); opacity: 0.9; }
+      50% { filter: blur(14px); transform: translate(-50%, 0px) scale(1.1); opacity: 1; }
+      100% { filter: blur(8px); transform: translate(-50%, 0px) scale(1.02); opacity: 0.9; }
     }
 
     .nav-actions {
@@ -125,6 +198,41 @@
       align-items: center;
       gap: 1rem;
     }
+
+    /* Botones: estilo moderno y adaptativo para light/dark */
+    .icon-button,
+    .theme-toggle,
+    #currencyToggle {
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      padding: 0.3rem;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.16s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .icon-button:hover, .theme-toggle:hover, #currencyToggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(16, 76, 240, 0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    }
+
+    /* Light mode overrides for buttons */
+    [data-theme="light"] .icon-button,
+    [data-theme="light"] .theme-toggle,
+    [data-theme="light"] #currencyToggle {
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,240,245,0.9));
+      color: #0f172a;
+      border: 1px solid rgba(15,23,42,0.06);
+      box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+    }
+
+    /* Indicador de moneda más claro */
+    #currencyLabel { font-weight: 700; font-size: 0.85rem; }
 
     .icon-button,
     .theme-toggle {
@@ -148,8 +256,8 @@
     }
 
     .hero-section {
-      padding-top: 92px;
-      min-height: 95vh;
+      padding-top: 64px; /* más cerca del navbar */
+      min-height: 90vh;
       position: relative;
     }
 
@@ -318,7 +426,7 @@
     }
 
     .section {
-      padding: 5rem 2rem;
+      padding: 1.25rem 2rem;
     }
 
     .container {
@@ -330,20 +438,27 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 0.6rem;
+      margin-bottom: 0.3rem; /* más compacto */
       flex-wrap: wrap;
+      background: transparent;
     }
 
     .section-header h3 {
-      font-size: clamp(1.9rem, 2.6vw, 2.8rem);
-      margin-bottom: 0.4rem;
-      line-height: 1.05;
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+      margin-bottom: 0.15rem;
+      line-height: 1.02;
+      font-family: 'Poppins', 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      background: transparent;
     }
 
     .section-header p {
       color: var(--muted);
       max-width: 760px;
+      font-family: 'Poppins', 'Montserrat', sans-serif;
+      background: transparent;
     }
 
     .bento-grid {
@@ -426,6 +541,60 @@
     .bento-content {
       position: relative;
       z-index: 2;
+    }
+
+    .bento-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    .bento-action,
+    .bento-info-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.24);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.82rem;
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .bento-action:hover,
+    .bento-info-btn:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+
+    .bento-info-btn {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .bento-more {
+      margin-top: 1rem;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.92);
+      display: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, opacity 0.35s ease;
+      opacity: 0;
+    }
+
+    .bento-more.visible {
+      display: block;
+      max-height: 6.5rem;
+      opacity: 1;
     }
 
     .bento-badge {
@@ -834,7 +1003,162 @@
       box-shadow: 0 12px 24px rgba(255, 255, 255, 0.2);
     }
 
+    /* Mini Cards Grid */
+    .mini-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Mini Carousel - versión compacta (altura reducida) */
+    .mini-carousel {
+      overflow: visible;
+      padding-bottom: 0.4rem;
+      margin-top: 0.2rem;
+    }
+    
+
+    .mini-carousel .swiper-slide {
+      width: 180px;
+      height: 208px; /* altura fija para acomodar tarjetas de 200px */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mini-carousel .swiper-slide .mini-card {
+      width: 100%;
+      height: 200px; /* espacio interior para la tarjeta */
+    }
+
+    .mini-carousel .swiper-wrapper {
+      transition-timing-function: cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .mini-card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: auto;
+      height: 200px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+      will-change: transform;
+      min-height: 48px;
+    }
+    
+
+    /* Ajustes de paginación para que quede más cerca del carrusel */
+    .mini-carousel .swiper-pagination {
+      margin-top: 2px;
+    }
+
+    .mini-card-image { position:absolute; inset:0; background-size:cover; background-position:center; height:100%; width:100%; }
+
+    .mini-card-content { padding: 0.6rem; }
+
+    /* Banner centrado para 'Más Populares' */
+    .section-center-image {
+      display: flex;
+      justify-content: center;
+      margin: 0.2rem 0 0.2rem 0;
+    }
+
+    .section-center-image img {
+      width: min(84%, 980px);
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+    }
+
+    .mini-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .mini-card-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+
+    .mini-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+      z-index: 2;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+
+    .mini-card:hover .mini-card-overlay {
+      opacity: 0.9;
+    }
+
+    .mini-card-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1rem;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mini-card:hover .mini-card-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mini-card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .mini-card-price {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .mini-card-old-price {
+      text-decoration: line-through;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .mini-card-discount {
+      display: inline-block;
+      background: var(--discount-bg);
+      color: var(--discount-text);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
     @media (max-width: 1080px) {
+      .mini-cards-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
       .nav-links { gap: 1rem; }
       .bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .console-cards { grid-template-columns: 1fr; }
@@ -842,11 +1166,13 @@
       .mood-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .highlight-row { grid-template-columns: 1fr; }
       .hero-section { min-height: 80vh; }
+      
     }
 
     @media (max-width: 720px) {
+      .mini-cards-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.8rem; }
       .navbar { padding: 1rem 1rem; flex-wrap: wrap; }
-      .hero-section { padding-top: 100px; }
+      .hero-section { padding-top: 80px; }
       .nav-actions { width: 100%; justify-content: space-between; }
       .slide-content h2 { font-size: 2.3rem; }
       .slide-content p { font-size: 0.95rem; }
@@ -854,6 +1180,39 @@
       .console-cards { grid-template-columns: 1fr; }
       .mood-grid { grid-template-columns: 1fr; }
       .section-header { flex-direction: column; align-items: flex-start; }
+
+      /* Mobile-specific adjustments for mini carousels and hero banner */
+      .mini-carousel { padding-bottom: 0.2rem; }
+      .mini-carousel .swiper-slide { width: 160px; height: 220px; }
+      .mini-carousel .swiper-slide .mini-card { height: 200px; }
+      .mini-card { height: 200px; border-radius: 8px; }
+
+      /* Hero banner smaller on mobile: limit height relative to width to avoid tall banners */
+      .hero-section .mySwiper, .hero-section .swiper-wrapper, .hero-section .swiper-slide { height: auto; max-height: min(56vh, calc(100vw * 0.55)); }
+      .hero-section { overflow: hidden; }
+      .slide-background { background-size: cover; background-position: center center; max-height: inherit; }
+      .slide-background::after { content: ''; display:block; height:0; }
+      .slide-content {
+        padding: 1rem;
+        width: min(92%, 92vw);
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .slide-content h2 { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+      .slide-content p { font-size: 0.95rem; max-width: 100%; }
+      .slide-content .badge-platform { margin-bottom: 0.85rem; }
+      .slide-content .slide-button { width: auto; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-item { min-height: 320px; padding: 1.2rem; }
+      .bento-content h4 { font-size: 1.25rem; }
+      .bento-meta { gap: 0.45rem; }
+      .bento-actions { justify-content: center; }
+      .section { padding: 0.8rem 0.9rem; }
+      .section-center-image img { width: 96%; }
     }
   </style>
   <link rel="stylesheet" href="responsive.css">
@@ -901,53 +1260,36 @@
   </section>
 
   <main>
-    <section id="carousels-top" class="section">
-      <style>
-        #carousels-top.section { padding: 0.5rem 0 2rem; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        #carousels-top .section-header { padding: 0 2rem; }
-        .section-header h3 { font-size: 1.4rem; font-weight: 700; }
-        .section-header p { font-size: 0.95rem; color: var(--muted); }
-        [data-theme="light"] .section-header h3, [data-theme="light"] .section-header p { color: #1a1a1a; }
-        .carousel-card { background: var(--card-bg); border-radius: 0.5rem; padding: 0.8rem; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-          .carousel-card { background: transparent; border-radius: 0.6rem; padding: 0; display: block; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; overflow: hidden; }
-          .carousel-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
-          .carousel-card img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 0.6rem; }
-        .carousel-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.25rem; line-height: 1.3; }
-        .carousel-price { margin-top: 0.15rem; font-weight: 700; color: var(--final-price-color); font-size: 0.88rem; }
-        .destacados-swiper .swiper-slide, .populares-swiper .swiper-slide { width: 188px; min-width: 188px; height: 160px; }
-        .destacados-swiper .swiper-slide, .populares-swiper .swiper-slide { display: flex; align-items: stretch; }
-        .swiper-button-prev, .swiper-button-next { color: #fff; }
-        /* Wide banner between carousels */
-        #bannerWide { height: 160px; border-radius: 12px; background-size: cover; background-position: center; box-shadow: 0 12px 36px rgba(0,0,0,0.45); margin: 1rem 2rem; }
-      </style>
-
+    <!-- Juegos Destacados Carrusel -->
+    <section id="juegos-destacados" class="section container" data-aos="fade-up">
       <div class="section-header">
         <div>
           <h3>Juegos Destacados</h3>
           <p>Lo mejor de la semana con tarjetas limpias y visual directo.</p>
         </div>
       </div>
-      <div class="swiper destacados-swiper" data-aos="fade-up">
-        <div class="swiper-wrapper" id="destacadosWrapper"></div>
-        <div class="swiper-pagination destacados-pagination"></div>
-        <div class="swiper-button-prev destacados-prev"></div>
-        <div class="swiper-button-next destacados-next"></div>
+      <div class="mini-carousel swiper" id="destacadosCarousel">
+        <div class="swiper-wrapper" id="destacadosMinicards"></div>
+        <div class="swiper-pagination" id="destacadosPagination"></div>
       </div>
+    </section>
 
-      <div id="bannerWide" class="banner-wide section-banner" role="img" aria-label="Nueva Generación"></div>
+    <!-- Banner entre secciones: Juegos Destacados / Más Populares -->
+    <div class="section-center-image" aria-hidden="true">
+      <img src="IMG/PS5/Banner/banner-nex-gen.png" alt="Banner Más Populares (reemplazar por imagen real)">
+    </div>
 
-      <div class="section-header" style="margin-top:1rem;">
+    <!-- Más Populares Carrusel -->
+    <section id="populares" class="section container" data-aos="fade-up">
+      <div class="section-header">
         <div>
           <h3>Más Populares</h3>
           <p>Los títulos más buscados, con un estilo limpio y enfoque en la imagen.</p>
         </div>
       </div>
-      <div class="swiper populares-swiper" data-aos="fade-up">
-        <div class="swiper-wrapper" id="popularesWrapper"></div>
-        <div class="swiper-pagination populares-pagination"></div>
-        <div class="swiper-button-prev populares-prev"></div>
-        <div class="swiper-button-next populares-next"></div>
+      <div class="mini-carousel swiper" id="popularesCarousel">
+        <div class="swiper-wrapper" id="popularesMinicards"></div>
+        <div class="swiper-pagination" id="popularesPagination"></div>
       </div>
     </section>
 
@@ -1082,7 +1424,7 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true });
+    AOS.init({ duration: 750, easing: 'power3.out', once: false, mirror: true, offset: 120 });
 
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
@@ -1173,6 +1515,25 @@
       return `${cuFinal} CU`;
     }
 
+    function calculateDiscount(game) {
+      if (selectedCurrency === 'USD') {
+        if (game.oldPrice && typeof game.price !== 'undefined' && game.oldPrice > game.price) {
+          return Math.round((1 - game.price / game.oldPrice) * 100);
+        }
+      } else {
+        const cuOld = (typeof game.oldPricecu !== 'undefined' && game.oldPricecu !== null) ? Number(game.oldPricecu) : (game.oldPrice ? Math.round(Number(game.oldPrice) * exchangeRateCU) : null);
+        const cuFinal = (typeof game.pricecu !== 'undefined' && game.pricecu !== null) ? Number(game.pricecu) : Math.round((Number(game.price) || 0) * exchangeRateCU);
+        if (cuOld && cuOld > cuFinal) {
+          return Math.round((1 - cuFinal / cuOld) * 100);
+        }
+      }
+      return 0;
+    }
+
+    function getCurrencySymbol() {
+      return selectedCurrency === 'USD' ? '$' : '';
+    }
+
     function createSlide(game) {
       const priceBlock = formatGamePrice(game);
       return `
@@ -1217,6 +1578,8 @@
     let heroSwiper = null;
     let lanzamientosSwiper = null;
     let proximosSwiper = null;
+    let destacadosSwiper = null;
+    let popularesSwiper = null;
 
     function renderSlides(games) {
       const recent = [...games].sort((a, b) => Number(b.release || 0) - Number(a.release || 0)).slice(0, 3);
@@ -1249,76 +1612,6 @@
       return ids.map(id => map[id]).filter(Boolean);
     }
 
-    // Top carousels (Destacados / Más Populares) renderizado desde games.json
-    window.destacadosTopSwiper = null;
-    window.popularesTopSwiper = null;
-
-    function renderCarouselSection(data, sectionKey, wrapperId) {
-      const ids = getCuratedSectionIds(data, sectionKey);
-      let gamesList = [];
-      const allGames = (siteGames && siteGames.length) ? siteGames : Object.values((data && data.games) ? data.games : {});
-      if (ids && ids.length) {
-        gamesList = getGamesByIds(allGames, ids);
-      } else {
-        if (sectionKey === 'homeFeatured') {
-          gamesList = (siteFeaturedGames && siteFeaturedGames.length) ? siteFeaturedGames.slice(0, 12) : allGames.slice(0, 12);
-        } else if (sectionKey === 'popular') {
-          gamesList = allGames.slice(0, 12);
-        } else {
-          gamesList = allGames.slice(0, 8);
-        }
-      }
-
-      const wrapper = document.getElementById(wrapperId);
-      if (!wrapper) return;
-      wrapper.innerHTML = gamesList.map(g => `
-        <div class="swiper-slide">
-          <a class="carousel-card" href="PS-Details.html?id=${g.id}" title="${g.title}">
-            <img src="${g.image}" alt="${g.title}" loading="lazy">
-          </a>
-        </div>
-      `).join('');
-
-      // destroy previous instances if exist
-      try { if (sectionKey === 'homeFeatured' && window.destacadosTopSwiper) { window.destacadosTopSwiper.destroy(true, true); window.destacadosTopSwiper = null; } } catch (e) {}
-      try { if (sectionKey === 'popular' && window.popularesTopSwiper) { window.popularesTopSwiper.destroy(true, true); window.popularesTopSwiper = null; } } catch (e) {}
-
-      const commonOpts = {
-        slidesPerView: 'auto',
-        spaceBetween: 12,
-        freeMode: true,
-        grabCursor: true,
-        watchOverflow: true,
-        speed: 600,
-        breakpoints: {
-          420: { slidesPerView: 2 },
-          768: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 }
-        }
-      };
-
-      if (sectionKey === 'homeFeatured') {
-        window.destacadosTopSwiper = new Swiper('.destacados-swiper', Object.assign({}, commonOpts, { navigation: { nextEl: '.destacados-next', prevEl: '.destacados-prev' }, pagination: { el: '.destacados-pagination', clickable: true } }));
-      } else {
-        window.popularesTopSwiper = new Swiper('.populares-swiper', Object.assign({}, commonOpts, { navigation: { nextEl: '.populares-next', prevEl: '.populares-prev' }, pagination: { el: '.populares-pagination', clickable: true } }));
-      }
-      AOS.refreshHard();
-    }
-
-    function renderWideBannerElement(banners) {
-      const el = document.getElementById('bannerWide');
-      if (!el) return;
-      const b = (Array.isArray(banners) && banners.length) ? banners[0] : null;
-      if (b) {
-        el.style.display = '';
-        el.style.backgroundImage = `url('${b.image}')`;
-        el.setAttribute('aria-label', b.title || 'Banner');
-        el.innerHTML = '';
-      } else {
-        el.style.display = 'none';
-      }
-    }
-
     function autoCurate(data) {
       const gamesArr = Object.values((data && data.games) ? data.games : {});
       const now = new Date().getFullYear();
@@ -1340,6 +1633,13 @@
 
       const curatedFeaturedIds = getCuratedSectionIds(data, 'featured');
       const curatedFeatured = curatedFeaturedIds ? getGamesByIds(gamesArr, curatedFeaturedIds) : null;
+
+      // Leer secciones mini cards (homeFeatured y popular)
+      const curatedHomeFeaturedIds = getCuratedSectionIds(data, 'homeFeatured');
+      const curatedHomeFeatured = curatedHomeFeaturedIds ? getGamesByIds(gamesArr, curatedHomeFeaturedIds) : null;
+
+      const curatedPopularIds = getCuratedSectionIds(data, 'popular');
+      const curatedPopular = curatedPopularIds ? getGamesByIds(gamesArr, curatedPopularIds) : null;
 
       function hasValidBanner(g) {
         if (!g || !g.bannerImage) return false;
@@ -1414,6 +1714,8 @@
         featuredGames: featured,
         recentGames: recentGames,
         upcomingGames: upcomingGames,
+        homeFeaturedGames: curatedHomeFeatured || sorted.slice(0, 8),
+        popularGames: curatedPopular || sorted.slice(0, 8),
         featuredIds: featured.map(f => f.id),
         recentIds: recentGames.map(g => g.id),
         upcomingIds: upcomingGames.map(g => g.id)
@@ -1427,8 +1729,9 @@
         const classes = ['bento-item', index === 0 ? 'bento-large' : '', index === 3 ? 'bento-tall' : ''].filter(Boolean).join(' ');
         const priceSection = `<div class="bento-price">${formatGamePrice(game)}</div>`;
         const badgeText = game._displayStatus || game._origStatus || game.status || 'Destacado';
+        const infoText = (game.tagline || game.description || game.shortDescription || 'Más detalles disponibles en la ficha del juego.').replace(/\"/g, '&#34;').replace(/\'/g, '&#39;');
         return `
-          <a href="PS-Details.html?id=${game.id}" class="${classes}" style="background-image:url('${game.image}')">
+          <div class="${classes}" data-game-id="${game.id}" style="background-image:url('${game.image}')">
             <div class="bento-overlay"></div>
             <div class="bento-content">
               <div class="bento-badge">${game.platform} · ${badgeText}</div>
@@ -1438,10 +1741,33 @@
                 <span>${game.release || '2026'}</span>
               </div>
               ${priceSection}
+              <div class="bento-actions">
+                <a href="PS-Details.html?id=${game.id}" class="bento-action"><i class="fa-solid fa-arrow-right"></i> Entrar</a>
+                <button type="button" class="bento-info-btn" data-game-id="${game.id}"><i class="fa-solid fa-circle-info"></i> Info</button>
+              </div>
+              <div class="bento-more" data-game-id="${game.id}">${infoText}</div>
             </div>
-          </a>
+          </div>
         `;
       }).join('');
+      attachBentoInfoToggles();
+    }
+
+    function attachBentoInfoToggles() {
+      const grid = document.getElementById('bentoGrid');
+      if (!grid) return;
+      grid.querySelectorAll('.bento-info-btn').forEach(button => {
+        button.removeEventListener('click', button._bentoClickListener);
+        const listener = function (event) {
+          event.preventDefault();
+          const item = button.closest('.bento-item');
+          const panel = item && item.querySelector('.bento-more');
+          if (!panel) return;
+          panel.classList.toggle('visible');
+        };
+        button._bentoClickListener = listener;
+        button.addEventListener('click', listener);
+      });
     }
 
     function renderPremiere(games) {
@@ -1500,6 +1826,70 @@
       }).join('');
     }
 
+    function renderMiniCards(games, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const items = [...games].slice(0, 8);
+      container.innerHTML = items.map((game, idx) => {
+        const discount = calculateDiscount(game);
+        const price = formatGamePrice(game);
+        return `
+          <a href="PS-Details.html?id=${game.id}" class="mini-card" data-aos="fade-up" data-aos-delay="${idx * 60}">
+            <div class="mini-card-image" style="background-image:url('${game.image}')"></div>
+            <div class="mini-card-overlay"></div>
+            <div class="mini-card-content">
+              <div class="mini-card-title">${game.title}</div>
+              <div class="mini-card-price">
+                ${discount > 0 ? `<span class="mini-card-old-price">${getCurrencySymbol()}${Number(game.oldPrice || 0).toFixed(2)}</span>` : ''}
+                <span>${price}</span>
+              </div>
+              ${discount > 0 ? `<div class="mini-card-discount">-${Math.round(discount)}%</div>` : ''}
+            </div>
+          </a>
+        `;
+      }).join('');
+      AOS.refresh();
+    }
+
+    function renderMiniCarousel(games, wrapperId, paginationId) {
+      const wrapper = document.getElementById(wrapperId);
+      if (!wrapper) return;
+      const items = [...games].slice(0, 8);
+      wrapper.innerHTML = items.map((game, idx) => {
+        const discount = calculateDiscount(game);
+        const price = formatGamePrice(game);
+        return `
+          <div class="swiper-slide">
+            <a href="PS-Details.html?id=${game.id}" class="mini-card" data-aos="fade-up" data-aos-delay="${idx * 60}">
+              <div class="mini-card-image" style="background-image:url('${game.image}')"></div>
+              <div class="mini-card-overlay"></div>
+              <div class="mini-card-content">
+                <div class="mini-card-title">${game.title}</div>
+                <div class="mini-card-price">
+                  ${discount > 0 ? `<span class="mini-card-old-price">${getCurrencySymbol()}${Number(game.oldPrice || 0).toFixed(2)}</span>` : ''}
+                  <span>${price}</span>
+                </div>
+                ${discount > 0 ? `<div class="mini-card-discount">-${Math.round(discount)}%</div>` : ''}
+              </div>
+            </a>
+          </div>
+        `;
+      }).join('');
+      AOS.refresh();
+    }
+
+    function animateHeroSlide(slide) {
+      if (!slide) return;
+      const content = slide.querySelector('.slide-content');
+      const bg = slide.querySelector('.slide-background');
+      if (bg) {
+        gsap.fromTo(bg, { scale: 1.08, opacity: 0.85 }, { duration: 1.2, scale: 1, opacity: 1, ease: 'power3.out', overwrite: 'auto' });
+      }
+      if (content) {
+        gsap.fromTo(content, { y: 40, opacity: 0 }, { duration: 0.8, y: 0, opacity: 1, ease: 'power3.out', overwrite: 'auto' });
+      }
+    }
+
     function initSwiper() {
       if (heroSwiper) {
         try { heroSwiper.destroy(true, true); } catch (e) { /* ignore */ }
@@ -1516,6 +1906,14 @@
         },
         pagination: { el: '.swiper-pagination', clickable: true },
         speed: 800,
+        on: {
+          init() {
+            animateHeroSlide(this.slides[this.activeIndex]);
+          },
+          slideChangeTransitionStart() {
+            animateHeroSlide(this.slides[this.activeIndex]);
+          }
+        }
       });
 
       if (lanzamientosSwiper) {
@@ -1568,8 +1966,97 @@
         });
       }
 
+      // Inicializar carruseles de mini-cards
+      if (destacadosSwiper) {
+        try { destacadosSwiper.destroy(true, true); } catch (e) { /* ignore */ }
+        destacadosSwiper = null;
+      }
+      const destacadosEl = document.getElementById('destacadosCarousel');
+      if (destacadosEl) {
+        destacadosSwiper = new Swiper('#destacadosCarousel', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          grabCursor: true,
+          loop: true,
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          },
+          speed: 700,
+          pagination: { el: '#destacadosPagination', clickable: true },
+          breakpoints: {
+            640: { slidesPerView: 2, spaceBetween: 15 },
+            768: { slidesPerView: 3, spaceBetween: 18 },
+            1024: { slidesPerView: 4, spaceBetween: 20 },
+            1280: { slidesPerView: 5, spaceBetween: 20 }
+          }
+        });
+      }
+
+      if (popularesSwiper) {
+        try { popularesSwiper.destroy(true, true); } catch (e) { /* ignore */ }
+        popularesSwiper = null;
+      }
+      const popularesEl = document.getElementById('popularesCarousel');
+      if (popularesEl) {
+        popularesSwiper = new Swiper('#popularesCarousel', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          grabCursor: true,
+          loop: true,
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          },
+          speed: 700,
+          pagination: { el: '#popularesPagination', clickable: true },
+          breakpoints: {
+            640: { slidesPerView: 2, spaceBetween: 15 },
+            768: { slidesPerView: 3, spaceBetween: 18 },
+            1024: { slidesPerView: 4, spaceBetween: 20 },
+            1280: { slidesPerView: 5, spaceBetween: 20 }
+          }
+        });
+      }
+
       return heroSwiper;
     }
+
+    // Mobile-only animations: use IntersectionObserver + GSAP to animate sections and mini-cards when they enter viewport on small screens
+    function setupMobileAnimations() {
+      if (!('matchMedia' in window)) return;
+      const mq = window.matchMedia('(max-width: 720px)');
+      const run = () => {
+        if (!mq.matches) return; // only for mobile
+        const els = document.querySelectorAll('.section, .mini-card, .premiere-card, .bento-item, .slide-content');
+        if (!els || !els.length) return;
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const el = entry.target;
+            if (entry.isIntersecting) {
+              gsap.fromTo(el, { y: 18, opacity: 0 }, { duration: 0.6, y: 0, opacity: 1, ease: 'power2.out', overwrite: 'auto' });
+            } else {
+              // reset to allow re-animation when scrolling back
+              gsap.to(el, { duration: 0.3, y: 8, opacity: 0, ease: 'power2.in', overwrite: 'auto' });
+            }
+          });
+        }, { threshold: 0.12 });
+
+        els.forEach(el => {
+          io.observe(el);
+        });
+      };
+      // run now and on change
+      run();
+      mq.addEventListener ? mq.addEventListener('change', run) : mq.addListener(run);
+    }
+
+    // Initialize mobile animations after DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      try { setupMobileAnimations(); } catch (e) { /* ignore */ }
+    });
 
     /* Site search logic */
     let siteGames = [];
@@ -1577,6 +2064,8 @@
     let siteFeaturedGames = [];
     let sitePremiereGames = [];
     let siteUpcomingGames = [];
+    let siteHomeFeaturedGames = [];
+    let sitePopularGames = [];
     const searchToggleBtn = document.querySelector('.nav-actions .icon-button[aria-label="Buscar"]');
     const siteSearchEl = document.getElementById('siteSearch');
     const siteSearchInput = document.getElementById('siteSearchInput');
@@ -1652,34 +2141,19 @@
       siteFeaturedGames = (curated && curated.featuredGames && curated.featuredGames.length) ? curated.featuredGames : siteGames.slice(0, 6);
       sitePremiereGames = (curated && curated.recentGames && curated.recentGames.length) ? curated.recentGames : siteGames.filter(g => (Number(g.release) || now) <= now).slice(0, 8);
       siteUpcomingGames = (curated && curated.upcomingGames && curated.upcomingGames.length) ? curated.upcomingGames : siteGames.filter(g => (Number(g.release) || now) > now).slice(0, 8);
+      siteHomeFeaturedGames = (curated && curated.homeFeaturedGames && curated.homeFeaturedGames.length) ? curated.homeFeaturedGames : siteGames.slice(0, 8);
+      sitePopularGames = (curated && curated.popularGames && curated.popularGames.length) ? curated.popularGames : siteGames.slice(0, 8);
 
       // render banners y secciones usando datos curados
       renderBannerSlides(siteBanners);
+      
+      // Render mini carousels (Juegos Destacados y Más Populares)
+      renderMiniCarousel(siteHomeFeaturedGames, 'destacadosMinicards', 'destacadosPagination');
+      renderMiniCarousel(sitePopularGames, 'popularesMinicards', 'popularesPagination');
+      
       renderBento(siteFeaturedGames);
       renderPremiere(sitePremiereGames);
       renderProximosEstrenos(siteUpcomingGames);
-
-      // Render top carousels (homeFeatured -> destacados, popular -> populares)
-      try {
-        renderCarouselSection(data, 'homeFeatured', 'destacadosWrapper');
-        renderCarouselSection(data, 'popular', 'popularesWrapper');
-      } catch (e) { /* ignore render errors */ }
-
-      // Wide banner (imagen ancha entre carousels)
-      try { renderWideBannerElement(siteBanners); } catch (e) {}
-
-      // actualizar títulos desde config (si existen)
-      try {
-        const carouselsTopEl = document.getElementById('carousels-top');
-        if (carouselsTopEl) {
-          const headers = carouselsTopEl.querySelectorAll('.section-header h3');
-          const hfTitle = data && data.platforms && data.platforms.PS5 && data.platforms.PS5.sections && data.platforms.PS5.sections.homeFeatured && data.platforms.PS5.sections.homeFeatured.title;
-          const popTitle = data && data.platforms && data.platforms.PS5 && data.platforms.PS5.sections && data.platforms.PS5.sections.popular && data.platforms.PS5.sections.popular.title;
-          if (headers[0] && hfTitle) headers[0].textContent = hfTitle;
-          if (headers[1] && popTitle) headers[1].textContent = popTitle;
-        }
-      } catch (e) {}
-
       initSwiper();
       AOS.refreshHard();
       gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
@@ -1696,6 +2170,8 @@
         localStorage.setItem('ps5-currency', selectedCurrency);
         if (currencyLabel) currencyLabel.textContent = selectedCurrency;
         // re-render using cached curated sections
+        renderMiniCarousel(siteHomeFeaturedGames, 'destacadosMinicards', 'destacadosPagination');
+        renderMiniCarousel(sitePopularGames, 'popularesMinicards', 'popularesPagination');
         renderBannerSlides(siteBanners);
         renderBento(siteFeaturedGames.length ? siteFeaturedGames : siteGames.slice(0, 8));
         renderPremiere(sitePremiereGames.length ? sitePremiereGames : siteGames.filter(g => (Number(g.release) || now) <= now).slice(0, 8));
@@ -1711,12 +2187,6 @@
           showPrices = fresh && fresh.config && typeof fresh.config.showPrices === 'boolean' ? fresh.config.showPrices : true;
           siteBanners = fresh.banners || [];
           renderBannerSlides(siteBanners);
-          // refresh top carousels + wide banner in case curation changed
-          try {
-            renderCarouselSection(fresh, 'homeFeatured', 'destacadosWrapper');
-            renderCarouselSection(fresh, 'popular', 'popularesWrapper');
-            renderWideBannerElement(siteBanners);
-          } catch (e) {}
           initSwiper();
         } catch (err) { /* no bloquear UI si falla */ }
       }, 3600000);
