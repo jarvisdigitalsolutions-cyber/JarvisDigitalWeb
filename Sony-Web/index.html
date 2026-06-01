@@ -13,7 +13,7 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     :root {
-      --bg: #010101;
+      --bg: #05070f;
       --panel: rgba(18, 18, 18, 0.92);
       --panel-soft: rgba(255, 255, 255, 0.05);
       --text: #f7f7f7;
@@ -28,7 +28,7 @@
       --discount-text: #10b981;
       --discount-bg: rgba(16, 185, 129, 0.12);
       --discount-glow: rgba(16, 185, 129, 0.14);
-      --background: linear-gradient(180deg, #060606 0%, #090909 100%);
+      --background: linear-gradient(180deg, #030611 0%, #040b18 35%, #081128 65%, #05090f 100%);
       --card-bg: rgba(20, 20, 20, 0.95);
     }
 
@@ -62,6 +62,22 @@
       color: var(--text);
       line-height: 1.5;
       transition: background 0.3s ease, color 0.3s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    [data-theme="dark"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(44, 121, 255, 0.12), transparent 18%),
+        radial-gradient(circle at 80% 12%, rgba(22, 95, 255, 0.08), transparent 22%),
+        radial-gradient(circle at 50% 85%, rgba(8, 22, 65, 0.28), transparent 35%),
+        linear-gradient(180deg, rgba(2, 4, 12, 0.12), rgba(2, 4, 12, 0.55) 35%, rgba(3, 5, 13, 0.88) 70%, rgba(5, 7, 14, 1) 100%);
+      opacity: 0.95;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -256,14 +272,52 @@
     }
 
     .hero-section {
-      padding-top: 64px; /* más cerca del navbar */
-      min-height: 90vh;
+      padding-top: 55px; /* más cerca del navbar */
+      min-height: min(86vh, 760px);
       position: relative;
+      overflow: hidden;
     }
 
-    .swiper {
+    .hero-section .swiper {
+      min-height: auto;
+      max-height: 760px;
+    }
+
+    .hero-section .swiper-slide {
+      min-height: auto;
+      max-height: 760px;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 240px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 12, 24, 0.45) 38%, rgba(7, 10, 18, 0.82) 70%, rgba(5, 8, 16, 1) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .hero-section .swiper {
       width: 100%;
       min-height: 90vh;
+    }
+
+    .hero-section .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 90vh;
+    }
+
+    .mini-carousel .swiper,
+    .premiere-carousel .swiper,
+    .mini-carousel .swiper-slide,
+    .premiere-carousel .swiper-slide {
+      min-height: auto;
     }
 
     .swiper-slide {
@@ -271,7 +325,6 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      min-height: 90vh;
     }
 
     .slide-background {
@@ -285,7 +338,29 @@
     .slide-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.85) 100%);
+      background:
+        radial-gradient(circle at 50% 12%, rgba(54, 120, 255, 0.14), transparent 18%),
+        radial-gradient(circle at 20% 15%, rgba(25, 92, 255, 0.08), transparent 20%),
+        linear-gradient(180deg, rgba(8, 14, 34, 0.12) 0%, rgba(10, 16, 35, 0.2) 20%, rgba(8, 12, 24, 0.32) 38%, rgba(5, 8, 18, 0.54) 58%, rgba(3, 5, 12, 0.78) 80%, rgba(0, 0, 0, 0.92) 100%);
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .slide-overlay::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 220px;
+      background: linear-gradient(180deg, transparent 0%, rgba(14, 21, 42, 0.22) 28%, rgba(8, 12, 22, 0.42) 55%, rgba(6, 9, 18, 0.66) 72%, rgba(3, 5, 12, 0.88) 88%, rgba(3, 5, 12, 0.98) 100%);
+      pointer-events: none;
+    }
+
+    .slide-content,
+    .swiper-pagination {
+      position: relative;
+      z-index: 4;
     }
 
     [data-theme="light"] .slide-overlay {
@@ -426,7 +501,8 @@
     }
 
     .section {
-      padding: 1.25rem 2rem;
+      padding: 3.5rem 2rem;
+      margin: 2rem 0;
     }
 
     .container {
@@ -434,12 +510,24 @@
       margin: 0 auto;
     }
 
+    /* Premium section entrance animation */
+    .section[data-aos] {
+      opacity: 0;
+      animation: sectionEntrance 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+
+    @keyframes sectionEntrance {
+      0% { opacity: 0; transform: translateY(40px); }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
     .section-header {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 0.6rem;
-      margin-bottom: 0.3rem; /* más compacto */
+      margin-bottom: 2.2rem; /* mayor espaciado */
       flex-wrap: wrap;
       background: transparent;
     }
@@ -485,6 +573,19 @@
       background-position: center;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 18px 48px rgba(0,0,0,0.32);
       will-change: transform, box-shadow, filter;
+      animation: bentoEntrance 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+    }
+
+    .bento-grid .bento-item:nth-child(1) { animation-delay: 0.15s; }
+    .bento-grid .bento-item:nth-child(2) { animation-delay: 0.25s; }
+    .bento-grid .bento-item:nth-child(3) { animation-delay: 0.35s; }
+    .bento-grid .bento-item:nth-child(4) { animation-delay: 0.45s; }
+    .bento-grid .bento-item:nth-child(n+5) { animation-delay: 0.55s; }
+
+    @keyframes bentoEntrance {
+      0% { opacity: 0; transform: scale(0.88) translateY(30px); filter: blur(12px); }
+      60% { transform: scale(1.03); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
     }
 
     .bento-item::before {
@@ -857,6 +958,18 @@
       justify-content: flex-end;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 18px 48px rgba(0,0,0,0.32);
       will-change: transform, box-shadow, filter;
+      animation: premiereEntrance 0.75s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+    }
+
+    .premiere-carousel .swiper-slide:nth-child(1) .premiere-card { animation-delay: 0.2s; }
+    .premiere-carousel .swiper-slide:nth-child(2) .premiere-card { animation-delay: 0.35s; }
+    .premiere-carousel .swiper-slide:nth-child(3) .premiere-card { animation-delay: 0.5s; }
+    .premiere-carousel .swiper-slide:nth-child(n+4) .premiere-card { animation-delay: 0.65s; }
+
+    @keyframes premiereEntrance {
+      0% { opacity: 0; transform: scale(0.90) translateY(40px) rotateY(-8deg); filter: blur(10px) brightness(0.8); }
+      60% { transform: scale(1.04) rotateY(0deg); }
+      100% { opacity: 1; transform: scale(1) translateY(0) rotateY(0deg); filter: blur(0) brightness(1); }
     }
 
     .premiere-card::before {
@@ -1046,16 +1159,36 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.35s ease, filter 0.35s ease;
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-      will-change: transform;
+      will-change: transform, filter, box-shadow;
       min-height: 48px;
+      animation: cardEntrance 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+    }
+
+    .mini-carousel .swiper-slide:nth-child(1) .mini-card { animation-delay: 0.1s; }
+    .mini-carousel .swiper-slide:nth-child(2) .mini-card { animation-delay: 0.2s; }
+    .mini-carousel .swiper-slide:nth-child(3) .mini-card { animation-delay: 0.3s; }
+    .mini-carousel .swiper-slide:nth-child(4) .mini-card { animation-delay: 0.4s; }
+    .mini-carousel .swiper-slide:nth-child(5) .mini-card { animation-delay: 0.5s; }
+    .mini-carousel .swiper-slide:nth-child(n+6) .mini-card { animation-delay: 0.6s; }
+
+    @keyframes cardEntrance {
+      0% { opacity: 0; transform: scale(0.92) translateY(20px); filter: blur(8px); }
+      60% { transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
     }
     
 
     /* Ajustes de paginación para que quede más cerca del carrusel */
     .mini-carousel .swiper-pagination {
       margin-top: 2px;
+    }
+
+    /* Reducir separación del pagination en carruseles de premiere */
+    .premiere-carousel .swiper-pagination {
+      margin-top: -8px;
+      padding-top: 12px;
     }
 
     .mini-card-image { position:absolute; inset:0; background-size:cover; background-position:center; height:100%; width:100%; }
@@ -1066,7 +1199,13 @@
     .section-center-image {
       display: flex;
       justify-content: center;
-      margin: 0.2rem 0 0.2rem 0;
+      margin: 6rem 0 6rem 0;
+      animation: bannerEntrance 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+
+    @keyframes bannerEntrance {
+      0% { opacity: 0; transform: scale(0.95) translateY(30px); filter: blur(8px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
     }
 
     .section-center-image img {
@@ -1075,12 +1214,30 @@
       display: block;
       border-radius: 10px;
       box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+      transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.4s ease;
+    }
+
+    .section-center-image img:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+
+    /* Separación significativa entre Catálogo Destacado y Lanzamientos Recientes */
+    #destacados {
+      margin-top: 4rem;
+      margin-bottom: 10rem;
+      padding: 3.5rem 2rem;
+    }
+
+    #lanzamientos {
+      margin-top: 6rem;
     }
 
     .mini-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
-      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-12px) scale(1.04);
+      box-shadow: 0 20px 48px rgba(20, 120, 255, 0.28), 0 12px 24px rgba(0, 0, 0, 0.35);
+      border-color: rgba(100, 180, 255, 0.35);
+      filter: brightness(1.08);
     }
 
     .mini-card-image {
@@ -1184,8 +1341,12 @@
       /* Mobile-specific adjustments for mini carousels and hero banner */
       .mini-carousel { padding-bottom: 0.2rem; }
       .mini-carousel .swiper-slide { width: 160px; height: 220px; }
-      .mini-carousel .swiper-slide .mini-card { height: 200px; }
-      .mini-card { height: 200px; border-radius: 8px; }
+      @media (max-width: 640px) {
+        .mini-carousel .swiper-slide:nth-child(1) .mini-card { animation-delay: 0.1s; }
+        .mini-carousel .swiper-slide:nth-child(2) .mini-card { animation-delay: 0.15s; }
+        .mini-carousel .swiper-slide:nth-child(3) .mini-card { animation-delay: 0.2s; }
+        .mini-carousel .swiper-slide:nth-child(n+4) .mini-card { animation-delay: 0.25s; }
+      }
 
       /* Hero banner smaller on mobile: limit height relative to width to avoid tall banners */
       .hero-section .mySwiper, .hero-section .swiper-wrapper, .hero-section .swiper-slide { height: auto; max-height: min(56vh, calc(100vw * 0.55)); }
@@ -1261,7 +1422,7 @@
 
   <main>
     <!-- Juegos Destacados Carrusel -->
-    <section id="juegos-destacados" class="section container" data-aos="fade-up">
+    <section id="juegos-destacados" class="section container" data-aos="fade-up" data-aos-duration="920" data-aos-easing="cubic-bezier(0.22, 0.61, 0.36, 1)" data-aos-offset="160">
       <div class="section-header">
         <div>
           <h3>Juegos Destacados</h3>
@@ -1280,7 +1441,7 @@
     </div>
 
     <!-- Más Populares Carrusel -->
-    <section id="populares" class="section container" data-aos="fade-up">
+    <section id="populares" class="section container" data-aos="fade-up" data-aos-duration="920" data-aos-easing="cubic-bezier(0.22, 0.61, 0.36, 1)" data-aos-offset="160">
       <div class="section-header">
         <div>
           <h3>Más Populares</h3>
@@ -1293,7 +1454,7 @@
       </div>
     </section>
 
-    <section id="destacados" class="section container">
+    <section id="destacados" class="section container" data-aos="fade-up" data-aos-duration="920" data-aos-easing="cubic-bezier(0.22, 0.61, 0.36, 1)" data-aos-offset="160">
       <div class="section-header">
         <div>
           <h3>Catálogo Destacado</h3>
@@ -1303,7 +1464,7 @@
       <div class="bento-grid" id="bentoGrid"></div>
     </section>
 
-    <section id="lanzamientos" class="section container" data-aos="fade-up">
+    <section id="lanzamientos" class="section container" data-aos="fade-up" data-aos-duration="920" data-aos-easing="cubic-bezier(0.22, 0.61, 0.36, 1)" data-aos-offset="160">
       <div class="section-header">
         <div>
           <h3>Lanzamientos Recientes</h3>
@@ -1316,7 +1477,7 @@
       </div>
     </section>
 
-    <section id="proximosestrenos" class="section container" data-aos="fade-up">
+    <section id="proximosestrenos" class="section container" data-aos="fade-up" data-aos-duration="920" data-aos-easing="cubic-bezier(0.22, 0.61, 0.36, 1)" data-aos-offset="160">
       <div class="section-header">
         <div>
           <h3>Próximos Estrenos</h3>
@@ -1424,7 +1585,7 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
-    AOS.init({ duration: 750, easing: 'power3.out', once: false, mirror: true, offset: 120 });
+    AOS.init({ duration: 920, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)', once: false, mirror: true, offset: 160, delay: 0 });
 
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
