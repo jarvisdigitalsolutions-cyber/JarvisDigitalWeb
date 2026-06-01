@@ -1,0 +1,91 @@
+/* Sistema de Actualizaciones de Notas - CSS */
+
+/* Badge de actualizacion visible en tarjetas */
+.update-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(20, 184, 166, 0.4);
+  animation: badgePulse 2s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mini-card .update-badge,
+.bento-item .update-badge,
+.premiere-card .update-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Animacion de pulso para el badge */
+@keyframes badgePulse {
+  0%, 100% { 
+    box-shadow: 0 4px 16px rgba(20, 184, 166, 0.4), inset 0 0 0 0 rgba(20, 184, 166, 0);
+  }
+  50% { 
+    box-shadow: 0 4px 24px rgba(20, 184, 166, 0.6), inset 0 0 0 2px rgba(20, 184, 166, 0.2);
+  }
+}
+
+/* Animacion de entrada suave del badge */
+@keyframes badgeEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.update-badge.new {
+  animation: badgeEntrance 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), badgePulse 2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.6s infinite;
+}
+
+/* Tooltip con informacion de la actualizacion */
+.update-tooltip {
+  position: absolute;
+  bottom: -60px;
+  right: 0;
+  background: rgba(20, 31, 56, 0.95);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  z-index: 11;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+.update-badge:hover + .update-tooltip {
+  opacity: 1;
+}
+
+/* Animacion suave al desaparecer el badge (cuando usuario interactua) */
+@keyframes badgeFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.update-badge.dismissing {
+  animation: badgeFadeOut 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
