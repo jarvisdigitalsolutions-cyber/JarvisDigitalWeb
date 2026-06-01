@@ -83,193 +83,315 @@
     a { color: inherit; text-decoration: none; }
     button { font: inherit; }
 
-    .navbar {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
-      gap: 0.6rem;
-      height: 56px;
-          background: rgb(7 12 24 / 77%);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
-    }
+  :root {
+  --nav-bg: rgba(7, 10, 18, 0.72);
+  --nav-border: rgba(120, 170, 255, 0.18);
+  --text: #e9eef7;
+  --muted: rgba(233, 238, 247, 0.72);
+  --accent: #4ea3ff;
+  --accent-2: #1f7bff;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  --radius: 18px;
+}
 
-    [data-theme="light"] .navbar {
-      background: rgba(255, 255, 255, 0.82);
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 0;
-    }
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 28px;
+  background: linear-gradient(180deg, rgba(7, 10, 18, 0.88), rgba(7, 10, 18, 0.70));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: var(--shadow);
+  transition: padding .25s ease, background .25s ease, transform .25s ease;
+}
 
-    .brand-logo {
-      display: block;
-      width: clamp(64px, 7.5vw, 110px);
-      height: auto;
-      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.22));
-      transition: transform 0.18s ease, filter 0.18s ease;
-      margin-right: 0.4rem;
-    }
+.navbar.scrolled {
+  padding: 10px 24px;
+  background: linear-gradient(180deg, rgba(6, 9, 16, 0.94), rgba(6, 9, 16, 0.78));
+}
 
-    .brand-logo:hover {
-      transform: scale(1.03);
-    }
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: relative;
+  isolation: isolate;
+}
 
-    .nav-links {
-      display: flex;
-      gap: 0.6rem; /* más pegados al logo */
-      align-items: center;
-      list-style: none;
-      flex-wrap: wrap;
-      margin-left: 0.4rem;
-      font-family: 'Poppins', 'Montserrat', sans-serif;
-    }
+.logo::before {
+  content: "";
+  position: absolute;
+  inset: -8px -12px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 50% 50%, rgba(78, 163, 255, 0.18), transparent 70%);
+  filter: blur(10px);
+  z-index: -1;
+  opacity: .9;
+}
 
-    .nav-links a {
-      position: relative;
-      color: var(--muted);
-      font-weight: 600;
-      transition: color 0.2s ease, transform 0.14s ease;
-      padding: 0.32rem 0.5rem; /* más compacto */
-      display: inline-block;
-      letter-spacing: 0.01em;
-      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      font-size: 0.95rem;
-    }
+.brand-logo {
+  display: block;
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(78, 163, 255, 0.16));
+  transition: transform .25s ease, filter .25s ease;
+}
 
-    /* Brillo y subrayado animado similar a .loader-title */
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -10px);
-      width: 70%;
-      height: 6px;
-      border-radius: 999px;
-      background: radial-gradient(circle at center, rgba(56,139,253,0.98), rgba(56,139,253,0.24) 30%, transparent 60%);
-      filter: blur(10px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s cubic-bezier(0.2,0.9,0.2,1), transform 0.22s ease;
-    }
+.logo:hover .brand-logo {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 16px rgba(78, 163, 255, 0.35));
+}
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 25%;
-      width: 50%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgb(0 72 255 / 95%), transparent);
-       border-radius: 9999px;
-      transform-origin: center;
-      transition: width 0.22s ease, left 0.22s ease, opacity 0.22s ease;
-      opacity: 0; /* no visible por defecto */
-    }
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  margin: 0;
+  padding: 0;
+}
 
-    .nav-links a:hover {
-      color: var(--text);
-      transform: translateY(-2px);
-    }
+.nav-links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 2px;
+  color: var(--muted);
+  text-decoration: none;
+  font: 600 0.96rem/1.1 "Inter", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  transition: color .22s ease, transform .22s ease, text-shadow .22s ease;
+}
 
-    .nav-links a:hover::before {
-      opacity: 1;
-      transform: translate(-50%, 0px) scale(1.06);
-      animation: pulseGlow 1.6s ease-in-out infinite;
-    }
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 0%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform: translateX(-50%);
+  transition: width .25s ease;
+}
 
-    .nav-links a:hover::after {
-      width: calc(100% - 1rem);
-      left: 0.5rem;
-      opacity: 1;
-    }
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+  text-shadow: 0 0 14px rgba(78, 163, 255, 0.18);
+}
 
-    /* Estado activo (ej. 'Latest') */
-    .nav-links a.active {
-      color: #ffffff;
-      text-shadow: none; /* sin glow constante */
-    }
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
 
-    /* El estado activo no debe mostrar glow animado, solo un subrayado sutil */
-    .nav-links a.active::before { opacity: 0; transform: translate(-50%, 0px) scale(1); }
-    .nav-links a.active::after { opacity: 0.5; width: calc(48%); left: 26%; }
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    @keyframes pulseGlow {
-      0% { filter: blur(8px); transform: translate(-50%, 0px) scale(1.02); opacity: 0.9; }
-      50% { filter: blur(14px); transform: translate(-50%, 0px) scale(1.1); opacity: 1; }
-      100% { filter: blur(8px); transform: translate(-50%, 0px) scale(1.02); opacity: 0.9; }
-    }
+.icon-button,
+.theme-toggle {
+  height: 46px;
+  min-width: 46px;
+  padding: 0 14px;
+  border: 1px solid rgba(120, 170, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+.icon-button i,
+.theme-toggle i {
+  font-size: 1rem;
+}
 
-    /* Botones: estilo moderno y adaptativo para light/dark */
-    .icon-button,
-    .theme-toggle,
-    #currencyToggle {
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      padding: 0.3rem;
-      width: 40px;
-      height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.16s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
+.icon-button:hover,
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(78, 163, 255, 0.10);
+  border-color: rgba(78, 163, 255, 0.34);
+  box-shadow: 0 0 0 1px rgba(78, 163, 255, 0.08), 0 12px 28px rgba(0, 0, 0, 0.22);
+}
 
-    .icon-button:hover, .theme-toggle:hover, #currencyToggle:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(16, 76, 240, 0.08);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-    }
+#currencyLabel {
+  font: 700 0.92rem/1 "Inter", system-ui, sans-serif;
+  letter-spacing: 0.04em;
+}
 
-    /* Light mode overrides for buttons */
-    [data-theme="light"] .icon-button,
-    [data-theme="light"] .theme-toggle,
-    [data-theme="light"] #currencyToggle {
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,240,245,0.9));
-      color: #0f172a;
-      border: 1px solid rgba(15,23,42,0.06);
-      box-shadow: 0 6px 16px rgba(2,6,23,0.06);
-    }
+.menu-toggle {
+  display: none;
+}
 
-    /* Indicador de moneda más claro */
-    #currencyLabel { font-weight: 700; font-size: 0.85rem; }
+/* Estado compacto al scrollear */
+.navbar.scrolled .brand-logo {
+  height: 38px;
+}
 
-    .icon-button,
-    .theme-toggle {
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--text);
-      border-radius: 9999px;
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.25s ease, background 0.25s ease;
-    }
+.navbar {
+  position: relative;
+}
 
-    .icon-button:hover,
-    .theme-toggle:hover {
-      transform: translateY(-1px);
-      background: var(--accent-soft);
-    }
+/* línea base (sin animación activa) */
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #4ea3ff,
+    #00e0ff,
+    #4ea3ff,
+    transparent
+  );
+
+  opacity: 0;
+  transform: scaleX(0.3);
+  transform-origin: left;
+
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+
+/* glow */
+.navbar::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+
+  background: radial-gradient(circle, rgba(78,163,255,0.4), transparent 70%);
+  filter: blur(6px);
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ACTIVACIÓN SOLO EN INTERACCIÓN */
+.navbar.scrolled::after,
+.navbar:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+
+  animation: flowLine 2s linear infinite;
+}
+
+.navbar.scrolled::before,
+.navbar:hover::before {
+  opacity: 1;
+}
+
+/* animación */
+@keyframes flowLine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+/* Responsive */
+@media (max-width: 980px) {
+  .navbar {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "logo actions"
+      "links links";
+  }
+
+  .logo {
+    grid-area: logo;
+  }
+
+  .nav-actions {
+    grid-area: actions;
+    justify-self: end;
+  }
+
+  .nav-links {
+    grid-area: links;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    gap: 22px;
+  }
+}
+
+@media (max-width: 760px) {
+  .navbar {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "logo toggle"
+      "links links";
+    padding: 12px 16px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    grid-area: toggle;
+    justify-self: end;
+  }
+
+  .nav-actions {
+    display: none;
+  }
+
+  .nav-links {
+    display: none;
+    grid-area: links;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 0 4px;
+  }
+
+  .navbar.open .nav-links {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: 14px 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+}
 
     .hero-section {
       padding-top: 55px; /* más cerca del navbar */
@@ -1375,31 +1497,152 @@
       .section { padding: 0.8rem 0.9rem; }
       .section-center-image img { width: 96%; }
     }
+    /* ============================================
+   SCROLLBAR GAMING MODERN (WebKit)
+   Azul oscuro, bordes redondeados, efecto neón
+   ============================================ */
+
+/* Ancho de la barra vertical y horizontal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Fondo del riel (track) */
+::-webkit-scrollbar-track {
+  background: #0a0f1e;      /* azul muy oscuro / casi negro */
+  border-radius: 10px;
+  box-shadow: inset 0 0 4px rgba(0, 255, 255, 0.1);
+}
+
+/* Pulgar (thumb) – la parte que se mueve */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+  transition: background 0.2s ease;
+}
+
+/* Efecto hover sobre el pulgar */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  box-shadow: 0 0 10px #3b82f6;
+  border-color: rgba(0, 255, 255, 0.6);
+}
+
+/* Esquinas (donde se juntan vertical y horizontal) */
+::-webkit-scrollbar-corner {
+  background: #0a0f1e;
+}
+
+/* Opcional: riel cuando se está arrastrando */
+::-webkit-scrollbar-track:hover {
+  background: #0f172a;
+  box-shadow: inset 0 0 6px rgba(59, 130, 246, 0.2);
+}
+
+/* Personalización para Firefox (complementario) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #0a0f1e;
+}
   </style>
+  <style>
+  /* ========== MEJORAS MÓVIL: scroll reveal y tooltip ========== */
+  @media (max-width: 768px) {
+    /* Clase base para elementos que se revelan al scroll */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s cubic-bezier(0.22, 0.85, 0.36, 1), 
+                  transform 0.5s cubic-bezier(0.22, 0.85, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .scroll-reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Tooltip de información */
+    .game-info-tooltip {
+      position: fixed;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 12px 18px;
+      max-width: 260px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      z-index: 9999;
+      pointer-events: none;
+      animation: tooltipFade 0.2s ease;
+      font-weight: 500;
+    }
+    @keyframes tooltipFade {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* Mejora feedback táctil en tarjetas */
+    .mini-card:active {
+      transform: scale(0.98);
+      transition: transform 0.05s;
+    }
+    /* Ajuste hero slider móvil */
+    .hero-section .mySwiper,
+    .hero-section .swiper-slide {
+      min-height: 60vh;
+      max-height: 70vh;
+    }
+    .slide-content {
+      padding: 1rem;
+      width: 90%;
+    }
+    .slide-content h2 {
+      font-size: clamp(1.6rem, 6vw, 2.2rem);
+    }
+  }
+  /* Fin mejoras móvil */
+</style>
   <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="notes-update-system.css">
+  <link rel="stylesheet" href="auto-sync-notification.css">
+  <link rel="stylesheet" href="notification-center.css">
 </head>
 <body>
-  <nav class="navbar">
-    <a href="index.html" class="logo" aria-label="Inicio">
-      <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
-    </a>
-    <button id="navToggle" class="icon-button menu-toggle" aria-label="Abrir menú" aria-expanded="false">
-      <i class="fa-solid fa-bars"></i>
+ <nav class="navbar">
+  <a href="index.html" class="logo" aria-label="Inicio">
+    <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
+  </a>
+
+  <button id="navToggle" class="icon-button menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <ul class="nav-links">
+    <li><a href="collection-p5.html">Catálogo</a></li>
+    <li><a href="#destacados">Destacados</a></li>
+    <li><a href="#explora">Explorar</a></li>
+    <li><a href="#info">Info</a></li>
+    <li><a href="registro.html">Registro</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="icon-button" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true">
+      <i class="fa-solid fa-sun"></i>
     </button>
-    <ul class="nav-links">
-      <li><a href="collection-p5.html">Catálogo</a></li>
-      <li><a href="#destacados">Destacados</a></li>
-      <li><a href="#explora">Explorar</a></li>
-      <li><a href="#info">Info</a></li>
-      <li><a href="registro.html">Registro</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="icon-button" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true"><i class="fa-solid fa-sun"></i></button>
-      <button id="currencyToggle" class="icon-button" title="Cambiar moneda"><span id="currencyLabel">USD</span></button>
-      <button class="icon-button" aria-label="Carrito"><i class="fa-solid fa-cart-shopping"></i></button>
-    </div>
-  </nav>
+    <button id="currencyToggle" class="icon-button" title="Cambiar moneda">
+      <span id="currencyLabel">USD</span>
+    </button>
+    <button id="notification-bell" class="icon-button" aria-label="Notificaciones" onclick="notificationCenter.togglePanel()">
+      <i class="fa-solid fa-bell"></i>
+    </button>
+    <button class="icon-button" aria-label="Carrito"><i class="fa-solid fa-cart-shopping"></i></button>
+  </div>
+</nav>
 
   <div id="siteSearch" class="site-search" role="dialog" aria-modal="false" aria-hidden="true">
     <div class="search-row">
@@ -1584,6 +1827,10 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="notification-center.js"></script>
+  <script src="notes-update-system.js"></script>
+  <script src="auto-sync-changelog.js"></script>
+  <script src="debug-changelog.js"></script>
   <script>
     AOS.init({ duration: 920, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)', once: false, mirror: true, offset: 160, delay: 0 });
 
@@ -1634,7 +1881,8 @@
     // Load full dataset (games + banners) from games.json
     async function loadData() {
       try {
-        const response = await fetch('./games.json');
+        // Cache-busting: agregar timestamp para evitar cache del navegador
+        const response = await fetch('./games.json?t=' + Date.now());
         if (!response.ok) return { games: {}, banners: [] };
         const data = await response.json();
         return data || { games: {}, banners: [] };
@@ -2217,6 +2465,12 @@
     // Initialize mobile animations after DOM ready
     document.addEventListener('DOMContentLoaded', () => {
       try { setupMobileAnimations(); } catch (e) { /* ignore */ }
+      // Auto-mark all notifications as viewed after 500ms to ensure notification-center is ready
+      if (typeof notificationCenter !== 'undefined') {
+        setTimeout(() => {
+          notificationCenter.markAllAsViewed();
+        }, 500);
+      }
     });
 
     /* Site search logic */
@@ -2458,5 +2712,236 @@
   `;
   document.head.appendChild(style);
 })();</script>
+<script>
+let scrollTimeout;
+
+window.addEventListener("scroll", () => {
+  const nav = document.querySelector(".navbar");
+
+  nav.classList.add("scrolled");
+
+  clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    nav.classList.remove("scrolled");
+  }, 150); // se apaga rápido cuando paras
+});
+</script>
+<!--FUTURE-V7
+<script>
+(function() {
+  // ---------- 1. SCROLL REVEAL PROGRESIVO (reaparece al subir/bajar) ----------
+  let scrollObserver = null;
+  function initMobileScrollReveal() {
+    if (scrollObserver) scrollObserver.disconnect();
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (!isMobile) return;
+    
+    // Seleccionar todos los elementos que queremos animar al scroll
+    const targets = document.querySelectorAll('.section, .mini-card, .premiere-card, .bento-item, .panel, .mood-card, .feature-card');
+    if (!targets.length) return;
+    
+    // Añadir clase base a cada elemento si no la tiene
+    targets.forEach(el => {
+      if (!el.classList.contains('scroll-reveal')) el.classList.add('scroll-reveal');
+    });
+    
+    scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -20px 0px' }); // margen negativo para activar un poco antes
+    
+    targets.forEach(el => scrollObserver.observe(el));
+  }
+  
+  // Re-evaluar al redimensionar (por si cambia de móvil a escritorio)
+  window.addEventListener('resize', () => {
+    initMobileScrollReveal();
+  });
+  
+  // ---------- 2. INTERACCIÓN TÁCTIL: UN TAP = INFO, DOBLE TAP = NAVEGAR ----------
+  let activeTapTimeout = null;
+  let pendingNavigateUrl = null;
+  let currentTooltip = null;
+  
+  function showGameInfo(message, x, y, targetElement) {
+    // Eliminar tooltip existente
+    if (currentTooltip) currentTooltip.remove();
+    const tooltip = document.createElement('div');
+    tooltip.className = 'game-info-tooltip';
+    tooltip.textContent = message;
+    document.body.appendChild(tooltip);
+    
+    // Posicionar cerca del elemento tocado (centrado arriba/abajo)
+    const rect = targetElement.getBoundingClientRect();
+    const scrollY = window.scrollY;
+    const topPos = rect.top + scrollY - 50;
+    tooltip.style.left = `${Math.min(rect.left + rect.width/2 - 100, window.innerWidth - 220)}px`;
+    tooltip.style.top = `${Math.max(10, topPos)}px`;
+    currentTooltip = tooltip;
+    
+    // Auto-destruir después de 3 segundos
+    setTimeout(() => {
+      if (currentTooltip === tooltip) {
+        tooltip.remove();
+        currentTooltip = null;
+      }
+    }, 3000);
+  }
+  
+  function attachSmartTapHandlers() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (!isMobile) return;
+    
+    // Trabajar sobre las mini-cards de "Juegos Destacados" y "Más Populares"
+    const miniCards = document.querySelectorAll('.mini-card');
+    miniCards.forEach(card => {
+      // Evitar duplicar event listeners
+      if (card._smartTapAttached) return;
+      card._smartTapAttached = true;
+      
+      // Guardar la URL original (href) si existe
+      const originalUrl = card.getAttribute('href');
+      if (originalUrl) {
+        card.setAttribute('data-url', originalUrl);
+        // Eliminar href para evitar navegación directa
+        card.removeAttribute('href');
+        card.style.cursor = 'pointer';
+      }
+      
+      // Obtener información del juego desde atributos de datos o desde el contenido
+      let infoText = card.getAttribute('data-description');
+      if (!infoText) {
+        // Intentar extraer del título y precio o usar fallback
+        const titleEl = card.querySelector('.mini-card-title');
+        const title = titleEl ? titleEl.textContent : 'Juego';
+        infoText = `${title} · Toca dos veces para ver detalles.`;
+        // También podemos buscar en la variable global games si existe
+        if (window.siteGames && window.siteGames.length) {
+          const match = window.siteGames.find(g => g.title === title);
+          if (match && (match.tagline || match.description)) {
+            infoText = match.tagline || match.description;
+          }
+        }
+      }
+      card.setAttribute('data-info', infoText);
+      
+      // Contador de taps
+      let lastTap = 0;
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const now = Date.now();
+        const isDoubleTap = (now - lastTap) < 300;
+        lastTap = now;
+        
+        if (isDoubleTap) {
+          // Doble tap → navegar
+          if (activeTapTimeout) clearTimeout(activeTapTimeout);
+          const url = card.getAttribute('data-url');
+          if (url) window.location.href = url;
+        } else {
+          // Tap simple → mostrar info (cancelar posible navegación pendiente)
+          if (activeTapTimeout) clearTimeout(activeTapTimeout);
+          activeTapTimeout = setTimeout(() => {
+            const info = card.getAttribute('data-info') || 'Más información disponible en la ficha.';
+            const rect = card.getBoundingClientRect();
+            showGameInfo(info, rect.left, rect.top, card);
+            activeTapTimeout = null;
+          }, 200);
+        }
+      });
+    });
+  }
+  
+  // Observar cambios dinámicos (cuando se recargan los carruseles)
+  function observeMiniCardsContainer() {
+    const containers = ['destacadosMinicards', 'popularesMinicards'];
+    containers.forEach(id => {
+      const container = document.getElementById(id);
+      if (!container) return;
+      const observer = new MutationObserver(() => {
+        attachSmartTapHandlers();
+      });
+      observer.observe(container, { childList: true, subtree: true });
+    });
+  }
+  
+  // Inyectar atributos data-description durante la generación de mini-cards
+  // Parchear la función renderMiniCarousel original para que incluya la descripción
+  const originalRenderMiniCarousel = window.renderMiniCarousel;
+  if (originalRenderMiniCarousel) {
+    window.renderMiniCarousel = function(games, wrapperId, paginationId) {
+      const wrapper = document.getElementById(wrapperId);
+      if (!wrapper) return;
+      const items = [...games].slice(0, 8);
+      wrapper.innerHTML = items.map((game, idx) => {
+        const discount = calculateDiscount ? calculateDiscount(game) : 0;
+        const price = formatGamePrice ? formatGamePrice(game) : '';
+        const infoDesc = (game.tagline || game.description || `${game.title} · ${game.platform}`).replace(/"/g, '&quot;');
+        return `
+          <div class="swiper-slide">
+            <div class="mini-card" data-url="PS-Details.html?id=${game.id}" data-description="${infoDesc}">
+              <div class="mini-card-image" style="background-image:url('${game.image}')"></div>
+              <div class="mini-card-overlay"></div>
+              <div class="mini-card-content">
+                <div class="mini-card-title">${game.title}</div>
+                <div class="mini-card-price">
+                  ${discount > 0 ? `<span class="mini-card-old-price">${getCurrencySymbol ? getCurrencySymbol() : '$'}${Number(game.oldPrice || 0).toFixed(2)}</span>` : ''}
+                  <span>${price}</span>
+                </div>
+                ${discount > 0 ? `<div class="mini-card-discount">-${Math.round(discount)}%</div>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      if (window.AOS && AOS.refreshHard) AOS.refreshHard();
+      attachSmartTapHandlers(); // reconectar handlers después de renderizar
+    };
+  }
+  
+  // También parchear para 'renderMiniCarousel' usado inicialmente en la carga principal
+  if (!window.renderMiniCarouselPatched) {
+    window.renderMiniCarouselPatched = true;
+    // La función original ya existe en el ámbito global, la reemplazamos de forma segura
+    if (typeof renderMiniCarousel === 'function') {
+      window.renderMiniCarousel = renderMiniCarousel;
+    }
+  }
+  
+  // ---------- 3. INICIALIZACIÓN TRAS CARGA COMPLETA ----------
+  window.addEventListener('load', () => {
+    initMobileScrollReveal();
+    attachSmartTapHandlers();
+    observeMiniCardsContainer();
+    
+    // Re-aplicar después de cambios de moneda (currency toggle)
+    const currencyBtn = document.getElementById('currencyToggle');
+    if (currencyBtn) {
+      const originalCurrencyHandler = currencyBtn.onclick;
+      currencyBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          attachSmartTapHandlers();
+          initMobileScrollReveal();
+        }, 100);
+      });
+    }
+  });
+  
+  // Re-evaluar cada vez que se completa un refresh de datos (por si se actualizan los carruseles)
+  if (window.MutationObserver) {
+    const mainObserver = new MutationObserver(() => {
+      attachSmartTapHandlers();
+    });
+    mainObserver.observe(document.body, { childList: true, subtree: true, attributes: false });
+  }
+})();
+</script>
+-->
 </body>
 </html>
