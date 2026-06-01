@@ -67,7 +67,7 @@ jobs:
         run: |
           git push origin ${{ github.ref }}
       
-      # 8. Resumen de éxito
+      # 8. Resumen de  éxito
       - name: ✨ Completion summary
         run: |
           echo "=========================================="
