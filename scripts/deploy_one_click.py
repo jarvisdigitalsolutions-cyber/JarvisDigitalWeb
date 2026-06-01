@@ -56,16 +56,16 @@ def main():
     else:
         run(['git','checkout','-b', args.branch])
 
-    run(['git','add','--all', args.path])
-    status = run(['git','status','--porcelain'])
-    if not status.stdout.strip():
-        print(f"No hay cambios para commitear en '{args.path}'")
-        sys.exit(0)
-
-    commit = run(['git','commit','-m', args.message])
-    if commit.returncode != 0:
-        print('Commit falló:', commit.stdout)
-        sys.exit(1)
+    run(['git','add','--all', '--', args.path])
+    staged = run(['git','diff','--cached','--name-only','--', args.path])
+    if not staged.stdout.strip():
+        print(f"No hay cambios preparados para commitear en '{args.path}'")
+        print('Se continuará con el push de la rama actual sin nuevo commit.')
+    else:
+        commit = run(['git','commit','--only','-m', args.message, '--', args.path])
+        if commit.returncode != 0:
+            print('Commit falló:', commit.stdout)
+            sys.exit(1)
 
     push = run(['git','push','-u','origin', args.branch])
     if push.returncode != 0:
