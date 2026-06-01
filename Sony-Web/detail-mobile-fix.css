@@ -1,0 +1,164 @@
+/* detail-mobile-fix.css - Solo móvil, respeta escritorio */
+@media (max-width: 900px) {
+  /* === Menú hamburguesa === */
+  .navbar {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+  }
+  .menu-toggle {
+    display: inline-flex !important;
+    order: 1;
+  }
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--panel);
+    padding: 1rem;
+    border-radius: 24px;
+    margin-top: 0.75rem;
+    order: 3;
+  }
+  .navbar.mobile-open .nav-links {
+    display: flex;
+  }
+  .nav-actions {
+    order: 2;
+  }
+
+  /* === Hero: imagen visible y sin overlay oscuro === */
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  .hero-image {
+  
+    min-height: 280px !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  /* Eliminamos el overlay oscuro que tapa la imagen en móvil */
+  .hero-image::after {
+    display: none !important;
+  }
+  /* Aseguramos que el badge (etiqueta) siga visible */
+  .hero-badge {
+    z-index: 5;
+  }
+
+  .hero-copy h1 {
+    font-size: 1.8rem;
+  }
+  .meta-row {
+    justify-content: center;
+  }
+
+  /* === Botones a ancho completo === */
+  .action-row {
+    flex-direction: column;
+  }
+  .cta-primary, .cta-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* === Grid de contenido: una columna === */
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* === Tráiler + previews === */
+  .trailer-wrap {
+    flex-direction: column;
+  }
+  .trailer-card {
+    width: 100%;
+    min-height: auto;
+  }
+  .preview-shelf {
+    flex-direction: row;
+    overflow-x: auto;
+    max-height: none;
+    gap: 0.8rem;
+    padding-bottom: 0.5rem;
+  }
+  .preview-thumb {
+    min-width: 80px;
+    width: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  /* === Footer centrado === */
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+/* Ajuste extra para pantallas muy pequeñas */
+@media (max-width: 550px) {
+  .hero-image {
+    max-width: 220px;
+    min-height: 240px !important;
+  }
+  .preview-thumb {
+    min-width: 70px;
+  }
+  .panel {
+    padding: 1rem;
+  }
+}
+
+/* Estilo del botón menú hamburguesa (mejorado) */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 60px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.menu-toggle:hover {
+  background: rgba(14, 165, 233, 0.2);
+  border-color: var(--accent);
+  transform: scale(1.02);
+}
+.menu-toggle:active {
+  transform: scale(0.96);
+}
+.menu-toggle i {
+  font-size: 1.4rem;
+  transition: transform 0.2s ease;
+}
+.menu-toggle[aria-expanded="true"] i {
+  transform: rotate(90deg);
+}
+@media (min-width: 901px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .menu-toggle {
+    background: var(--surface);
+    border-color: var(--border);
+    width: 44px;
+    height: 44px;
+  }
+  .menu-toggle i {
+    font-size: 1.2rem;
+  }
+}

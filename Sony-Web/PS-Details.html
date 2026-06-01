@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Detalle del juego</title>
+  <title>Detalle del juego · PS5 Collection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="detail-mobile.css">
   <style>
+    /* ========== ESTILOS EXISTENTES (se mantienen todos) ========== */
     :root {
       --bg: #040816;
       --bg-soft: rgba(11, 17, 39, 0.9);
@@ -30,6 +30,8 @@
       --discount-glow: rgba(16, 185, 129, 0.14);
       --page-gradient: radial-gradient(circle at top left, rgba(14, 165, 233, 0.22), transparent 28%), radial-gradient(circle at top right, rgba(249, 115, 22, 0.18), transparent 28%);
       --overlay: linear-gradient(135deg, rgba(9, 13, 28, 0.92), rgba(3, 7, 18, 0.72));
+      --note-highlight: rgba(14, 165, 233, 0.08);
+      --note-border: rgba(14, 165, 233, 0.2);
     }
 
     [data-theme="light"] {
@@ -51,6 +53,8 @@
       --discount-text: #065f46;
       --discount-bg: rgba(6, 95, 70, 0.08);
       --discount-glow: rgba(6, 95, 70, 0.08);
+      --note-highlight: rgba(15, 98, 254, 0.05);
+      --note-border: rgba(15, 98, 254, 0.2);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -65,6 +69,19 @@
 
     .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
 
+    /* Scroll reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+      will-change: opacity, transform;
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Navbar */
     .navbar {
       position: sticky;
       top: 0;
@@ -78,35 +95,12 @@
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(18px);
     }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      line-height: 0;
-      text-decoration: none;
-    }
-
-    .brand-logo {
-      display: block;
-      width: clamp(120px, 10vw, 170px);
-      height: auto;
-      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22));
-      transition: transform 0.25s ease, filter 0.25s ease;
-    }
-
-    .brand-logo:hover {
-      transform: scale(1.03);
-    }
-
-    .nav-links { gap: 1.25rem; align-items: center; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-weight: 700; }
-
-    /* Desktop-only: mostrar nav-links como fila en pantallas grandes */
-    @media (min-width: 901px) {
-      .nav-links { display: flex; }
-    }
+    .logo { display: inline-flex; align-items: center; line-height: 0; text-decoration: none; }
+    .brand-logo { display: block; width: clamp(120px, 10vw, 170px); height: auto; filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22)); transition: transform 0.25s ease; }
+    .brand-logo:hover { transform: scale(1.03); }
+    .nav-links { gap: 1.25rem; align-items: center; list-style: none; display: flex; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-weight: 700; transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
-
     .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
     .theme-toggle, .back-btn {
       border: 1px solid var(--border);
@@ -116,9 +110,12 @@
       padding: 0.75rem 1rem;
       cursor: pointer;
       box-shadow: var(--shadow);
+      transition: all 0.2s ease;
     }
     .theme-toggle { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .menu-toggle { display: none; background: var(--panel); border: 1px solid var(--border); border-radius: 9999px; padding: 0.75rem; cursor: pointer; color: var(--text); }
 
+    /* Hero */
     .hero {
       display: grid;
       grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
@@ -126,12 +123,6 @@
       padding: 2.5rem 0 1.5rem;
       align-items: center;
     }
-
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
     .hero-image {
       position: relative;
       border-radius: 28px;
@@ -141,39 +132,26 @@
       background-size: cover;
       background-position: center;
     }
-
-    .hero-image.image-loading::before,
-    .preview-thumb.image-loading::before {
+    .hero-image.image-loading::before {
       content: '';
       position: absolute;
       inset: 0;
       z-index: 2;
-      pointer-events: none;
-      border-radius: inherit;
-      background:
-        linear-gradient(110deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.32) 40%, rgba(255,255,255,0) 52%),
-        linear-gradient(180deg, rgba(14, 165, 233, 0.12), rgba(14, 165, 233, 0.04));
+      background: linear-gradient(110deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.32) 40%, rgba(255,255,255,0) 52%), linear-gradient(180deg, rgba(14, 165, 233, 0.12), rgba(14, 165, 233, 0.04));
       background-size: 200% 100%;
       animation: shimmer 1.45s linear infinite;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      pointer-events: none;
     }
-
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
     .hero-image::after {
       content: '';
       position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      transition: background 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
       background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.6) 100%);
     }
-
-    [data-theme="light"] .hero-image::after {
-      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.18) 100%);
-      mix-blend-mode: soft-light;
-      opacity: 0.98;
-    }
-
+    [data-theme="light"] .hero-image::after { background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.18) 100%); mix-blend-mode: soft-light; }
     .hero-badge {
       position: absolute;
       top: 1rem;
@@ -186,593 +164,539 @@
       font-weight: 800;
       font-size: 0.8rem;
     }
-
     .hero-copy h1 { font-size: clamp(2rem, 3vw, 2.8rem); margin-bottom: 1rem; }
-    .eyebrow {
-      display: inline-flex;
-      gap: 0.5rem;
-      align-items: center;
-      background: rgba(14, 165, 233, 0.12);
-      color: var(--accent);
-      font-weight: 800;
-      padding: 0.45rem 0.9rem;
-      border-radius: 9999px;
-      margin-bottom: 1rem;
-    }
-
+    .eyebrow { display: inline-flex; gap: 0.5rem; align-items: center; background: rgba(14, 165, 233, 0.12); color: var(--accent); font-weight: 800; padding: 0.45rem 0.9rem; border-radius: 9999px; margin-bottom: 1rem; }
     .muted { color: var(--muted); }
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 1rem 0 1.3rem;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
+    .meta-row { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0 0.8rem; color: var(--muted); font-weight: 600; }
+    .version-firmware { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0.5rem 0 0.8rem; font-size: 0.85rem; background: var(--pill); padding: 0.4rem 1rem; border-radius: 48px; width: fit-content; backdrop-filter: blur(4px); font-weight: 600; }
     .price-box { margin: 1.3rem 0; }
     .price-box .old-price { text-decoration: line-through; color: var(--muted); margin-right: 0.8rem; }
     .price-box .final-price { color: var(--final-price-color); font-size: 2rem; font-weight: 800; }
-
-    .discount-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 9999px;
-      background: var(--discount-bg);
-      color: var(--discount-text);
-      font-weight: 800;
-      padding: 0.35rem 0.7rem;
-      font-size: 0.9rem;
-      box-shadow: 0 6px 20px transparent;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-      animation: floatBadge 3.6s ease-in-out infinite;
-    }
-
-    @keyframes floatBadge {
-      0% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
-      50% { transform: translateY(-4px); box-shadow: 0 14px 40px var(--discount-glow); }
-      100% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
-    }
-
+    .discount-badge { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; background: var(--discount-bg); color: var(--discount-text); font-weight: 800; padding: 0.35rem 0.7rem; font-size: 0.9rem; animation: floatBadge 3.6s ease-in-out infinite; }
+    @keyframes floatBadge { 0% { transform: translateY(0); box-shadow: 0 6px 20px transparent; } 50% { transform: translateY(-4px); box-shadow: 0 14px 40px var(--discount-glow); } 100% { transform: translateY(0); box-shadow: 0 6px 20px transparent; } }
     .action-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.3rem; }
-    .cta-primary, .cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.9rem 1.25rem;
-      border-radius: 9999px;
-      text-decoration: none;
-      font-weight: 800;
-      border: 1px solid transparent;
-    }
-    .cta-primary { background: linear-gradient(90deg, rgba(30,144,255,1), rgba(14,165,233,1)); color: #fff; box-shadow: 0 10px 38px rgba(14,165,233,0.18); transition: transform 0.24s cubic-bezier(0.2,0.9,0.2,1), box-shadow 0.24s ease, filter 0.24s ease; will-change: transform, box-shadow, filter; }
-    .cta-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(14,165,233,0.26); filter: saturate(1.05); }
-    .cta-secondary { background: var(--panel); color: var(--text); border-color: var(--border); box-shadow: inset 0 0 12px rgba(0,0,0,0.04); transition: transform 0.18s ease, box-shadow 0.18s ease; }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
-      gap: 1.2rem;
-      margin: 1.5rem 0 2.5rem;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 1.4rem;
-      box-shadow: var(--shadow);
-    }
-
+    .cta-primary, .cta-secondary { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.9rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 800; transition: transform 0.2s, box-shadow 0.2s; }
+    .cta-primary { background: linear-gradient(90deg, rgba(30,144,255,1), rgba(14,165,233,1)); color: #fff; box-shadow: 0 10px 38px rgba(14,165,233,0.18); }
+    .cta-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(14,165,233,0.26); }
+    .cta-secondary { background: var(--panel); color: var(--text); border-color: var(--border); border: 1px solid var(--border); }
+    .content-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 340px); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 24px; padding: 1.4rem; box-shadow: var(--shadow); backdrop-filter: blur(2px); }
     .panel h2 { margin-bottom: 0.85rem; font-size: 1.4rem; }
     .feature-list { list-style: none; }
-    .feature-list li {
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
+    .feature-list li { padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 1rem; }
     .spec-table { width: 100%; border-collapse: collapse; }
     .spec-table td { padding: 0.8rem 0; border-bottom: 1px solid var(--border); }
     .spec-table td:first-child { width: 42%; color: var(--muted); font-weight: 700; }
-
     .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.85rem; }
-    .tag-chip {
-      background: var(--pill);
-      color: var(--text);
-      border-radius: 9999px;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.86rem;
-      font-weight: 700;
-    }
+    .tag-chip { background: var(--pill); color: var(--text); border-radius: 9999px; padding: 0.4rem 0.8rem; font-size: 0.86rem; font-weight: 700; }
 
-    .trailer-card {
-      aspect-ratio: 16 / 9;
-      border-radius: 18px;
-      border: 1px solid var(--border);
+    /* Trailer + previews */
+    .trailer-wrap { display: flex; gap: 1.2rem; align-items: stretch; }
+    .trailer-card { aspect-ratio: 16 / 9; border-radius: 18px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(139, 92, 246, 0.12)); flex: 1; overflow: hidden; }
+    .preview-shelf { width: 110px; display: flex; flex-direction: column; gap: 0.8rem; align-items: center; padding: 1rem 0.4rem; overflow-y: auto; scrollbar-width: thin; }
+    .preview-thumb { width: 90px; height: 120px; border-radius: 12px; background-size: cover; background-position: center; cursor: pointer; border: 2px solid rgba(14, 165, 233, 0.2); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .preview-thumb.active { border-color: var(--accent); transform: scale(1.02); box-shadow: 0 12px 32px rgba(14, 165, 233, 0.4); }
+    
+    /* Nota principal expandida */
+    .note-expanded {
+      margin: 2rem 0 1.5rem;
+      background: var(--panel);
+      border-left: 6px solid var(--accent);
+    }
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+    .note-field {
+      background: var(--note-highlight);
+      border-radius: 20px;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--note-border);
+    }
+    .note-field-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(139, 92, 246, 0.12));
-      color: var(--muted);
+      gap: 0.4rem;
+    }
+    .note-field-value { font-weight: 600; word-break: break-word; }
+    .note-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
       font-weight: 700;
-      text-align: center;
-      padding: 1rem;
+      font-size: 0.85rem;
+      transition: 0.2s;
     }
+    .note-link-btn:hover { filter: brightness(1.08); transform: translateX(3px); }
+    .rating-stars { display: flex; align-items: center; gap: 0.6rem; margin: 0.6rem 0; }
+    .rating-stars .stars i { color: #ffd166; }
 
-    /* Trailer hero: when trailer is outside the small panel (aplica sólo en escritorio)
-       En móviles las reglas de detail-mobile.css controlan el tamaño y mantienen el aspect-ratio. */
-    @media (min-width: 901px) {
-      .trailer-hero .trailer-card, .trailer-hero-card { min-height: 480px; }
+    /* Notas técnicas colapsables (acordeón) */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
     }
-
-    /* Trailer + preview shelf */
-    .trailer-wrap { display: flex; gap: 1.2rem; align-items: stretch; }
-    .preview-shelf { 
-      width: 110px; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 0.8rem; 
-      align-items: center; 
-      padding: 1rem 0.4rem; 
-      overflow-y: auto; 
-      scroll-behavior: smooth;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(14, 165, 233, 0.4) transparent;
-    }
-    .preview-shelf::-webkit-scrollbar { width: 4px; }
-    .preview-shelf::-webkit-scrollbar-track { background: transparent; }
-    .preview-shelf::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); border-radius: 2px; }
-    .preview-shelf::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.6); }
-    
-    .preview-thumb {
-      width: 90px; 
-      height: 120px; 
-      border-radius: 12px; 
-      background-size: cover; 
-      background-position: center; 
-      cursor: pointer; 
-      border: 2px solid rgba(14, 165, 233, 0.2); 
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
+    .note-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
       overflow: hidden;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow);
     }
-    .preview-thumb::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
+    .note-card-header {
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(14, 165, 233, 0.04);
+      transition: background 0.2s;
     }
-    .preview-thumb:hover {
-      border-color: rgba(14, 165, 233, 0.5);
-      box-shadow: 0 12px 32px rgba(14, 165, 233, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
-      transform: translateY(-4px);
+    .note-card-header:hover { background: rgba(14, 165, 233, 0.08); }
+    .note-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
     }
-    .preview-thumb:hover::before {
-      opacity: 1;
+    .note-badge {
+      background: rgba(14, 165, 233, 0.2);
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.25rem 0.7rem;
+      border-radius: 40px;
     }
-    .preview-thumb.active { 
-      border-color: var(--accent); 
-      box-shadow: 0 12px 32px rgba(14, 165, 233, 0.4), inset 0 1px 0 rgba(255,255,255,0.15);
-      transform: scale(1.02);
+    .note-toggle-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
     }
-    /* Preview modal */
+    .note-card-body {
+      padding: 0 1.25rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease-out, padding 0.2s;
+      background: var(--panel);
+    }
+    .note-card-body.open {
+      max-height: 500px; /* suficiente para el contenido */
+      padding: 0 1.25rem 1.25rem 1.25rem;
+    }
+    .note-author {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .note-info {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0.75rem 0;
+      color: var(--text);
+      opacity: 0.9;
+    }
+    .note-meta {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      font-size: 0.75rem;
+    }
+    .note-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .backport-tag {
+      background: rgba(249, 115, 22, 0.15);
+      color: var(--accent-2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    /* Modal preview */
     .preview-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 2000; }
     .preview-modal.open { display: flex; }
     .preview-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.66); backdrop-filter: blur(6px); }
-    .preview-modal-content { position: relative; z-index: 2001; max-width: 1200px; width: calc(100% - 48px); max-height: calc(100% - 80px); border-radius: 12px; overflow: hidden; background: #071021; display: flex; align-items: center; justify-content: center; }
-    .preview-modal-close { position: absolute; top: 10px; right: 10px; z-index: 2002; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text); width: 44px; height: 44px; border-radius: 9999px; display:flex; align-items:center; justify-content:center; cursor: pointer; }
-    .preview-modal-body img, .preview-modal-body video, .preview-modal-body iframe { max-width: 100%; max-height: 80vh; width: auto; height: auto; display: block; border-radius: 8px; }
-
-    /* Rating stars */
-    .rating-stars { display: flex; align-items: center; gap: 0.6rem; margin: 0.6rem 0; }
-    .rating-stars .stars i { color: #ffd166; text-shadow: 0 6px 18px rgba(0,0,0,0.35); }
-    .rating-stars .muted { color: var(--muted); font-weight: 700; }
-
-    .footer { padding: 1.5rem 0 2.5rem; color: var(--muted); }
+    .preview-modal-content { position: relative; z-index: 2001; max-width: 1200px; width: calc(100% - 48px); background: #071021; border-radius: 24px; overflow: hidden; }
+    .preview-modal-close { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); border: none; color: white; width: 44px; height: 44px; border-radius: 9999px; cursor: pointer; z-index: 2002; }
+    .footer { padding: 1.5rem 0 2.5rem; color: var(--muted); text-align: center; }
 
     @media (max-width: 900px) {
       .hero, .content-grid { grid-template-columns: 1fr; }
       .hero-image { min-height: 320px; }
       .trailer-wrap { flex-wrap: wrap; }
-      .preview-shelf { width: 100%; flex-direction: row; max-height: 120px; }
-      .preview-thumb { width: 80px; height: 100px; }
+      .preview-shelf { width: 100%; flex-direction: row; overflow-x: auto; max-height: 130px; }
+      .preview-thumb { width: 80px; height: 100px; flex-shrink: 0; }
+      .note-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .menu-toggle { display: flex; }
+      .navbar { flex-wrap: wrap; }
     }
-
-    @media (max-width: 700px) {
-      .navbar { flex-wrap: wrap; justify-content: center; }
-      .nav-links { flex-wrap: wrap; justify-content: center; }
-      .preview-shelf { flex-direction: row; gap: 0.6rem; padding: 0.8rem 0.4rem; }
-      .preview-thumb { width: 70px; height: 90px; border-radius: 10px; }
-    }
-    @media (min-width: 901px) {
-      .trailer-card.trailer-hero-card { min-height: 400px; }
-    }
-
-    @media (max-width: 900px) {
-      .trailer-card.trailer-hero-card { min-height: 200px; }
-    }
+    @media (min-width: 901px) { .menu-toggle { display: none; } }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="logo" aria-label="Inicio">
-      <img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
-    </a>
+    <a href="index.html" class="logo" aria-label="Inicio"><img src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo"></a>
     <div class="nav-links">
-      <a href="collection-p5.html">Catálogo</a>
-      <a href="index.html">Inicio</a>
-      <a href="registro.html">Registro</a>
-      <a href="PS-Details.html?id=spider-man-3" class="active">Detalle</a>
+      <a href="collection-p5.html">Catálogo</a><a href="index.html">Inicio</a><a href="registro.html">Registro</a><a href="PS-Details.html?id=spider-man-3" class="active">Detalle</a>
     </div>
     <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true">
-        <i class="fa-solid fa-sun"></i>
-      </button>
-      <button id="currencyToggle" class="theme-toggle" title="Cambiar moneda"><span id="currencyLabel">USD</span></button>
-      <button id="navToggle" class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Modo claro/oscuro"><i class="fa-solid fa-sun"></i></button>
+      <button id="currencyToggle" class="theme-toggle"><span id="currencyLabel">USD</span></button>
+      <button id="navToggle" class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
       <a href="collection-p5.html" class="back-btn">← Volver</a>
     </div>
   </nav>
 
   <main class="container">
-    <section class="hero" data-aos="fade-up">
-      <div class="hero-image" id="gameImage">
-        <span class="hero-badge" id="gameBadge">Cargando...</span>
-      </div>
+    <section class="hero scroll-reveal">
+      <div class="hero-image" id="gameImage"><span class="hero-badge" id="gameBadge">Cargando...</span></div>
       <div class="hero-copy">
-       <div class="eyebrow">
-          <i class="fa-solid fa-bolt"></i> Catálogo inteligente en tiempo real
-        </div>
-
+        <div class="eyebrow"><i class="fa-solid fa-bolt"></i> Catálogo inteligente en tiempo real</div>
         <h1 id="gameTitle">Cargando juego...</h1>
         <p id="gameTagline" class="muted"></p>
-        <div class="meta-row">
-          <span id="gameDeveloper"></span>
-          <span id="gamePlatform"></span>
-          <span id="gameRelease"></span>
-        </div>
-        <div id="ratingStars" class="rating-stars" aria-label="Calificación del juego"></div>
-        <div class="price-box">
-          <span class="old-price" id="gameOldPrice"></span>
-          <span class="final-price" id="gamePrice"></span>
-          <span id="gameDiscount" class="discount-badge" style="display:none;margin-left:0.6rem;"></span>
-        </div>
-        <div class="action-row">
-          <a href="#" class="cta-primary"><i class="fa-solid fa-cart-shopping"></i> Comprar</a>
-          <a href="#" class="cta-secondary"><i class="fa-solid fa-heart"></i> Favoritos</a>
-        </div>
+        <div class="meta-row"><span id="gameDeveloper"></span><span id="gamePlatform"></span><span id="gameRelease"></span></div>
+        <div id="versionFirmwareRow" class="version-firmware" style="display: none;"></div>
+        <div id="ratingStars" class="rating-stars"></div>
+        <div class="price-box"><span class="old-price" id="gameOldPrice"></span><span class="final-price" id="gamePrice"></span><span id="gameDiscount" class="discount-badge" style="display:none;margin-left:0.6rem;"></span></div>
+        <div class="action-row"><a href="#" class="cta-primary"><i class="fa-solid fa-cart-shopping"></i> Comprar</a><a href="#" class="cta-secondary"><i class="fa-solid fa-heart"></i> Favoritos</a></div>
       </div>
     </section>
+
+    <div class="content-grid">
+      <div class="panel scroll-reveal"><h2>Acerca del juego</h2><p id="gameDescription" class="muted"></p><div class="tag-row" id="gameTags"></div></div>
+      <div class="panel scroll-reveal"><h2>Resumen</h2><ul class="feature-list" id="gameFeatures"></ul></div>
+    </div>
+
+    <section class="panel trailer-hero scroll-reveal"><h2>Tráiler y Vistas Previas</h2><div class="trailer-wrap"><div class="trailer-card" id="trailerCard">...</div><div id="previewShelf" class="preview-shelf"></div></div></section>
+
+    <!-- Nota principal (expandida siempre) -->
+    <div id="gameNoteSection" class="panel note-expanded scroll-reveal" style="display: none;"></div>
+
+    <!-- Notas técnicas múltiples (colapsables) -->
+    <div id="technicalNotesSection" class="panel scroll-reveal" style="display: none;">
+      <h2><i class="fa-solid fa-clipboard-list"></i> Notas técnicas / Parches</h2>
+      <div id="technicalNotesGrid" class="notes-grid"></div>
+    </div>
 
     <section class="content-grid">
-      <div class="panel" data-aos="fade-up">
-        <h2>Acerca del juego</h2>
-        <p id="gameDescription" class="muted"></p>
-        <div class="tag-row" id="gameTags"></div>
-      </div>
-
-      <div class="panel" data-aos="fade-up" data-aos-delay="80">
-        <h2>Resumen</h2>
-        <ul class="feature-list" id="gameFeatures"></ul>
-      </div>
-    </section>
-
-    <!-- Trailer hero: tráiler grande + preview shelf lateral -->
-    <section class="panel trailer-hero" data-aos="fade-up">
-      <h2>Tráiler y Vistas Previas</h2>
-      <div class="trailer-wrap">
-        <div class="trailer-card trailer-hero-card" id="trailerCard">...</div>
-        <div id="previewShelf" class="preview-shelf"></div>
-      </div>
-    </section>
-    <section class="content-grid">
-      <div class="panel" data-aos="fade-up" data-aos-delay="80">
-        <h2>Especificaciones</h2>
-        <table class="spec-table">
-          <tr><td>Plataforma</td><td id="specPlatform"></td></tr>
-          <tr><td>Edición</td><td id="specEdition"></td></tr>
-          <tr><td>Desarrollador</td><td id="specDeveloper"></td></tr>
-          <tr><td>Calificación</td><td id="specRating"></td></tr>
-        </table>
-      </div>
+      <div class="panel scroll-reveal"><h2>Especificaciones</h2><table class="spec-table"><tr><td>Plataforma</td><td id="specPlatform">-</td></tr><tr><td>Edición</td><td id="specEdition">-</td></tr><tr><td>Desarrollador</td><td id="specDeveloper">-</td></tr><tr><td>Calificación</td><td id="specRating">-</td></tr></table></div>
     </section>
   </main>
 
-  <!-- Preview modal (opens when clicking thumbnails) -->
-  <div id="previewModal" class="preview-modal" aria-hidden="true">
-    <div id="previewModalBackdrop" class="preview-modal-backdrop"></div>
-    <div class="preview-modal-content" role="dialog" aria-modal="true">
-      <button id="previewModalClose" class="preview-modal-close" aria-label="Cerrar vista previa">×</button>
-      <div id="previewModalBody" class="preview-modal-body"></div>
-    </div>
-  </div>
+  <div id="previewModal" class="preview-modal" aria-hidden="true"><div id="previewModalBackdrop" class="preview-modal-backdrop"></div><div class="preview-modal-content" role="dialog"><button id="previewModalClose" class="preview-modal-close">✕</button><div id="previewModalBody" class="preview-modal-body"></div></div></div>
+  <footer class="footer container"><div><strong>JARVIS DIGITAL SOLUTIONS</strong> · Plataforma digital de nueva generación</div><div>Catálogo dinámico optimizado · Experiencia gaming sin límites</div></footer>
 
-<footer class="footer container">
-  <div><strong>JARVIS DIGITAL SOLUTIONS</strong> · Plataforma digital de nueva generación</div>
-  <div>Catálogo dinámico optimizado · Actualizaciones constantes · Experiencia gaming sin límites</div>
-</footer>
-
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="detail-mobile.js"></script>
   <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true });
-    gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
+    // ==================== SCROLL REVEAL ====================
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('revealed');
+        else entry.target.classList.remove('revealed');
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -30px 0px" });
+    revealElements.forEach(el => observer.observe(el));
 
+    // ==================== THEME ====================
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
-
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('ps5-theme', theme);
       themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
     }
-
     applyTheme(savedTheme);
-
     themeToggle.addEventListener('click', () => {
-      const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme);
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
     });
 
+    // ==================== GLOBALES ====================
     let showPrices = true;
     let exchangeRateCU = 500;
     let selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
-    const fallbackGames = [];
+    const currencyLabel = document.getElementById('currencyLabel');
+    if(currencyLabel) currencyLabel.textContent = selectedCurrency;
 
     async function loadGame() {
       const params = new URLSearchParams(window.location.search);
-      const requestedId = params.get('id') || 'spider-man-3';
-
+      const requestedId = params.get('id') || 'spider-man-2';
       try {
         const response = await fetch('./games.json');
         if (response.ok) {
           const data = await response.json();
-          showPrices = data && data.config && typeof data.config.showPrices === 'boolean' ? data.config.showPrices : true;
-          exchangeRateCU = data && data.config && data.config.exchangeRateCU ? Number(data.config.exchangeRateCU) : exchangeRateCU;
+          showPrices = data?.config?.showPrices !== false;
+          exchangeRateCU = Number(data?.config?.exchangeRateCU) || exchangeRateCU;
           selectedCurrency = localStorage.getItem('ps5-currency') || selectedCurrency;
-          const games = data && typeof data === 'object' && data.games ? Object.values(data.games) : [];
-          return games.find((game) => game.id === requestedId) || games[0] || null;
+          const games = data?.games ? Object.values(data.games) : [];
+          return games.find(game => game.id === requestedId) || games[0] || null;
         }
-      } catch (error) {
-      }
-
+      } catch (e) { console.warn(e); }
       return null;
     }
+
     function formatNumber(n) { return (typeof n === 'number') ? n.toLocaleString('en-US') : n; }
-
-    function preloadImage(url) {
-      return new Promise((resolve, reject) => {
-        if (!url) return reject(new Error('Missing image URL'));
-        const image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = () => reject(image);
-        image.src = url;
-      });
-    }
-
+    function preloadImage(url) { return new Promise((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = url; }); }
     async function loadHeroImage(url) {
-      const heroImage = document.getElementById('gameImage');
-      if (!heroImage) return;
-      heroImage.classList.add('image-loading');
-      heroImage.style.backgroundImage = 'none';
-      try {
-        await preloadImage(url);
-        heroImage.style.backgroundImage = `url('${url}')`;
-      } catch (error) {
-        heroImage.style.backgroundImage = `url('${url}')`;
-      } finally {
-        heroImage.classList.remove('image-loading');
-      }
+      const heroDiv = document.getElementById('gameImage');
+      if(!heroDiv) return;
+      heroDiv.classList.add('image-loading');
+      heroDiv.style.backgroundImage = 'none';
+      try { await preloadImage(url); } catch(e) {}
+      heroDiv.style.backgroundImage = `url('${url}')`;
+      heroDiv.classList.remove('image-loading');
     }
+    function isPriceVisible(game) {
+      if (showPrices) return true;
+      if (selectedCurrency === 'USD') return (typeof game.price !== 'undefined');
+      return (typeof game.pricecu !== 'undefined');
+    }
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
 
-        function isPriceVisible(game) {
-          if (showPrices) return true;
-          if (selectedCurrency === 'USD') return (typeof game.price !== 'undefined' && game.price !== null);
-          return (typeof game.pricecu !== 'undefined' && game.pricecu !== null);
-        }
-
+    // ==================== RENDER PRINCIPAL ====================
     async function renderGame(game) {
-      if (!game) {
-        document.getElementById('gameTitle').textContent = 'Juego no encontrado';
-        return;
-      }
-      document.title = `${game.title} · Detalle del juego`;
-      await loadHeroImage(game.image || game.image);
-      document.getElementById('gameBadge').textContent = game.status;
+      if (!game) { document.getElementById('gameTitle').textContent = 'Juego no encontrado'; return; }
+      document.title = `${game.title} · Detalle PS5`;
+      await loadHeroImage(game.image || game.bannerImage || '');
+      document.getElementById('gameBadge').textContent = game.status || 'Disponible';
       document.getElementById('gameTitle').textContent = game.title;
-      document.getElementById('gameTagline').textContent = game.tagline;
-      document.getElementById('gameDeveloper').textContent = `Desarrollador: ${game.developer}`;
-      document.getElementById('gamePlatform').textContent = `Plataforma: ${game.platform}`;
-      document.getElementById('gameRelease').textContent = `Lanzamiento: ${game.release}`;
+      document.getElementById('gameTagline').textContent = game.tagline || '';
+      document.getElementById('gameDeveloper').textContent = `Desarrollador: ${game.developer || '—'}`;
+      document.getElementById('gamePlatform').textContent = `Plataforma: ${game.platform || 'PS5'}`;
+      document.getElementById('gameRelease').textContent = `Lanzamiento: ${game.release || '—'}`;
 
+      // Versión / Firmware
+      const versionRow = document.getElementById('versionFirmwareRow');
+      const gameVersion = game.gameVersion || null;
+      const firmwareReq = game.firmwareRequired || null;
+      if (gameVersion || firmwareReq) {
+        let versionHtml = '';
+        if (gameVersion) versionHtml += `<span><i class="fa-regular fa-circle-check"></i> Versión: ${gameVersion}</span>`;
+        if (firmwareReq) versionHtml += `<span><i class="fa-solid fa-microchip"></i> Firmware: ${firmwareReq}</span>`;
+        versionRow.innerHTML = versionHtml;
+        versionRow.style.display = 'flex';
+      } else { versionRow.style.display = 'none'; }
+
+      // Precios
       const priceBox = document.querySelector('.price-box');
       const buyBtn = document.querySelector('.cta-primary');
       if (!isPriceVisible(game)) {
-        if (priceBox) priceBox.style.display = 'none';
-        if (buyBtn) buyBtn.style.display = 'none';
-        const discEl = document.getElementById('gameDiscount'); if (discEl) discEl.style.display = 'none';
+        if(priceBox) priceBox.style.display = 'none';
+        if(buyBtn) buyBtn.style.display = 'none';
+        const discEl = document.getElementById('gameDiscount'); if(discEl) discEl.style.display = 'none';
       } else {
-        if (priceBox) priceBox.style.display = '';
-        if (buyBtn) buyBtn.style.display = '';
+        if(priceBox) priceBox.style.display = '';
+        if(buyBtn) buyBtn.style.display = '';
         if (selectedCurrency === 'USD') {
           document.getElementById('gameOldPrice').textContent = game.oldPrice ? `$${Number(game.oldPrice).toFixed(2)}` : '';
           document.getElementById('gamePrice').textContent = `$${Number(game.price).toFixed(2)}`;
           const discEl = document.getElementById('gameDiscount');
-          if (discEl) {
-            if (game.oldPrice && typeof game.price !== 'undefined' && game.oldPrice > game.price) {
-              const pct = Math.round((1 - game.price / game.oldPrice) * 100);
-              discEl.textContent = `-${pct}%`;
-              discEl.style.display = '';
-            } else { discEl.style.display = 'none'; }
-          }
+          if (discEl && game.oldPrice && game.price < game.oldPrice) {
+            discEl.textContent = `-${Math.round((1 - game.price/game.oldPrice)*100)}%`;
+            discEl.style.display = '';
+          } else if(discEl) discEl.style.display = 'none';
         } else {
-          const cuFinal = (typeof game.pricecu !== 'undefined' && game.pricecu !== null) ? Number(game.pricecu) : Math.round((Number(game.price) || 0) * exchangeRateCU);
-          const cuOld = (typeof game.oldPricecu !== 'undefined' && game.oldPricecu !== null) ? Number(game.oldPricecu) : (game.oldPrice ? Math.round(Number(game.oldPrice) * exchangeRateCU) : null);
+          const cuFinal = (game.pricecu !== undefined && game.pricecu !== null) ? Number(game.pricecu) : Math.round((Number(game.price)||0) * exchangeRateCU);
+          const cuOld = (game.oldPricecu !== undefined && game.oldPricecu !== null) ? Number(game.oldPricecu) : (game.oldPrice ? Math.round(Number(game.oldPrice) * exchangeRateCU) : null);
           document.getElementById('gameOldPrice').textContent = cuOld ? `${formatNumber(cuOld)} CU` : '';
           document.getElementById('gamePrice').textContent = `${formatNumber(cuFinal)} CU`;
           const discEl = document.getElementById('gameDiscount');
-          if (discEl) {
-            if (cuOld && cuOld > cuFinal) {
-              const pct = Math.round((1 - cuFinal / cuOld) * 100);
-              discEl.textContent = `-${pct}%`;
-              discEl.style.display = '';
-            } else { discEl.style.display = 'none'; }
-          }
+          if(discEl && cuOld && cuOld > cuFinal) { discEl.textContent = `-${Math.round((1 - cuFinal/cuOld)*100)}%`; discEl.style.display = ''; }
+          else if(discEl) discEl.style.display = 'none';
         }
       }
 
       document.getElementById('gameDescription').textContent = game.description || '';
-      document.getElementById('gameTags').innerHTML = (game.genres || []).map((genre) => `<span class="tag-chip">${genre}</span>`).join('');
-      document.getElementById('gameFeatures').innerHTML = (game.features || []).map((feature) => `<li><span>${feature}</span><span>✓</span></li>`).join('');
-
-      // Trailer placeholder: reserve el área para el tráiler (solo YouTube)
+      document.getElementById('gameTags').innerHTML = (game.genres || []).map(g => `<span class="tag-chip">${escapeHtml(g)}</span>`).join('');
+      document.getElementById('gameFeatures').innerHTML = (game.features || []).map(f => `<li><span>${escapeHtml(f)}</span><span>✓</span></li>`).join('');
+      
+      // Trailer
       const trailerCard = document.getElementById('trailerCard');
       if (game.trailer && /youtube\.com|youtu\.be/.test(game.trailer)) {
         let embed = game.trailer;
         try {
           const u = new URL(game.trailer);
-          if (u.hostname.includes('youtube.com') && u.searchParams.get('v')) {
-            embed = `https://www.youtube.com/embed/${u.searchParams.get('v')}`;
-          } else if (u.hostname.includes('youtu.be')) {
-            embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
-          }
-        } catch (e) {}
+          if (u.hostname.includes('youtube.com') && u.searchParams.get('v')) embed = `https://www.youtube.com/embed/${u.searchParams.get('v')}`;
+          else if (u.hostname.includes('youtu.be')) embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+        } catch(e) {}
         trailerCard.innerHTML = `<iframe src="${embed}" style="width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>`;
-      } else {
-        trailerCard.textContent = 'El trailer se cargará desde el dataset cuando esté disponible.';
-      }
+      } else { trailerCard.innerHTML = '<div style="padding:1rem;">Vista previa no disponible</div>'; }
 
-      // Specs
-      document.getElementById('specPlatform').textContent = game.platform || '';
-      document.getElementById('specEdition').textContent = game.edition || '';
-      document.getElementById('specDeveloper').textContent = game.developer || '';
-      document.getElementById('specRating').textContent = (typeof game.rating !== 'undefined' && game.rating !== null) ? `${game.rating}/5` : 'N/A';
+      document.getElementById('specPlatform').textContent = game.platform || 'PS5';
+      document.getElementById('specEdition').textContent = game.edition || 'Digital';
+      document.getElementById('specDeveloper').textContent = game.developer || '—';
+      document.getElementById('specRating').textContent = (game.rating ? `${game.rating}/5` : 'N/A');
 
-      // Rating stars UI
+      // Rating stars
       const ratingEl = document.getElementById('ratingStars');
-      if (ratingEl) {
+      if(ratingEl) {
         const r = Number(game.rating) || 0;
-        const maxStars = 5;
         let starsHtml = '';
-        for (let i = 1; i <= maxStars; i++) {
-          if (r >= i) {
-            starsHtml += '<i class="fa-solid fa-star"></i>';
-          } else if (r >= i - 0.5) {
-            starsHtml += '<i class="fa-solid fa-star-half-stroke"></i>';
-          } else {
-            starsHtml += '<i class="fa-regular fa-star"></i>';
-          }
+        for(let i=1;i<=5;i++) {
+          if (r >= i) starsHtml += '<i class="fa-solid fa-star"></i>';
+          else if (r >= i-0.5) starsHtml += '<i class="fa-solid fa-star-half-stroke"></i>';
+          else starsHtml += '<i class="fa-regular fa-star"></i>';
         }
-        ratingEl.innerHTML = `<div style="display:flex;gap:8px;align-items:center;"><div class="stars">${starsHtml}</div><div class="muted" style="font-weight:700;margin-left:8px;">${r.toFixed(1)}/5</div></div>`;
+        ratingEl.innerHTML = `<div style="display:flex;gap:8px;"><div class="stars">${starsHtml}</div><div class="muted">${r.toFixed(1)}/5</div></div>`;
       }
 
-      // Preview shelf (vertical thumbnails) — thumbnails abren modal (no sobrescriben el tráiler)
+      // Preview Shelf
       const previewShelf = document.getElementById('previewShelf');
-      if (previewShelf) {
-        let previews = [];
-        if (Array.isArray(game.previewImages) && game.previewImages.length) {
-          previews = game.previewImages.slice();
-        } else {
-          if (game.bannerImage) previews.push(game.bannerImage);
-          if (game.image && !previews.includes(game.image)) previews.push(game.image);
-        }
-        previews = [...new Set(previews)].filter(Boolean);
+      let previews = [];
+      if (Array.isArray(game.previewImages) && game.previewImages.length) previews = game.previewImages;
+      else { if(game.bannerImage) previews.push(game.bannerImage); if(game.image && !previews.includes(game.image)) previews.push(game.image); }
+      previews = [...new Set(previews)].filter(Boolean);
+      previewShelf.innerHTML = previews.map((p, idx) => `<button class="preview-thumb" data-url="${p}" style="background-image:url('${p}')" aria-label="Preview ${idx+1}"></button>`).join('');
+      
+      const modal = document.getElementById('previewModal'), modalBody = document.getElementById('previewModalBody'), modalClose = document.getElementById('previewModalClose'), modalBackdrop = document.getElementById('previewModalBackdrop');
+      const openPreview = (url) => {
+        modalBody.innerHTML = '';
+        if (/youtube\.com|youtu\.be/.test(url)) {
+          try { let embed = url; const u = new URL(url); if(u.hostname.includes('youtube.com') && u.searchParams.get('v')) embed = `https://www.youtube.com/embed/${u.searchParams.get('v')}`; else if(u.hostname.includes('youtu.be')) embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`; modalBody.innerHTML = `<iframe src="${embed}" style="width:100%;height:80vh;border:0;border-radius:12px;" allowfullscreen></iframe>`; } catch(e){ modalBody.innerHTML = `<img src="${url}" style="max-width:100%;max-height:80vh;">`; }
+        } else modalBody.innerHTML = `<img src="${url}" style="max-width:100%;max-height:80vh;object-fit:contain;">`;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+      const closeModal = () => { modal.classList.remove('open'); modalBody.innerHTML = ''; document.body.style.overflow = ''; };
+      modalClose?.addEventListener('click', closeModal); modalBackdrop?.addEventListener('click', closeModal); document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+      document.querySelectorAll('.preview-thumb').forEach(thumb => { thumb.addEventListener('click', () => { openPreview(thumb.dataset.url); }); });
+      if(previews.length) document.querySelector('.preview-thumb')?.classList.add('active');
 
-        previewShelf.innerHTML = previews.map((p, idx) => `<button class="preview-thumb image-loading" type="button" data-url="${p}" aria-label="Preview ${idx+1}" style="background-image:none"></button>`).join('');
-        const thumbs = previewShelf.querySelectorAll('.preview-thumb');
-        thumbs.forEach((thumb) => {
-          const imageUrl = thumb.dataset.url;
-          thumb.classList.add('image-loading');
-          preloadImage(imageUrl).then(() => {
-            thumb.style.backgroundImage = `url('${imageUrl}')`;
-            thumb.classList.remove('image-loading');
-          }).catch(() => {
-            thumb.classList.remove('image-loading');
-            thumb.style.backgroundImage = 'linear-gradient(135deg, rgba(14,165,233,0.16), rgba(37,99,235,0.16))';
-          });
-        });
-
-        // Modal helpers (elementos están fuera del panel, insertados en el DOM)
-        const previewModal = document.getElementById('previewModal');
-        const previewModalBody = document.getElementById('previewModalBody');
-        const previewModalClose = document.getElementById('previewModalClose');
-        const previewModalBackdrop = document.getElementById('previewModalBackdrop');
-
-        function openPreviewModal(url) {
-          if (!previewModal || !previewModalBody) return;
-          previewModalBody.innerHTML = '';
-          if (/youtube\.com|youtu\.be/.test(url)) {
-            try {
-              const u = new URL(url);
-              let embed = url;
-              if (u.hostname.includes('youtube.com') && u.searchParams.get('v')) embed = `https://www.youtube.com/embed/${u.searchParams.get('v')}`;
-              else if (u.hostname.includes('youtu.be')) embed = `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
-              previewModalBody.innerHTML = `<iframe src="${embed}" style="width:100%;height:80vh;border:0;border-radius:8px;" allowfullscreen></iframe>`;
-            } catch (e) {
-              previewModalBody.innerHTML = `<img src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
-            }
-          } else if (/\.(mp4|webm|ogg)$/i.test(url)) {
-            previewModalBody.innerHTML = `<video controls autoplay style="max-width:100%;max-height:80vh;border-radius:8px;"><source src="${url}"></video>`;
-          } else {
-            previewModalBody.innerHTML = `<img src="${url}" alt="Preview" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;">`;
+      // ========== NOTA PRINCIPAL (note) ==========
+      const noteContainer = document.getElementById('gameNoteSection');
+      const note = game.note || null;
+      if (note && (note.title || note.author || note.noteId || note.info || note.link || note.backport)) {
+        const fields = [
+          { label: "Título", icon: "fa-solid fa-heading", value: note.title },
+          { label: "Autor", icon: "fa-regular fa-user", value: note.author },
+          { label: "ID de nota", icon: "fa-regular fa-id-card", value: note.noteId },
+          { label: "Información", icon: "fa-regular fa-message", value: note.info },
+          { label: "Backport", icon: "fa-solid fa-arrow-rotate-left", value: note.backport }
+        ];
+        let noteHtml = `<h2 style="display:flex; align-items:center; gap:10px;"><i class="fa-regular fa-note-sticky"></i> Nota oficial del título</h2><div class="note-grid">`;
+        fields.forEach(f => {
+          if (f.value && f.value.toString().trim()) {
+            noteHtml += `<div class="note-field"><div class="note-field-label"><i class="${f.icon}"></i> ${f.label}</div><div class="note-field-value">${escapeHtml(f.value)}</div></div>`;
           }
-          previewModal.classList.add('open');
-          previewModal.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
-        }
-
-        function closePreviewModal() {
-          if (!previewModal || !previewModalBody) return;
-          previewModal.classList.remove('open');
-          previewModal.setAttribute('aria-hidden', 'true');
-          previewModalBody.innerHTML = '';
-          document.body.style.overflow = '';
-        }
-
-        previewModalClose && previewModalClose.addEventListener('click', closePreviewModal);
-        previewModalBackdrop && previewModalBackdrop.addEventListener('click', closePreviewModal);
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePreviewModal(); });
-
-        thumbs.forEach((btn) => {
-          btn.addEventListener('click', () => {
-            thumbs.forEach((t) => t.classList.remove('active'));
-            btn.classList.add('active');
-            openPreviewModal(btn.getAttribute('data-url'));
-          });
         });
-
-        if (thumbs.length) thumbs[0].classList.add('active');
-        else previewShelf.innerHTML = '<div class="muted">No hay previews disponibles.</div>';
+        if (note.link && note.link.trim()) {
+          noteHtml += `<div class="note-field"><div class="note-field-label"><i class="fa-solid fa-link"></i> Enlace oficial</div><div class="note-field-value"><a href="${note.link}" target="_blank" rel="noopener noreferrer" class="note-link-btn"><i class="fa-solid fa-arrow-up-right-from-m"></i> Consultar recurso</a></div></div>`;
+        }
+        noteHtml += `</div>`;
+        noteContainer.innerHTML = noteHtml;
+        noteContainer.style.display = 'block';
+      } else {
+        noteContainer.style.display = 'none';
       }
+
+      // ========== NOTAS TÉCNICAS MÚLTIPLES (technicalNotes) con acordeón ==========
+      const techNotesSection = document.getElementById('technicalNotesSection');
+      const techGrid = document.getElementById('technicalNotesGrid');
+      const technicalNotes = game.technicalNotes || [];
+      if (Array.isArray(technicalNotes) && technicalNotes.length > 0) {
+        let gridHtml = '';
+        technicalNotes.forEach((tn, idx) => {
+          const uniqueId = `note-${idx}`;
+          gridHtml += `
+            <div class="note-card" data-note-id="${uniqueId}">
+              <div class="note-card-header">
+                <div class="note-card-title">
+                  <i class="fa-regular fa-rectangle-list"></i> ${escapeHtml(tn.title || 'Nota técnica')}
+                  ${tn.badge ? `<span class="note-badge">${escapeHtml(tn.badge)}</span>` : ''}
+                </div>
+                <div class="note-toggle-icon"><i class="fa-solid fa-chevron-down"></i></div>
+              </div>
+              <div class="note-card-body" id="${uniqueId}">
+                <div class="note-author"><i class="fa-regular fa-user"></i> ${escapeHtml(tn.author || 'Fuente oficial')}</div>
+                <div class="note-info">${escapeHtml(tn.info || 'Sin información adicional.')}</div>
+                <div class="note-meta">
+                  ${tn.link ? `<a href="${escapeHtml(tn.link)}" target="_blank" rel="noopener" class="note-link"><i class="fa-solid fa-arrow-up-right-from-m"></i> Documentación</a>` : ''}
+                  ${tn.backport ? `<span class="backport-tag"><i class="fa-solid fa-undo-alt"></i> ${escapeHtml(tn.backport)}</span>` : ''}
+                  ${tn.noteId ? `<span class="backport-tag" style="background:var(--pill);"><i class="fa-regular fa-id-card"></i> ${escapeHtml(tn.noteId)}</span>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        techGrid.innerHTML = gridHtml;
+        techNotesSection.style.display = 'block';
+
+        // Inicializar acordeones: al hacer clic en el header se expande/colapsa
+        document.querySelectorAll('.note-card').forEach(card => {
+          const header = card.querySelector('.note-card-header');
+          const body = card.querySelector('.note-card-body');
+          const icon = header.querySelector('.note-toggle-icon i');
+          header.addEventListener('click', () => {
+            const isOpen = body.classList.contains('open');
+            if (isOpen) {
+              body.classList.remove('open');
+              icon.className = 'fa-solid fa-chevron-down';
+            } else {
+              body.classList.add('open');
+              icon.className = 'fa-solid fa-chevron-up';
+            }
+          });
+          // Por defecto todas cerradas (opcional)
+          body.classList.remove('open');
+          icon.className = 'fa-solid fa-chevron-down';
+        });
+      } else {
+        techNotesSection.style.display = 'none';
+      }
+
+      // Re-observar secciones dinámicas
+      document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => observer.observe(el));
     }
 
-    // Currency toggle UI behavior
+    // ==================== CURRENCY TOGGLE ====================
     const currencyBtn = document.getElementById('currencyToggle');
-    const currencyLabel = document.getElementById('currencyLabel');
-    if (currencyLabel) currencyLabel.textContent = selectedCurrency;
-    if (currencyBtn) {
-      currencyBtn.addEventListener('click', () => {
-        selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
-        localStorage.setItem('ps5-currency', selectedCurrency);
-        if (currencyLabel) currencyLabel.textContent = selectedCurrency;
-        loadGame().then(renderGame);
-      });
-    }
+    if(currencyBtn) currencyBtn.addEventListener('click', () => {
+      selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
+      localStorage.setItem('ps5-currency', selectedCurrency);
+      if(currencyLabel) currencyLabel.textContent = selectedCurrency;
+      loadGame().then(renderGame);
+    });
+
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.querySelector('.nav-links');
+    if(navToggle && navLinks) navToggle.addEventListener('click', () => { navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex'; });
+    window.addEventListener('resize', () => { if(window.innerWidth > 900 && navLinks) navLinks.style.display = 'flex'; });
 
     loadGame().then(renderGame);
+    gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
   </script>
 </body>
 </html>

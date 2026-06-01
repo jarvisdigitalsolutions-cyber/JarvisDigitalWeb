@@ -6,1007 +6,973 @@
   <title>Catálogo · Jarvis Digital Solutions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="responsive-catalog.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     :root {
-      --bg: #040816;
-      --bg-soft: rgba(11, 17, 39, 0.88);
-      --panel: rgba(7, 17, 31, 0.88);
-      --text: #f8fbff;
-      --muted: #b7c2d8;
-      --border: rgba(255, 255, 255, 0.08);
-      --shadow: 0 24px 70px rgba(3, 9, 24, 0.45);
-      --accent: #0ea5e9;
-      --accent-2: #f97316;
-      --accent-3: #8b5cf6;
-      --card-bg: linear-gradient(180deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.78));
-      --badge-bg: rgba(14, 165, 233, 0.92);
-      --tag-bg: rgba(255, 255, 255, 0.08);
-      --price: #fb923c;
-      --final-price-color: #ef4444;
-      --discount-text: #10b981;
-      --discount-bg: rgba(16, 185, 129, 0.12);
-      --discount-glow: rgba(16, 185, 129, 0.14);
-      --linelight: rgba(14, 165, 233, 0.18);
-      --page-gradient: radial-gradient(circle at top left, rgba(14, 165, 233, 0.3), transparent 28%), radial-gradient(circle at top right, rgba(249, 115, 22, 0.22), transparent 24%);
+      --bg: #0a0c12;
+      --surface: #14181f;
+      --surface-2: #1e2530;
+      --text: #f0f3f8;
+      --text-muted: #9aa8b9;
+      --border: rgba(255,255,255,0.08);
+      --accent: #3b82f6;
+      --accent-glow: rgba(59,130,246,0.3);
+      --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      --card-bg: linear-gradient(145deg, #14181f, #0f1219);
+      --price: #f97316;
+      --discount: #10b981;
+      --shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+      --transition: all 0.2s ease;
     }
 
     [data-theme="light"] {
-      --bg: #eef4fb;
-      --bg-soft: rgba(255, 255, 255, 0.88);
-      --panel: rgba(255, 255, 255, 0.94);
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
       --text: #0f172a;
-      --muted: #3e4a67;
-      --border: rgba(15, 23, 42, 0.09);
-      --shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
-      --accent: #0f62fe;
-      --accent-2: #d9480f;
-      --accent-3: #7c3aed;
-      --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 241, 255, 0.92));
-      --badge-bg: rgba(15, 98, 254, 0.9);
-      --tag-bg: rgba(15, 23, 42, 0.06);
-      --price: #d9480f;
-      --final-price-color: #b91c1c;
-      --discount-text: #065f46;
-      --discount-bg: rgba(6, 95, 70, 0.08);
-      --discount-glow: rgba(6, 95, 70, 0.08);
-      --linelight: rgba(15, 98, 254, 0.18);
-      --page-gradient: radial-gradient(circle at top left, rgba(15, 98, 254, 0.18), transparent 26%), radial-gradient(circle at top right, rgba(217, 72, 15, 0.16), transparent 24%);
+      --text-muted: #475569;
+      --border: rgba(0,0,0,0.08);
+      --accent: #2563eb;
+      --accent-glow: rgba(37,99,235,0.15);
+      --card-bg: #ffffff;
+      --shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      position: relative;
-      isolation: isolate;
-      font-family: 'Montserrat', sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(14, 165, 233, 0.18), transparent 26%),
-        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.13), transparent 28%),
-        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.12), transparent 24%),
-        linear-gradient(180deg, #01040f 0%, #020617 48%, #00060f 100%);
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
       color: var(--text);
       line-height: 1.5;
+      transition: background 0.3s, color 0.2s;
       min-height: 100vh;
-      transition: background 0.3s ease, color 0.3s ease;
-      background-attachment: fixed;
     }
 
-    [data-theme="light"] body {
-      background:
-        radial-gradient(circle at top left, rgba(14, 98, 254, 0.18), transparent 26%),
-        radial-gradient(circle at top right, rgba(51, 192, 255, 0.16), transparent 28%),
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.62), transparent 22%),
-        linear-gradient(180deg, #f4f8ff 0%, #eaf1fb 40%, #fdfefe 100%);
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      background:
-        radial-gradient(circle at 15% 12%, rgba(14, 165, 233, 0.22), transparent 22%),
-        radial-gradient(circle at 85% 18%, rgba(96, 165, 250, 0.16), transparent 20%),
-        radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.14), transparent 24%),
-        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.012) 45%, transparent 100%);
-      filter: blur(0.2px);
-      opacity: 0.9;
-    }
-
-    [data-theme="light"] body::before {
-      background:
-        radial-gradient(circle at 16% 12%, rgba(14, 98, 254, 0.18), transparent 24%),
-        radial-gradient(circle at 82% 16%, rgba(54, 181, 255, 0.14), transparent 20%),
-        radial-gradient(circle at 50% 82%, rgba(255, 255, 255, 0.7), transparent 26%),
-        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.28) 40%, transparent 100%);
-      opacity: 0.8;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      background:
-        radial-gradient(circle at center, rgba(14, 165, 233, 0.12), transparent 28%),
-        radial-gradient(circle at 20% 40%, rgba(255,255,255,0.06), transparent 20%),
-        radial-gradient(circle at 80% 60%, rgba(14, 165, 233, 0.08), transparent 24%);
-      mix-blend-mode: screen;
-      opacity: 0.6;
-      filter: blur(2px);
-    }
-
-    [data-theme="light"] body::after {
-      background:
-        radial-gradient(circle at center, rgba(14, 98, 254, 0.16), transparent 28%),
-        radial-gradient(circle at 20% 40%, rgba(255,255,255,0.25), transparent 20%),
-        radial-gradient(circle at 80% 60%, rgba(84, 178, 255, 0.14), transparent 26%);
-      mix-blend-mode: soft-light;
-      opacity: 0.8;
-    }
-
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-
+    /* Navbar */
     .navbar {
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 1.5rem;
-      background: color-mix(in srgb, var(--bg-soft) 90%, transparent);
+      flex-wrap: wrap;
+      padding: 0.8rem 1.5rem;
+      background: rgba(var(--bg-rgb), 0.8);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(18px);
+      gap: 1rem;
     }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      line-height: 0;
-      text-decoration: none;
+    .logo img {
+     display: block;
+    width: clamp(118px, 11vw, 168px);
+    height: auto;
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.24));
+    transition: transform 0.25s ease, filter 0.25s ease;
     }
-
-    .brand-logo {
-      display: block;
-      width: clamp(120px, 10vw, 170px);
-      height: auto;
-      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.22));
-      transition: transform 0.25s ease, filter 0.25s ease;
-    }
-
-    .brand-logo:hover {
-      transform: scale(1.03);
+    .logo img:hover{
+       transform: scale(1.03);
     }
 
     .nav-links {
       display: flex;
-      align-items: center;
-      gap: 1.25rem;
+      gap: 1.5rem;
       list-style: none;
     }
-
     .nav-links a {
-      color: var(--muted);
+      color: var(--text-muted);
       text-decoration: none;
       font-weight: 600;
-      transition: color 0.25s ease;
+      transition: var(--transition);
     }
-
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
-
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+    }
     .nav-actions {
       display: flex;
+      gap: 0.6rem;
       align-items: center;
-      gap: 0.75rem;
     }
-
-    .theme-toggle, .cart-btn {
+    .icon-btn {
+      background: var(--surface);
       border: 1px solid var(--border);
-      background: var(--panel);
       color: var(--text);
-      border-radius: 9999px;
-      padding: 0.7rem 0.95rem;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-    }
-
-    .theme-toggle {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
+      border-radius: 40px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .cart-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .cart-btn {
+    /* Menú móvil */
+    .menu-toggle {
+      display: none;
+    }
+    @media (max-width: 860px) {
+      .menu-toggle {
+        display: inline-flex;
+        order: 1;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.5rem;
+        background: var(--surface);
+        padding: 1rem;
+        border-radius: 1.5rem;
+        border: 1px solid var(--border);
+        order: 3;
+      }
+      .navbar.mobile-open .nav-links {
+        display: flex;
+      }
+      .nav-actions {
+        order: 2;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-glow);
+      color: var(--accent);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+    }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .stat {
+      background: var(--surface);
+      padding: 0.8rem 1.5rem;
+      border-radius: 2rem;
+      border: 1px solid var(--border);
+    }
+    .stat span:first-child {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .stat span:last-child {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-left: 0.5rem;
+    }
+
+    /* Filtros bar (móvil) */
+    .filters-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1rem 1.5rem;
+    }
+    .filter-toggle-btn, .clear-filters {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      border-radius: 3rem;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-weight: 700;
-    }
-
-    .page-hero {
-      padding: 3.5rem 0 2rem;
-      position: relative;
-    }
-
-    .hero-topline {
-      display: inline-flex;
-      gap: 0.75rem;
-      align-items: center;
-      padding: 0.45rem 0.9rem;
-      border-radius: 9999px;
-      background: rgba(14, 165, 233, 0.12);
-      color: var(--accent);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      letter-spacing: 0.03em;
-    }
-
-    .page-title {
-      font-size: clamp(2.2rem, 3vw, 3.2rem);
-      line-height: 1.05;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-    }
-
-    .hero-subtitle {
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 1.02rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.75rem;
-    }
-
-    .stat-card {
-      padding: 1rem 1.2rem;
-      min-width: 150px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .stat-label { display: block; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
-    .stat-value { font-size: 1.15rem; font-weight: 700; margin-top: 0.4rem; }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      margin: 1.5rem 0 2rem;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 1rem;
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    /* Filters bar: toggle + clear — responsive behavior handled below */
-    .filters-bar { display: none; gap: 0.5rem; align-items: center; margin: 0.8rem 0; }
-    .filter-toggle-btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.55rem 0.9rem; border-radius: 12px; background: var(--panel);
-      border: 1px solid var(--border); color: var(--text); cursor: pointer; font-weight: 700;
-    }
-    .filter-toggle-btn .filter-count { background: var(--accent); color: #fff; padding: 0.12rem 0.45rem; border-radius: 9999px; font-weight:800; margin-left: 0.35rem; font-size: 0.85rem; display: inline-block; }
-    .filter-action-btn { border: 1px solid var(--border); background: transparent; color: var(--muted); padding: 0.48rem 0.8rem; border-radius: 12px; cursor: pointer; font-weight:700; }
-
-    /* Collapse/expand animation for mobile filters */
-    .filters { transition: max-height 0.32s ease, opacity 0.32s ease, padding 0.32s ease; overflow: hidden; }
-    .filters.closed { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none; }
-    .filters.open { max-height: 1400px; opacity: 1; padding: 1rem; pointer-events: auto; }
-
-    .filter-group { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
-    .filter-title { font-weight: 700; color: var(--text); }
-
-    .search-input { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text); padding:0.6rem 0.9rem; border-radius:12px; min-width:220px; }
-    .filter-btn {
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      border-radius: 9999px;
-      padding: 0.7rem 1.1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
       cursor: pointer;
-      transition: all 0.22s ease;
+      transition: var(--transition);
+    }
+    .filter-count {
+      background: var(--accent);
+      color: white;
+      border-radius: 20px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.7rem;
+      margin-left: 0.3rem;
     }
 
-    .filter-btn:hover, .filter-btn.active {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
-      border-color: transparent;
+    /* Panel filtros */
+    .filters-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      margin: 0 1.5rem 2rem;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .filters-panel.closed {
+      max-height: 0;
+      padding: 0 1.2rem;
+      margin-bottom: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .filter-group {
+      margin-bottom: 1rem;
+    }
+    .filter-group h4 {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text);
+    }
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      color: var(--text);
+      font-size: 0.9rem;
     }
 
-    .status-copy {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
+    /* Grid de juegos */
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, 250px);
-      justify-content: center;
-      gap: 1.2rem;
-      padding-bottom: 3rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1.5rem 3rem;
     }
-
-    .card-link { text-decoration: none; color: inherit; }
-
+    @media (max-width: 1400px) {
+      .game-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    @media (max-width: 1024px) {
+      .game-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .game-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .game-grid {
+        grid-template-columns: 1fr;
+      }
+    }
     .game-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 1.5rem;
       overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+      color: inherit;
       display: flex;
       flex-direction: column;
-      width: 100%;
-      max-width: 250px;
+      animation: slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     .game-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(14, 165, 233, 0.28);
-      box-shadow: 0 30px 80px rgba(14, 165, 233, 0.15);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent);
     }
-
-    .game-card-visual {
+    .card-img {
       position: relative;
-      height: 215px;
+      height: 180px;
       background-size: cover;
       background-position: center;
-      filter: brightness(1) saturate(1.05);
-      transition: filter 0.35s ease;
     }
-
-    [data-theme="light"] .game-card-visual {
-      filter: brightness(1.08) saturate(1.18);
-    }
-
-    .game-card-visual::after {
-      content: '';
+    .platform-badge, .status-badge {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(0,0,0,0.32));
-      transition: background 0.35s ease;
+      top: 12px;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.7rem;
+      font-weight: 700;
     }
-
-    [data-theme="light"] .game-card-visual::after {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.24));
-    }
-
     .platform-badge {
-      position: absolute;
-      top: 0.9rem;
-      left: 0.9rem;
-      z-index: 2;
-      background: var(--badge-bg);
-      color: #fff;
-      border-radius: 9999px;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
+      left: 12px;
+      background: var(--accent);
+      color: white;
     }
-
     .status-badge {
-      position: absolute;
-      top: 0.9rem;
-      right: 0.9rem;
-      z-index: 2;
-      border-radius: 9999px;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.78rem;
-      background: rgba(255,255,255,0.92);
-      color: #0f172a;
-      font-weight: 800;
+      right: 12px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      color: white;
     }
-
-    .game-card-body { padding: 1rem 1rem 1.15rem; display:flex; flex-direction:column; flex:1; }
-    .game-card-body h3 {
+    .card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-body h3 {
       font-size: 1.1rem;
       margin-bottom: 0.4rem;
     }
-
-    .game-card-copy {
-      color: var(--muted);
-      font-size: 0.92rem;
-      min-height: 48px;
-      margin-bottom: 0.75rem;
-      overflow: hidden;
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-
-    .genre-tags {
+    .genres {
       display: flex;
-      gap: 0.45rem;
       flex-wrap: wrap;
-      margin-bottom: 0.85rem;
+      gap: 0.3rem;
+      margin-bottom: 0.8rem;
     }
-
-    .tag {
-      background: var(--tag-bg);
-      color: var(--text);
-      padding: 0.3rem 0.7rem;
-      border-radius: 9999px;
-      font-size: 0.74rem;
-      font-weight: 700;
+    .genre {
+      background: var(--surface-2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2rem;
+      font-size: 0.7rem;
     }
-
     .price-row {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      gap: 0.75rem;
-      margin-top: 0.75rem;
+      margin-top: auto;
     }
-
-    .price-left { display: flex; flex-direction: column; gap: 0.2rem; }
-    .old-price { text-decoration: line-through; color: var(--muted); font-size: 0.92rem; }
-    .final-price { color: var(--final-price-color); font-size: 1.35rem; font-weight: 800; }
-
-    .discount-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 9999px;
-      background: var(--discount-bg);
-      color: var(--discount-text);
-      font-weight: 800;
-      padding: 0.35rem 0.7rem;
+    .old-price {
+      text-decoration: line-through;
       font-size: 0.8rem;
-      box-shadow: 0 6px 20px transparent;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-      animation: floatBadge 3.6s ease-in-out infinite;
+      color: var(--text-muted);
     }
-
-    @keyframes floatBadge {
-      0% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
-      50% { transform: translateY(-4px); box-shadow: 0 14px 40px var(--discount-glow); }
-      100% { transform: translateY(0); box-shadow: 0 6px 20px transparent; }
+    .final-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--price);
     }
-
+    .discount {
+      background: var(--discount);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2rem;
+      font-size: 0.7rem;
+    }
     .empty-state {
-      padding: 2.5rem 1.5rem;
       text-align: center;
-      background: var(--panel);
-      border-radius: 24px;
-      border: 1px dashed var(--border);
-      color: var(--muted);
+      padding: 3rem;
+      color: var(--text-muted);
     }
 
+    /* Footer */
     .footer {
-      padding: 1.5rem 0 2.5rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
 
-    @media (max-width: 860px) {
-      .navbar { flex-wrap: wrap; gap: 0.85rem; }
-      .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-      .nav-actions { width: 100%; justify-content: flex-end; }
-      .game-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); justify-items: center; }
-      .game-card { max-width: 100%; }
-    }
-
+    /* Responsive */
     @media (max-width: 640px) {
-      .filters { align-items: stretch; }
-      .filter-group { width: 100%; }
-      .filter-btn { width: 100%; text-align: center; }
-      .page-title { font-size: 2rem; }
-      /* show compact filters-bar on mobile */
-      .filters-bar { display: flex; }
-      /* Start filters collapsed on small screens */
-      .filters { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none; }
-      .filters.open { max-height: 1400px; opacity: 1; padding: 1rem; pointer-events: auto; }
+      .hero { padding: 2rem 1rem; }
+      .stats { gap: 1rem; }
+      .stat { padding: 0.5rem 1rem; }
+      .game-grid { gap: 1rem; padding: 0 1rem 2rem; }
+      .filters-bar { margin: 0 1rem 0.5rem; }
+      .filters-panel { margin: 0 1rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .game-grid { grid-template-columns: 1fr; }
     }
   </style>
-  <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
-  <nav class="navbar">
-    <a href="index.html" class="logo" aria-label="Inicio">
-      <img loading="lazy" src="IMG/Empresa/Logo.png" alt="Logo PS5 Collection" class="brand-logo">
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">
+      <img src="IMG/Empresa/Logo.png" alt="Jarvis Digital">
     </a>
-    <div class="nav-links">
-      <a href="collection-p5.html" class="active">Catálogo</a>
-      <a href="index.html">Inicio</a>
-      <a href="registro.html">Registro</a>
-      <a href="PS-Details.html?id=spider-man-3">Demo detalle</a>
-    </div>
+    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menú">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li><a href="collection-p5.html" class="active">Catálogo</a></li>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="registro.html">Registro</a></li>
+      <li><a href="PS-Details.html?id=spider-man-3">Demo Detalle</a></li>
+    </ul>
     <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true">
-        <i class="fa-solid fa-sun"></i>
-      </button>
-      <button id="currencyToggle" class="theme-toggle" title="Cambiar moneda"><span id="currencyLabel">USD</span></button>
-      <button class="cart-btn" type="button">
-        <span><i class="fa-solid fa-cart-shopping"></i></span>
-        <span id="cartCount">0</span>
-      </button>
+      <button class="icon-btn" id="themeToggle"><i class="fas fa-sun"></i></button>
+      <button class="icon-btn" id="currencyToggle"><span id="currencyLabel">USD</span></button>
+      <button class="cart-btn"><i class="fas fa-cart-shopping"></i> <span id="cartCount">0</span></button>
     </div>
   </nav>
 
-  <main class="container">
-    <section class="page-hero">
-      <div class="hero-topline"><i class="fa-solid fa-bolt"></i> Catálogo inteligente en tiempo real</div>
-      <h1 class="page-title">Catálogo completo PlayStation 3 a 5</h1>
-      <p class="hero-subtitle">Descubre miles de juegos con búsqueda avanzada, filtros por plataforma, precio y género. Accede a fichas detalladas con calificaciones, precios y más información.</p>
-      <div class="hero-stats">
-        <div class="stat-card"><span class="stat-label">Juegos activos</span><span class="stat-value" id="gamesCount">0</span></div>
-        <div class="stat-card"><span class="stat-label">Plataformas</span><span class="stat-value">PS5 · PS4 · PS3</span></div>
-        <div class="stat-card"><span class="stat-label">Estado visual</span><span class="stat-value">Claro / Oscuro</span></div>
+  <main>
+    <div class="hero">
+      <div class="hero-badge"><i class="fas fa-bolt"></i> Catálogo Inteligente</div>
+      <h1>Colección PlayStation<br>PS5 · PS4 · PS3</h1>
+      <p>Explora, filtra y descubre todos los juegos con información actualizada. Fichas detalladas, precios dinámicos y orden inteligente.</p>
+      <div class="stats">
+        <div class="stat"><span>Juegos</span><span id="gamesCount">0</span></div>
+        <div class="stat"><span>Plataformas</span><span>3</span></div>
+        <div class="stat"><span>Géneros</span><span id="genresCount">0</span></div>
       </div>
-    </section>
-
-    <div class="filters-bar" aria-hidden="false">
-      <button id="filtersToggle" class="filter-toggle-btn" aria-expanded="false" aria-controls="filtersPanel">
-        <i class="fa-solid fa-filter"></i>
-        <span class="visually-hidden">Abrir filtros</span>
-        <span id="activeFilterCount" class="filter-count" style="display:none" aria-hidden="true">0</span>
-      </button>
-      <button id="clearFiltersBtn" class="filter-action-btn" title="Limpiar filtros">Limpiar</button>
     </div>
 
-    <section id="filtersPanel" class="filters" data-aos="fade-up">
-      <div class="filter-group">
-        <span class="filter-title">Plataforma</span>
-        <button class="filter-btn active" data-filter="platform" data-value="all">Todos</button>
-        <button class="filter-btn" data-filter="platform" data-value="PS5">PS5</button>
-        <button class="filter-btn" data-filter="platform" data-value="PS4">PS4</button>
-        <button class="filter-btn" data-filter="platform" data-value="PS3">PS3</button>
-      </div>
-      <div class="filter-group">
-        <span class="filter-title">Buscar</span>
-        <input id="searchInput" class="search-input" placeholder="Buscar título, género o desarrollador" aria-label="Buscar juegos">
-      </div>
-      <div id="genreFilters" class="filter-group">
-        <span class="filter-title">Género</span>
-        <button class="filter-btn active" data-filter="genre" data-value="all">Todos</button>
-        <!-- Genres dinámicos -->
-      </div>
-      <div class="filter-group">
-        <span class="filter-title">Precio</span>
-        <button class="filter-btn active" data-filter="price" data-value="all">Todos</button>
-        <button class="filter-btn" data-filter="price" data-value="budget">Hasta $30</button>
-        <button class="filter-btn" data-filter="price" data-value="mid">$30 - $60</button>
-        <button class="filter-btn" data-filter="price" data-value="premium">$60+</button>
-      </div>
-      <div class="filter-group">
-        <span class="filter-title">Orden</span>
-        <button class="filter-btn active" data-sort="featured" data-value="featured">Destacados</button>
-        <button class="filter-btn" data-sort="recent" data-value="recent">Recientes</button>
-        <button class="filter-btn" data-sort="rating" data-value="rating">Más valorados</button>
-      </div>
-      <div class="status-copy" id="filterSummary">Mostrando todos los juegos disponibles.</div>
-    </section>
+    <!-- Barra móvil -->
+    <div class="filters-bar">
+      <button id="filtersToggleBtn" class="filter-toggle-btn">
+        <i class="fas fa-filter"></i> Filtrar <span id="activeFilterBadge" class="filter-count" style="display:none">0</span>
+      </button>
+      <button id="clearFiltersBtn" class="clear-filters"><i class="fas fa-eraser"></i> Limpiar</button>
+    </div>
 
-    <section>
-      <div id="gameGrid" class="game-grid" aria-live="polite"></div>
-    </section>
+    <!-- Panel filtros (colapsable) -->
+    <div id="filtersPanel" class="filters-panel closed">
+      <div class="filter-group">
+        <h4>Plataforma</h4>
+        <div class="filter-buttons" data-filter-group="platform">
+          <button class="filter-btn active" data-filter="platform" data-value="all">Todos</button>
+          <button class="filter-btn" data-filter="platform" data-value="PS5">PS5</button>
+          <button class="filter-btn" data-filter="platform" data-value="PS4">PS4</button>
+          <button class="filter-btn" data-filter="platform" data-value="PS3">PS3</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <h4>Género</h4>
+        <div class="filter-buttons" id="genreButtons">
+          <button class="filter-btn active" data-filter="genre" data-value="all">Todos</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <h4>Precio (USD)</h4>
+        <div class="filter-buttons" data-filter-group="price">
+          <button class="filter-btn active" data-filter="price" data-value="all">Todos</button>
+          <button class="filter-btn" data-filter="price" data-value="budget">Hasta $30</button>
+          <button class="filter-btn" data-filter="price" data-value="mid">$30 - $60</button>
+          <button class="filter-btn" data-filter="price" data-value="premium">$60+</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <h4>Ordenar por</h4>
+        <div class="filter-buttons" data-filter-group="sort">
+          <button class="filter-btn" data-sort="featured">Destacados</button>
+          <button class="filter-btn active" data-sort="recent">Más recientes</button>
+          <button class="filter-btn" data-sort="rating">Mejor valorados</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <h4>Búsqueda</h4>
+        <input type="text" id="searchInput" class="search-input" placeholder="Título, género o desarrollador...">
+      </div>
+      <div class="status-copy" id="filterSummary" style="font-size:0.8rem; margin-top:0.5rem; color:var(--text-muted);"></div>
+    </div>
+
+    <div id="gameGrid" class="game-grid"></div>
   </main>
 
-  <footer class="footer container">
-    <div>
-      <strong>JARVIS DIGITAL SOLUTIONS</strong>
-      <p>Catálogo unificado de PS3, PS4 y PS5 con búsqueda, filtros dinámicos y fichas de detalle.</p>
-    </div>
-    <div>© 2026 Jarvis Digital Solutions</div>
+  <footer class="footer">
+    <p>Jarvis Digital Solutions · Catálogo dinámico unificado · Datos desde JSON</p>
+    <p>© 2026 Jarvis Digital Solutions</p>
   </footer>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="collection-mobile.js"></script>
   <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true });
-    gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
-
-    const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('ps5-theme', theme);
-      const icon = themeToggle.querySelector('i');
-      icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
-    }
-
-    applyTheme(savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-      const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme);
-    });
-
+    // ======================== DATOS Y UTILIDADES ========================
+    let currentGames = [];
+    let curatedFeaturedIds = [];
     let showPrices = true;
     let exchangeRateCU = 500;
-    let selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
-    const fallbackGames = [];
+    let selectedCurrency = 'USD';
+    
+    // Sistema de paginación lazy loading
+    let filteredGames = [];
+    let displayedGames = [];
+    let currentPage = 0;
+    const ITEMS_PER_PAGE = 20; // Cargas más pequeñas y frecuentes
+    let isLoading = false;
+    let observer = null;
+    const loadingSentinel = document.createElement('div');
+    loadingSentinel.id = 'loadingSentinel';
+    
+    // Scroll detection para virtualization
+    let lastScrollY = 0;
+    let scrollDirection = 'down';
+    const HIDE_THRESHOLD = 15; // Ocultar items cuando scroll up
+    
+    // Elementos DOM
+    const grid = document.getElementById('gameGrid');
+    const filterSummary = document.getElementById('filterSummary');
+    const gamesCountSpan = document.getElementById('gamesCount');
+    const genresCountSpan = document.getElementById('genresCount');
+    const searchInput = document.getElementById('searchInput');
+    const filtersPanel = document.getElementById('filtersPanel');
+    const filtersToggleBtn = document.getElementById('filtersToggleBtn');
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    const activeFilterBadge = document.getElementById('activeFilterBadge');
 
+    // Cargar datos
     async function loadData() {
       try {
-        const response = await fetch('./games.json');
-        if (!response.ok) { showPrices = true; return { games: fallbackGames }; }
-        const data = await response.json();
-        showPrices = data && data.config && typeof data.config.showPrices === 'boolean' ? data.config.showPrices : true;
-        exchangeRateCU = data && data.config && data.config.exchangeRateCU ? Number(data.config.exchangeRateCU) : exchangeRateCU;
-        selectedCurrency = localStorage.getItem('ps5-currency') || selectedCurrency;
-        return data || { games: fallbackGames };
-      } catch (error) {
-        showPrices = true;
-        return { games: fallbackGames };
+        const res = await fetch('./games.json');
+        if (!res.ok) return { games: {} };
+        const data = await res.json();
+        showPrices = data?.config?.showPrices !== false;
+        exchangeRateCU = data?.config?.exchangeRateCU || 500;
+        selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
+        return data;
+      } catch(e) {
+        return { games: {} };
       }
     }
 
-    function formatNumber(n) { return (typeof n === 'number') ? n.toLocaleString('en-US') : n; }
+    function normalizeStatus(status) {
+      const s = String(status || '').toLowerCase();
+      if (s.includes('disponible') || s.includes('lanzado') || s === 'destacado') return 'Disponible';
+      if (s.includes('próximamente') || s.includes('upcoming')) return 'Próximamente';
+      return 'Disponible';
+    }
 
     function isPriceVisible(game) {
-      // If site config allows showing prices, show them.
       if (showPrices) return true;
-      // Otherwise only show if user explicitly selected USD and the game has a USD price,
-      // or if user selected CU and the game has an explicit pricecu.
-      if (selectedCurrency === 'USD') return (typeof game.price !== 'undefined' && game.price !== null);
-      return (typeof game.pricecu !== 'undefined' && game.pricecu !== null);
+      if (selectedCurrency === 'USD') return game.price !== undefined && game.price !== null;
+      return game.pricecu !== undefined && game.pricecu !== null;
     }
 
-    function normalizeCatalogStatus(status) {
-      const value = String(status || '').trim().toLowerCase();
-      if (value === 'pendiente') return 'Próximamente';
-      if (value === 'banner' || value === 'estreno') return 'Próximamente';
-      if (value === 'destacado') return 'Disponible';
-      if (value === 'próximamente' || value === 'upcoming' || value === 'coming soon') return 'Próximamente';
-      if (value === 'disponible' || value === 'available' || value === 'lanzado') return 'Disponible';
-      return String(status || '').trim() || 'Próximamente';
-    }
-    
-
-    function cardTpl(game) {
-      const statusText = normalizeCatalogStatus(game.status);
-      const genresHtml = (game.genres || []).map(g => `<span class="tag">${g}</span>`).join('');
-      let priceHtml = '';
-      if (isPriceVisible(game)) {
-        if (selectedCurrency === 'USD') {
-          const oldPriceHtml = game.oldPrice ? `<span class="old-price">$${Number(game.oldPrice).toFixed(2)}</span>` : '';
-          const finalPriceHtml = (typeof game.price !== 'undefined' && game.price !== null) ? `<span class="final-price">$${Number(game.price).toFixed(2)}</span>` : '';
-          const discountBadge = (game.oldPrice && typeof game.price !== 'undefined' && game.oldPrice > game.price) ? `<span class="discount-badge">-${Math.round((1 - game.price / game.oldPrice) * 100)}%</span>` : '';
-          priceHtml = `
-            <div class="price-row">
-              <div class="price-left">
-                ${oldPriceHtml}
-                ${finalPriceHtml}
-              </div>
-              ${discountBadge}
-            </div>
-          `;
-        } else {
-          // CU display: prefer explicit pricecu fields, otherwise convert using exchangeRateCU
-          const cuFinal = (typeof game.pricecu !== 'undefined' && game.pricecu !== null) ? Number(game.pricecu) : Math.round((Number(game.price) || 0) * exchangeRateCU);
-          const cuOld = (typeof game.oldPricecu !== 'undefined' && game.oldPricecu !== null) ? Number(game.oldPricecu) : (game.oldPrice ? Math.round(Number(game.oldPrice) * exchangeRateCU) : null);
-          const oldPriceHtml = cuOld ? `<span class="old-price">${formatNumber(cuOld)} CU</span>` : '';
-          const finalPriceHtml = `<span class="final-price">${formatNumber(cuFinal)} CU</span>`;
-          const discountBadge = (cuOld && cuOld > cuFinal) ? `<span class="discount-badge">-${Math.round((1 - cuFinal / cuOld) * 100)}%</span>` : '';
-          priceHtml = `
-            <div class="price-row">
-              <div class="price-left">
-                ${oldPriceHtml}
-                ${finalPriceHtml}
-              </div>
-              ${discountBadge}
-            </div>
-          `;
+    function formatPrice(game) {
+      if (!isPriceVisible(game)) return '<span class="tag">Consultar</span>';
+      if (selectedCurrency === 'USD') {
+        let old = game.oldPrice ? `<span class="old-price">$${Number(game.oldPrice).toFixed(2)}</span>` : '';
+        let final = `<span class="final-price">$${Number(game.price).toFixed(2)}</span>`;
+        let discount = '';
+        if (game.oldPrice && game.oldPrice > game.price) {
+          let pct = Math.round((1 - game.price / game.oldPrice) * 100);
+          discount = `<span class="discount">-${pct}%</span>`;
         }
+        return `<div class="price-row">${old} ${final} ${discount}</div>`;
       } else {
-        priceHtml = `
-          <div class="price-row">
-            <div class="price-left">
-              <span class="tag">Consultar precio</span>
+        let cuFinal = game.pricecu ? Number(game.pricecu) : Math.round((Number(game.price)||0) * exchangeRateCU);
+        let cuOld = game.oldPricecu ? Number(game.oldPricecu) : (game.oldPrice ? Math.round(Number(game.oldPrice) * exchangeRateCU) : null);
+        let oldHtml = cuOld ? `<span class="old-price">${cuOld.toLocaleString()} CU</span>` : '';
+        let finalHtml = `<span class="final-price">${cuFinal.toLocaleString()} CU</span>`;
+        let discount = '';
+        if (cuOld && cuOld > cuFinal) {
+          let pct = Math.round((1 - cuFinal / cuOld) * 100);
+          discount = `<span class="discount">-${pct}%</span>`;
+        }
+        return `<div class="price-row">${oldHtml} ${finalHtml} ${discount}</div>`;
+      }
+    }
+
+    function cardTemplate(game) {
+      const status = normalizeStatus(game.status);
+      const genresHtml = (game.genres || []).map(g => `<span class="genre">${g}</span>`).join('');
+      return `
+        <a href="PS-Details.html?id=${game.id}" class="game-card">
+          <div class="card-img" style="background-image:url('${game.image}')">
+            <span class="platform-badge">${game.platform}</span>
+            <span class="status-badge">${status}</span>
+          </div>
+          <div class="card-body">
+            <h3>${game.title}</h3>
+            <p class="card-desc">${game.description || game.tagline || ''}</p>
+            <div class="genres">${genresHtml}</div>
+            ${formatPrice(game)}
+            <div class="price-row" style="margin-top:0.5rem; justify-content:flex-start; gap:0.5rem;">
+              <span class="genre">★ ${Number(game.rating||0).toFixed(1)}</span>
+              <span class="genre">${game.release || '2025'}</span>
             </div>
           </div>
-        `;
-      }
-
-      return `
-        <a href="PS-Details.html?id=${game.id}" class="card-link">
-          <article class="game-card" data-aos="zoom-in">
-            <div class="game-card-visual" style="background-image:url('${game.image}')">
-              <span class="platform-badge">${game.platform}</span>
-              <span class="status-badge">${statusText}</span>
-            </div>
-            <div class="game-card-body">
-              <h3>${game.title}</h3>
-              <p class="game-card-copy">${game.description}</p>
-              <div class="genre-tags">${genresHtml}</div>
-              ${priceHtml}
-              <div class="price-row" style="margin-top: 0.75rem;">
-                <span class="tag">★ ${Number(game.rating || 0).toFixed(1)}</span>
-                <span class="tag">${game.release || 'Sin fecha'}</span>
-              </div>
-            </div>
-          </article>
         </a>
       `;
     }
 
+    // Curación y orden destacados
     function getCuratedIds(data, section) {
-      const ids = data && data.platforms && data.platforms.PS5 && data.platforms.PS5.sections && data.platforms.PS5.sections[section] && data.platforms.PS5.sections[section].games;
-      return Array.isArray(ids) ? ids.filter(id => typeof id === 'string') : [];
+      return data?.platforms?.PS5?.sections?.[section]?.games || [];
     }
 
-    function applyCuratedData(data, games) {
-      const arr = [...games];
-      const gameMap = arr.reduce((acc, g) => { acc[g.id] = g; return acc; }, {});
+    function applyCuratedData(data, gamesArr) {
+      const arr = [...gamesArr];
       const featuredIds = getCuratedIds(data, 'featured');
-      const premiereIds = getCuratedIds(data, 'premieres');
-      const bannerIds = Array.isArray(data.banners) ? data.banners.map(b => b.gameId).filter(Boolean) : [];
       curatedFeaturedIds = featuredIds;
-
-      arr.forEach(g => {
-        g._origStatus = normalizeCatalogStatus(g.status || '');
-        g.status = g._origStatus;
-        g._displayStatus = '';
-      });
-      featuredIds.forEach(id => { if (gameMap[id]) gameMap[id]._displayStatus = 'Destacado'; });
-      premiereIds.forEach(id => { if (gameMap[id]) gameMap[id]._displayStatus = 'Estreno'; });
-      bannerIds.forEach(id => { if (gameMap[id]) gameMap[id]._displayStatus = 'Banner'; });
-
-      if (!featuredIds.length && !premiereIds.length && !bannerIds.length) {
-        return autoCurateLocal(games);
+      if (!featuredIds.length) {
+        // auto destacados por score
+        arr.forEach(g => {
+          let rating = Number(g.rating)||0;
+          let release = Number(g.release)||2025;
+          let recency = 1 / (1 + Math.max(0, 2025 - release));
+          g._score = (rating/5)*0.6 + recency*0.4;
+        });
+        arr.sort((a,b)=> (b._score||0) - (a._score||0));
+        curatedFeaturedIds = arr.slice(0,6).map(g=>g.id);
       }
       return arr;
     }
 
-    // Curación local (mini-IA) de apoyo: conserva estado real en las tarjetas y separa la curación del badge.
-    function autoCurateLocal(games) {
-      const now = new Date().getFullYear();
-      const arr = [...games];
-      arr.forEach(g => {
-        const rating = Number(g.rating) || 0;
-        const release = Number(g.release) || now;
-        const age = Math.max(0, now - release);
-        const recency = age <= 0 ? 1 : 1 / (1 + age);
-        const discount = (g.oldPrice && g.price && g.oldPrice > g.price) ? ((g.oldPrice - g.price) / g.oldPrice) : 0;
-        g._normRating = Math.min(1, rating / 5);
-        g._normRecency = Math.max(0, Math.min(1, recency));
-        g._normDiscount = Math.max(0, Math.min(1, discount));
-        g._score = (0.55 * g._normRating) + (0.30 * g._normRecency) + (0.15 * g._normDiscount);
-      });
-      const sorted = [...arr].sort((a, b) => (b._score || 0) - (a._score || 0));
-      const featured = sorted.slice(0, 6);
-      const premieres = sorted.filter(g => (Number(g.release) || now) >= now - 1).slice(0, 3);
+    // Cargar más juegos (lazy loading)
+    function loadMoreGames() {
+      if (isLoading || displayedGames.length >= filteredGames.length) return;
+      isLoading = true;
+      
+      const start = currentPage * ITEMS_PER_PAGE;
+      const itemsToLoad = currentPage === 0 ? 24 : ITEMS_PER_PAGE;
+      const end = start + itemsToLoad;
+      const newGames = filteredGames.slice(start, end);
+      
+      setTimeout(() => {
+        const html = newGames.map(cardTemplate).join('');
+        
+        if (currentPage === 0) {
+          grid.innerHTML = '';
+          grid.appendChild(loadingSentinel);
+        }
+        
+        let temp = document.createElement('div');
+        temp.innerHTML = html;
+        while (temp.children.length > 0) {
+          grid.insertBefore(temp.children[0], loadingSentinel);
+        }
+        
+        displayedGames.push(...newGames);
+        currentPage++;
+        isLoading = false;
+      }, 50);
+    }
 
-      function hasValidBanner(g) {
-        if (!g || !g.bannerImage) return false;
-        const path = String(g.bannerImage).toLowerCase();
-        if (!path.includes('/banner/')) return false;
-        const flag = g.bannerImageShow;
-        if (flag === false) return false;
-        const sflag = (typeof flag === 'string') ? flag.toLowerCase() : '';
-        if (sflag === 'no' || sflag === 'false' || sflag === '0' || sflag === 'off') return false;
+    // Virtualization simple: Ocultar tarjetas después de N segundos sin verlas
+    function updateVirtualization() {
+      const cards = grid.querySelectorAll('.game-card');
+      if (cards.length < 20) return;
+      
+      const scrollTop = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const bufferPx = viewportHeight * 0.8;
+      
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const elementTop = scrollTop + rect.top;
+        const elementBottom = elementTop + rect.height;
+        
+        const isInViewport = elementBottom >= (scrollTop - bufferPx) && 
+                             elementTop <= (scrollTop + viewportHeight + bufferPx);
+        
+        if (isInViewport) {
+          // Está visible: mostrar
+          card.style.display = '';
+          card.dataset.lastSeen = 'true';
+        } else {
+          // Está fuera: marcar y ocultar después
+          if (card.dataset.lastSeen === 'true') {
+            card.dataset.lastSeen = 'false';
+            card.dataset.hideTime = Date.now();
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+              if (card.dataset.lastSeen === 'false') {
+                card.style.display = 'none';
+              }
+            }, 3000);
+          }
+        }
+      });
+    }
+
+    // Filtrar y ordenar
+    function applyFilters() {
+      const platform = document.querySelector('[data-filter="platform"].active')?.dataset.value || 'all';
+      const genre = document.querySelector('[data-filter="genre"].active')?.dataset.value || 'all';
+      const price = document.querySelector('[data-filter="price"].active')?.dataset.value || 'all';
+      const sort = document.querySelector('[data-sort].active')?.dataset.sort || 'recent';
+      const query = searchInput.value.trim().toLowerCase();
+
+      let filtered = currentGames.filter(game => {
+        if (platform !== 'all' && game.platform !== platform) return false;
+        if (genre !== 'all' && !(game.genres || []).some(g => g.toLowerCase() === genre.toLowerCase())) return false;
+        
+        // precio
+        let numericPrice = null;
+        if (selectedCurrency === 'USD') numericPrice = game.price !== undefined ? Number(game.price) : null;
+        else numericPrice = game.pricecu !== undefined ? Number(game.pricecu) : (game.price ? Number(game.price)*exchangeRateCU : null);
+        
+        if (price !== 'all') {
+          if (numericPrice === null) return false;
+          if (price === 'budget' && numericPrice > 30) return false;
+          if (price === 'mid' && (numericPrice <= 30 || numericPrice > 60)) return false;
+          if (price === 'premium' && numericPrice <= 60) return false;
+        }
+        
+        if (query) {
+          const match = game.title.toLowerCase().includes(query) ||
+                        (game.developer || '').toLowerCase().includes(query) ||
+                        (game.genres || []).some(g=>g.toLowerCase().includes(query)) ||
+                        (game.aliases || []).some(a=>a.toLowerCase().includes(query));
+          if (!match) return false;
+        }
         return true;
+      });
+
+      // ordenar
+      if (sort === 'recent') {
+        filtered.sort((a,b)=> (Number(b.release)||0) - (Number(a.release)||0));
+      } else if (sort === 'rating') {
+        filtered.sort((a,b)=> (Number(b.rating)||0) - (Number(a.rating)||0));
+      } else { // featured
+        filtered.sort((a,b)=> {
+          let ia = curatedFeaturedIds.indexOf(a.id);
+          let ib = curatedFeaturedIds.indexOf(b.id);
+          ia = ia === -1 ? 999 : ia;
+          ib = ib === -1 ? 999 : ib;
+          return ia - ib;
+        });
       }
 
-      // asignar curación de apoyo sin sustituir el estado real del juego
-      sorted.filter(hasValidBanner).slice(0, 3).forEach(g => g._displayStatus = 'Banner');
-      featured.forEach(g => g._displayStatus = 'Destacado');
-      premieres.forEach(g => g._displayStatus = 'Estreno');
-      return arr;
+      // Reset pagination
+      filteredGames = filtered;
+      displayedGames = [];
+      currentPage = 0;
+      isLoading = false;
+
+      filterSummary.textContent = `${filtered.length} juego${filtered.length !== 1 ? 's' : ''} encontrados.`;
+      gamesCountSpan.textContent = filtered.length;
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div class="empty-state">No hay juegos con esos filtros. Intenta otros criterios.</div>';
+      } else {
+        loadMoreGames();
+      }
+      
+      updateActiveFilterCount();
     }
 
-    const grid = document.getElementById('gameGrid');
-    const filterSummary = document.getElementById('filterSummary');
-    let filterButtons;
-    let currentGames = [];
-    let curatedFeaturedIds = [];
-    const searchInput = () => document.getElementById('searchInput');
-
-    function debounce(fn, wait = 180) {
-      let t;
-      return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
+    function updateActiveFilterCount() {
+      let count = 0;
+      document.querySelectorAll('.filter-btn.active').forEach(btn => {
+        if (btn.dataset.value && btn.dataset.value !== 'all') count++;
+      });
+      if (searchInput.value.trim()) count++;
+      if (count > 0) {
+        activeFilterBadge.style.display = 'inline-block';
+        activeFilterBadge.textContent = count;
+      } else {
+        activeFilterBadge.style.display = 'none';
+      }
     }
 
+    function clearFilters() {
+      // Limpiar filtros
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.filter-group .filter-buttons').forEach(group => {
+        let first = group.querySelector('.filter-btn');
+        if (first) first.classList.add('active');
+      });
+      
+      // Forzar orden a "Más recientes" al restablcer
+      document.querySelectorAll('[data-sort]').forEach(btn => btn.classList.remove('active'));
+      const recentBtn = document.querySelector('[data-sort="recent"]');
+      if (recentBtn) recentBtn.classList.add('active');
+      
+      searchInput.value = '';
+      applyFilters();
+      if (window.innerWidth <= 640) toggleFiltersPanel(false);
+    }
+
+    function toggleFiltersPanel(open) {
+      const isOpen = open !== undefined ? open : !filtersPanel.classList.contains('open');
+      if (isOpen) {
+        filtersPanel.classList.remove('closed');
+        filtersPanel.classList.add('open');
+        filtersToggleBtn.querySelector('i').className = 'fas fa-times';
+      } else {
+        filtersPanel.classList.remove('open');
+        filtersPanel.classList.add('closed');
+        filtersToggleBtn.querySelector('i').className = 'fas fa-filter';
+      }
+    }
+
+    // Inicializar géneros dinámicos
     function populateGenres(games) {
-      const container = document.getElementById('genreFilters');
-      if (!container) return;
-      const genres = new Set();
-      games.forEach(g => (g.genres || []).forEach(gg => genres.add(gg)));
-      const list = Array.from(genres).sort((a,b)=>a.localeCompare(b));
-      // append buttons
-      list.forEach(g => {
+      const container = document.getElementById('genreButtons');
+      const genresSet = new Set();
+      games.forEach(g => (g.genres || []).forEach(gg => genresSet.add(gg)));
+      const sorted = Array.from(genresSet).sort();
+      genresCountSpan.textContent = sorted.length;
+      sorted.forEach(g => {
         const btn = document.createElement('button');
         btn.className = 'filter-btn';
-        btn.dataset.filter = 'genre';
-        btn.dataset.value = g;
+        btn.setAttribute('data-filter', 'genre');
+        btn.setAttribute('data-value', g);
         btn.textContent = g;
         container.appendChild(btn);
       });
     }
 
-    function applyFilters(games) {
-      const platform = document.querySelector('[data-filter="platform"].active').dataset.value;
-      const price = document.querySelector('[data-filter="price"].active').dataset.value;
-      const sort = document.querySelector('[data-sort].active').dataset.value;
-      const genreBtn = document.querySelector('[data-filter="genre"].active');
-      const genre = genreBtn ? genreBtn.dataset.value : 'all';
-      const q = (searchInput() && searchInput().value || '').trim().toLowerCase();
-
-      const filtered = games.filter((game) => {
-        const platformMatch = platform === 'all' || game.platform === platform;
-        // Determine numeric price in the currently selected currency for filtering
-        function getNumericPriceForFilter(game) {
-          if (selectedCurrency === 'USD') {
-            if (typeof game.price !== 'undefined' && game.price !== null) return Number(game.price);
-            if (typeof game.pricecu !== 'undefined' && game.pricecu !== null) return Number(game.pricecu) / Number(exchangeRateCU || 1);
-            return null;
-          } else {
-            if (typeof game.pricecu !== 'undefined' && game.pricecu !== null) return Number(game.pricecu);
-            if (typeof game.price !== 'undefined' && game.price !== null) return Number(game.price) * Number(exchangeRateCU || 1);
-            return null;
+    // Infinite Scroll: Detect cuando llega al final
+    function setupInfiniteScroll() {
+      loadingSentinel.id = 'loadingSentinel';
+      loadingSentinel.style.height = '1px';
+      loadingSentinel.style.width = '100%';
+      
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !isLoading && displayedGames.length < filteredGames.length) {
+            loadMoreGames();
           }
-        }
+        });
+      }, { rootMargin: '200px' });
 
-        const numericPrice = getNumericPriceForFilter(game);
-        const budgetThreshold = selectedCurrency === 'USD' ? 30 : 30 * Number(exchangeRateCU || 1);
-        const midThreshold = selectedCurrency === 'USD' ? 60 : 60 * Number(exchangeRateCU || 1);
-        const priceMatch = price === 'all' || (numericPrice !== null && (
-          (price === 'budget' && numericPrice <= budgetThreshold) ||
-          (price === 'mid' && numericPrice > budgetThreshold && numericPrice <= midThreshold) ||
-          (price === 'premium' && numericPrice > midThreshold)
-        ));
-        const genreMatch = genre === 'all' || (game.genres || []).map(g=>g.toLowerCase()).includes((genre||'').toLowerCase());
-
-        // search matching across title, id, developer, genres and optional aliases
-        let searchMatch = true;
-        if (q) {
-          const title = (game.title || '').toLowerCase();
-          const id = (game.id || '').toLowerCase();
-          const dev = (game.developer || '').toLowerCase();
-          const genresStr = (game.genres || []).join(' ').toLowerCase();
-          const aliasesStr = (game.aliases || []).join(' ').toLowerCase();
-          searchMatch = title.includes(q) || id.includes(q) || dev.includes(q) || genresStr.includes(q) || aliasesStr.includes(q);
-        }
-
-        return platformMatch && priceMatch && genreMatch && searchMatch;
-      });
-
-      const sorted = [...filtered].sort((a, b) => {
-        if (sort === 'recent') {
-          return (Number(b.release || 0) || 0) - (Number(a.release || 0) || 0);
-        }
-        if (sort === 'rating') {
-          return (Number(b.rating || 0) || 0) - (Number(a.rating || 0) || 0);
-        }
-        if (sort === 'featured') {
-          const rankA = curatedFeaturedIds.indexOf(a.id);
-          const rankB = curatedFeaturedIds.indexOf(b.id);
-          const scoreA = rankA !== -1 ? rankA : curatedFeaturedIds.length + 1;
-          const scoreB = rankB !== -1 ? rankB : curatedFeaturedIds.length + 1;
-          return scoreA - scoreB || a.title.localeCompare(b.title);
-        }
-        return a.title.localeCompare(b.title);
-      });
-
-      const sortLabel = sort === 'recent' ? 'recientes' : sort === 'rating' ? 'más valorados' : 'destacados';
-
-      filterSummary.textContent = sorted.length
-        ? `Mostrando ${sorted.length} juego${sorted.length === 1 ? '' : 's'} • orden: ${sortLabel}.`
-        : 'No hay juegos que coincidan con ese filtro. Prueba con otra combinación.';
-
-      grid.innerHTML = sorted.length
-        ? sorted.map(cardTpl).join('')
-        : '<div class="empty-state">No hay resultados para esta combinación. Cambia los filtros para seguir explorando.</div>';
-
-      document.getElementById('gamesCount').textContent = String(sorted.length);
-
-      AOS.refreshHard();
+      grid.appendChild(loadingSentinel);
+      observer.observe(loadingSentinel);
     }
 
-    function attachFilterHandlers() {
-      filterButtons = document.querySelectorAll('[data-filter], [data-sort]');
-      filterButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const container = btn.closest('.filter-group');
-          if (container) {
-            container.querySelectorAll('.filter-btn').forEach((item) => item.classList.remove('active'));
-          } else {
-            // fallback: clear same-attribute buttons
-            const df = btn.getAttribute('data-filter');
-            const ds = btn.getAttribute('data-sort');
-            if (df) document.querySelectorAll(`[data-filter="${df}"]`).forEach(i => i.classList.remove('active'));
-            if (ds) document.querySelectorAll('[data-sort]').forEach(i => i.classList.remove('active'));
+    // Eventos
+    function attachEvents() {
+      document.querySelectorAll('.filter-btn, [data-sort]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const group = btn.closest('.filter-buttons');
+          if (group) {
+            group.querySelectorAll('.filter-btn, [data-sort]').forEach(b => b.classList.remove('active'));
           }
           btn.classList.add('active');
-          applyFilters(currentGames);
-          updateActiveFilterCount();
-          // on small screens, close filters after selection for convenience
-          if (window.innerWidth <= 640) toggleFilters(false);
+          applyFilters();
+          if (window.innerWidth <= 640) toggleFiltersPanel(false);
         });
       });
-
-      const si = searchInput();
-      if (si) si.addEventListener('input', debounce(() => { applyFilters(currentGames); updateActiveFilterCount(); }, 220));
-
-      // Currency toggle handler
+      searchInput.addEventListener('input', () => applyFilters());
+      clearFiltersBtn.addEventListener('click', clearFilters);
+      filtersToggleBtn.addEventListener('click', () => toggleFiltersPanel());
+      
+      // Scroll detection: virtualization con throttle simple
+      let lastVirtualizationTime = 0;
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+        lastScrollY = currentScrollY;
+        
+        // Ejecutar virtualization solo cada 300ms máximo
+        const now = Date.now();
+        if (now - lastVirtualizationTime > 300) {
+          updateVirtualization();
+          lastVirtualizationTime = now;
+        }
+      }, { passive: true });
+      
+      // Tema oscuro/claro
+      const themeBtn = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeBtn.querySelector('i').className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('ps5-theme', next);
+        themeBtn.querySelector('i').className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      });
+      
+      // Moneda
       const currencyBtn = document.getElementById('currencyToggle');
       const currencyLabel = document.getElementById('currencyLabel');
-      if (currencyLabel) currencyLabel.textContent = selectedCurrency;
-      if (currencyBtn) {
-        currencyBtn.addEventListener('click', () => {
-          selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
-          localStorage.setItem('ps5-currency', selectedCurrency);
-          if (currencyLabel) currencyLabel.textContent = selectedCurrency;
-          applyFilters(currentGames);
-          updateActiveFilterCount();
-        });
-      }
-
-      // Clear filters button
-      const clearBtn = document.getElementById('clearFiltersBtn');
-      if (clearBtn) clearBtn.addEventListener('click', (e) => { e.preventDefault(); clearFilters(); });
-
-      // initialize count and state
-      updateActiveFilterCount();
-      const panel = document.getElementById('filtersPanel');
-      if (panel && window.innerWidth <= 640) {
-        panel.classList.add('closed');
-        panel.classList.remove('open');
-        const tbtn = document.getElementById('filtersToggle'); if (tbtn) tbtn.setAttribute('aria-expanded','false');
-      }
-    }
-
-    // ===== Filter UI helpers =====
-    function updateActiveFilterCount() {
-      const activeCountEl = document.getElementById('activeFilterCount');
-      if (!activeCountEl) return;
-      let count = 0;
-      document.querySelectorAll('.filter-btn.active').forEach(btn => {
-        const val = btn.dataset.value;
-        if (val && val !== 'all') count++;
+      currencyLabel.textContent = selectedCurrency;
+      currencyBtn.addEventListener('click', () => {
+        selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
+        localStorage.setItem('ps5-currency', selectedCurrency);
+        currencyLabel.textContent = selectedCurrency;
+        applyFilters();
       });
-      const q = (document.getElementById('searchInput') && document.getElementById('searchInput').value.trim()) || '';
-      if (q) count++;
-      if (count > 0) { activeCountEl.textContent = String(count); activeCountEl.style.display = 'inline-block'; }
-      else { activeCountEl.style.display = 'none'; }
     }
 
-    function clearFilters() {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.filter-group').forEach(g => {
-        const all = g.querySelector('.filter-btn[data-value="all"]');
-        if (all) all.classList.add('active');
+    // Menú móvil
+    function initMobileMenu() {
+      const menuToggle = document.getElementById('menuToggle');
+      const navbar = document.getElementById('navbar');
+      if (!menuToggle) return;
+      menuToggle.addEventListener('click', () => {
+        navbar.classList.toggle('mobile-open');
+        const icon = menuToggle.querySelector('i');
+        icon.className = navbar.classList.contains('mobile-open') ? 'fas fa-times' : 'fas fa-bars';
       });
-      const si = document.getElementById('searchInput'); if (si) si.value = '';
-      const anySort = document.querySelector('[data-sort].active');
-      if (!anySort) { const firstSort = document.querySelector('[data-sort]'); if (firstSort) firstSort.classList.add('active'); }
-      applyFilters(currentGames);
-      updateActiveFilterCount();
     }
 
-    function toggleFilters(open) {
-      const panel = document.getElementById('filtersPanel');
-      const btn = document.getElementById('filtersToggle');
-      if (!panel || !btn) return;
-      const isOpen = (typeof open === 'boolean') ? open : !panel.classList.contains('open');
-      if (isOpen) {
-        panel.classList.remove('closed'); panel.classList.add('open'); btn.setAttribute('aria-expanded','true');
-      } else {
-        panel.classList.remove('open'); panel.classList.add('closed'); btn.setAttribute('aria-expanded','false');
-      }
-    }
-
-    // hook toggle button
-    const filtersToggleBtn = document.getElementById('filtersToggle');
-    if (filtersToggleBtn) filtersToggleBtn.addEventListener('click', () => toggleFilters());
-
-    loadData().then((data) => {
-      const games = data && data.games ? Object.values(data.games) : fallbackGames;
-      currentGames = applyCuratedData(data, games);
+    // Inicio
+    (async function() {
+      const data = await loadData();
+      const gamesArray = data.games ? Object.values(data.games) : [];
+      currentGames = applyCuratedData(data, gamesArray);
       populateGenres(currentGames);
-      attachFilterHandlers();
-      applyFilters(currentGames);
-      
-    });
+      attachEvents();
+      initMobileMenu();
+      setupInfiniteScroll();
+      applyFilters();
+    })();
   </script>
 </body>
 </html>
