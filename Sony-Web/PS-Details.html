@@ -292,53 +292,129 @@
     .note-card-body {
       padding: 0 1.25rem;
       max-height: 0;
-      overflow: hidden;
+      overflow: auto;
       transition: max-height 0.35s ease-out, padding 0.2s;
       background: var(--panel);
     }
     .note-card-body.open {
-      max-height: 500px; /* suficiente para el contenido */
+      max-height: 1200px; /* aumentado para contenido */
       padding: 0 1.25rem 1.25rem 1.25rem;
     }
-    .note-author {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
+
+    /* Nueva estructura: Specs, Downloads */
+    .note-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .spec-item {
+      background: rgba(14, 165, 233, 0.06);
+      border: 1px solid rgba(14, 165, 233, 0.15);
+      border-radius: 12px;
+      padding: 0.8rem;
+      font-size: 0.8rem;
+    }
+    .spec-label {
+      color: var(--accent);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.4rem;
     }
-    .note-info {
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin: 0.75rem 0;
+    .spec-value {
       color: var(--text);
-      opacity: 0.9;
+      font-weight: 600;
+      word-break: break-word;
+      line-height: 1.3;
     }
-    .note-meta {
-      margin-top: 1rem;
+
+    /* Downloads section */
+    .downloads-section {
+      margin: 1.2rem 0;
+    }
+    .download-group {
+      background: rgba(14, 165, 233, 0.04);
+      border: 1px solid rgba(14, 165, 233, 0.12);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .download-title {
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .mirrors-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-      font-size: 0.75rem;
+      gap: 0.5rem;
     }
-    .note-link {
+    .mirror-link {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
       background: var(--accent);
       color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 30px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.2s;
     }
-    .backport-tag {
-      background: rgba(249, 115, 22, 0.15);
+    .mirror-link:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+    }
+
+    /* DLC Info */
+    .dlc-info {
+      background: rgba(249, 115, 22, 0.08);
+      border-left: 4px solid var(--accent-2);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .dlc-label {
       color: var(--accent-2);
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Credits/Type badge */
+    .note-type-badge {
+      display: inline-block;
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--accent-3);
+      padding: 0.3rem 0.7rem;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-left: 0.5rem;
+    }
+    .note-credits {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-style: italic;
     }
 
     /* Modal preview */
@@ -361,6 +437,56 @@
       .navbar { flex-wrap: wrap; }
     }
     @media (min-width: 901px) { .menu-toggle { display: none; } }
+    /* ============================================
+   SCROLLBAR GAMING MODERN (WebKit)
+   Azul oscuro, bordes redondeados, efecto neón
+   ============================================ */
+
+/* Ancho de la barra vertical y horizontal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Fondo del riel (track) */
+::-webkit-scrollbar-track {
+  background: #0a0f1e;      /* azul muy oscuro / casi negro */
+  border-radius: 10px;
+  box-shadow: inset 0 0 4px rgba(0, 255, 255, 0.1);
+}
+
+/* Pulgar (thumb) – la parte que se mueve */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+  transition: background 0.2s ease;
+}
+
+/* Efecto hover sobre el pulgar */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  box-shadow: 0 0 10px #3b82f6;
+  border-color: rgba(0, 255, 255, 0.6);
+}
+
+/* Esquinas (donde se juntan vertical y horizontal) */
+::-webkit-scrollbar-corner {
+  background: #0a0f1e;
+}
+
+/* Opcional: riel cuando se está arrastrando */
+::-webkit-scrollbar-track:hover {
+  background: #0f172a;
+  box-shadow: inset 0 0 6px rgba(59, 130, 246, 0.2);
+}
+
+/* Personalización para Firefox (complementario) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #0a0f1e;
+}
   </style>
 </head>
 <body>
@@ -629,31 +755,98 @@
         let gridHtml = '';
         technicalNotes.forEach((tn, idx) => {
           const uniqueId = `note-${idx}`;
-          gridHtml += `
-            <div class="note-card" data-note-id="${uniqueId}">
-              <div class="note-card-header">
-                <div class="note-card-title">
-                  <i class="fa-regular fa-rectangle-list"></i> ${escapeHtml(tn.title || 'Nota técnica')}
-                  ${tn.badge ? `<span class="note-badge">${escapeHtml(tn.badge)}</span>` : ''}
-                </div>
-                <div class="note-toggle-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          
+          // Header
+          let headerHtml = `
+            <div class="note-card-header">
+              <div class="note-card-title">
+                <i class="fa-regular fa-rectangle-list"></i> ${escapeHtml(tn.title || 'Nota técnica')}
+                ${tn.badge ? `<span class="note-badge">${escapeHtml(tn.badge)}</span>` : ''}
+                ${tn.type ? `<span class="note-type-badge">${escapeHtml(tn.type)}</span>` : ''}
               </div>
-              <div class="note-card-body" id="${uniqueId}">
-                <div class="note-author"><i class="fa-regular fa-user"></i> ${escapeHtml(tn.author || 'Fuente oficial')}</div>
-                <div class="note-info">${escapeHtml(tn.info || 'Sin información adicional.')}</div>
-                <div class="note-meta">
-                  ${tn.link ? `<a href="${escapeHtml(tn.link)}" target="_blank" rel="noopener" class="note-link"><i class="fa-solid fa-arrow-up-right-from-m"></i> Documentación</a>` : ''}
-                  ${tn.backport ? `<span class="backport-tag"><i class="fa-solid fa-undo-alt"></i> ${escapeHtml(tn.backport)}</span>` : ''}
-                  ${tn.noteId ? `<span class="backport-tag" style="background:var(--pill);"><i class="fa-regular fa-id-card"></i> ${escapeHtml(tn.noteId)}</span>` : ''}
-                </div>
-              </div>
+              <div class="note-toggle-icon"><i class="fa-solid fa-chevron-down"></i></div>
             </div>
           `;
+
+          // Body content
+          let bodyHtml = `<div class="note-card-body" id="${uniqueId}">`;
+          
+          // Author + Credits
+          if (tn.author || tn.credits) {
+            bodyHtml += `<div class="note-author"><i class="fa-regular fa-user"></i> ${escapeHtml(tn.author || 'Fuente oficial')}</div>`;
+            if (tn.credits) bodyHtml += `<div class="note-credits">✓ ${escapeHtml(tn.credits)}</div>`;
+          }
+          
+          // Main info
+          if (tn.info) bodyHtml += `<div class="note-info">${escapeHtml(tn.info)}</div>`;
+          
+          // Specs (password, version, audio, languages, firmware, size, format)
+          if (tn.specs && Object.keys(tn.specs).length > 0) {
+            bodyHtml += `<div class="note-specs">`;
+            if (tn.specs.password) bodyHtml += `<div class="spec-item"><div class="spec-label"><i class="fa-solid fa-lock"></i> Password</div><div class="spec-value">${escapeHtml(tn.specs.password)}</div></div>`;
+            if (tn.specs.version) bodyHtml += `<div class="spec-item"><div class="spec-label"><i class="fa-solid fa-code-branch"></i> Versión</div><div class="spec-value">${escapeHtml(tn.specs.version)}</div></div>`;
+            if (tn.specs.firmware) bodyHtml += `<div class="spec-item"><div class="spec-label"><i class="fa-solid fa-microchip"></i> Firmware</div><div class="spec-value">${escapeHtml(tn.specs.firmware)}</div></div>`;
+            if (tn.specs.size) bodyHtml += `<div class="spec-item"><div class="spec-label"><i class="fa-solid fa-database"></i> Tamaño</div><div class="spec-value">${escapeHtml(tn.specs.size)}</div></div>`;
+            if (tn.specs.format) bodyHtml += `<div class="spec-item"><div class="spec-label"><i class="fa-solid fa-compact-disc"></i> Formato</div><div class="spec-value">${escapeHtml(tn.specs.format)}</div></div>`;
+            if (tn.specs.audio && Array.isArray(tn.specs.audio)) bodyHtml += `<div class="spec-item"><div class="spec-label"><i class="fa-solid fa-volume-up"></i> Audio</div><div class="spec-value">${tn.specs.audio.map(a => escapeHtml(a)).join(', ')}</div></div>`;
+            if (tn.specs.languages && Array.isArray(tn.specs.languages)) bodyHtml += `<div class="spec-item"><div class="spec-label"><i class="fa-solid fa-globe"></i> Idiomas</div><div class="spec-value">${tn.specs.languages.map(l => escapeHtml(l)).join(', ')}</div></div>`;
+            bodyHtml += `</div>`;
+          }
+          
+          // Downloads
+          if (tn.downloads && Array.isArray(tn.downloads) && tn.downloads.length > 0) {
+            bodyHtml += `<div class="downloads-section">`;
+            tn.downloads.forEach((dl) => {
+              const typeIcon = dl.type === 'game' ? 'fa-solid fa-gamepad' : dl.type === 'dlc' ? 'fa-solid fa-gift' : dl.type === 'backport' ? 'fa-solid fa-arrow-rotate-left' : 'fa-solid fa-download';
+              bodyHtml += `<div class="download-group">`;
+              bodyHtml += `<div class="download-title"><i class="${typeIcon}"></i> ${escapeHtml(dl.title)}`;
+              if (dl.author) bodyHtml += ` <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(${escapeHtml(dl.author)})</span>`;
+              bodyHtml += `</div>`;
+              
+              if (dl.mirrors && typeof dl.mirrors === 'object') {
+                bodyHtml += `<div class="mirrors-row">`;
+                Object.entries(dl.mirrors).forEach(([name, url]) => {
+                  const mirrorName = name.toUpperCase();
+                  bodyHtml += `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="mirror-link" title="${escapeHtml(mirrorName)}"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${escapeHtml(mirrorName)}</a>`;
+                });
+                bodyHtml += `</div>`;
+              }
+              bodyHtml += `</div>`;
+            });
+            bodyHtml += `</div>`;
+          }
+          
+          // DLC info
+          if (tn.dlc && (tn.dlc.unlocked || tn.dlc.installation || tn.dlc.redeem || tn.dlc.note)) {
+            bodyHtml += `<div class="dlc-info">`;
+            bodyHtml += `<div class="dlc-label"><i class="fa-solid fa-star"></i> DLC Desbloqueado</div>`;
+            if (tn.dlc.installation) bodyHtml += `<div><strong>Instalación:</strong> ${escapeHtml(tn.dlc.installation)}</div>`;
+            if (tn.dlc.redeem) bodyHtml += `<div><strong>Canjear:</strong> ${escapeHtml(tn.dlc.redeem)}</div>`;
+            if (tn.dlc.note) bodyHtml += `<div style="margin-top:0.5rem;"><em>${escapeHtml(tn.dlc.note)}</em></div>`;
+            bodyHtml += `</div>`;
+          }
+          
+          // Resources/Links
+          if (tn.resources && Object.keys(tn.resources).length > 0) {
+            bodyHtml += `<div class="note-meta" style="margin-top: 1rem;">`;
+            if (tn.resources.dlcContents) bodyHtml += `<a href="${escapeHtml(tn.resources.dlcContents)}" target="_blank" rel="noopener" class="note-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> DLC Contents</a>`;
+            if (tn.resources.predbInfo) bodyHtml += `<a href="${escapeHtml(tn.resources.predbInfo)}" target="_blank" rel="noopener" class="note-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> PreDB Info</a>`;
+            if (tn.resources.guide) bodyHtml += `<a href="${escapeHtml(tn.resources.guide)}" target="_blank" rel="noopener" class="note-link"><i class="fa-solid fa-book"></i> Guía</a>`;
+            if (tn.resources.tool) bodyHtml += `<a href="${escapeHtml(tn.resources.tool)}" target="_blank" rel="noopener" class="note-link"><i class="fa-solid fa-tools"></i> Tool</a>`;
+            if (tn.resources.howToPlay) bodyHtml += `<a href="${escapeHtml(tn.resources.howToPlay)}" target="_blank" rel="noopener" class="note-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> How to Play</a>`;
+            bodyHtml += `</div>`;
+          }
+          
+          bodyHtml += `</div>`;
+
+          // Combinar
+          gridHtml += `<div class="note-card">${headerHtml}${bodyHtml}</div>`;
         });
+        
         techGrid.innerHTML = gridHtml;
         techNotesSection.style.display = 'block';
 
-        // Inicializar acordeones: al hacer clic en el header se expande/colapsa
+        // Inicializar acordeones
         document.querySelectorAll('.note-card').forEach(card => {
           const header = card.querySelector('.note-card-header');
           const body = card.querySelector('.note-card-body');
@@ -668,7 +861,7 @@
               icon.className = 'fa-solid fa-chevron-up';
             }
           });
-          // Por defecto todas cerradas (opcional)
+          // Por defecto todas cerradas
           body.classList.remove('open');
           icon.className = 'fa-solid fa-chevron-down';
         });
@@ -697,6 +890,15 @@
 
     loadGame().then(renderGame);
     gsap.from('.navbar', { duration: 1, y: -80, opacity: 0, ease: 'power3.out' });
+
+    // Auto-mark all notifications as viewed on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof notificationCenter !== 'undefined') {
+        setTimeout(() => {
+          notificationCenter.markAllAsViewed();
+        }, 500);
+      }
+    });
   </script>
 </body>
 </html>

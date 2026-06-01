@@ -1375,8 +1375,119 @@
       .section { padding: 0.8rem 0.9rem; }
       .section-center-image img { width: 96%; }
     }
+    /* ============================================
+   SCROLLBAR GAMING MODERN (WebKit)
+   Azul oscuro, bordes redondeados, efecto neón
+   ============================================ */
+
+/* Ancho de la barra vertical y horizontal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Fondo del riel (track) */
+::-webkit-scrollbar-track {
+  background: #0a0f1e;      /* azul muy oscuro / casi negro */
+  border-radius: 10px;
+  box-shadow: inset 0 0 4px rgba(0, 255, 255, 0.1);
+}
+
+/* Pulgar (thumb) – la parte que se mueve */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+  transition: background 0.2s ease;
+}
+
+/* Efecto hover sobre el pulgar */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  box-shadow: 0 0 10px #3b82f6;
+  border-color: rgba(0, 255, 255, 0.6);
+}
+
+/* Esquinas (donde se juntan vertical y horizontal) */
+::-webkit-scrollbar-corner {
+  background: #0a0f1e;
+}
+
+/* Opcional: riel cuando se está arrastrando */
+::-webkit-scrollbar-track:hover {
+  background: #0f172a;
+  box-shadow: inset 0 0 6px rgba(59, 130, 246, 0.2);
+}
+
+/* Personalización para Firefox (complementario) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #0a0f1e;
+}
   </style>
+  <style>
+  /* ========== MEJORAS MÓVIL: scroll reveal y tooltip ========== */
+  @media (max-width: 768px) {
+    /* Clase base para elementos que se revelan al scroll */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s cubic-bezier(0.22, 0.85, 0.36, 1), 
+                  transform 0.5s cubic-bezier(0.22, 0.85, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .scroll-reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Tooltip de información */
+    .game-info-tooltip {
+      position: fixed;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 12px 18px;
+      max-width: 260px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      z-index: 9999;
+      pointer-events: none;
+      animation: tooltipFade 0.2s ease;
+      font-weight: 500;
+    }
+    @keyframes tooltipFade {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* Mejora feedback táctil en tarjetas */
+    .mini-card:active {
+      transform: scale(0.98);
+      transition: transform 0.05s;
+    }
+    /* Ajuste hero slider móvil */
+    .hero-section .mySwiper,
+    .hero-section .swiper-slide {
+      min-height: 60vh;
+      max-height: 70vh;
+    }
+    .slide-content {
+      padding: 1rem;
+      width: 90%;
+    }
+    .slide-content h2 {
+      font-size: clamp(1.6rem, 6vw, 2.2rem);
+    }
+  }
+  /* Fin mejoras móvil */
+</style>
   <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="notes-update-system.css">
+  <link rel="stylesheet" href="auto-sync-notification.css">
+  <link rel="stylesheet" href="notification-center.css">
 </head>
 <body>
   <nav class="navbar">
@@ -1397,6 +1508,7 @@
       <button class="icon-button" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro/oscuro" aria-pressed="true"><i class="fa-solid fa-sun"></i></button>
       <button id="currencyToggle" class="icon-button" title="Cambiar moneda"><span id="currencyLabel">USD</span></button>
+      <button id="notification-bell" class="icon-button" aria-label="Notificaciones" onclick="notificationCenter.togglePanel()"><i class="fa-solid fa-bell"></i></button>
       <button class="icon-button" aria-label="Carrito"><i class="fa-solid fa-cart-shopping"></i></button>
     </div>
   </nav>
@@ -1584,6 +1696,10 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="notification-center.js"></script>
+  <script src="notes-update-system.js"></script>
+  <script src="auto-sync-changelog.js"></script>
+  <script src="debug-changelog.js"></script>
   <script>
     AOS.init({ duration: 920, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)', once: false, mirror: true, offset: 160, delay: 0 });
 
@@ -1634,7 +1750,8 @@
     // Load full dataset (games + banners) from games.json
     async function loadData() {
       try {
-        const response = await fetch('./games.json');
+        // Cache-busting: agregar timestamp para evitar cache del navegador
+        const response = await fetch('./games.json?t=' + Date.now());
         if (!response.ok) return { games: {}, banners: [] };
         const data = await response.json();
         return data || { games: {}, banners: [] };
@@ -2217,6 +2334,12 @@
     // Initialize mobile animations after DOM ready
     document.addEventListener('DOMContentLoaded', () => {
       try { setupMobileAnimations(); } catch (e) { /* ignore */ }
+      // Auto-mark all notifications as viewed after 500ms to ensure notification-center is ready
+      if (typeof notificationCenter !== 'undefined') {
+        setTimeout(() => {
+          notificationCenter.markAllAsViewed();
+        }, 500);
+      }
     });
 
     /* Site search logic */
@@ -2458,5 +2581,221 @@
   `;
   document.head.appendChild(style);
 })();</script>
+<!--FUTURE-V7
+<script>
+(function() {
+  // ---------- 1. SCROLL REVEAL PROGRESIVO (reaparece al subir/bajar) ----------
+  let scrollObserver = null;
+  function initMobileScrollReveal() {
+    if (scrollObserver) scrollObserver.disconnect();
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (!isMobile) return;
+    
+    // Seleccionar todos los elementos que queremos animar al scroll
+    const targets = document.querySelectorAll('.section, .mini-card, .premiere-card, .bento-item, .panel, .mood-card, .feature-card');
+    if (!targets.length) return;
+    
+    // Añadir clase base a cada elemento si no la tiene
+    targets.forEach(el => {
+      if (!el.classList.contains('scroll-reveal')) el.classList.add('scroll-reveal');
+    });
+    
+    scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -20px 0px' }); // margen negativo para activar un poco antes
+    
+    targets.forEach(el => scrollObserver.observe(el));
+  }
+  
+  // Re-evaluar al redimensionar (por si cambia de móvil a escritorio)
+  window.addEventListener('resize', () => {
+    initMobileScrollReveal();
+  });
+  
+  // ---------- 2. INTERACCIÓN TÁCTIL: UN TAP = INFO, DOBLE TAP = NAVEGAR ----------
+  let activeTapTimeout = null;
+  let pendingNavigateUrl = null;
+  let currentTooltip = null;
+  
+  function showGameInfo(message, x, y, targetElement) {
+    // Eliminar tooltip existente
+    if (currentTooltip) currentTooltip.remove();
+    const tooltip = document.createElement('div');
+    tooltip.className = 'game-info-tooltip';
+    tooltip.textContent = message;
+    document.body.appendChild(tooltip);
+    
+    // Posicionar cerca del elemento tocado (centrado arriba/abajo)
+    const rect = targetElement.getBoundingClientRect();
+    const scrollY = window.scrollY;
+    const topPos = rect.top + scrollY - 50;
+    tooltip.style.left = `${Math.min(rect.left + rect.width/2 - 100, window.innerWidth - 220)}px`;
+    tooltip.style.top = `${Math.max(10, topPos)}px`;
+    currentTooltip = tooltip;
+    
+    // Auto-destruir después de 3 segundos
+    setTimeout(() => {
+      if (currentTooltip === tooltip) {
+        tooltip.remove();
+        currentTooltip = null;
+      }
+    }, 3000);
+  }
+  
+  function attachSmartTapHandlers() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (!isMobile) return;
+    
+    // Trabajar sobre las mini-cards de "Juegos Destacados" y "Más Populares"
+    const miniCards = document.querySelectorAll('.mini-card');
+    miniCards.forEach(card => {
+      // Evitar duplicar event listeners
+      if (card._smartTapAttached) return;
+      card._smartTapAttached = true;
+      
+      // Guardar la URL original (href) si existe
+      const originalUrl = card.getAttribute('href');
+      if (originalUrl) {
+        card.setAttribute('data-url', originalUrl);
+        // Eliminar href para evitar navegación directa
+        card.removeAttribute('href');
+        card.style.cursor = 'pointer';
+      }
+      
+      // Obtener información del juego desde atributos de datos o desde el contenido
+      let infoText = card.getAttribute('data-description');
+      if (!infoText) {
+        // Intentar extraer del título y precio o usar fallback
+        const titleEl = card.querySelector('.mini-card-title');
+        const title = titleEl ? titleEl.textContent : 'Juego';
+        infoText = `${title} · Toca dos veces para ver detalles.`;
+        // También podemos buscar en la variable global games si existe
+        if (window.siteGames && window.siteGames.length) {
+          const match = window.siteGames.find(g => g.title === title);
+          if (match && (match.tagline || match.description)) {
+            infoText = match.tagline || match.description;
+          }
+        }
+      }
+      card.setAttribute('data-info', infoText);
+      
+      // Contador de taps
+      let lastTap = 0;
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const now = Date.now();
+        const isDoubleTap = (now - lastTap) < 300;
+        lastTap = now;
+        
+        if (isDoubleTap) {
+          // Doble tap → navegar
+          if (activeTapTimeout) clearTimeout(activeTapTimeout);
+          const url = card.getAttribute('data-url');
+          if (url) window.location.href = url;
+        } else {
+          // Tap simple → mostrar info (cancelar posible navegación pendiente)
+          if (activeTapTimeout) clearTimeout(activeTapTimeout);
+          activeTapTimeout = setTimeout(() => {
+            const info = card.getAttribute('data-info') || 'Más información disponible en la ficha.';
+            const rect = card.getBoundingClientRect();
+            showGameInfo(info, rect.left, rect.top, card);
+            activeTapTimeout = null;
+          }, 200);
+        }
+      });
+    });
+  }
+  
+  // Observar cambios dinámicos (cuando se recargan los carruseles)
+  function observeMiniCardsContainer() {
+    const containers = ['destacadosMinicards', 'popularesMinicards'];
+    containers.forEach(id => {
+      const container = document.getElementById(id);
+      if (!container) return;
+      const observer = new MutationObserver(() => {
+        attachSmartTapHandlers();
+      });
+      observer.observe(container, { childList: true, subtree: true });
+    });
+  }
+  
+  // Inyectar atributos data-description durante la generación de mini-cards
+  // Parchear la función renderMiniCarousel original para que incluya la descripción
+  const originalRenderMiniCarousel = window.renderMiniCarousel;
+  if (originalRenderMiniCarousel) {
+    window.renderMiniCarousel = function(games, wrapperId, paginationId) {
+      const wrapper = document.getElementById(wrapperId);
+      if (!wrapper) return;
+      const items = [...games].slice(0, 8);
+      wrapper.innerHTML = items.map((game, idx) => {
+        const discount = calculateDiscount ? calculateDiscount(game) : 0;
+        const price = formatGamePrice ? formatGamePrice(game) : '';
+        const infoDesc = (game.tagline || game.description || `${game.title} · ${game.platform}`).replace(/"/g, '&quot;');
+        return `
+          <div class="swiper-slide">
+            <div class="mini-card" data-url="PS-Details.html?id=${game.id}" data-description="${infoDesc}">
+              <div class="mini-card-image" style="background-image:url('${game.image}')"></div>
+              <div class="mini-card-overlay"></div>
+              <div class="mini-card-content">
+                <div class="mini-card-title">${game.title}</div>
+                <div class="mini-card-price">
+                  ${discount > 0 ? `<span class="mini-card-old-price">${getCurrencySymbol ? getCurrencySymbol() : '$'}${Number(game.oldPrice || 0).toFixed(2)}</span>` : ''}
+                  <span>${price}</span>
+                </div>
+                ${discount > 0 ? `<div class="mini-card-discount">-${Math.round(discount)}%</div>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      if (window.AOS && AOS.refreshHard) AOS.refreshHard();
+      attachSmartTapHandlers(); // reconectar handlers después de renderizar
+    };
+  }
+  
+  // También parchear para 'renderMiniCarousel' usado inicialmente en la carga principal
+  if (!window.renderMiniCarouselPatched) {
+    window.renderMiniCarouselPatched = true;
+    // La función original ya existe en el ámbito global, la reemplazamos de forma segura
+    if (typeof renderMiniCarousel === 'function') {
+      window.renderMiniCarousel = renderMiniCarousel;
+    }
+  }
+  
+  // ---------- 3. INICIALIZACIÓN TRAS CARGA COMPLETA ----------
+  window.addEventListener('load', () => {
+    initMobileScrollReveal();
+    attachSmartTapHandlers();
+    observeMiniCardsContainer();
+    
+    // Re-aplicar después de cambios de moneda (currency toggle)
+    const currencyBtn = document.getElementById('currencyToggle');
+    if (currencyBtn) {
+      const originalCurrencyHandler = currencyBtn.onclick;
+      currencyBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          attachSmartTapHandlers();
+          initMobileScrollReveal();
+        }, 100);
+      });
+    }
+  });
+  
+  // Re-evaluar cada vez que se completa un refresh de datos (por si se actualizan los carruseles)
+  if (window.MutationObserver) {
+    const mainObserver = new MutationObserver(() => {
+      attachSmartTapHandlers();
+    });
+    mainObserver.observe(document.body, { childList: true, subtree: true, attributes: false });
+  }
+})();
+</script>
+-->
 </body>
 </html>
