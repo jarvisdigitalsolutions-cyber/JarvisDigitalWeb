@@ -2,7 +2,7 @@ name: 🤖 Auto-Curate Weekly (PS5, PS4, PS3)
 
 on:
   schedule:
-    # Cada LUNES a las 00:00 UTC (8:00 PM Domingo EST, 20:00 Domingo CET)
+    # Cada LUNES a las 00:00 UTC
     - cron: '0 0 * * 1'
   
   # Permite ejecución manual desde GitHub
@@ -67,7 +67,7 @@ jobs:
         run: |
           git push origin ${{ github.ref }}
       
-      # 8. Resumen de éxito
+      # 8. Resumen de  éxito
       - name: ✨ Completion summary
         run: |
           echo "=========================================="
