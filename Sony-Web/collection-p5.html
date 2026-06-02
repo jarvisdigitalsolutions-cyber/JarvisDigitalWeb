@@ -55,50 +55,315 @@
     }
 
     /* Navbar */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 0.8rem 1.5rem;
-      background: rgba(var(--bg-rgb), 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      gap: 1rem;
-    }
-    .logo img {
-     display: block;
-    width: clamp(118px, 11vw, 168px);
-    height: auto;
-    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.24));
-    transition: transform 0.25s ease, filter 0.25s ease;
-    }
-    .logo img:hover{
-       transform: scale(1.03);
-    }
+   :root {
+  --nav-bg: rgba(7, 10, 18, 0.72);
+  --nav-border: rgba(120, 170, 255, 0.18);
+  --text: #e9eef7;
+  --muted: rgba(233, 238, 247, 0.72);
+  --accent: #4ea3ff;
+  --accent-2: #1f7bff;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  --radius: 18px;
+}
 
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--accent);
-    }
-    .nav-actions {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-    }
+* {
+  box-sizing: border-box;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 28px;
+  background: linear-gradient(180deg, rgba(7, 10, 18, 0.88), rgba(7, 10, 18, 0.70));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: var(--shadow);
+  transition: padding .25s ease, background .25s ease, transform .25s ease;
+}
+
+.navbar.scrolled {
+  padding: 10px 24px;
+  background: linear-gradient(180deg, rgba(6, 9, 16, 0.94), rgba(6, 9, 16, 0.78));
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: relative;
+  isolation: isolate;
+}
+
+.logo::before {
+  content: "";
+  position: absolute;
+  inset: -8px -12px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 50% 50%, rgba(78, 163, 255, 0.18), transparent 70%);
+  filter: blur(10px);
+  z-index: -1;
+  opacity: .9;
+}
+
+.brand-logo {
+  display: block;
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(78, 163, 255, 0.16));
+  transition: transform .25s ease, filter .25s ease;
+}
+
+.logo:hover .brand-logo {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 16px rgba(78, 163, 255, 0.35));
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 2px;
+  color: var(--muted);
+  text-decoration: none;
+  font: 600 0.96rem/1.1 "Inter", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  transition: color .22s ease, transform .22s ease, text-shadow .22s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 0%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform: translateX(-50%);
+  transition: width .25s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+  text-shadow: 0 0 14px rgba(78, 163, 255, 0.18);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-button,
+.theme-toggle {
+  height: 46px;
+  min-width: 46px;
+  padding: 0 14px;
+  border: 1px solid rgba(120, 170, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.icon-button i,
+.theme-toggle i {
+  font-size: 1rem;
+}
+
+.icon-button:hover,
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(78, 163, 255, 0.10);
+  border-color: rgba(78, 163, 255, 0.34);
+  box-shadow: 0 0 0 1px rgba(78, 163, 255, 0.08), 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+#currencyLabel {
+  font: 700 0.92rem/1 "Inter", system-ui, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+/* Estado compacto al scrollear */
+.navbar.scrolled .brand-logo {
+  height: 38px;
+}
+
+.navbar {
+  position: relative;
+}
+
+/* línea base (sin animación activa) */
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #4ea3ff,
+    #00e0ff,
+    #4ea3ff,
+    transparent
+  );
+
+  opacity: 0;
+  transform: scaleX(0.3);
+  transform-origin: left;
+
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+
+/* glow */
+.navbar::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+
+  background: radial-gradient(circle, rgba(78,163,255,0.4), transparent 70%);
+  filter: blur(6px);
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ACTIVACIÓN SOLO EN INTERACCIÓN */
+.navbar.scrolled::after,
+.navbar:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+
+  animation: flowLine 2s linear infinite;
+}
+
+.navbar.scrolled::before,
+.navbar:hover::before {
+  opacity: 1;
+}
+
+/* animación */
+@keyframes flowLine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+/* Responsive */
+@media (max-width: 980px) {
+  .navbar {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "logo actions"
+      "links links";
+  }
+
+  .logo {
+    grid-area: logo;
+  }
+
+  .nav-actions {
+    grid-area: actions;
+    justify-self: end;
+  }
+
+  .nav-links {
+    grid-area: links;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    gap: 22px;
+  }
+}
+
+@media (max-width: 760px) {
+  .navbar {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "logo toggle"
+      "links links";
+    padding: 12px 16px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    grid-area: toggle;
+    justify-self: end;
+  }
+
+  .nav-actions {
+    display: none;
+  }
+
+  .nav-links {
+    display: none;
+    grid-area: links;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 0 4px;
+  }
+
+  .navbar.open .nav-links {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: 14px 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+}
     .icon-btn {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -159,10 +424,45 @@
 
     /* Hero */
     .hero {
-      padding: 3rem 1.5rem 2rem;
+      padding: 5rem 1.5rem 4rem;
       text-align: center;
-      max-width: 1000px;
+      max-width: 100%;
       margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('IMG/PS5/Banner/banner-consola.png');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      filter: blur(10px);
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 70%;
+      height: 110%;
+      background: radial-gradient(ellipse 1000px 500px at 100% -30%, rgba(78, 163, 255, 0.4), transparent 65%);
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
     }
     .hero-badge {
       display: inline-block;
@@ -177,7 +477,7 @@
     .hero h1 {
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 800;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     .hero p {
       color: var(--text-muted);
@@ -276,11 +576,37 @@
       cursor: pointer;
       transition: var(--transition);
       color: var(--text);
+      position: relative;
     }
     .filter-btn.active {
       background: var(--accent);
       border-color: var(--accent);
       color: white;
+    }
+    /* Multi-select visual feedback */
+    #genreButtons .filter-btn.active[data-value]:not([data-value="all"])::after {
+      content: "✓";
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    #genreButtons .filter-btn[data-value="all"].active {
+      background: var(--accent);
+    }
+    #genreButtons .filter-btn[data-value="all"] {
+      margin-bottom: 0.5rem;
+    }
+    .genre-count-indicator {
+      display: inline-block;
+      margin-left: 0.5rem;
+      background: rgba(78, 163, 255, 0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      color: var(--accent);
     }
     .search-input {
       width: 100%;
@@ -442,48 +768,73 @@
 
     /* Responsive */
     @media (max-width: 640px) {
-      .hero { padding: 2rem 1rem; }
-      .stats { gap: 1rem; }
-      .stat { padding: 0.5rem 1rem; }
+      .hero { 
+        padding: 3rem 1rem 2rem;
+        min-height: 380px;
+      }
+      .hero p { font-size: 0.95rem; }
+      .stats { gap: 0.8rem; }
+      .stat { padding: 0.4rem 0.8rem; }
       .game-grid { gap: 1rem; padding: 0 1rem 2rem; }
       .filters-bar { margin: 0 1rem 0.5rem; }
       .filters-panel { margin: 0 1rem 1.5rem; }
     }
     @media (max-width: 480px) {
       .game-grid { grid-template-columns: 1fr; }
+      .hero {
+        min-height: 320px;
+      }
+    }
+    @media (min-width: 1400px) {
+      .hero {
+        min-height: 580px;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar" id="navbar">
-    <a href="index.html" class="logo">
-      <img src="IMG/Empresa/Logo.png" alt="Jarvis Digital">
-    </a>
-    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menú">
-      <i class="fas fa-bars"></i>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="logo">
+    <img src="IMG/Empresa/Logo.png" class="brand-logo" alt="Jarvis Digital">
+  </a>
+
+  <button class="icon-button menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <ul class="nav-links">
+    <li><a href="collection-p5.html" class="active">Catálogo</a></li>
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="registro.html">Registro</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="icon-button" id="themeToggle">
+      <i class="fas fa-sun"></i>
     </button>
-    <ul class="nav-links">
-      <li><a href="collection-p5.html" class="active">Catálogo</a></li>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="registro.html">Registro</a></li>
-      <li><a href="PS-Details.html?id=spider-man-3">Demo Detalle</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="icon-btn" id="themeToggle"><i class="fas fa-sun"></i></button>
-      <button class="icon-btn" id="currencyToggle"><span id="currencyLabel">USD</span></button>
-      <button class="cart-btn"><i class="fas fa-cart-shopping"></i> <span id="cartCount">0</span></button>
-    </div>
-  </nav>
+
+    <button class="icon-button" id="currencyToggle">
+      <span id="currencyLabel">USD</span>
+    </button>
+
+    <button class="icon-button">
+      <i class="fas fa-cart-shopping"></i>
+      <span id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
 
   <main>
     <div class="hero">
-      <div class="hero-badge"><i class="fas fa-bolt"></i> Catálogo Inteligente</div>
-      <h1>Colección PlayStation<br>PS5 · PS4 · PS3</h1>
-      <p>Explora, filtra y descubre todos los juegos con información actualizada. Fichas detalladas, precios dinámicos y orden inteligente.</p>
-      <div class="stats">
-        <div class="stat"><span>Juegos</span><span id="gamesCount">0</span></div>
-        <div class="stat"><span>Plataformas</span><span>3</span></div>
-        <div class="stat"><span>Géneros</span><span id="genresCount">0</span></div>
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-bolt"></i> Catálogo Inteligente</div>
+        <h1>Colección PlayStation<br>PS5 · PS4 · PS3</h1>
+        <p>Explora, filtra y descubre todos los juegos con información actualizada. Fichas detalladas, precios dinámicos y orden inteligente.</p>
+        <div class="stats">
+          <div class="stat"><span>Juegos</span><span id="gamesCount">0</span></div>
+          <div class="stat"><span>Plataformas</span><span>3</span></div>
+          <div class="stat"><span>Géneros</span><span id="genresCount">0</span></div>
+        </div>
       </div>
     </div>
 
@@ -507,8 +858,8 @@
         </div>
       </div>
       <div class="filter-group">
-        <h4>Género</h4>
-        <div class="filter-buttons" id="genreButtons">
+        <h4>Género (selecciona hasta 6)</h4>
+        <div class="filter-buttons" id="genreButtons" data-multi-select="true" data-max-select="6">
           <button class="filter-btn active" data-filter="genre" data-value="all">Todos</button>
         </div>
       </div>
@@ -527,6 +878,7 @@
           <button class="filter-btn" data-sort="featured">Destacados</button>
           <button class="filter-btn active" data-sort="recent">Más recientes</button>
           <button class="filter-btn" data-sort="rating">Mejor valorados</button>
+          <button class="filter-btn" data-sort="upcoming">Próximamente</button>
         </div>
       </div>
       <div class="filter-group">
@@ -748,25 +1100,37 @@
     // Filtrar y ordenar
     function applyFilters() {
       const platform = document.querySelector('[data-filter="platform"].active')?.dataset.value || 'all';
-      const genre = document.querySelector('[data-filter="genre"].active')?.dataset.value || 'all';
-      const price = document.querySelector('[data-filter="price"].active')?.dataset.value || 'all';
+      const priceFilter = document.querySelector('[data-filter="price"].active')?.dataset.value || 'all';
       const sort = document.querySelector('[data-sort].active')?.dataset.sort || 'recent';
       const query = searchInput.value.trim().toLowerCase();
+      
+      // Multi-select de géneros
+      const selectedGenres = Array.from(document.querySelectorAll('#genreButtons .filter-btn.active'))
+        .map(btn => btn.dataset.value)
+        .filter(val => val && val !== 'all');
+      const hasGenreFilter = selectedGenres.length > 0;
 
       let filtered = currentGames.filter(game => {
         if (platform !== 'all' && game.platform !== platform) return false;
-        if (genre !== 'all' && !(game.genres || []).some(g => g.toLowerCase() === genre.toLowerCase())) return false;
+        
+        // Filtro de géneros: si hay selección, al menos uno debe coincidir
+        if (hasGenreFilter) {
+          const match = (game.genres || []).some(g => 
+            selectedGenres.some(selected => g.toLowerCase() === selected.toLowerCase())
+          );
+          if (!match) return false;
+        }
         
         // precio
         let numericPrice = null;
         if (selectedCurrency === 'USD') numericPrice = game.price !== undefined ? Number(game.price) : null;
         else numericPrice = game.pricecu !== undefined ? Number(game.pricecu) : (game.price ? Number(game.price)*exchangeRateCU : null);
         
-        if (price !== 'all') {
+        if (priceFilter !== 'all') {
           if (numericPrice === null) return false;
-          if (price === 'budget' && numericPrice > 30) return false;
-          if (price === 'mid' && (numericPrice <= 30 || numericPrice > 60)) return false;
-          if (price === 'premium' && numericPrice <= 60) return false;
+          if (priceFilter === 'budget' && numericPrice > 30) return false;
+          if (priceFilter === 'mid' && (numericPrice <= 30 || numericPrice > 60)) return false;
+          if (priceFilter === 'premium' && numericPrice <= 60) return false;
         }
         
         if (query) {
@@ -784,6 +1148,16 @@
         filtered.sort((a,b)=> (Number(b.release)||0) - (Number(a.release)||0));
       } else if (sort === 'rating') {
         filtered.sort((a,b)=> (Number(b.rating)||0) - (Number(a.rating)||0));
+      } else if (sort === 'upcoming') {
+        // Próximamente: mostrar primero los que tienen estado "Próximamente"
+        filtered.sort((a,b) => {
+          const aIsUpcoming = String(a.status || '').toLowerCase().includes('próximamente');
+          const bIsUpcoming = String(b.status || '').toLowerCase().includes('próximamente');
+          if (aIsUpcoming && !bIsUpcoming) return -1;
+          if (!aIsUpcoming && bIsUpcoming) return 1;
+          // Si ambos son próximamente, ordenar por fecha de lanzamiento
+          return (Number(a.release)||0) - (Number(b.release)||0);
+        });
       } else { // featured
         filtered.sort((a,b)=> {
           let ia = curatedFeaturedIds.indexOf(a.id);
@@ -814,9 +1188,18 @@
 
     function updateActiveFilterCount() {
       let count = 0;
-      document.querySelectorAll('.filter-btn.active').forEach(btn => {
-        if (btn.dataset.value && btn.dataset.value !== 'all') count++;
-      });
+      // Contar filtros de plataforma
+      const platformActive = document.querySelector('[data-filter="platform"].active');
+      if (platformActive && platformActive.dataset.value !== 'all') count++;
+      
+      // Contar géneros seleccionados (múltiples)
+      const genresSelected = document.querySelectorAll('#genreButtons .filter-btn.active:not([data-value="all"])').length;
+      count += genresSelected;
+      
+      // Contar filtro de precio
+      const priceActive = document.querySelector('[data-filter="price"].active');
+      if (priceActive && priceActive.dataset.value !== 'all') count++;
+      
       if (searchInput.value.trim()) count++;
       if (count > 0) {
         activeFilterBadge.style.display = 'inline-block';
@@ -827,14 +1210,28 @@
     }
 
     function clearFilters() {
-      // Limpiar filtros
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.filter-group .filter-buttons').forEach(group => {
-        let first = group.querySelector('.filter-btn');
-        if (first) first.classList.add('active');
+      // Limpiar filtros: deseleccionar todos excepto los "Todos"
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.value === 'all' || !btn.dataset.value) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
       });
       
-      // Forzar orden a "Más recientes" al restablcer
+      // Asegurar que todos los grupos tengan su botón "Todos" activo
+      document.querySelectorAll('.filter-buttons').forEach(group => {
+        const allBtn = group.querySelector('[data-value="all"]');
+        if (allBtn && group.dataset.multiSelect !== 'true') {
+          group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          allBtn.classList.add('active');
+        } else if (allBtn && group.dataset.multiSelect === 'true') {
+          group.querySelectorAll('[data-value]:not([data-value="all"])').forEach(b => b.classList.remove('active'));
+          allBtn.classList.add('active');
+        }
+      });
+      
+      // Forzar orden a "Más recientes" al restablecer
       document.querySelectorAll('[data-sort]').forEach(btn => btn.classList.remove('active'));
       const recentBtn = document.querySelector('[data-sort="recent"]');
       if (recentBtn) recentBtn.classList.add('active');
@@ -898,14 +1295,45 @@
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const group = btn.closest('.filter-buttons');
-          if (group) {
+          const isMultiSelect = group?.dataset.multiSelect === 'true';
+          const isSortGroup = btn.dataset.sort !== undefined;
+          const maxSelect = parseInt(group?.dataset.maxSelect) || Infinity;
+          
+          if (isMultiSelect && btn.dataset.value !== 'all') {
+            // Multi-select: permitir múltiples selecciones
+            const selectedCount = group.querySelectorAll('.filter-btn.active:not([data-value="all"])').length;
+            
+            if (btn.classList.contains('active')) {
+              // Deseleccionar
+              btn.classList.remove('active');
+            } else {
+              // Seleccionar si no se alcanzó el máximo
+              if (selectedCount < maxSelect) {
+                btn.classList.add('active');
+                // Deseleccionar "Todos" si se selecciona un específico
+                const allBtn = group.querySelector('[data-value="all"]');
+                if (allBtn) allBtn.classList.remove('active');
+              }
+            }
+          } else if (btn.dataset.value === 'all') {
+            // Si es "Todos", deseleccionar los demás
+            group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          } else if (isSortGroup) {
+            // Sort: siempre debe haber uno activo (no permitir deseleccionar)
+            group.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          } else {
+            // Single-select normal: deseleccionar otros
             group.querySelectorAll('.filter-btn, [data-sort]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
           }
-          btn.classList.add('active');
+          
           applyFilters();
           if (window.innerWidth <= 640) toggleFiltersPanel(false);
         });
       });
+      
       searchInput.addEventListener('input', () => applyFilters());
       clearFiltersBtn.addEventListener('click', clearFilters);
       filtersToggleBtn.addEventListener('click', () => toggleFiltersPanel());

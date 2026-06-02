@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-01T11:46:13.721264Z",
+  "lastUpdated": "2026-06-02T00:24:22.042170Z",
   "totalGames": 1063,
   "totalChanges": 0,
   "games": {
     "spider-man-2": {
-      "hash": "34483abad077b88f",
-      "version": 1,
+      "hash": "568f22f4a434ed3c",
+      "version": 4,
       "isNew": false,
       "firstAdded": "2026-06-01T10:09:14.005957+00:00",
-      "lastChanged": "2026-06-01T10:09:14.005957+00:00",
-      "changeCount": 0,
+      "lastChanged": "2026-06-02T00:08:40.742399Z",
+      "changeCount": 3,
       "changedFields": [],
       "data": {
         "id": "spider-man-2",
@@ -47,7 +47,7 @@
         ],
         "gameVersion": "2.001.000",
         "firmwareRequired": "PS5 8.20+",
-        "lastContentUpdate": "2026-06-01T14:32:00Z",
+        "lastContentUpdate": "2026-06-02T00:08:40.742399Z",
         "hasNewUpdates": true,
         "note": {
           "title": "Actualización de simbionte y rendimiento",
@@ -56,7 +56,7 @@
           "info": "Parche 2.001 mejora la tasa de fotogramas, combates mejorados contra simbiontes...",
           "link": "https://insomniac.games/spiderman2/parche-notas",
           "backport": "No aplica a PS4",
-          "timestamp": "2026-06-01T14:32:00Z",
+          "timestamp": "2026-06-02T00:08:40.742399Z",
           "version": "2.001.000",
           "isNew": true
         },
@@ -68,7 +68,7 @@
             "info": "El juego utiliza paquete FFPKG cifrado con claves específicas...",
             "link": "https://developer.sony.com/ffpkg-spec",
             "badge": "FFPKG",
-            "timestamp": "2023-10-12T00:00:00Z",
+            "timestamp": "2026-06-02T00:08:40.742399Z",
             "extra": {
               "type": "ffpkg",
               "version": "v1"
@@ -81,7 +81,7 @@
             "info": "Versión actualizada del paquete con mejor compresión...",
             "link": "https://developer.sony.com/ffpkg-v2",
             "badge": "FFPKG v2",
-            "timestamp": "2025-03-15T08:00:00Z"
+            "timestamp": "2026-06-02T00:08:40.742399Z"
           },
           {
             "id": "exfat-folder",
@@ -90,7 +90,7 @@
             "info": "Debe estar formateado en EXFAT y soportar USB 3.0.",
             "badge": "EXFAT",
             "backport": "No compatible con PS4",
-            "timestamp": "2023-09-22T00:00:00Z"
+            "timestamp": "2026-06-02T00:08:40.742399Z"
           },
           {
             "id": "folder-structure",
@@ -98,22 +98,29 @@
             "author": "Sony QA",
             "info": "Los saves se ubican en `/user/app/MarvelSpiderMan2/`...",
             "badge": "Sistema de archivos",
-            "timestamp": "2023-10-18T00:00:00Z"
+            "timestamp": "2026-06-02T00:08:40.742399Z"
           }
         ],
-        "_score": 0.6354316330904416,
+        "_score": 0.47593163309044156,
         "_origStatus": "Disponible",
         "autoCuration": ""
       }
     },
     "red-dead-redemption-2": {
-      "hash": "d8e5ec4a5d082674",
-      "version": 1,
+      "hash": "79c35c742c850b4d",
+      "version": 2,
       "isNew": false,
       "firstAdded": "2026-06-01T10:09:14.005957+00:00",
-      "lastChanged": "2026-06-01T10:09:14.005957+00:00",
-      "changeCount": 0,
-      "changedFields": [],
+      "lastChanged": "2026-06-01T23:52:41.048857Z",
+      "changeCount": 1,
+      "changedFields": [
+        "hasNewUpdates",
+        "technicalNotes",
+        "note",
+        "lastContentUpdate",
+        "gameVersion",
+        "firmwareRequired"
+      ],
       "data": {
         "id": "red-dead-redemption-2",
         "title": "Red Dead Redemption 2",
@@ -148,9 +155,422 @@
         "previewImages": [
           "IMG/PS5/red-dead-redemption2.avif"
         ],
+        "gameVersion": "1.32",
+        "firmwareRequired": "PS4 5.05+ / PS5 6.50+",
         "autoCuration": "Destacado",
-        "note": null,
-        "technicalNotes": []
+        "note": {
+          "title": "Red Dead Redemption 2 – v1.32 Ultimate Edition (EUR/USA)",
+          "info": "Disponible en CUSA08519 (EUR) y CUSA03041 (USA) con todos los DLC, parche 60 FPS (opcional) y actualizaciones para PS4/PS5. Créditos: @Opoisso893, @DUPLEX, @Fugazi, @High-Speed007 y colaboradores. Password: DLPSGAME.COM (algunas versiones usan 'hako').",
+          "timestamp": "2026-06-01T23:52:41.048857Z",
+          "isNew": true
+        },
+        "technicalNotes": [
+          {
+            "id": "cusa08519-eur-opoissogolemnight",
+            "title": "CUSA08519 – EUR (v1.32)(@Opoisso893/Golemnight)",
+            "author": "@Opoisso893/Golemnight",
+            "credits": "Thank @Opoisso893/Golemnight & Dorukhan & Fugazi & SPX",
+            "badge": "CUSA08519-EUR",
+            "timestamp": "2026-06-01T23:52:41.048857Z",
+            "version": "v1.32",
+            "type": "game",
+            "info": "Build: CUSA08519 – EUR. Red Dead Redemption 2 Ultimate Edition. Voice: English. Menu & Subtitles: English, French, Italian, German, Spanish, Danish, Finnish, Dutch, Norwegian, Polish, Czech, Portuguese, Russian, Swedish, Greek, Arabic, Japanese, Korean, Chinese. Incluye Update 1.32 (6.72+), Fix para 5.05 y todos los DLC.",
+            "specs": {
+              "password": "DLPSGAME.COM",
+              "version": "v1.32",
+              "audio": [
+                "English"
+              ],
+              "languages": [
+                "English",
+                "French",
+                "Italian",
+                "German",
+                "Spanish",
+                "Danish",
+                "Finnish",
+                "Dutch",
+                "Norwegian",
+                "Polish",
+                "Czech",
+                "Portuguese",
+                "Russian",
+                "Swedish",
+                "Greek",
+                "Arabic",
+                "Japanese",
+                "Korean",
+                "Chinese"
+              ],
+              "firmware": "PS4 5.05+ / 6.72+"
+            },
+            "downloads": [
+              {
+                "type": "game",
+                "title": "Game Base",
+                "mirrors": {
+                  "lets": "LETS_URL",
+                  "mediafire": "MEDIAFIRE_URL",
+                  "mega": "MEGA_URL",
+                  "buznew": "BUZNEW_URL",
+                  "akia": "AKIA_URL",
+                  "viki": "VIKI_URL",
+                  "rootz": "ROOTZ_URL",
+                  "1file": "1FILE_URL"
+                }
+              },
+              {
+                "type": "update",
+                "title": "Update 1.32 (6.72+)",
+                "mirrors": {
+                  "lets": "LETS_UPDATE_URL",
+                  "mediafire": "MEDIAFIRE_UPDATE_URL",
+                  "mega": "MEGA_UPDATE_URL",
+                  "buznew": "BUZNEW_UPDATE_URL",
+                  "akia": "AKIA_UPDATE_URL",
+                  "viki": "VIKI_UPDATE_URL",
+                  "rootz": "ROOTZ_UPDATE_URL",
+                  "1file": "1FILE_UPDATE_URL"
+                }
+              },
+              {
+                "type": "update_fix",
+                "title": "Update 1.32 (Fix 5.05)",
+                "mirrors": {
+                  "lets": "LETS_FIX_URL",
+                  "mediafire": "MEDIAFIRE_FIX_URL",
+                  "mega": "MEGA_FIX_URL",
+                  "buznew": "BUZNEW_FIX_URL",
+                  "akia": "AKIA_FIX_URL",
+                  "viki": "VIKI_FIX_URL",
+                  "rootz": "ROOTZ_FIX_URL",
+                  "1file": "1FILE_FIX_URL"
+                }
+              },
+              {
+                "type": "dlc",
+                "title": "All DLC",
+                "mirrors": {
+                  "lets": "LETS_DLC_URL",
+                  "mediafire": "MEDIAFIRE_DLC_URL",
+                  "mega": "MEGA_DLC_URL",
+                  "buznew": "BUZNEW_DLC_URL",
+                  "akia": "AKIA_DLC_URL",
+                  "viki": "VIKI_DLC_URL",
+                  "rootz": "ROOTZ_DLC_URL",
+                  "1file": "1FILE_DLC_URL"
+                }
+              }
+            ],
+            "resources": {
+              "dlcContents": "DLC_CONTENTS_URL_HERE",
+              "guide": "https://downloadgameps3.com/guide-download-game/",
+              "tool": "https://downloadgameps3.com/guide-download-game-use-jdownload/"
+            }
+          },
+          {
+            "id": "cusa08519-eur-ps4ps5-phu",
+            "title": "CUSA08519 – EUR (v1.32)(PS4/PS5)",
+            "author": "@Opoisso893/Golemnight & PHU",
+            "credits": "Thank @Opoisso893/Golemnight & PHU. XML Patch by @Arksama001. 60 FPS Unlock.",
+            "badge": "CUSA08519-EUR-60FPS",
+            "timestamp": "2026-06-01T23:52:41.048857Z",
+            "version": "v1.32",
+            "type": "game",
+            "info": "Build: CUSA08519 – EUR. Versión optimizada PS4/PS5 con 60 FPS Unlock. Voice: English. Menu & Subtitles: English, French, Italian, German, Spanish, Danish, Finnish, Dutch, Norwegian, Polish, Czech, Portuguese, Russian, Swedish, Greek, Arabic, Japanese, Korean, Chinese. Tested on PS5 FW 6.50 (1440p, kstuff paused). Incluye Update 1.32 + All DLC integrados.",
+            "specs": {
+              "password": "DLPSGAME.COM",
+              "version": "v1.32",
+              "audio": [
+                "English"
+              ],
+              "languages": [
+                "English",
+                "French",
+                "Italian",
+                "German",
+                "Spanish",
+                "Danish",
+                "Finnish",
+                "Dutch",
+                "Norwegian",
+                "Polish",
+                "Czech",
+                "Portuguese",
+                "Russian",
+                "Swedish",
+                "Greek",
+                "Arabic",
+                "Japanese",
+                "Korean",
+                "Chinese"
+              ],
+              "firmware": "PS4 5.05+ / PS5 6.50+ (60 FPS con kstuff)"
+            },
+            "downloads": [
+              {
+                "type": "game",
+                "title": "Game Base",
+                "mirrors": {
+                  "lets": "LETS_URL",
+                  "mediafire": "MEDIAFIRE_URL",
+                  "akia": "AKIA_URL",
+                  "viki": "VIKI_URL",
+                  "rootz": "ROOTZ_URL",
+                  "1file": "1FILE_URL"
+                }
+              },
+              {
+                "type": "update_dlc",
+                "title": "Update 1.32 + All DLC",
+                "mirrors": {
+                  "lets": "LETS_UPDATE_DLC_URL",
+                  "mediafire": "MEDIAFIRE_UPDATE_DLC_URL",
+                  "akia": "AKIA_UPDATE_DLC_URL",
+                  "viki": "VIKI_UPDATE_DLC_URL",
+                  "rootz": "ROOTZ_UPDATE_DLC_URL",
+                  "1file": "1FILE_UPDATE_DLC_URL"
+                }
+              },
+              {
+                "type": "update_dlc_60fps",
+                "title": "Update 1.32 + All DLC + 60 FPS",
+                "mirrors": {
+                  "lets": "LETS_60FPS_URL",
+                  "mediafire": "MEDIAFIRE_60FPS_URL",
+                  "akia": "AKIA_60FPS_URL",
+                  "viki": "VIKI_60FPS_URL",
+                  "rootz": "ROOTZ_60FPS_URL",
+                  "1file": "1FILE_60FPS_URL"
+                }
+              }
+            ],
+            "notes": {
+              "60fps": "60 FPS Unlock tested on PS5 FW 6.50 (1440p). Need kstuff paused for great result. Probably works in normal version.",
+              "patch": "XML Patch by @Arksama001."
+            },
+            "resources": {
+              "dlcContents": "DLC_CONTENTS_URL_HERE",
+              "guide": "https://downloadgameps3.com/guide-download-game/",
+              "tool": "https://downloadgameps3.com/guide-download-game-use-jdownload/"
+            }
+          },
+          {
+            "id": "cusa08519-eur-duplex",
+            "title": "CUSA08519 – EUR (v1.32)(@DUPLEX)",
+            "author": "@DUPLEX",
+            "credits": "Thank @DUPLEX & hako",
+            "badge": "CUSA08519-EUR-DUPLEX",
+            "timestamp": "2026-06-01T23:52:41.048857Z",
+            "version": "v1.32",
+            "type": "game",
+            "info": "Build: CUSA08519 – EUR. Voice: English. Menu & Subtitles: English, French, Italian, German, Spanish, Danish, Finnish, Dutch, Norwegian, Polish, Czech, Portuguese, Russian, Swedish, Greek, Arabic, Japanese, Korean, Chinese. Update 1.32 (6.72+) y All DLC incluidos.",
+            "specs": {
+              "password": "hako",
+              "version": "v1.32",
+              "audio": [
+                "English"
+              ],
+              "languages": [
+                "English",
+                "French",
+                "Italian",
+                "German",
+                "Spanish",
+                "Danish",
+                "Finnish",
+                "Dutch",
+                "Norwegian",
+                "Polish",
+                "Czech",
+                "Portuguese",
+                "Russian",
+                "Swedish",
+                "Greek",
+                "Arabic",
+                "Japanese",
+                "Korean",
+                "Chinese"
+              ],
+              "firmware": "6.72+"
+            },
+            "downloads": [
+              {
+                "type": "game",
+                "title": "Game Base",
+                "mirrors": {
+                  "transit": "TRANSIT_URL",
+                  "pixel": "PIXEL_URL"
+                }
+              },
+              {
+                "type": "update",
+                "title": "Update 1.32 (6.72+)",
+                "mirrors": {
+                  "transit": "TRANSIT_UPDATE_URL",
+                  "pixel": "PIXEL_UPDATE_URL"
+                }
+              },
+              {
+                "type": "dlc",
+                "title": "All DLC",
+                "mirrors": {
+                  "transit": "TRANSIT_DLC_URL",
+                  "pixel": "PIXEL_DLC_URL"
+                }
+              }
+            ],
+            "resources": {
+              "dlcContents": "DLC_CONTENTS_URL_HERE",
+              "guide": "https://downloadgameps3.com/guide-download-game/",
+              "tool": "https://downloadgameps3.com/guide-download-game-use-jdownload/"
+            }
+          },
+          {
+            "id": "cusa03041-usa-fugazi",
+            "title": "CUSA03041 – USA (v1.32)(@Fugazi)",
+            "author": "@Fugazi",
+            "credits": "Thank @Fugazi & Mtsrefrg",
+            "badge": "CUSA03041-USA",
+            "timestamp": "2026-06-01T23:52:41.048857Z",
+            "version": "v1.32",
+            "type": "game",
+            "info": "Build: CUSA03041 – USA. Voice: English. Menu & Subtitles: Eng, Fra, Spa, Ger, Ita, Rus, Pol, Spa/Lat, Por/Bra, Chi, Kor. Update 1.32 (5.05+) y All DLC incluidos.",
+            "specs": {
+              "password": "DLPSGAME.COM",
+              "version": "v1.32",
+              "audio": [
+                "English"
+              ],
+              "languages": [
+                "English",
+                "French",
+                "Spanish",
+                "German",
+                "Italian",
+                "Russian",
+                "Polish",
+                "Spanish (Latin)",
+                "Portuguese (Brazil)",
+                "Chinese",
+                "Korean"
+              ],
+              "firmware": "5.05+"
+            },
+            "downloads": [
+              {
+                "type": "game",
+                "title": "Game Base",
+                "mirrors": {
+                  "lets": "LETS_URL",
+                  "mediafire": "MEDIAFIRE_URL",
+                  "akia": "AKIA_URL",
+                  "viki": "VIKI_URL",
+                  "buznew": "BUZNEW_URL",
+                  "rootz": "ROOTZ_URL",
+                  "1file": "1FILE_URL"
+                }
+              },
+              {
+                "type": "update",
+                "title": "Update 1.32 (5.05+)",
+                "mirrors": {
+                  "lets": "LETS_UPDATE_URL",
+                  "mediafire": "MEDIAFIRE_UPDATE_URL",
+                  "akia": "AKIA_UPDATE_URL",
+                  "viki": "VIKI_UPDATE_URL",
+                  "buznew": "BUZNEW_UPDATE_URL",
+                  "rootz": "ROOTZ_UPDATE_URL",
+                  "1file": "1FILE_UPDATE_URL"
+                }
+              },
+              {
+                "type": "dlc",
+                "title": "All DLC",
+                "mirrors": {
+                  "lets": "LETS_DLC_URL",
+                  "mediafire": "MEDIAFIRE_DLC_URL",
+                  "akia": "AKIA_DLC_URL",
+                  "viki": "VIKI_DLC_URL",
+                  "buznew": "BUZNEW_DLC_URL",
+                  "rootz": "ROOTZ_DLC_URL",
+                  "1file": "1FILE_DLC_URL"
+                }
+              }
+            ],
+            "resources": {
+              "dlcContents": "DLC_CONTENTS_URL_HERE",
+              "guide": "https://downloadgameps3.com/guide-download-game/",
+              "tool": "https://downloadgameps3.com/guide-download-game-use-jdownload/"
+            }
+          },
+          {
+            "id": "cusa03041-usa-highspeed",
+            "title": "CUSA03041 – USA (v1.32)(PS4/PS5)(@High-Speed007)",
+            "author": "@High-Speed007",
+            "credits": "By High-Speed007. 60 FPS Patch integrated. Thanks to BestPig for backport.",
+            "badge": "CUSA03041-USA-60FPS",
+            "timestamp": "2026-06-01T23:52:41.048857Z",
+            "version": "v1.32",
+            "type": "game",
+            "info": "Build: CUSA03041 – USA. Parche 60 FPS integrado (solo kstuff). Game + Update 1.32 + All DLC Merged. Languages: Eng, Fra, Spa, Ger, Ita, Rus, Pol, Spa/Lat, Por/Bra, Chi, Kor. Works on 5.xx and higher.",
+            "specs": {
+              "password": "DLPSGAME.COM",
+              "version": "v1.32",
+              "audio": [
+                "English"
+              ],
+              "languages": [
+                "English",
+                "French",
+                "Spanish",
+                "German",
+                "Italian",
+                "Russian",
+                "Polish",
+                "Spanish (Latin)",
+                "Portuguese (Brazil)",
+                "Chinese",
+                "Korean"
+              ],
+              "firmware": "5.xx and higher (PS4/PS5)"
+            },
+            "downloads": [
+              {
+                "type": "game",
+                "title": "Game Base [CUSA03041][1.32][60FPS Patch + ALL DLC]",
+                "mirrors": {
+                  "lets": "LETS_URL",
+                  "mediafire": "MEDIAFIRE_URL",
+                  "akia": "AKIA_URL",
+                  "viki": "VIKI_URL",
+                  "1file": "1FILE_URL"
+                }
+              },
+              {
+                "type": "update_dlc_merged",
+                "title": "Update 1.32 + All DLC Merged",
+                "mirrors": {
+                  "lets": "LETS_UPDATE_MERGED_URL",
+                  "mediafire": "MEDIAFIRE_UPDATE_MERGED_URL",
+                  "akia": "AKIA_UPDATE_MERGED_URL",
+                  "viki": "VIKI_UPDATE_MERGED_URL",
+                  "1file": "1FILE_UPDATE_MERGED_URL"
+                }
+              }
+            ],
+            "notes": {
+              "60fps": "60 FPS patch integrated; run kstuff only and run game.",
+              "firmware": "Works on 5.xx and higher."
+            },
+            "resources": {
+              "guide": "https://downloadgameps3.com/guide-download-game/",
+              "tool": "https://downloadgameps3.com/guide-download-game-use-jdownload/"
+            }
+          }
+        ],
+        "lastContentUpdate": "2026-06-01T23:52:41.048857Z",
+        "hasNewUpdates": false
       }
     },
     "tlou-3": {
@@ -246,12 +666,12 @@
       }
     },
     "elden-ring": {
-      "hash": "0269fa777df24ddb",
-      "version": 1,
+      "hash": "98f339f2c942fbf4",
+      "version": 5,
       "isNew": false,
       "firstAdded": "2026-06-01T10:09:14.005957+00:00",
-      "lastChanged": "2026-06-01T10:09:14.005957+00:00",
-      "changeCount": 0,
+      "lastChanged": "2026-06-02T00:08:40.741538Z",
+      "changeCount": 4,
       "changedFields": [],
       "data": {
         "id": "elden-ring",
@@ -281,7 +701,7 @@
         "status": "Disponible",
         "trailer": "https://www.youtube.com/watch?v=0uav6zQKi4w",
         "bannerImage": "IMG/PS5/Banner/Eleden-Ring.avif",
-        "_score": 0.5880000000000001,
+        "_score": 0.434,
         "_origStatus": "Disponible",
         "previewImages": [
           "IMG/PS5/Banner/Eleden-Ring.avif",
@@ -289,14 +709,14 @@
         ],
         "autoCuration": "",
         "hasNewUpdates": true,
-        "lastContentUpdate": "2026-06-01T09:43:56.945361Z",
+        "lastContentUpdate": "2026-06-02T00:08:40.741538Z",
         "note": {
           "title": "Versión PPSA04610 con DLC Shadow of the Erdtree Desbloqueado",
           "author": "High-Speed007",
           "noteId": "ER-PPSA04610-2026",
           "info": "Nueva versión disponible: PPSA04610 – USA. Incluye Shadow of The Erdtree DLC desbloqueado y fusionado. Compatible con PS5 3.xx y superior. Tamaño: 188 GB.",
           "link": "https://downloadgameps3.net/archives/26977",
-          "timestamp": "2026-06-01T09:43:56.945361Z",
+          "timestamp": "2026-06-02T00:08:40.741538Z",
           "version": "01.017",
           "isNew": true,
           "downloadLinks": {
@@ -319,7 +739,7 @@
             "author": "High-Speed007",
             "info": "Build: PPSA04610 – USA. Versssión del juego: v01.017. Shadow of The Erdtree DLC desbloqueado e integrado. Voice en Inglés. Soporta: Inglés, Francés (Francia), Portugués (Brasil), Español.",
             "badge": "PPSA04610",
-            "timestamp": "2026-06-01T09:43:56.945361Z"
+            "timestamp": "2026-06-02T00:08:40.741538Z"
           },
           {
             "id": "er-dlc-included",
@@ -327,7 +747,7 @@
             "author": "FromSoftware",
             "info": "El DLC está desbloqueado y fusionado en el juego principal. No requiere descarga adicional. Acceso completo a todas las áreas desde el inicio.",
             "badge": "DLC COMPLETO",
-            "timestamp": "2026-06-01T09:43:56.945361Z"
+            "timestamp": "2026-06-02T00:08:40.741538Z"
           },
           {
             "id": "er-compatibility",
@@ -335,7 +755,7 @@
             "author": "Sony QA",
             "info": "Compatible con PS5 firmware 3.xx y superior. Extraer archivo completamente antes de ejecutar (188 GB). Recomendado almacenamiento externo USB 3.0.",
             "badge": "PS5 3.xx+",
-            "timestamp": "2026-06-01T09:43:56.945361Z"
+            "timestamp": "2026-06-02T00:08:40.741538Z"
           },
           {
             "id": "er-extraction",
@@ -344,7 +764,7 @@
             "info": "Usar JDownload para descargar múltiples espejos simultáneamente. Contraseña para archivos: DLPSGAME.COM. Tamaño final después de extraer: 188 GB.",
             "badge": "DESCARGA",
             "link": "https://downloadgameps3.com/guide-download-game/",
-            "timestamp": "2026-06-01T09:43:56.945361Z"
+            "timestamp": "2026-06-02T00:08:40.741538Z"
           }
         ]
       }
@@ -1862,20 +2282,14 @@
       }
     },
     "pragmata": {
-      "hash": "ab51513fd078b42a",
-      "version": 2,
+      "hash": "b16a3bb9d0e9de32",
+      "version": 3,
       "isNew": false,
       "firstAdded": "2026-06-01T10:09:14.005957+00:00",
-      "lastChanged": "2026-06-01T11:45:16.577943Z",
-      "changeCount": 1,
+      "lastChanged": "2026-06-01T23:54:13.518027Z",
+      "changeCount": 2,
       "changedFields": [
-        "gameVersion",
-        "note",
-        "pricecu",
-        "firmwareRequired",
-        "lastContentUpdate",
-        "hasNewUpdates",
-        "technicalNotes"
+        "_score"
       ],
       "data": {
         "id": "pragmata",
@@ -1907,7 +2321,7 @@
         "status": "Disponible",
         "trailer": "https://www.youtube.com/watch?v=oncaa_fMsyw",
         "bannerImage": "IMG/PS5/Banner/pragmata-banner.webp",
-        "_score": 0.784,
+        "_score": 0.6020000000000001,
         "_origStatus": "Disponible",
         "previewImages": [
           "IMG/PS5/Banner/pragmata-banner.webp",
@@ -1919,7 +2333,7 @@
         "note": {
           "title": "PPSA02530 Disponible - Deluxe Edition con DLC",
           "info": "Versión USA completa con DLC. Créditos: @DUPLEX y @SiESPta Team. Disponible en múltiples servidores. Password: DLPSGAME.COM",
-          "timestamp": "2026-06-01T11:45:16.577943Z",
+          "timestamp": "2026-06-01T23:54:13.518027Z",
           "isNew": true
         },
         "technicalNotes": [
@@ -1929,7 +2343,7 @@
             "author": "@DUPLEX",
             "credits": "Thank @DUPLEX and @SiESPta Team. Thanks to BestPig for backport.",
             "badge": "PPSA02530-DELUXE",
-            "timestamp": "2026-06-01T11:45:16.577943Z",
+            "timestamp": "2026-06-01T23:54:13.518027Z",
             "version": "v01.2000",
             "type": "game",
             "info": "Build: PPSA02530 – USA. Versión v01.2000. Deluxe Edition con DLC. Voice: Chinese, English, French (France), German, Italian, Japanese, Korean, Portuguese (Brazil), Russian, Spanish, Spanish (Mexico). Screen Languages: Arabic, Chinese (Simplified), Chinese (Traditional), English, French (France), German, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian, Spanish, Spanish (Mexico). Works on 11.xx and higher. Backport 5.xx+.",
@@ -2014,7 +2428,7 @@
             "author": "@DUPLEX",
             "credits": "By Pippo26442999 x SiESPTA. Thanks to DUPLEX & SiESPta for Files and BestPig & rocknard for BackPort.",
             "badge": "PPSA02530-DELUXE-EXFAT",
-            "timestamp": "2026-06-01T11:45:16.577943Z",
+            "timestamp": "2026-06-01T23:54:13.518027Z",
             "version": "v01.200",
             "type": "game",
             "format": "exFAT",
@@ -2086,7 +2500,7 @@
             }
           }
         ],
-        "lastContentUpdate": "2026-06-01T11:45:16.577943Z",
+        "lastContentUpdate": "2026-06-01T23:54:13.518027Z",
         "hasNewUpdates": true
       }
     },
@@ -2588,17 +3002,13 @@
       }
     },
     "crimson-desert": {
-      "hash": "bca8ff81f40501c4",
-      "version": 3,
+      "hash": "01cdb5c2a486d665",
+      "version": 8,
       "isNew": false,
       "firstAdded": "2026-06-01T10:09:14.005957+00:00",
-      "lastChanged": "2026-06-01T10:45:05.488096Z",
-      "changeCount": 2,
-      "changedFields": [
-        "note",
-        "lastContentUpdate",
-        "technicalNotes"
-      ],
+      "lastChanged": "2026-06-02T00:24:21.996075Z",
+      "changeCount": 7,
+      "changedFields": [],
       "data": {
         "id": "crimson-desert",
         "title": "Crimson Desert",
@@ -2628,18 +3038,20 @@
         "image": "IMG/PS5/crimson-desert.avif",
         "bannerImage": "IMG/PS5/Banner/crimson-desert.avif",
         "status": "Estrenado",
-        "trailer": "https://www.youtube.com/watch?v=H8N4j6d3k4g",
-        "_score": 0.806,
+        "trailer": "https://www.youtube.com/watch?v=YHhwdyWkwTQ",
+        "_score": 0.618,
         "_origStatus": "Estrenado",
         "previewImages": [
           "IMG/PS5/Banner/crimson-desert.avif",
           "IMG/PS5/crimson-desert.avif"
         ],
+        "gameVersion": "1.000.151",
+        "firmwareRequired": "PS5 11.00+",
         "autoCuration": "",
         "note": {
           "title": "PPSA25286 Disponible - Deluxe Edition con DLC Desbloqueado",
           "info": "Versión USA completa con DLC. Créditos: @DUPLEX y @SiESPta Team. Disponible en múltiples servidores. Password: DLPSGAME.COM",
-          "timestamp": "2026-06-01T10:45:05.488096Z",
+          "timestamp": "2026-06-02T00:24:21.996075Z",
           "isNew": true
         },
         "technicalNotes": [
@@ -2649,7 +3061,7 @@
             "author": "@DUPLEX",
             "credits": "Thank @DUPLEX and @SiESPta Team",
             "badge": "PPSA25286-DELUXE",
-            "timestamp": "2026-06-01T10:45:05.488096Z",
+            "timestamp": "2026-06-02T00:24:21.996075Z",
             "version": "v01.000.151",
             "type": "game",
             "info": "Build: PPSA25286 – USA. Versión v01.000.151. Deluxe Edition con DLC desbloqueado e integrado. Audio: English, Korean, Chinese. Soporta: Chinese, German, English, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese, Russian, Turkish. Compatible con 11.xx y superior.",
@@ -2724,7 +3136,7 @@
             "author": "@High-Speed007",
             "credits": "Thanks to BestPig for backport game",
             "badge": "PPSA25286",
-            "timestamp": "2026-06-01T10:45:05.488096Z",
+            "timestamp": "2026-06-02T00:24:21.996075Z",
             "version": "v01.000.151",
             "type": "game",
             "info": "Build: PPSA25286 – USA. Versión v01.000.151. Audio: Chinese, English, Korean. Soporta: Chinese (Simplified/Traditional), English, French (France), German, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian, Spanish, Spanish (Mexico), Turkish. Compatible 12.xx a 5.xx (Backport required).",
@@ -2785,7 +3197,7 @@
             "author": "@DUPLEX",
             "credits": "By Pippo26442999 x SiESPTA. Thanks to DUPLEX & SiESPTA for Files and BestPig for BackPort",
             "badge": "PPSA25286-DELUXE-EXFAT",
-            "timestamp": "2026-06-01T10:45:05.488096Z",
+            "timestamp": "2026-06-02T00:24:21.996075Z",
             "version": "v01.000.151",
             "type": "game",
             "format": "exFAT",
@@ -2852,7 +3264,7 @@
             "author": "@High-Speed007",
             "credits": "By Pippo26442999 x SiESPTA. Thanks to High-Speed007 for Files and BestPig for BackPort",
             "badge": "PPSA25286-EXFAT",
-            "timestamp": "2026-06-01T10:45:05.488096Z",
+            "timestamp": "2026-06-02T00:24:21.996075Z",
             "version": "v01.000.151",
             "type": "game",
             "format": "exFAT",
@@ -2903,7 +3315,7 @@
             }
           }
         ],
-        "lastContentUpdate": "2026-06-01T10:45:05.488096Z",
+        "lastContentUpdate": "2026-06-02T00:24:21.996075Z",
         "hasNewUpdates": true
       }
     },

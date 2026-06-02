@@ -1,3 +1,41 @@
+## ✅ GITHUB ACTIONS - SOLUCIÓN RÁPIDA (SIN TERMINAL)
+
+### 🎯 EL PROBLEMA
+
+GitHub rechaza hacer push del workflow con el token actual. **Fácil de resolver.**
+
+---
+
+### ✅ SOLUCIÓN: CREAR EN GITHUB WEB (3 MINUTOS)
+
+#### Paso 1: Ir a GitHub
+
+Ve a: https://github.com/jarvisdigitalsolutions-cyber/JarvisDigitalWeb/new/upload-complete-sony-web
+
+O manualmente:
+1. GitHub.com
+2. Tu repo: JarvisDigitalWeb
+3. Click "Add file" → "Create new file"
+
+---
+
+#### Paso 2: Nombre del archivo
+
+En el campo "Name your file...":
+
+```
+.github/workflows/auto-curate.yml
+```
+
+(GitHub creará la carpeta automáticamente)
+
+---
+
+#### Paso 3: Copiar contenido
+
+En el editor, COPIAR TODO ESTO:
+
+```yaml
 name: 🤖 Auto-Curate Weekly (PS5, PS4, PS3)
 
 on:
@@ -67,7 +105,7 @@ jobs:
         run: |
           git push origin ${{ github.ref }}
       
-      # 8. Resumen de  éxito
+      # 8. Resumen de éxito
       - name: ✨ Completion summary
         run: |
           echo "=========================================="
@@ -79,3 +117,68 @@ jobs:
           echo "📦 Branch: ${{ github.ref }}"
           echo "🚀 Next deployment: Netlify (automatic)"
           echo "=========================================="
+```
+
+---
+
+#### Paso 4: Commit en GitHub
+
+1. Scroll down
+2. En "Commit new file"
+3. Mensaje: `✅ Setup GitHub Actions: Auto-curate workflow`
+4. Click "Commit new file"
+
+**¡LISTO!**
+
+---
+
+### ✅ VERIFICAR QUE FUNCIONA
+
+1. Ve a: https://github.com/jarvisdigitalsolutions-cyber/JarvisDigitalWeb
+2. Pestaña "Actions"
+3. Deberías ver: **"🤖 Auto-Curate Weekly"**
+
+---
+
+### 🧪 PROBAR MANUALMENTE
+
+En GitHub → Actions:
+
+1. Click "🤖 Auto-Curate Weekly"
+2. Click "Run workflow"
+3. Click "Run workflow" (verde)
+4. Ver progreso en tiempo real
+
+---
+
+### 📅 AUTOMATIZACIÓN ACTIVADA
+
+```
+CADA LUNES 00:00 UTC:
+  ✅ Ejecuta automáticamente
+  ✅ Cura PS5, PS4, PS3
+  ✅ Actualiza games.json
+  ✅ Commit + Push automático
+  ✅ Netlify deploya
+  ✅ Web actualizada
+  ✅ TÚ NO HACES NADA
+```
+
+---
+
+## 📊 ESTADO FINAL
+
+| Aspecto | Status |
+|---------|--------|
+| Workflow creado | ✅ Sí |
+| GitHub Actions activo | ✅ Sí |
+| Schedule | ✅ Lunes 00:00 UTC |
+| Automation | ✅ 100% automático |
+| Tu intervención | ✅ 0% |
+
+---
+
+**¿HICISTE LOS PASOS? Entonces está LISTO!**
+
+Cada lunes a las 00:00 UTC se ejecuta automáticamente.
+No tienes que hacer absolutamente nada.

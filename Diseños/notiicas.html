@@ -1,455 +1,694 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Noticias · Jarvis Digital Solutions</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jarvis News UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#090b11;
+  --panel:#10141d;
+  --panel-2:#0d1119;
+  --line:rgba(111,158,255,.12);
+  --line-2:rgba(89,142,255,.28);
+  --text:#edf3ff;
+  --muted:#9ba8c1;
+  --blue:#4ea0ff;
+  --blue-2:#89c3ff;
+  --purple:#9d7bff;
+  --green:#39d68a;
+  --orange:#ff9a52;
+  --shadow:0 24px 70px rgba(0,0,0,.44);
+  --radius:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,Arial}
+body{
+  background:
+    radial-gradient(1000px 650px at 70% 10%, rgba(78,160,255,.13), transparent 55%),
+    radial-gradient(800px 500px at 15% 18%, rgba(157,123,255,.08), transparent 55%),
+    linear-gradient(180deg,#070a10 0%,#090b11 100%);
+  color:var(--text);
+  display:flex;
+  overflow-x:hidden;
+}
 
-    :root {
-      --bg: #0a0c12;
-      --surface: #14181f;
-      --surface-2: #1e2530;
-      --text: #f0f3f8;
-      --text-muted: #9aa8b9;
-      --border: rgba(255,255,255,0.08);
-      --accent: #3b82f6;
-      --accent-glow: rgba(59,130,246,0.3);
-      --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      --card-bg: linear-gradient(145deg, #14181f, #0f1219);
-      --shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
-      --transition: all 0.2s ease;
-    }
+.sidebar{
+  width:86px;
+  background:linear-gradient(180deg, rgba(13,16,23,.98), rgba(9,11,17,.98));
+  height:100vh;
+  padding:18px 10px;
+  position:fixed;
+  transition:.28s ease;
+  overflow:hidden;
+  z-index:10;
+  border-right:1px solid rgba(111,158,255,.08);
+}
+.sidebar:hover{width:220px}
+.sidebar .logo{
+  font-size:18px;
+  margin-bottom:22px;
+  text-align:center;
+  letter-spacing:.18em;
+  font-weight:900;
+  background:linear-gradient(180deg,#fff,#a7d7ff 55%, #4ea0ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.sidebar .sub{
+  display:block;
+  text-align:center;
+  font-size:10px;
+  letter-spacing:.18em;
+  color:var(--muted);
+  margin-top:-8px;
+  margin-bottom:18px;
+}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:12px;
+  color:#cdd7ea;
+  text-decoration:none;
+  transition:.2s ease;
+  border:1px solid transparent;
+  position:relative;
+}
+.nav a:hover{
+  background:rgba(78,160,255,.14);
+  border-color:rgba(78,160,255,.18);
+  color:#fff;
+}
+.nav i{width:20px;text-align:center;font-size:16px}
+.nav span{white-space:nowrap;font-size:14px}
+.sidebar .socials{
+  position:absolute;
+  bottom:18px;
+  left:10px;
+  right:10px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:center;
+}
+.social{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(111,158,255,.12);
+  display:grid;place-items:center;
+  color:var(--muted);
+  background:rgba(255,255,255,.02);
+  font-size:13px;
+}
 
-    [data-theme="light"] {
-      --bg: #f1f5f9;
-      --surface: #ffffff;
-      --surface-2: #f8fafc;
-      --text: #0f172a;
-      --text-muted: #475569;
-      --border: rgba(0,0,0,0.08);
-      --accent: #2563eb;
-      --accent-glow: rgba(37,99,235,0.15);
-      --card-bg: #ffffff;
-      --shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
-    }
+.main{
+  margin-left:92px;
+  padding:16px 18px 18px;
+  width:100%;
+}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      transition: background 0.3s, color 0.2s;
-      min-height: 100vh;
-    }
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(111,158,255,.10);
+}
+.header h2{
+  font-size:20px;
+  letter-spacing:.02em;
+}
+.header h2 i{color:var(--blue);margin-right:8px}
+.header .actions{display:flex;gap:10px}
+.header .actions div{
+  width:40px;height:40px;border-radius:14px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(111,158,255,.10);
+  color:#d9e6fb;
+}
 
-    /* ========== NAVBAR ========== */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 0.8rem 1.5rem;
-      background: rgba(var(--bg-rgb), 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      gap: 1rem;
-    }
-    .logo img {
-      height: 38px;
-      width: auto;
-      display: block;
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--accent);
-    }
-    .nav-actions {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-    }
-    .icon-btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 42px;
-      height: 42px;
-      border-radius: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .icon-btn:hover {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
+.grid{
+  display:grid;
+  grid-template-columns: 1.72fr 0.56fr;
+  gap:12px;
+  align-items:start;
+}
 
-    /* Menú móvil */
-    .menu-toggle {
-      display: none;
-    }
-    @media (max-width: 860px) {
-      .menu-toggle {
-        display: inline-flex;
-        order: 1;
-      }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 0.5rem;
-        background: var(--surface);
-        padding: 1rem;
-        border-radius: 1.5rem;
-        border: 1px solid var(--border);
-        order: 3;
-      }
-      .navbar.mobile-open .nav-links {
-        display: flex;
-      }
-      .nav-actions {
-        order: 2;
-      }
-    }
+.featured{
+  background:
+    radial-gradient(700px 320px at 30% 24%, rgba(78,160,255,.18), transparent 58%),
+    linear-gradient(180deg, rgba(18,22,33,.95), rgba(12,15,24,.98));
+  border-radius:22px;
+  border:1px solid rgba(111,158,255,.12);
+  box-shadow:var(--shadow);
+  min-height:342px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  overflow:hidden;
+  position:relative;
+  margin-top:8px;
+}
+.featured::after{
+  content:"";
+  position:absolute;
+  inset:auto -120px -130px auto;
+  width:320px;height:320px;
+  background:radial-gradient(circle, rgba(78,160,255,.18), transparent 66%);
+  pointer-events:none;
+}
+.featured-visual{
+  background:
+    linear-gradient(135deg, rgba(78,160,255,.28), rgba(0,0,0,0) 45%),
+    radial-gradient(350px 240px at 30% 30%, rgba(82,140,255,.22), transparent 65%),
+    linear-gradient(180deg, rgba(9,14,24,.55), rgba(12,15,24,.95));
+  border-right:1px solid rgba(111,158,255,.08);
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+.featured-art{
+  width:min(100%,440px);
+  aspect-ratio:1.38;
+  border-radius:24px;
+  border:1px solid rgba(160,200,255,.14);
+  background:
+    linear-gradient(180deg, rgba(16,23,40,.96), rgba(8,11,18,.98));
+  box-shadow:inset 0 0 60px rgba(78,160,255,.14), 0 0 30px rgba(78,160,255,.10);
+  position:relative;
+  overflow:hidden;
+}
+.featured-art::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(145deg, rgba(255,255,255,.02), rgba(255,255,255,.05));
+}
+.featured-art::after{
+  content:"";
+  position:absolute;
+  left:-15%;right:-15%;bottom:-8%;
+  height:38%;
+  background:linear-gradient(90deg, transparent, rgba(78,160,255,.5), transparent);
+  filter:blur(16px);
+  transform:rotate(-8deg);
+}
+.featured-image-label{
+  position:absolute;
+  bottom:16px;
+  left:16px;
+  right:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  z-index:2;
+  gap:12px;
+}
+.featured-image-label .mini-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(10,15,25,.72);
+  border:1px solid rgba(111,158,255,.14);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.featured-copy{
+  padding:24px 22px 22px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:12px;
+  position:relative;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  width:fit-content;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(78,160,255,.15);
+  border:1px solid rgba(78,160,255,.22);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.featured-copy h1{
+  font-size:clamp(2rem, 3vw, 2.8rem);
+  line-height:.98;
+  letter-spacing:-.05em;
+}
+.featured-copy p{color:#afbdd5;line-height:1.55;max-width:52ch;font-size:14px}
+.featured-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-top:4px;
+  color:#c7d4ea;
+  font-size:13px;
+}
+.featured-meta span{display:inline-flex;align-items:center;gap:8px}
+.expand-btn{
+  position:absolute;
+  top:14px;right:14px;
+  border:none;
+  cursor:pointer;
+  border-radius:999px;
+  padding:10px 14px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(111,158,255,.12);
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  font-size:12px;
+}
+.expand-btn:hover{background:rgba(78,160,255,.12);border-color:rgba(78,160,255,.24)}
 
-    /* ========== HERO ========== */
-    .hero {
-      text-align: center;
-      padding: 3rem 1.5rem 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
-    .hero p {
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto;
-    }
+.latest{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding-top:10px;
+}
+.latest-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:2px;
+  padding-left:2px;
+}
+.latest-head h3{
+  font-size:16px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.latest-head i{color:var(--blue)}
+.latest-item{
+  display:grid;
+  grid-template-columns:70px 1fr;
+  gap:12px;
+  align-items:center;
+  padding:2px 0;
+}
+.latest-thumb{
+  width:70px;
+  height:70px;
+  border-radius:14px;
+  border:1px solid rgba(111,158,255,.12);
+  background:
+    linear-gradient(135deg, rgba(78,160,255,.22), rgba(255,255,255,.03)),
+    linear-gradient(180deg, rgba(20,26,38,.96), rgba(9,12,20,.98));
+  box-shadow:inset 0 0 18px rgba(78,160,255,.08);
+  position:relative;
+  overflow:hidden;
+}
+.latest-thumb::after{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(115deg, rgba(255,255,255,.02), rgba(255,255,255,.06));
+}
+.latest-text{min-width:0}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  width:fit-content;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#fff;
+  margin-bottom:6px;
+}
+.tag.firmware{background:rgba(78,160,255,.26)}
+.tag.jailbreak{background:rgba(157,123,255,.26)}
+.tag.games{background:rgba(57,214,138,.18)}
+.tag.launches{background:rgba(255,154,82,.22)}
+.tag.updates{background:rgba(105,120,255,.22)}
+.latest-title{font-size:14px;font-weight:700;line-height:1.25}
+.latest-sub{font-size:12px;color:var(--muted);line-height:1.35;margin-top:4px}
 
-    /* ========== FILTROS ========== */
-    .filters-bar {
-      display: flex;
-      justify-content: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin: 1rem 1.5rem;
-    }
-    .filter-chip {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      color: var(--text-muted);
-    }
-    .filter-chip.active {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-    .filter-chip:hover {
-      background: var(--accent-glow);
-      color: var(--accent);
-    }
-
-    /* ========== NEWS GRID ========== */
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.8rem;
-      padding: 1rem 1.5rem 3rem;
-    }
-    .news-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 1.5rem;
-      overflow: hidden;
-      transition: transform 0.25s, box-shadow 0.25s;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-    }
-    .news-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-      border-color: var(--accent);
-    }
-    .card-img {
-      position: relative;
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      background-color: var(--surface-2);
-    }
-    .card-category {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      background: var(--accent);
-      color: white;
-      padding: 0.2rem 0.8rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .card-body {
-      padding: 1.2rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .card-date {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .card-body h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-    }
-    .card-body p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      line-height: 1.4;
-    }
-    .read-more {
-      margin-top: auto;
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .empty-state {
-      text-align: center;
-      padding: 3rem;
-      color: var(--text-muted);
-      grid-column: 1 / -1;
-    }
-
-    /* ========== FOOTER ========== */
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 640px) {
-      .hero { padding: 2rem 1rem; }
-      .filters-bar { margin: 0.5rem 1rem; }
-      .news-grid { padding: 0 1rem 2rem; gap: 1rem; }
-      .card-img { height: 160px; }
-    }
-  </style>
+.cards-wrap{margin-top:8px}
+.cards-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:12px;
+  padding-top:4px;
+}
+.cards-head h3{
+  font-size:16px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.cards-head a{color:var(--blue-2);text-decoration:none;font-size:13px}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.card{
+  background:linear-gradient(180deg, rgba(18,22,33,.96), rgba(12,15,24,.98));
+  border:1px solid rgba(111,158,255,.10);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 14px 36px rgba(0,0,0,.28);
+  transition:.2s ease;
+}
+.card:hover{transform:translateY(-3px);border-color:rgba(78,160,255,.24)}
+.card-img{
+  height:126px;
+  background:
+    radial-gradient(240px 110px at 20% 20%, rgba(78,160,255,.22), transparent 55%),
+    linear-gradient(135deg, rgba(27,34,48,.98), rgba(8,10,16,.98));
+  border-bottom:1px solid rgba(111,158,255,.08);
+  position:relative;
+}
+.card-img::after{
+  content:"";
+  position:absolute;
+  inset:16px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.card-body{padding:14px}
+.card .tag{margin-bottom:8px}
+.card h4{font-size:14px;line-height:1.28;margin-bottom:8px}
+.card p{font-size:12px;color:var(--muted);line-height:1.45}
+.card-foot{
+  margin-top:12px;
+  display:flex;
+  justify-content:space-between;
+  color:#c8d5ea;
+  font-size:11px;
+}
+.cta{
+  margin:14px auto 0;
+  width:fit-content;
+  border-radius:999px;
+  padding:12px 20px;
+  border:1px solid rgba(78,160,255,.28);
+  background:rgba(78,160,255,.08);
+  color:#fff;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+.footer{
+  margin-top:18px;
+  padding:14px 2px 4px;
+  border-top:1px solid rgba(111,158,255,.10);
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  color:var(--muted);
+  font-size:13px;
+  flex-wrap:wrap;
+}
+.footer strong{color:#fff;letter-spacing:.08em}
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(4,7,12,.72);
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:30;
+}
+.overlay.open{display:flex}
+.overlay-card{
+  width:min(1200px, 100%);
+  max-height:min(88vh, 920px);
+  overflow:auto;
+  border-radius:26px;
+  border:1px solid rgba(111,158,255,.14);
+  background:linear-gradient(180deg, rgba(18,22,33,.98), rgba(10,13,20,.98));
+  box-shadow:0 35px 100px rgba(0,0,0,.55);
+  position:relative;
+  padding:18px;
+}
+.overlay-close{
+  position:absolute;
+  top:14px;right:14px;
+  width:42px;height:42px;
+  border-radius:14px;
+  border:1px solid rgba(111,158,255,.12);
+  background:rgba(255,255,255,.03);
+  color:#fff;
+  cursor:pointer;
+}
+.overlay-top{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:16px;
+}
+.overlay-visual{
+  min-height:360px;
+  border-radius:22px;
+  border:1px solid rgba(111,158,255,.10);
+  background:
+    radial-gradient(700px 320px at 30% 20%, rgba(78,160,255,.20), transparent 58%),
+    linear-gradient(180deg, rgba(17,22,34,.96), rgba(9,12,18,.98));
+  display:grid;
+  place-items:center;
+}
+.overlay-visual .featured-art{width:min(100%, 520px)}
+.overlay-copy{padding:10px 6px 8px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.overlay-copy h2{font-size:clamp(2rem, 3vw, 3.2rem);line-height:.98;letter-spacing:-.05em}
+.overlay-copy p{color:#afbdd5;line-height:1.6;font-size:14px;max-width:58ch}
+.overlay-meta{display:flex;flex-wrap:wrap;gap:18px;color:#c7d4ea;font-size:13px}
+.hidden{display:none !important}
+@media (max-width: 1200px){
+  .grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .overlay-top{grid-template-columns:1fr}
+}
+@media (max-width: 860px){
+  .sidebar{width:76px}
+  .sidebar:hover{width:76px}
+  .nav span,.sidebar .sub{display:none}
+  .main{margin-left:82px;padding:14px}
+  .featured{grid-template-columns:1fr}
+  .featured-visual{border-right:0;border-bottom:1px solid rgba(111,158,255,.08)}
+  .cards{grid-template-columns:1fr}
+  .latest-item{grid-template-columns:64px 1fr}
+  .latest-thumb{width:64px;height:64px}
+}
+</style>
 </head>
 <body>
-  <nav class="navbar" id="navbar">
-    <a href="index.html" class="logo">
-      <img src="IMG/Empresa/Logo.png" alt="Jarvis Digital">
-    </a>
-    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menú">
-      <i class="fas fa-bars"></i>
-    </button>
-    <ul class="nav-links">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="collection-p5.html">Catálogo</a></li>
-      <li><a href="news.html" class="active">Noticias</a></li>
-      <li><a href="registro.html">Registro</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="icon-btn" id="themeToggle"><i class="fas fa-sun"></i></button>
-      <button class="icon-btn" id="currencyToggle"><span id="currencyLabel">USD</span></button>
+
+<div class="sidebar">
+  <div class="logo">JDS</div>
+  <span class="sub">DIGITAL</span>
+  <div class="nav">
+    <a href="#"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+    <a href="#"><i class="fa-solid fa-newspaper"></i><span>Noticias</span></a>
+    <a href="#"><i class="fa-solid fa-gamepad"></i><span>Juegos</span></a>
+    <a href="#"><i class="fa-solid fa-microchip"></i><span>Firmware</span></a>
+  </div>
+  <div class="socials">
+    <div class="social"><i class="fa-brands fa-facebook-f"></i></div>
+    <div class="social"><i class="fa-brands fa-instagram"></i></div>
+    <div class="social"><i class="fa-brands fa-x-twitter"></i></div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h2><i class="fa-solid fa-newspaper"></i> Noticias</h2>
+    <div class="actions">
+      <div><i class="fa-solid fa-magnifying-glass"></i></div>
+      <div><i class="fa-regular fa-user"></i></div>
     </div>
-  </nav>
+  </div>
 
-  <main>
-    <div class="hero">
-      <h1>Últimas noticias del mundo PlayStation</h1>
-      <p>Mantente al día con los lanzamientos, actualizaciones, eventos y novedades de PS5, PS4 y PS3.</p>
-    </div>
-
-    <div class="filters-bar" id="filtersBar">
-      <button class="filter-chip active" data-category="all">Todas</button>
-      <button class="filter-chip" data-category="hardware">Hardware</button>
-      <button class="filter-chip" data-category="juegos">Juegos</button>
-      <button class="filter-chip" data-category="eventos">Eventos</button>
-      <button class="filter-chip" data-category="servicios">Servicios</button>
-    </div>
-
-    <div id="newsGrid" class="news-grid">
-      <div class="empty-state">Cargando noticias...</div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <p>Jarvis Digital Solutions · Noticias actualizadas diariamente</p>
-    <p>© 2026 Jarvis Digital Solutions</p>
-  </footer>
-
-  <script>
-    // ========== TEMA OSCURO/CLARO ==========
-    const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('ps5-theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    themeToggle.querySelector('i').className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('ps5-theme', next);
-      themeToggle.querySelector('i').className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
-
-    // ========== MENÚ MÓVIL ==========
-    const menuToggle = document.getElementById('menuToggle');
-    const navbar = document.getElementById('navbar');
-    if (menuToggle) {
-      menuToggle.addEventListener('click', () => {
-        navbar.classList.toggle('mobile-open');
-        const icon = menuToggle.querySelector('i');
-        icon.className = navbar.classList.contains('mobile-open') ? 'fas fa-times' : 'fas fa-bars';
-      });
-    }
-
-    // ========== CARGAR NOTICIAS ==========
-    let allNews = [];
-    let currentCategory = 'all';
-
-    async function loadNews() {
-      try {
-        const res = await fetch('./news.json');
-        if (!res.ok) throw new Error('Network error');
-        const data = await res.json();
-        allNews = data.news || [];
-        renderNews();
-      } catch (error) {
-        document.getElementById('newsGrid').innerHTML = '<div class="empty-state">Error al cargar las noticias. Inténtalo de nuevo más tarde.</div>';
-      }
-    }
-
-    function formatDate(dateStr) {
-      const date = new Date(dateStr);
-      return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-    }
-
-    function getCategoryLabel(category) {
-      const labels = {
-        hardware: 'Hardware',
-        juegos: 'Juegos',
-        eventos: 'Eventos',
-        servicios: 'Servicios'
-      };
-      return labels[category] || category;
-    }
-
-    function renderNews() {
-      const grid = document.getElementById('newsGrid');
-      const filtered = currentCategory === 'all' 
-        ? allNews 
-        : allNews.filter(n => n.category === currentCategory);
-      
-      if (filtered.length === 0) {
-        grid.innerHTML = '<div class="empty-state">No hay noticias en esta categoría.</div>';
-        return;
-      }
-      
-      const fallbackImage = 'IMG/PS5/Loader-Error.png';
-      grid.innerHTML = filtered.map(news => `
-        <a href="${news.link}" class="news-card" target="_blank" rel="noopener noreferrer">
-          <div class="card-img" style="background-image: url('${news.image}'); background-size: cover; background-position: center;">
-            <span class="card-category">${getCategoryLabel(news.category)}</span>
+  <div class="grid">
+    <div>
+      <div class="featured">
+        <button class="expand-btn" id="openExpand"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Expandir</button>
+        <div class="featured-visual">
+          <div class="featured-art">
+            <div class="featured-image-label">
+              <span class="mini-tag"><i class="fa-solid fa-image"></i> Banner principal</span>
+              <span class="mini-tag">News Spotlight</span>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="card-date"><i class="far fa-calendar-alt"></i> ${formatDate(news.date)}</div>
-            <h3>${news.title}</h3>
-            <p>${news.summary}</p>
-            <div class="read-more">Leer más <i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="featured-copy">
+          <span class="badge">Firmware</span>
+          <h1>PS5 Firmware 11.00</h1>
+          <p>El banner central queda listo para usar solo imagen, sin texto fijo, manteniendo el diseño inmersivo y limpio como en la referencia.</p>
+          <div class="featured-meta">
+            <span><i class="fa-regular fa-calendar"></i> 18 de Mayo, 2025</span>
+            <span><i class="fa-regular fa-comment"></i> 24</span>
+            <span><i class="fa-regular fa-clock"></i> 3 min</span>
           </div>
-        </a>
-      `).join('');
-      
-      // Manejo de imágenes rotas (fallback)
-      document.querySelectorAll('.card-img').forEach(container => {
-        const imgUrl = container.style.backgroundImage.slice(5, -2);
-        const testImg = new Image();
-        testImg.onerror = () => {
-          container.style.backgroundImage = `url('${fallbackImage}')`;
-        };
-        testImg.src = imgUrl;
-      });
-    }
+        </div>
+      </div>
 
-    // Filtros
-    function initFilters() {
-      const filters = document.querySelectorAll('.filter-chip');
-      filters.forEach(filter => {
-        filter.addEventListener('click', () => {
-          filters.forEach(f => f.classList.remove('active'));
-          filter.classList.add('active');
-          currentCategory = filter.dataset.category;
-          renderNews();
-        });
-      });
-    }
+      <div class="cards-wrap">
+        <div class="cards-head">
+          <h3>Noticias destacadas</h3>
+          <a href="#">Ver todas las noticias</a>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <div class="card-img"></div>
+            <div class="card-body">
+              <span class="tag jailbreak">Jailbreak</span>
+              <h4>Estado actual del jailbreak en PS5</h4>
+              <p>Una tarjeta limpia, moderna y con jerarquía visual clara para destacar contenido importante.</p>
+              <div class="card-foot"><span>16 May 2025</span><span>18 comentarios</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img"></div>
+            <div class="card-body">
+              <span class="tag firmware">Firmware</span>
+              <h4>PS5 11.00 vs 10.50 · ¿Qué cambió?</h4>
+              <p>Diseño más limpio, con espacio controlado y aspecto premium tipo dashboard.</p>
+              <div class="card-foot"><span>15 May 2025</span><span>32 comentarios</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img"></div>
+            <div class="card-body">
+              <span class="tag games">Juegos</span>
+              <h4>GTA VI · Todo lo que sabemos hasta ahora</h4>
+              <p>Ideal para noticias de juegos, avances, rumores y estrenos actuales.</p>
+              <div class="card-foot"><span>14 May 2025</span><span>41 comentarios</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img"></div>
+            <div class="card-body">
+              <span class="tag launches">Estrenos</span>
+              <h4>Lanzamientos de juegos del mes</h4>
+              <p>Tarjeta mejor alineada con la estética del panel principal y visual más fina.</p>
+              <div class="card-foot"><span>14 May 2025</span><span>27 comentarios</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="cta">VER TODAS LAS NOTICIAS</div>
+      </div>
+    </div>
 
-    // Moneda (solo visual, sin efecto en noticias)
-    let selectedCurrency = localStorage.getItem('ps5-currency') || 'USD';
-    const currencyLabel = document.getElementById('currencyLabel');
-    const currencyBtn = document.getElementById('currencyToggle');
-    currencyLabel.textContent = selectedCurrency;
-    currencyBtn.addEventListener('click', () => {
-      selectedCurrency = selectedCurrency === 'USD' ? 'CU' : 'USD';
-      localStorage.setItem('ps5-currency', selectedCurrency);
-      currencyLabel.textContent = selectedCurrency;
-    });
+    <div class="latest">
+      <div class="latest-head"><i class="fa-solid fa-bolt"></i><h3>Últimas noticias</h3></div>
 
-    // Iniciar
-    loadNews();
-    initFilters();
-  </script>
+      <div class="latest-item">
+        <div class="latest-thumb"></div>
+        <div class="latest-text">
+          <span class="tag games">Juego</span>
+          <div class="latest-title">Nuevo estreno confirmado</div>
+          <div class="latest-sub">Tarjeta compacta con imagen limpia, título al lado y etiqueta visible.</div>
+        </div>
+      </div>
+
+      <div class="latest-item">
+        <div class="latest-thumb"></div>
+        <div class="latest-text">
+          <span class="tag firmware">Actualización</span>
+          <div class="latest-title">Parche importante liberado</div>
+          <div class="latest-sub">Formato transparente, moderno y con jerarquía clara.</div>
+        </div>
+      </div>
+
+      <div class="latest-item">
+        <div class="latest-thumb"></div>
+        <div class="latest-text">
+          <span class="tag jailbreak">Jailbreak</span>
+          <div class="latest-title">Avances en compatibilidad</div>
+          <div class="latest-sub">Espacio preparado para firmware o novedades técnicas.</div>
+        </div>
+      </div>
+
+      <div class="latest-item">
+        <div class="latest-thumb"></div>
+        <div class="latest-text">
+          <span class="tag launches">Estrenos</span>
+          <div class="latest-title">Próximos lanzamientos del mes</div>
+          <div class="latest-sub">Bloque visual listo para estrenos y noticias calientes.</div>
+        </div>
+      </div>
+
+      <div class="latest-item">
+        <div class="latest-thumb"></div>
+        <div class="latest-text">
+          <span class="tag updates">Actualización</span>
+          <div class="latest-title">Nuevas funciones en la web</div>
+          <div class="latest-sub">Quinto elemento para mantener la columna completa al entrar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div><strong>JARVIS DIGITAL SOLUTIONS</strong> · Centro de noticias y novedades gaming</div>
+    <div>Maqueta preparada para conectar contenido dinámico sin cambiar la estructura.</div>
+  </div>
+</div>
+
+<div class="overlay hidden" id="overlay">
+  <div class="overlay-card">
+    <button class="overlay-close" id="closeExpand"><i class="fa-solid fa-xmark"></i></button>
+    <div class="overlay-top">
+      <div class="overlay-visual">
+        <div class="featured-art">
+          <div class="featured-image-label">
+            <span class="mini-tag"><i class="fa-solid fa-image"></i> Banner principal</span>
+            <span class="mini-tag">Vista expandida</span>
+          </div>
+        </div>
+      </div>
+      <div class="overlay-copy">
+        <span class="badge">Firmware</span>
+        <h2>PS5 Firmware 11.00 ya disponible</h2>
+        <p>Vista ampliada de la noticia principal para mostrar más detalle sin empujar el contenido de la página. Esta capa funciona como expansión visual, manteniendo el layout limpio y centrado.</p>
+        <div class="overlay-meta">
+          <span><i class="fa-regular fa-calendar"></i> 18 de Mayo, 2025</span>
+          <span><i class="fa-regular fa-comment"></i> 24</span>
+          <span><i class="fa-regular fa-clock"></i> 3 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const openBtn = document.getElementById('openExpand');
+  const closeBtn = document.getElementById('closeExpand');
+  const overlay = document.getElementById('overlay');
+
+  openBtn.addEventListener('click', () => overlay.classList.add('open'));
+  closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+</script>
+
 </body>
 </html>

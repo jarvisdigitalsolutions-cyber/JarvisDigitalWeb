@@ -247,7 +247,7 @@ class NotificationCenter {
               <p>${notif.message}</p>
               <div class="notification-item-footer">
                 <small>${timeStr}</small>
-                ${notif.updateCount > 1 ? `<span class="update-count">+${notif.updateCount}</span>` : ''}
+                ${notif.updateCount > 1 ? `<span class="update-count" title="Total de cambios registrados">${notif.updateCount} cambios</span>` : ''}
               </div>
             </div>
           </div>
