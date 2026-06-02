@@ -6,11 +6,55 @@
 class AutoSyncChangelogSystem {
   constructor() {
     this.changelogCache = {}; // Cache del changelog
+    this.gamesCache = {}; // Cache de games.json
     this.pollingInterval = 10000; // Revisar cada 10 segundos
     this.pollingTimer = null;
     this.enableAutoSync = true;
     this.lastChangelogVersion = 0;
-    this.processedChanges = new Set(); // Evitar duplicados
+    this.processedChanges = this.loadProcessedChanges(); // Cargar desde localStorage
+  }
+
+  /**
+   * Cargar changeKeys procesadas desde localStorage
+   */
+  loadProcessedChanges() {
+    try {
+      const stored = localStorage.getItem('ps5-processed-changes');
+      return new Set(stored ? JSON.parse(stored) : []);
+    } catch {
+      return new Set();
+    }
+  }
+
+  /**
+   * Guardar changeKeys procesadas en localStorage
+   */
+  saveProcessedChanges() {
+    try {
+      localStorage.setItem('ps5-processed-changes', JSON.stringify(Array.from(this.processedChanges)));
+    } catch (error) {
+      console.error('Error guardando processed changes:', error);
+    }
+  }
+
+  /**
+   * Cargar games.json con datos completos
+   */
+  async loadGames() {
+    try {
+      const response = await fetch(`./games.json?t=${Date.now()}&r=${Math.random()}`, {
+        headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+      });
+      
+      if (!response.ok) return {};
+      const data = await response.json();
+      // games.json tiene estructura { config: {...}, games: {game-id: {...}, ...} }
+      this.gamesCache = data.games || {};
+      return this.gamesCache;
+    } catch (error) {
+      console.error('❌ Error cargando games.json:', error);
+      return {};
+    }
   }
 
   /**
@@ -68,8 +112,9 @@ class AutoSyncChangelogSystem {
           changeKey
         });
 
-        // Marcar como procesado
+        // Marcar como procesado y guardar
         this.processedChanges.add(changeKey);
+        this.saveProcessedChanges(); // GUARDAR EN LOCALSTORAGE
       }
     }
 
@@ -96,8 +141,8 @@ class AutoSyncChangelogSystem {
   async notifyChange(change, changelog) {
     const { gameId, changeType, isNew, version, changedFields, lastChanged } = change;
 
-    // Obtener datos del juego de games.json si es necesario
-    let gameData = change.data || {};
+    // Obtener datos COMPLETOS del juego desde gamesCache
+    const fullGameData = this.gamesCache[gameId] || {};
 
     console.log(`\n   ${isNew ? '🆕' : '🔄'} ${gameId.toUpperCase()}`);
     console.log(`      Tipo: ${changeType === 'new' ? 'NUEVO TÍTULO' : 'CAMBIO'}`);
@@ -113,20 +158,18 @@ class AutoSyncChangelogSystem {
       const existsInNotifications = gameId in notificationCenter.notifications;
       const showToast = !existsInNotifications;
 
-      if (isNew) {
-        notificationCenter.addNotification(gameId, {
-          title: gameData.title || gameId,
-          note: { title: '🆕 Nuevo título agregado' },
-          lastContentUpdate: lastChanged,
-          isNewGame: true
-        }, showToast);
-      } else {
-        notificationCenter.addNotification(gameId, {
-          title: gameData.title || gameId,
-          note: { title: `Actualización #${version}` },
-          lastContentUpdate: lastChanged
-        }, showToast);
-      }
+      // Pasar datos completos del juego (incluye image, bannerImage, etc)
+      const notificationData = {
+        title: fullGameData.title || gameId,
+        image: fullGameData.image,
+        bannerImage: fullGameData.bannerImage,
+        previewImages: fullGameData.previewImages,
+        note: { title: isNew ? '🆕 Nuevo título agregado' : `Actualización #${version}` },
+        lastContentUpdate: lastChanged,
+        isNewGame: isNew
+      };
+
+      notificationCenter.addNotification(gameId, notificationData, showToast);
 
       console.log(`      ✓ Notificación registrada${showToast ? ' (Toast mostrado)' : ' (actualización silenciosa)'}`);
     }
@@ -137,6 +180,11 @@ class AutoSyncChangelogSystem {
    */
   async checkForUpdates() {
     try {
+      // Cargar games.json si no está en cache
+      if (Object.keys(this.gamesCache).length === 0) {
+        await this.loadGames();
+      }
+
       const changelog = await this.loadChangelog();
 
       if (!changelog) {

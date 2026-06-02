@@ -2465,12 +2465,8 @@
     // Initialize mobile animations after DOM ready
     document.addEventListener('DOMContentLoaded', () => {
       try { setupMobileAnimations(); } catch (e) { /* ignore */ }
-      // Auto-mark all notifications as viewed after 500ms to ensure notification-center is ready
-      if (typeof notificationCenter !== 'undefined') {
-        setTimeout(() => {
-          notificationCenter.markAllAsViewed();
-        }, 500);
-      }
+      // Notification center ya está listo, no marcar automáticamente
+      // El usuario marca manualmente con el botón o al hacer click en el juego
     });
 
     /* Site search logic */
