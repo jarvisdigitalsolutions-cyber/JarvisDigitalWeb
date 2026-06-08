@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-06-08T14:51:15.634802",
+        "featured": [
+          "wolf-among-us-2",
+          "borderlands-4",
+          "ea-sports-fc-25",
+          "tides-of-tomorrow",
+          "greedfall-the-dying-world",
+          "reanimal"
+        ],
+        "premieres": [
+          "chronoscript-the-endless-end",
+          "wolf-among-us-2",
+          "zero-parades",
+          "assassins-creed-shadows"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-06-01T23:18:53.989289",
         "featured": [
           "biohazard-re-4",
@@ -145,7 +168,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-06-01T23:18:53.989289",
+    "lastCurated": "2026-06-08T14:51:15.634802",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -206,30 +229,7 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-06-01T23:18:53.989289",
-        "featured": [
-          "biohazard-re-4",
-          "dragon-quest-iii-hd-2d-remake",
-          "tactics-ogre-reborn",
-          "code-vein-2",
-          "fifa-23",
-          "pragmata"
-        ],
-        "premieres": [
-          "assassins-creed-shadows",
-          "death-stranding-2",
-          "marvel-1943-rise-hydra",
-          "marvel-tokon-fighting-souls"
-        ],
-        "recentReleases": [
-          "bye-sweet-carole",
-          "invincible-vs",
-          "tormented-souls-2",
-          "resident-evil-requiem"
-        ]
-      },
-      "week_1": {
-        "timestamp": "2026-06-08T23:18:53.989289",
+        "timestamp": "2026-06-08T14:51:15.634802",
         "featured": [
           "wolf-among-us-2",
           "borderlands-4",
@@ -242,17 +242,17 @@
           "chronoscript-the-endless-end",
           "wolf-among-us-2",
           "zero-parades",
-          "007-first-light"
+          "assassins-creed-shadows"
         ],
         "recentReleases": [
-          "ninja-gaiden-2-black",
-          "dragon-quest-vii-reimagined",
-          "life-is-strange-reunion",
-          "dragon-quest-i-ii-hd-2d-remake"
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
         ]
       },
-      "week_2": {
-        "timestamp": "2026-06-15T23:18:53.989289",
+      "week_1": {
+        "timestamp": "2026-06-15T14:51:15.634802",
         "featured": [
           "ea-sports-fc-26",
           "syphon-filter-2",
@@ -262,10 +262,33 @@
           "nhl-24"
         ],
         "premieres": [
-          "assassins-creed-shadows",
           "death-stranding-2",
+          "007-first-light",
           "grand-theft-auto-vi",
           "marvel-1943-rise-hydra"
+        ],
+        "recentReleases": [
+          "ninja-gaiden-2-black",
+          "dragon-quest-vii-reimagined",
+          "life-is-strange-reunion",
+          "dragon-quest-i-ii-hd-2d-remake"
+        ]
+      },
+      "week_2": {
+        "timestamp": "2026-06-22T14:51:15.634802",
+        "featured": [
+          "need-for-speed-unbound",
+          "star-ocean-the-divine-force",
+          "beneath",
+          "the-bearer-and-the-last-flame",
+          "styx-blades-of-greed",
+          "avatar-frontiers-of-pandora"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "marvel-tokon-fighting-souls",
+          "phantom-blade-zero",
+          "wolverine"
         ],
         "recentReleases": [
           "bye-sweet-carole",
@@ -329,22 +352,22 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "biohazard-re-4",
-            "dragon-quest-iii-hd-2d-remake",
-            "tactics-ogre-reborn",
-            "code-vein-2",
-            "fifa-23",
-            "pragmata"
+            "wolf-among-us-2",
+            "borderlands-4",
+            "ea-sports-fc-25",
+            "tides-of-tomorrow",
+            "greedfall-the-dying-world",
+            "reanimal"
           ]
         },
         "premieres": {
           "title": "Estrenos PS5 2026-2027",
           "description": "Próximos lanzamientos en PS5",
           "games": [
-            "assassins-creed-shadows",
-            "death-stranding-2",
-            "marvel-1943-rise-hydra",
-            "marvel-tokon-fighting-souls"
+            "chronoscript-the-endless-end",
+            "wolf-among-us-2",
+            "zero-parades",
+            "assassins-creed-shadows"
           ]
         },
         "recentReleases": {
@@ -453,12 +476,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "biohazard-re-4",
-            "dragon-quest-iii-hd-2d-remake",
-            "tactics-ogre-reborn",
-            "code-vein-2",
-            "fifa-23",
-            "pragmata"
+            "wolf-among-us-2",
+            "borderlands-4",
+            "ea-sports-fc-25",
+            "tides-of-tomorrow",
+            "greedfall-the-dying-world",
+            "reanimal"
           ]
         },
         "all": {
@@ -604,7 +627,7 @@
       "url": "https://dlpsgame.com/red-dead-redemption-2-ps4/",
       "status": "Disponible",
       "trailer": "https://www.youtube.com/watch?v=eaW0tYpxyp0",
-      "_score": 0.881857142857143,
+      "_score": 0.6848571428571429,
       "_origStatus": "Disponible",
       "previewImages": [
         "IMG/PS5/red-dead-redemption2.avif"
