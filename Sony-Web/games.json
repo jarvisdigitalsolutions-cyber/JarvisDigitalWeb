@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-06-15T18:10:20.034922",
+        "featured": [
+          "ea-sports-fc-26",
+          "syphon-filter-2",
+          "dragon-age-the-veilguard",
+          "high-of-life-2",
+          "screamer",
+          "nhl-24"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-06-08T14:51:15.634802",
         "featured": [
           "wolf-among-us-2",
@@ -168,7 +191,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-06-08T14:51:15.634802",
+    "lastCurated": "2026-06-15T18:10:20.034922",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -229,30 +252,7 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-06-08T14:51:15.634802",
-        "featured": [
-          "wolf-among-us-2",
-          "borderlands-4",
-          "ea-sports-fc-25",
-          "tides-of-tomorrow",
-          "greedfall-the-dying-world",
-          "reanimal"
-        ],
-        "premieres": [
-          "chronoscript-the-endless-end",
-          "wolf-among-us-2",
-          "zero-parades",
-          "assassins-creed-shadows"
-        ],
-        "recentReleases": [
-          "bye-sweet-carole",
-          "invincible-vs",
-          "tormented-souls-2",
-          "resident-evil-requiem"
-        ]
-      },
-      "week_1": {
-        "timestamp": "2026-06-15T14:51:15.634802",
+        "timestamp": "2026-06-15T18:10:20.034922",
         "featured": [
           "ea-sports-fc-26",
           "syphon-filter-2",
@@ -262,20 +262,20 @@
           "nhl-24"
         ],
         "premieres": [
+          "assassins-creed-shadows",
           "death-stranding-2",
           "007-first-light",
-          "grand-theft-auto-vi",
-          "marvel-1943-rise-hydra"
+          "grand-theft-auto-vi"
         ],
         "recentReleases": [
-          "ninja-gaiden-2-black",
-          "dragon-quest-vii-reimagined",
-          "life-is-strange-reunion",
-          "dragon-quest-i-ii-hd-2d-remake"
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
         ]
       },
-      "week_2": {
-        "timestamp": "2026-06-22T14:51:15.634802",
+      "week_1": {
+        "timestamp": "2026-06-22T18:10:20.034922",
         "featured": [
           "need-for-speed-unbound",
           "star-ocean-the-divine-force",
@@ -285,10 +285,33 @@
           "avatar-frontiers-of-pandora"
         ],
         "premieres": [
-          "assassins-creed-shadows",
+          "marvel-1943-rise-hydra",
           "marvel-tokon-fighting-souls",
           "phantom-blade-zero",
           "wolverine"
+        ],
+        "recentReleases": [
+          "ninja-gaiden-2-black",
+          "dragon-quest-vii-reimagined",
+          "life-is-strange-reunion",
+          "dragon-quest-i-ii-hd-2d-remake"
+        ]
+      },
+      "week_2": {
+        "timestamp": "2026-06-29T18:10:20.034922",
+        "featured": [
+          "oddworld-soulstorm",
+          "star-wars-outlaws",
+          "iron-harvest-complete-edition",
+          "little-big-adventure-twinsens-quest",
+          "potionomics-masterwork-edition",
+          "sackboy-a-big-adventure"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
         ],
         "recentReleases": [
           "bye-sweet-carole",
@@ -352,22 +375,22 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "wolf-among-us-2",
-            "borderlands-4",
-            "ea-sports-fc-25",
-            "tides-of-tomorrow",
-            "greedfall-the-dying-world",
-            "reanimal"
+            "ea-sports-fc-26",
+            "syphon-filter-2",
+            "dragon-age-the-veilguard",
+            "high-of-life-2",
+            "screamer",
+            "nhl-24"
           ]
         },
         "premieres": {
           "title": "Estrenos PS5 2026-2027",
           "description": "Próximos lanzamientos en PS5",
           "games": [
-            "chronoscript-the-endless-end",
-            "wolf-among-us-2",
-            "zero-parades",
-            "assassins-creed-shadows"
+            "assassins-creed-shadows",
+            "death-stranding-2",
+            "007-first-light",
+            "grand-theft-auto-vi"
           ]
         },
         "recentReleases": {
@@ -476,12 +499,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "wolf-among-us-2",
-            "borderlands-4",
-            "ea-sports-fc-25",
-            "tides-of-tomorrow",
-            "greedfall-the-dying-world",
-            "reanimal"
+            "ea-sports-fc-26",
+            "syphon-filter-2",
+            "dragon-age-the-veilguard",
+            "high-of-life-2",
+            "screamer",
+            "nhl-24"
           ]
         },
         "all": {
