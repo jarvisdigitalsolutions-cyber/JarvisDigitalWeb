@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-06-22T17:57:35.288918",
+        "featured": [
+          "need-for-speed-unbound",
+          "star-ocean-the-divine-force",
+          "beneath",
+          "the-bearer-and-the-last-flame",
+          "styx-blades-of-greed",
+          "avatar-frontiers-of-pandora"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-06-15T18:10:20.034922",
         "featured": [
           "ea-sports-fc-26",
@@ -191,7 +214,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-06-15T18:10:20.034922",
+    "lastCurated": "2026-06-22T17:57:35.288918",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -252,14 +275,14 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-06-15T18:10:20.034922",
+        "timestamp": "2026-06-22T17:57:35.288918",
         "featured": [
-          "ea-sports-fc-26",
-          "syphon-filter-2",
-          "dragon-age-the-veilguard",
-          "high-of-life-2",
-          "screamer",
-          "nhl-24"
+          "need-for-speed-unbound",
+          "star-ocean-the-divine-force",
+          "beneath",
+          "the-bearer-and-the-last-flame",
+          "styx-blades-of-greed",
+          "avatar-frontiers-of-pandora"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -275,14 +298,14 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-06-22T18:10:20.034922",
+        "timestamp": "2026-06-29T17:57:35.288918",
         "featured": [
-          "need-for-speed-unbound",
-          "star-ocean-the-divine-force",
-          "beneath",
-          "the-bearer-and-the-last-flame",
-          "styx-blades-of-greed",
-          "avatar-frontiers-of-pandora"
+          "oddworld-soulstorm",
+          "star-wars-outlaws",
+          "iron-harvest-complete-edition",
+          "little-big-adventure-twinsens-quest",
+          "potionomics-masterwork-edition",
+          "sackboy-a-big-adventure"
         ],
         "premieres": [
           "marvel-1943-rise-hydra",
@@ -298,14 +321,14 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-06-29T18:10:20.034922",
+        "timestamp": "2026-07-06T17:57:35.288918",
         "featured": [
-          "oddworld-soulstorm",
-          "star-wars-outlaws",
-          "iron-harvest-complete-edition",
-          "little-big-adventure-twinsens-quest",
-          "potionomics-masterwork-edition",
-          "sackboy-a-big-adventure"
+          "infinity-strash-dragon-quest-the-adventure-of-dai",
+          "the-king-of-fighters-xv",
+          "the-pathless",
+          "park-beyond",
+          "farming-simulator-22",
+          "the-persistence-enhanced"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -375,12 +398,12 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "ea-sports-fc-26",
-            "syphon-filter-2",
-            "dragon-age-the-veilguard",
-            "high-of-life-2",
-            "screamer",
-            "nhl-24"
+            "need-for-speed-unbound",
+            "star-ocean-the-divine-force",
+            "beneath",
+            "the-bearer-and-the-last-flame",
+            "styx-blades-of-greed",
+            "avatar-frontiers-of-pandora"
           ]
         },
         "premieres": {
@@ -499,12 +522,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "ea-sports-fc-26",
-            "syphon-filter-2",
-            "dragon-age-the-veilguard",
-            "high-of-life-2",
-            "screamer",
-            "nhl-24"
+            "need-for-speed-unbound",
+            "star-ocean-the-divine-force",
+            "beneath",
+            "the-bearer-and-the-last-flame",
+            "styx-blades-of-greed",
+            "avatar-frontiers-of-pandora"
           ]
         },
         "all": {
