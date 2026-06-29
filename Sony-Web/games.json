@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-06-29T14:50:36.591613",
+        "featured": [
+          "red-dead-redemption-2",
+          "grand-theft-auto-vi",
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "wolverine"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-06-22T17:57:35.288918",
         "featured": [
           "need-for-speed-unbound",
@@ -214,7 +237,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-06-22T17:57:35.288918",
+    "lastCurated": "2026-06-29T14:50:36.591613",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -275,14 +298,14 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-06-22T17:57:35.288918",
+        "timestamp": "2026-06-29T14:50:36.591613",
         "featured": [
-          "need-for-speed-unbound",
-          "star-ocean-the-divine-force",
-          "beneath",
-          "the-bearer-and-the-last-flame",
-          "styx-blades-of-greed",
-          "avatar-frontiers-of-pandora"
+          "red-dead-redemption-2",
+          "grand-theft-auto-vi",
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "wolverine"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -298,14 +321,14 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-06-29T17:57:35.288918",
+        "timestamp": "2026-07-06T14:50:36.591613",
         "featured": [
-          "oddworld-soulstorm",
-          "star-wars-outlaws",
-          "iron-harvest-complete-edition",
-          "little-big-adventure-twinsens-quest",
-          "potionomics-masterwork-edition",
-          "sackboy-a-big-adventure"
+          "resident-evil-requiem",
+          "phantom-blade-zero",
+          "ninja-gaiden-2-black",
+          "007-first-light",
+          "marvel-tokon-fighting-souls",
+          "dragon-quest-vii-reimagined"
         ],
         "premieres": [
           "marvel-1943-rise-hydra",
@@ -321,14 +344,14 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-07-06T17:57:35.288918",
+        "timestamp": "2026-07-13T14:50:36.591613",
         "featured": [
-          "infinity-strash-dragon-quest-the-adventure-of-dai",
-          "the-king-of-fighters-xv",
-          "the-pathless",
-          "park-beyond",
-          "farming-simulator-22",
-          "the-persistence-enhanced"
+          "saros",
+          "marvel-1943-rise-hydra",
+          "marathon",
+          "little-nightmares-3",
+          "chronoscript-the-endless-end",
+          "zero-parades"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -398,12 +421,12 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "need-for-speed-unbound",
-            "star-ocean-the-divine-force",
-            "beneath",
-            "the-bearer-and-the-last-flame",
-            "styx-blades-of-greed",
-            "avatar-frontiers-of-pandora"
+            "red-dead-redemption-2",
+            "grand-theft-auto-vi",
+            "bye-sweet-carole",
+            "invincible-vs",
+            "tormented-souls-2",
+            "wolverine"
           ]
         },
         "premieres": {
@@ -522,12 +545,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "need-for-speed-unbound",
-            "star-ocean-the-divine-force",
-            "beneath",
-            "the-bearer-and-the-last-flame",
-            "styx-blades-of-greed",
-            "avatar-frontiers-of-pandora"
+            "red-dead-redemption-2",
+            "grand-theft-auto-vi",
+            "bye-sweet-carole",
+            "invincible-vs",
+            "tormented-souls-2",
+            "wolverine"
           ]
         },
         "all": {
