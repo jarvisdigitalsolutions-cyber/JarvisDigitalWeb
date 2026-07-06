@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-07-06T03:46:57.557544",
+        "featured": [
+          "gundam-breaker-4",
+          "resident-evil-requiem",
+          "phantom-blade-zero",
+          "ninja-gaiden-2-black",
+          "biohazard-re-4",
+          "007-first-light"
+        ],
+        "premieres": [
+          "marvel-1943-rise-hydra",
+          "marvel-tokon-fighting-souls",
+          "phantom-blade-zero",
+          "wolverine"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-06-29T14:50:36.591613",
         "featured": [
           "red-dead-redemption-2",
@@ -237,7 +260,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-06-29T14:50:36.591613",
+    "lastCurated": "2026-07-06T03:46:57.557544",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -298,20 +321,20 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-06-29T14:50:36.591613",
+        "timestamp": "2026-07-06T03:46:57.557544",
         "featured": [
-          "red-dead-redemption-2",
-          "grand-theft-auto-vi",
-          "bye-sweet-carole",
-          "invincible-vs",
-          "tormented-souls-2",
-          "wolverine"
+          "gundam-breaker-4",
+          "resident-evil-requiem",
+          "phantom-blade-zero",
+          "ninja-gaiden-2-black",
+          "biohazard-re-4",
+          "007-first-light"
         ],
         "premieres": [
-          "assassins-creed-shadows",
-          "death-stranding-2",
-          "007-first-light",
-          "grand-theft-auto-vi"
+          "marvel-1943-rise-hydra",
+          "marvel-tokon-fighting-souls",
+          "phantom-blade-zero",
+          "wolverine"
         ],
         "recentReleases": [
           "bye-sweet-carole",
@@ -321,20 +344,20 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-07-06T14:50:36.591613",
+        "timestamp": "2026-07-13T03:46:57.557544",
         "featured": [
-          "resident-evil-requiem",
-          "phantom-blade-zero",
-          "ninja-gaiden-2-black",
-          "007-first-light",
           "marvel-tokon-fighting-souls",
-          "dragon-quest-vii-reimagined"
+          "dragon-quest-vii-reimagined",
+          "life-is-strange-reunion",
+          "dragon-quest-i-ii-hd-2d-remake",
+          "dragon-quest-iii-hd-2d-remake",
+          "saros"
         ],
         "premieres": [
-          "marvel-1943-rise-hydra",
-          "marvel-tokon-fighting-souls",
-          "phantom-blade-zero",
-          "wolverine"
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
         ],
         "recentReleases": [
           "ninja-gaiden-2-black",
@@ -344,20 +367,20 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-07-13T14:50:36.591613",
+        "timestamp": "2026-07-20T03:46:57.557544",
         "featured": [
-          "saros",
           "marvel-1943-rise-hydra",
-          "marathon",
-          "little-nightmares-3",
-          "chronoscript-the-endless-end",
-          "zero-parades"
+          "crimson-desert",
+          "monster-hunter-stories-3-twisted-reflection",
+          "the-outer-worlds-2",
+          "tactics-ogre-reborn",
+          "marathon"
         ],
         "premieres": [
-          "assassins-creed-shadows",
-          "death-stranding-2",
-          "007-first-light",
-          "grand-theft-auto-vi"
+          "marvel-1943-rise-hydra",
+          "marvel-tokon-fighting-souls",
+          "phantom-blade-zero",
+          "wolverine"
         ],
         "recentReleases": [
           "bye-sweet-carole",
@@ -421,22 +444,22 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "red-dead-redemption-2",
-            "grand-theft-auto-vi",
-            "bye-sweet-carole",
-            "invincible-vs",
-            "tormented-souls-2",
-            "wolverine"
+            "gundam-breaker-4",
+            "resident-evil-requiem",
+            "phantom-blade-zero",
+            "ninja-gaiden-2-black",
+            "biohazard-re-4",
+            "007-first-light"
           ]
         },
         "premieres": {
           "title": "Estrenos PS5 2026-2027",
           "description": "Próximos lanzamientos en PS5",
           "games": [
-            "assassins-creed-shadows",
-            "death-stranding-2",
-            "007-first-light",
-            "grand-theft-auto-vi"
+            "marvel-1943-rise-hydra",
+            "marvel-tokon-fighting-souls",
+            "phantom-blade-zero",
+            "wolverine"
           ]
         },
         "recentReleases": {
@@ -545,12 +568,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "red-dead-redemption-2",
-            "grand-theft-auto-vi",
-            "bye-sweet-carole",
-            "invincible-vs",
-            "tormented-souls-2",
-            "wolverine"
+            "gundam-breaker-4",
+            "resident-evil-requiem",
+            "phantom-blade-zero",
+            "ninja-gaiden-2-black",
+            "biohazard-re-4",
+            "007-first-light"
           ]
         },
         "all": {
