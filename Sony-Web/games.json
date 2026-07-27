@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-07-27T03:22:38.047932",
+        "featured": [
+          "little-nightmares-3",
+          "code-vein-2",
+          "fifa-23",
+          "pragmata",
+          "wolf-among-us-2",
+          "borderlands-4"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-07-20T03:49:01.926589",
         "featured": [
           "marvel-1943-rise-hydra",
@@ -306,7 +329,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-07-20T03:49:01.926589",
+    "lastCurated": "2026-07-27T03:22:38.047932",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -367,14 +390,14 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-07-20T03:49:01.926589",
+        "timestamp": "2026-07-27T03:22:38.047932",
         "featured": [
-          "marvel-1943-rise-hydra",
-          "crimson-desert",
-          "monster-hunter-stories-3-twisted-reflection",
-          "the-outer-worlds-2",
-          "tactics-ogre-reborn",
-          "marathon"
+          "little-nightmares-3",
+          "code-vein-2",
+          "fifa-23",
+          "pragmata",
+          "wolf-among-us-2",
+          "borderlands-4"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -390,14 +413,14 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-07-27T03:49:01.926589",
+        "timestamp": "2026-08-03T03:22:38.047932",
         "featured": [
-          "little-nightmares-3",
-          "code-vein-2",
-          "fifa-23",
-          "pragmata",
-          "wolf-among-us-2",
-          "borderlands-4"
+          "ea-sports-fc-25",
+          "chronoscript-the-endless-end",
+          "tides-of-tomorrow",
+          "greedfall-the-dying-world",
+          "reanimal",
+          "ea-sports-fc-26"
         ],
         "premieres": [
           "marvel-1943-rise-hydra",
@@ -413,14 +436,14 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-08-03T03:49:01.926589",
+        "timestamp": "2026-08-10T03:22:38.047932",
         "featured": [
-          "ea-sports-fc-25",
-          "chronoscript-the-endless-end",
-          "tides-of-tomorrow",
-          "greedfall-the-dying-world",
-          "reanimal",
-          "ea-sports-fc-26"
+          "syphon-filter-2",
+          "dragon-age-the-veilguard",
+          "zero-parades",
+          "high-of-life-2",
+          "screamer",
+          "nhl-24"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -490,12 +513,12 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "marvel-1943-rise-hydra",
-            "crimson-desert",
-            "monster-hunter-stories-3-twisted-reflection",
-            "the-outer-worlds-2",
-            "tactics-ogre-reborn",
-            "marathon"
+            "little-nightmares-3",
+            "code-vein-2",
+            "fifa-23",
+            "pragmata",
+            "wolf-among-us-2",
+            "borderlands-4"
           ]
         },
         "premieres": {
@@ -614,12 +637,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "marvel-1943-rise-hydra",
-            "crimson-desert",
-            "monster-hunter-stories-3-twisted-reflection",
-            "the-outer-worlds-2",
-            "tactics-ogre-reborn",
-            "marathon"
+            "little-nightmares-3",
+            "code-vein-2",
+            "fifa-23",
+            "pragmata",
+            "wolf-among-us-2",
+            "borderlands-4"
           ]
         },
         "all": {
