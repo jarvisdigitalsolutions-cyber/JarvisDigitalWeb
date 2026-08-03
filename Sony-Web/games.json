@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-08-03T03:14:00.186897",
+        "featured": [
+          "red-dead-redemption-2",
+          "grand-theft-auto-vi",
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "wolverine"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-07-27T03:22:38.047932",
         "featured": [
           "little-nightmares-3",
@@ -329,7 +352,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-07-27T03:22:38.047932",
+    "lastCurated": "2026-08-03T03:14:00.186897",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -390,14 +413,14 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-07-27T03:22:38.047932",
+        "timestamp": "2026-08-03T03:14:00.186897",
         "featured": [
-          "little-nightmares-3",
-          "code-vein-2",
-          "fifa-23",
-          "pragmata",
-          "wolf-among-us-2",
-          "borderlands-4"
+          "red-dead-redemption-2",
+          "grand-theft-auto-vi",
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "wolverine"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -413,7 +436,7 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-08-03T03:22:38.047932",
+        "timestamp": "2026-08-10T03:14:00.186897",
         "featured": [
           "ea-sports-fc-25",
           "chronoscript-the-endless-end",
@@ -436,7 +459,7 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-08-10T03:22:38.047932",
+        "timestamp": "2026-08-17T03:14:00.186897",
         "featured": [
           "syphon-filter-2",
           "dragon-age-the-veilguard",
@@ -513,12 +536,12 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "little-nightmares-3",
-            "code-vein-2",
-            "fifa-23",
-            "pragmata",
-            "wolf-among-us-2",
-            "borderlands-4"
+            "red-dead-redemption-2",
+            "grand-theft-auto-vi",
+            "bye-sweet-carole",
+            "invincible-vs",
+            "tormented-souls-2",
+            "wolverine"
           ]
         },
         "premieres": {
@@ -637,12 +660,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "little-nightmares-3",
-            "code-vein-2",
-            "fifa-23",
-            "pragmata",
-            "wolf-among-us-2",
-            "borderlands-4"
+            "red-dead-redemption-2",
+            "grand-theft-auto-vi",
+            "bye-sweet-carole",
+            "invincible-vs",
+            "tormented-souls-2",
+            "wolverine"
           ]
         },
         "all": {
