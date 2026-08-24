@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-08-24T01:23:48.144240",
+        "featured": [
+          "marvel-1943-rise-hydra",
+          "crimson-desert",
+          "monster-hunter-stories-3-twisted-reflection",
+          "the-outer-worlds-2",
+          "tactics-ogre-reborn",
+          "marathon"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-08-17T01:21:19.092201",
         "featured": [
           "marvel-tokon-fighting-souls",
@@ -398,7 +421,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-08-17T01:21:19.092201",
+    "lastCurated": "2026-08-24T01:23:48.144240",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -459,20 +482,20 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-08-17T01:21:19.092201",
+        "timestamp": "2026-08-24T01:23:48.144240",
         "featured": [
-          "marvel-tokon-fighting-souls",
-          "dragon-quest-vii-reimagined",
-          "life-is-strange-reunion",
-          "dragon-quest-i-ii-hd-2d-remake",
-          "dragon-quest-iii-hd-2d-remake",
-          "saros"
+          "marvel-1943-rise-hydra",
+          "crimson-desert",
+          "monster-hunter-stories-3-twisted-reflection",
+          "the-outer-worlds-2",
+          "tactics-ogre-reborn",
+          "marathon"
         ],
         "premieres": [
-          "chronoscript-the-endless-end",
-          "wolf-among-us-2",
-          "zero-parades",
-          "assassins-creed-shadows"
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
         ],
         "recentReleases": [
           "bye-sweet-carole",
@@ -482,7 +505,7 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-08-24T01:21:19.092201",
+        "timestamp": "2026-08-31T01:23:48.144240",
         "featured": [
           "ea-sports-fc-25",
           "chronoscript-the-endless-end",
@@ -492,10 +515,10 @@
           "ea-sports-fc-26"
         ],
         "premieres": [
-          "death-stranding-2",
-          "007-first-light",
-          "grand-theft-auto-vi",
-          "marvel-1943-rise-hydra"
+          "marvel-1943-rise-hydra",
+          "marvel-tokon-fighting-souls",
+          "phantom-blade-zero",
+          "wolverine"
         ],
         "recentReleases": [
           "ninja-gaiden-2-black",
@@ -505,7 +528,7 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-08-31T01:21:19.092201",
+        "timestamp": "2026-09-07T01:23:48.144240",
         "featured": [
           "syphon-filter-2",
           "dragon-age-the-veilguard",
@@ -516,9 +539,9 @@
         ],
         "premieres": [
           "assassins-creed-shadows",
-          "marvel-tokon-fighting-souls",
-          "phantom-blade-zero",
-          "wolverine"
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
         ],
         "recentReleases": [
           "bye-sweet-carole",
@@ -582,22 +605,22 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "marvel-tokon-fighting-souls",
-            "dragon-quest-vii-reimagined",
-            "life-is-strange-reunion",
-            "dragon-quest-i-ii-hd-2d-remake",
-            "dragon-quest-iii-hd-2d-remake",
-            "saros"
+            "marvel-1943-rise-hydra",
+            "crimson-desert",
+            "monster-hunter-stories-3-twisted-reflection",
+            "the-outer-worlds-2",
+            "tactics-ogre-reborn",
+            "marathon"
           ]
         },
         "premieres": {
           "title": "Estrenos PS5 2026-2027",
           "description": "Próximos lanzamientos en PS5",
           "games": [
-            "chronoscript-the-endless-end",
-            "wolf-among-us-2",
-            "zero-parades",
-            "assassins-creed-shadows"
+            "assassins-creed-shadows",
+            "death-stranding-2",
+            "007-first-light",
+            "grand-theft-auto-vi"
           ]
         },
         "recentReleases": {
@@ -706,12 +729,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "marvel-tokon-fighting-souls",
-            "dragon-quest-vii-reimagined",
-            "life-is-strange-reunion",
-            "dragon-quest-i-ii-hd-2d-remake",
-            "dragon-quest-iii-hd-2d-remake",
-            "saros"
+            "marvel-1943-rise-hydra",
+            "crimson-desert",
+            "monster-hunter-stories-3-twisted-reflection",
+            "the-outer-worlds-2",
+            "tactics-ogre-reborn",
+            "marathon"
           ]
         },
         "all": {
