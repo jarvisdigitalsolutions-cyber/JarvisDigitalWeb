@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-08-31T04:23:30.937424",
+        "featured": [
+          "red-dead-redemption-2",
+          "grand-theft-auto-vi",
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "wolverine"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-08-24T01:23:48.144240",
         "featured": [
           "marvel-1943-rise-hydra",
@@ -421,7 +444,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-08-24T01:23:48.144240",
+    "lastCurated": "2026-08-31T04:23:30.937424",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -482,14 +505,14 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-08-24T01:23:48.144240",
+        "timestamp": "2026-08-31T04:23:30.937424",
         "featured": [
-          "marvel-1943-rise-hydra",
-          "crimson-desert",
-          "monster-hunter-stories-3-twisted-reflection",
-          "the-outer-worlds-2",
-          "tactics-ogre-reborn",
-          "marathon"
+          "red-dead-redemption-2",
+          "grand-theft-auto-vi",
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "wolverine"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -505,14 +528,14 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-08-31T01:23:48.144240",
+        "timestamp": "2026-09-07T04:23:30.937424",
         "featured": [
-          "ea-sports-fc-25",
-          "chronoscript-the-endless-end",
-          "tides-of-tomorrow",
-          "greedfall-the-dying-world",
-          "reanimal",
-          "ea-sports-fc-26"
+          "little-nightmares-3",
+          "code-vein-2",
+          "fifa-23",
+          "pragmata",
+          "wolf-among-us-2",
+          "borderlands-4"
         ],
         "premieres": [
           "marvel-1943-rise-hydra",
@@ -528,14 +551,14 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-09-07T01:23:48.144240",
+        "timestamp": "2026-09-14T04:23:30.937424",
         "featured": [
-          "syphon-filter-2",
-          "dragon-age-the-veilguard",
-          "zero-parades",
-          "high-of-life-2",
-          "screamer",
-          "nhl-24"
+          "ea-sports-fc-25",
+          "chronoscript-the-endless-end",
+          "tides-of-tomorrow",
+          "greedfall-the-dying-world",
+          "reanimal",
+          "ea-sports-fc-26"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -605,12 +628,12 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "marvel-1943-rise-hydra",
-            "crimson-desert",
-            "monster-hunter-stories-3-twisted-reflection",
-            "the-outer-worlds-2",
-            "tactics-ogre-reborn",
-            "marathon"
+            "red-dead-redemption-2",
+            "grand-theft-auto-vi",
+            "bye-sweet-carole",
+            "invincible-vs",
+            "tormented-souls-2",
+            "wolverine"
           ]
         },
         "premieres": {
@@ -729,12 +752,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "marvel-1943-rise-hydra",
-            "crimson-desert",
-            "monster-hunter-stories-3-twisted-reflection",
-            "the-outer-worlds-2",
-            "tactics-ogre-reborn",
-            "marathon"
+            "red-dead-redemption-2",
+            "grand-theft-auto-vi",
+            "bye-sweet-carole",
+            "invincible-vs",
+            "tormented-souls-2",
+            "wolverine"
           ]
         },
         "all": {
