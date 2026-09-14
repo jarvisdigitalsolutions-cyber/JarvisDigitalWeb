@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-09-14T03:56:26.397052",
+        "featured": [
+          "marvel-tokon-fighting-souls",
+          "dragon-quest-vii-reimagined",
+          "life-is-strange-reunion",
+          "dragon-quest-i-ii-hd-2d-remake",
+          "dragon-quest-iii-hd-2d-remake",
+          "saros"
+        ],
+        "premieres": [
+          "chronoscript-the-endless-end",
+          "wolf-among-us-2",
+          "zero-parades",
+          "assassins-creed-shadows"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-09-07T03:30:49.449425",
         "featured": [
           "gundam-breaker-4",
@@ -467,7 +490,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-09-07T03:30:49.449425",
+    "lastCurated": "2026-09-14T03:56:26.397052",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -528,20 +551,20 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-09-07T03:30:49.449425",
+        "timestamp": "2026-09-14T03:56:26.397052",
         "featured": [
-          "gundam-breaker-4",
-          "resident-evil-requiem",
-          "phantom-blade-zero",
-          "ninja-gaiden-2-black",
-          "biohazard-re-4",
-          "007-first-light"
+          "marvel-tokon-fighting-souls",
+          "dragon-quest-vii-reimagined",
+          "life-is-strange-reunion",
+          "dragon-quest-i-ii-hd-2d-remake",
+          "dragon-quest-iii-hd-2d-remake",
+          "saros"
         ],
         "premieres": [
-          "marvel-1943-rise-hydra",
-          "marvel-tokon-fighting-souls",
-          "phantom-blade-zero",
-          "wolverine"
+          "chronoscript-the-endless-end",
+          "wolf-among-us-2",
+          "zero-parades",
+          "assassins-creed-shadows"
         ],
         "recentReleases": [
           "bye-sweet-carole",
@@ -551,7 +574,7 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-09-14T03:30:49.449425",
+        "timestamp": "2026-09-21T03:56:26.397052",
         "featured": [
           "little-nightmares-3",
           "code-vein-2",
@@ -561,10 +584,10 @@
           "borderlands-4"
         ],
         "premieres": [
-          "assassins-creed-shadows",
           "death-stranding-2",
           "007-first-light",
-          "grand-theft-auto-vi"
+          "grand-theft-auto-vi",
+          "marvel-1943-rise-hydra"
         ],
         "recentReleases": [
           "ninja-gaiden-2-black",
@@ -574,7 +597,7 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-09-21T03:30:49.449425",
+        "timestamp": "2026-09-28T03:56:26.397052",
         "featured": [
           "ea-sports-fc-25",
           "chronoscript-the-endless-end",
@@ -584,7 +607,7 @@
           "ea-sports-fc-26"
         ],
         "premieres": [
-          "marvel-1943-rise-hydra",
+          "assassins-creed-shadows",
           "marvel-tokon-fighting-souls",
           "phantom-blade-zero",
           "wolverine"
@@ -651,22 +674,22 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "gundam-breaker-4",
-            "resident-evil-requiem",
-            "phantom-blade-zero",
-            "ninja-gaiden-2-black",
-            "biohazard-re-4",
-            "007-first-light"
+            "marvel-tokon-fighting-souls",
+            "dragon-quest-vii-reimagined",
+            "life-is-strange-reunion",
+            "dragon-quest-i-ii-hd-2d-remake",
+            "dragon-quest-iii-hd-2d-remake",
+            "saros"
           ]
         },
         "premieres": {
           "title": "Estrenos PS5 2026-2027",
           "description": "Próximos lanzamientos en PS5",
           "games": [
-            "marvel-1943-rise-hydra",
-            "marvel-tokon-fighting-souls",
-            "phantom-blade-zero",
-            "wolverine"
+            "chronoscript-the-endless-end",
+            "wolf-among-us-2",
+            "zero-parades",
+            "assassins-creed-shadows"
           ]
         },
         "recentReleases": {
@@ -775,12 +798,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "gundam-breaker-4",
-            "resident-evil-requiem",
-            "phantom-blade-zero",
-            "ninja-gaiden-2-black",
-            "biohazard-re-4",
-            "007-first-light"
+            "marvel-tokon-fighting-souls",
+            "dragon-quest-vii-reimagined",
+            "life-is-strange-reunion",
+            "dragon-quest-i-ii-hd-2d-remake",
+            "dragon-quest-iii-hd-2d-remake",
+            "saros"
           ]
         },
         "all": {
