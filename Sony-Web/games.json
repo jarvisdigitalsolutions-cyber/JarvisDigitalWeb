@@ -7,6 +7,29 @@
     "exchangeRateCU": 500,
     "curationHistory": [
       {
+        "timestamp": "2026-10-26T03:47:10.139661",
+        "featured": [
+          "marvel-1943-rise-hydra",
+          "crimson-desert",
+          "monster-hunter-stories-3-twisted-reflection",
+          "the-outer-worlds-2",
+          "tactics-ogre-reborn",
+          "marathon"
+        ],
+        "premieres": [
+          "assassins-creed-shadows",
+          "death-stranding-2",
+          "007-first-light",
+          "grand-theft-auto-vi"
+        ],
+        "recentReleases": [
+          "bye-sweet-carole",
+          "invincible-vs",
+          "tormented-souls-2",
+          "resident-evil-requiem"
+        ]
+      },
+      {
         "timestamp": "2026-10-19T03:45:49.481439",
         "featured": [
           "marvel-tokon-fighting-souls",
@@ -605,7 +628,7 @@
         ]
       }
     ],
-    "lastCurated": "2026-10-19T03:45:49.481439",
+    "lastCurated": "2026-10-26T03:47:10.139661",
     "curationSchedule": {
       "current": {
         "timestamp": "2026-06-01T20:04:39.680792",
@@ -666,14 +689,14 @@
     },
     "curationForecast": {
       "week_0": {
-        "timestamp": "2026-10-19T03:45:49.481439",
+        "timestamp": "2026-10-26T03:47:10.139661",
         "featured": [
-          "marvel-tokon-fighting-souls",
-          "dragon-quest-vii-reimagined",
-          "life-is-strange-reunion",
-          "dragon-quest-i-ii-hd-2d-remake",
-          "dragon-quest-iii-hd-2d-remake",
-          "saros"
+          "marvel-1943-rise-hydra",
+          "crimson-desert",
+          "monster-hunter-stories-3-twisted-reflection",
+          "the-outer-worlds-2",
+          "tactics-ogre-reborn",
+          "marathon"
         ],
         "premieres": [
           "assassins-creed-shadows",
@@ -689,7 +712,7 @@
         ]
       },
       "week_1": {
-        "timestamp": "2026-10-26T03:45:49.481439",
+        "timestamp": "2026-11-02T03:47:10.139661",
         "featured": [
           "ea-sports-fc-25",
           "chronoscript-the-endless-end",
@@ -712,7 +735,7 @@
         ]
       },
       "week_2": {
-        "timestamp": "2026-11-02T03:45:49.481439",
+        "timestamp": "2026-11-09T03:47:10.139661",
         "featured": [
           "syphon-filter-2",
           "dragon-age-the-veilguard",
@@ -789,12 +812,12 @@
           "title": "Catálogo Destacado PS5",
           "description": "Los mejores juegos de PS5",
           "games": [
-            "marvel-tokon-fighting-souls",
-            "dragon-quest-vii-reimagined",
-            "life-is-strange-reunion",
-            "dragon-quest-i-ii-hd-2d-remake",
-            "dragon-quest-iii-hd-2d-remake",
-            "saros"
+            "marvel-1943-rise-hydra",
+            "crimson-desert",
+            "monster-hunter-stories-3-twisted-reflection",
+            "the-outer-worlds-2",
+            "tactics-ogre-reborn",
+            "marathon"
           ]
         },
         "premieres": {
@@ -913,12 +936,12 @@
           "title": "Catálogo Destacado PS4",
           "description": "Lo mejor de PS4",
           "games": [
-            "marvel-tokon-fighting-souls",
-            "dragon-quest-vii-reimagined",
-            "life-is-strange-reunion",
-            "dragon-quest-i-ii-hd-2d-remake",
-            "dragon-quest-iii-hd-2d-remake",
-            "saros"
+            "marvel-1943-rise-hydra",
+            "crimson-desert",
+            "monster-hunter-stories-3-twisted-reflection",
+            "the-outer-worlds-2",
+            "tactics-ogre-reborn",
+            "marathon"
           ]
         },
         "all": {
